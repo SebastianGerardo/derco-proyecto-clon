@@ -1,4 +1,7 @@
+import { useState } from "react";
 import DataTable from "react-data-table-component";
+import ClientModal from "../../../components/ModalClient/components/ClientModal";
+import ModalClient from "../../../components/ModalClient/ModalClient";
 import { DataDerco } from "../../../helpers/Data";
 const columns = [
   {
@@ -80,12 +83,32 @@ const columns = [
   },
   {
     name: "ACCIONES",
-    cell: () => <button><i className="fa-solid fa-pen-to-square text-gray-400 fa-2x"></i></button>,
+    cell: () => <ModalEditClient/>, //Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true
   },
 ];
 export const TableAnfitrion = () => {
   return (
-    <DataTable columns={columns} data={DataDerco} pagination highlightOnHover />
+    <>
+      <DataTable columns={columns} data={DataDerco} pagination highlightOnHover />
+    </>
   );
 };
+
+export const ModalEditClient = () => {
+  const [open, setOpen ] = useState(false)
+
+  const handleModal = (openModal) => {
+    // Esta función sirve para cambiar el estado del modal
+    setOpen(openModal)
+  }
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}><i className="fa-solid fa-pen-to-square text-gray-400 fa-2x"></i></button> 
+
+      {/* MODAL PARA EDITAR EL CLIENTE */}
+      <ModalClient open={open} handleModal={handleModal} modalContent={<ClientModal handleModal={handleModal}/>} />
+    </> 
+  )
+}
