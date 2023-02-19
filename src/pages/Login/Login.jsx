@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom"
+
 export const Login = () => {
+    const navigate = useNavigate();
     return (
         <section className="">
             <div className="container mx-auto flex items-center align-center w-screen h-screen">
@@ -9,7 +12,7 @@ export const Login = () => {
                     <div className="py-10 px-5 ">
                         <h2 className="text-center font-medium text-2xl text-gray-700">Iniciar Sesion</h2>
                         <p className="text-center text-gray-500 w-full mx-auto mt-4">Ingrese su dirección de correo electrónico y contraseña para acceder al panel de administración.</p>
-                        <form action="" className="mt-5 z-0">
+                        <form action="" className="mt-5 z-0 inputLogin">
 
 
                             <div className=" relative border-2 focus-within:border-blue-500 rounded-md">
@@ -18,7 +21,7 @@ export const Login = () => {
                             </div>
 
                             <div className=" relative border-2 focus-within:border-blue-500 mt-5 rounded-md">
-                                <input type="email" name="email" placeholder=" " className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent" />
+                                <input type="password" name="email" placeholder=" " className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent" />
                                 <label  className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">Contraseña</label>
                             </div>
 
