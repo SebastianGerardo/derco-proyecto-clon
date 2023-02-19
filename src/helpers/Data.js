@@ -1,8 +1,7 @@
 export const DataDerco = [{
     id: 1,
     placa: "ABC123",
-    nombre: "Rodolfo",
-    apellido: "Gilardi",
+    nombre: "Rodolfo Gilardi",
     telefono: "987456321",
     marca: "SUSUKI",
     loca: "SURCO",
@@ -12,8 +11,7 @@ export const DataDerco = [{
 {
     id: 2,
     placa: "ABC124",
-    nombre: "Juan",
-    apellido: "Perez",
+    nombre: "Juan Perez",
     telefono: "874563215",
     marca: "JAC",
     loca: "SURQUILLO",
@@ -23,8 +21,7 @@ export const DataDerco = [{
 {
     id: 3,
     placa: "ABC125",
-    nombre: "Lucas",
-    apellido: "Martinez",
+    nombre: "Lucas Martinez",
     telefono: "963258741",
     marca: "MAZDA",
     loca: "CAMACHO",
@@ -34,8 +31,7 @@ export const DataDerco = [{
 {
     id: 4,
     placa: "ABC127",
-    nombre: "Angie",
-    apellido: "Lopez",
+    nombre: "Lucia Lopez",
     telefono: "987123654",
     marca: "SUSUKI",
     loca: "SURCO",
@@ -45,8 +41,7 @@ export const DataDerco = [{
 {
     id: 5,
     placa: "ABC127",
-    nombre: "Sara",
-    apellido: "Davila",
+    nombre: "Juaana Davila",
     telefono: "987123654",
     marca: "JAC",
     loca: "CAMACHO",

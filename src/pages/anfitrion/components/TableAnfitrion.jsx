@@ -1,11 +1,10 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import ClientModal from "../../../components/ModalClient/components/ClientModal";
-import ModalClient from "../../../components/ModalClient/ModalClient";
+import { ButtonModal } from "../../../components/modal/ButtonModal";
 import { DataDerco } from "../../../helpers/Data";
 const columns = [
   {
-    cell: () => <i className="fa-solid fa-car-side fa-2x text-gray-400"></i>,
+    cell: () => <i className="fa-solid fa-car-side fa-2x text-gray-300"></i>,
     width: "5rem",
   },
   {
@@ -18,7 +17,7 @@ const columns = [
     name: "NOMBRE Y APELLIDO",
     cell: (row) => (
       <p>
-        {row.nombre} {row.apellido}
+        {row.nombre}
       </p>
     ),
     sortable: true,
@@ -46,7 +45,7 @@ const columns = [
     name: "SERVICIO",
     selector: (row) => row.servicio,
     sortable: true,
-    width: "13rem"
+    width: "13rem",
   },
   {
     name: "ESTADO",
@@ -59,6 +58,7 @@ const columns = [
       margin: "4px",
       borderRadius: "5px",
       fontWeight: "700",
+      textAlign: "center"
     },
     conditionalCellStyles: [
       {
@@ -83,32 +83,42 @@ const columns = [
   },
   {
     name: "ACCIONES",
-    cell: () => <ModalEditClient/>, //Aquí se agregó la funcionalidad del modal, para el botón editar
-    center: true
+    cell: (row) => <ButtonModal tipo="edit" data={row} />, //Aquí se agregó la funcionalidad del modal, para el botón editar
+    center: true,
   },
 ];
 export const TableAnfitrion = () => {
+  const [placa, setPlaca] = useState("");
+
+  const buscarPlaca = (e) => {
+    e.preventDefault();
+  };
+
+  const capturarPlaca = ({ target }) => {
+    setPlaca(target.value);
+  };
+
+  const filteredItems = DataDerco.filter(
+    (item) =>
+      item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
+  );
+  console.log(placa);
   return (
     <>
-      <DataTable columns={columns} data={DataDerco} pagination highlightOnHover />
+      <div>
+        <form onSubmit={(e) => buscarPlaca(e)} className="xl:w-1/4 lg:w-1/4 w-full my-5">
+          <div className="flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
+              <i className="fa-solid fa-magnifying-glass"></i>
+              <input type="text" className="outline-none w-full" value={placa} onChange={(e) => capturarPlaca(e)} placeholder="Buscar por placa" />
+          </div>
+        </form>
+      </div>
+      <DataTable
+        columns={columns}
+        data={filteredItems}
+        pagination
+        highlightOnHover
+      />
     </>
   );
 };
-
-export const ModalEditClient = () => {
-  const [open, setOpen ] = useState(false)
-
-  const handleModal = (openModal) => {
-    // Esta función sirve para cambiar el estado del modal
-    setOpen(openModal)
-  }
-
-  return (
-    <>
-      <button onClick={() => setOpen(true)}><i className="fa-solid fa-pen-to-square text-gray-400 fa-2x"></i></button> 
-
-      {/* MODAL PARA EDITAR EL CLIENTE */}
-      <ModalClient open={open} handleModal={handleModal} modalContent={<ClientModal handleModal={handleModal}/>} />
-    </> 
-  )
-}
