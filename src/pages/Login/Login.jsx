@@ -27,7 +27,7 @@ export const Login = () => {
 
                             <button className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg">Ingresar</button>
                             <div className="w-full flex items-center justify-center mt-4">
-                                <a className="font-light text-redDerco">¿Olvidate tu contraseña?</a>
+                                <a className="font-light text-redDerco">¿Olvidaste tu contraseña?</a>
                             </div>
                         </form>
                     </div>
