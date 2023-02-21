@@ -56,7 +56,8 @@ const columns = [
       margin: "4px",
       borderRadius: "5px",
       fontWeight: "700",
-      textAlign: "center"
+      textAlign: "center",
+      cursor: "default"
     },
     conditionalCellStyles: [
       {

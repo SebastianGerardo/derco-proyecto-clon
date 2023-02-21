@@ -22,7 +22,7 @@ export const Navbar = () => {
                                 <div className="h-0.5 w-5 bg-white transition mt-1"></div>
                                 <div className="h-0.5 w-4 bg-white transition mt-1"></div>
                             </label>
-                            <div className="z-999 bg-redDerco h-screen shadow-lg absolute top-full translate-x-[-150%] transition peer-checked:translate-x-[-34%] w-64 z-100">
+                            <div className="z-999 bg-redDerco h-screen shadow-lg absolute top-full translate-x-[-150%] transition peer-checked:translate-x-[-34%] w-64">
                                 <BarraMenu />
                             </div>
                         </div>
@@ -52,8 +52,8 @@ export const Navbar = () => {
                                     </div>
                                 </label>
                                 <div className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden peer-checked:block" >
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700">Cambiar Contraseña</a>
-                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700">Cerrar Sesion</a>
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 transition-all duration-150 hover:text-gray-500"><i class="fa-solid fa-gear fx-1 mr-2"></i>Cambiar Contraseña</a>
+                                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 transition-all duration-150 hover:text-gray-500"><i className="fa-solid fa-right-from-bracket fa-1x mr-2"></i>Cerrar Sesion</a>
                                 </div>
                             </div>
                         </div>

@@ -10,7 +10,7 @@ export const DashboardRouter = () => {
     <>
       <div className="flex items-start">
         <Menu />
-        <div className="w-full">
+        <div className="w-full ">
           <Navbar />
           <Routes>
             <Route path="/dashboard" element={<Dashboard />}></Route>

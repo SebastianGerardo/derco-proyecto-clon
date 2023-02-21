@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
+import { ButtonModal } from "../../../components/modal/ButtonModal";
 import { DataRecepcion } from "../../../helpers/DataRecepcion";
 
 const columns = [
@@ -62,7 +63,8 @@ const columns = [
       margin: "4px",
       borderRadius: "5px",
       fontWeight: "700",
-      textAlign: "center"
+      textAlign: "center",
+      cursor: "default"
     },
     conditionalCellStyles: [
       {
@@ -81,7 +83,7 @@ const columns = [
   },
   {
     name: "ACCIONES",
-    cell: () => <>Hola</>, //Aquí se agregó la funcionalidad del modal, para el botón editar
+    cell: () => <ButtonModal tipo={"editar"}/>, //Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
 ];
