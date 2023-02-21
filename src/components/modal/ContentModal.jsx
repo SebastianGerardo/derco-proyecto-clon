@@ -32,9 +32,10 @@ export const ContentModal = ({isOpen, setIsOpen, data}) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="lg:w-[40%] xl:w-[40%] w-full transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="lg:w-[45%] xl:w-[45%] w-full transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all">
                 {/**Aqui val el formulario */}
                <FromAnfitrion data={data} />
+               
               </Dialog.Panel>
             </Transition.Child>
           </div>

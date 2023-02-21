@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom"
 //colocar el context para validar usuario fake - lunes 9am 
 export const Login = () => {
     const navigate = useNavigate();
+    const irDashboard = () =>{
+        navigate("/dashboard")
+    }
     return (
         <section className="">
             <div className="container mx-auto flex items-center align-center w-screen h-screen">
@@ -26,7 +29,7 @@ export const Login = () => {
                                 <label  className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">Contraseña</label>
                             </div>
 
-                            <button className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg">Ingresar</button>
+                            <button onClick={irDashboard} className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg">Ingresar</button>
                             <div className="w-full flex items-center justify-center mt-4">
                                 <a className="font-light text-redDerco">¿Olvidaste tu contraseña?</a>
                             </div>

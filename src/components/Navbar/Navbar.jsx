@@ -22,7 +22,7 @@ export const Navbar = () => {
                                 <div className="h-0.5 w-5 bg-white transition mt-1"></div>
                                 <div className="h-0.5 w-4 bg-white transition mt-1"></div>
                             </label>
-                            <div className="bg-redDerco h-screen shadow-lg absolute top-full translate-x-[-150%] transition peer-checked:translate-x-[-34%] w-64 z-100">
+                            <div className="z-999 bg-redDerco h-screen shadow-lg absolute top-full translate-x-[-150%] transition peer-checked:translate-x-[-34%] w-64 z-100">
                                 <BarraMenu />
                             </div>
                         </div>

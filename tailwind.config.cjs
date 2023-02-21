@@ -10,6 +10,7 @@ module.exports = {
       },
       zIndex: {
         "-1": "-1",
+        "999":"9999"
       },
       transformOrigin: {
         "0": "0%",

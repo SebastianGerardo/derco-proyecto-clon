@@ -6,7 +6,9 @@ export const DataDerco = [{
     marca: "SUSUKI",
     loca: "SURCO",
     servicio: "Mantenimiento preventivo",
-    estado: "Asiste"
+    asesor: "David Martinez",
+    estado: "Asignado",
+    cita: "Si"
 },
 {
     id: 2,
@@ -16,7 +18,9 @@ export const DataDerco = [{
     marca: "JAC",
     loca: "SURQUILLO",
     servicio: "Activacion de Sistemas GPS",
-    estado: "No asistio"
+    asesor: "",
+    estado: "No asignado",
+    cita: "Si"
 },
 {
     id: 3,
@@ -26,7 +30,10 @@ export const DataDerco = [{
     marca: "MAZDA",
     loca: "CAMACHO",
     servicio: "Mantenimiento Preventivo",
-    estado: "Confirmo"
+    cita: "No",
+    asesor: "Guillermo Sifuentes",
+    estado: "Asignado"
+    
 },
 {
     id: 4,
@@ -36,7 +43,9 @@ export const DataDerco = [{
     marca: "SUSUKI",
     loca: "SURCO",
     servicio: "Mantenimiento Preventivo",
-    estado: "No asistio"
+    cita: "No",
+    asesor: "",
+    estado: "No asignado"
 },
 {
     id: 5,
@@ -46,5 +55,7 @@ export const DataDerco = [{
     marca: "JAC",
     loca: "CAMACHO",
     servicio: "Mantenimiento Preventivo",
-    estado: "Asiste"
+    cita: "Si",
+    asesor: "Nick Arenas Levano",
+    estado: "Asignado"
 }]

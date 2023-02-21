@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { ButtonModal } from "../../../components/modal/ButtonModal";
-import { DataDerco } from "../../../helpers/Data";
+import { DataRecepcion } from "../../../helpers/DataRecepcion";
+
 const columns = [
   {
     cell: () => <i className="fa-solid fa-car-side fa-2x text-gray-300"></i>,
@@ -27,6 +27,7 @@ const columns = [
     name: "MARCA",
     selector: (row) => row.marca,
     sortable: true,
+    width: "7rem"
 
   },
   {
@@ -36,15 +37,20 @@ const columns = [
 
   },
   {
-    name: "CITA",
-    selector: (row) => row.cita,
-    sortable: true,
-    center: true
-  },
-  {
     name: "ASESOR",
     selector: (row) => row.asesor,
     sortable: true,
+  },
+  {
+    name: "HORA LLEGADA",
+    selector: (row) => row.horaLlegada,
+    sortable: true,
+  },
+  {
+    name: "ADICIONAL",
+    selector: (row) => row.Adicional,
+    sortable: true,
+    center: true
   },
   {
     name: "ESTADO",
@@ -60,13 +66,13 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.estado === "Asignado",
+        when: (row) => row.estado === "Atendido",
         style: {
           backgroundColor: "#06F11C",
         },
       },
       {
-        when: (row) => row.estado === "No asignado",
+        when: (row) => row.estado === "Pendiente",
         style: {
           backgroundColor: "#F10606",
         },
@@ -75,11 +81,11 @@ const columns = [
   },
   {
     name: "ACCIONES",
-    cell: (row) => <ButtonModal tipo="edit" data={row} />, //Aquí se agregó la funcionalidad del modal, para el botón editar
+    cell: () => <>Hola</>, //Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
 ];
-export const TableAnfitrion = () => {
+export const TableRecepcion = () => {
   const [placa, setPlaca] = useState("");
 
   const buscarPlaca = (e) => {
@@ -90,11 +96,10 @@ export const TableAnfitrion = () => {
     setPlaca(target.value);
   };
 
-  const filteredItems = DataDerco.filter(
+  const filteredItems = DataRecepcion.filter(
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
-  console.log(placa);
   return (
     <>
       <div>

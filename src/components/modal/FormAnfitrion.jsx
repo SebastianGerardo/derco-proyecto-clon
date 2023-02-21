@@ -14,15 +14,13 @@ export const FromAnfitrion = ({ data }) => {
               <Switch
                 checked={enabled}
                 onChange={setEnabled}
-                className={`${
-                  enabled ? "bg-blue-600" : "bg-gray-200"
-                } relative inline-flex h-6 w-11 items-center rounded-full`}
+                className={`${enabled ? "bg-blue-600" : "bg-gray-200"
+                  } relative inline-flex h-6 w-11 items-center rounded-full`}
               >
                 <span className="sr-only">Enable notifications</span>
                 <span
-                  className={`${
-                    enabled ? "translate-x-6" : "translate-x-1"
-                  } inline-block h-4 w-4 transform rounded-full bg-white transition`}
+                  className={`${enabled ? "translate-x-6" : "translate-x-1"
+                    } inline-block h-4 w-4 transform rounded-full bg-white transition`}
                 />
               </Switch>
             </div>
@@ -31,7 +29,7 @@ export const FromAnfitrion = ({ data }) => {
             action=""
             className="flex pt-3 justify-between items-center flex-wrap space-y-2"
           >
-            <div className="lg:w-60 w-full">
+            <div className="lg:w-[45%] w-full">
               <label htmlFor="" className="text-gray-400">
                 Nombre:
               </label>
@@ -43,7 +41,7 @@ export const FromAnfitrion = ({ data }) => {
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
             </div>
-            <div className="lg:w-60 w-full">
+            <div className="lg:w-[45%] w-full">
               <label htmlFor="" className="text-gray-400">
                 Placa:
               </label>
@@ -55,7 +53,7 @@ export const FromAnfitrion = ({ data }) => {
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
             </div>
-            <div className="lg:w-60 w-full">
+            <div className="lg:w-[45%] w-full">
               <label htmlFor="" className="text-gray-400">
                 Mantenimiento:
               </label>
@@ -67,7 +65,7 @@ export const FromAnfitrion = ({ data }) => {
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
             </div>
-            <div className="lg:w-60 w-full">
+            <div className="lg:w-[45%] w-full">
               <label htmlFor="" className="text-gray-400">
                 Kilometraje Real:
               </label>
@@ -77,17 +75,18 @@ export const FromAnfitrion = ({ data }) => {
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
             </div>
-            <div className="lg:w-60 w-full">
+            <div className="lg:w-[45%] w-full">
               <label htmlFor="" className="text-gray-400">
                 Confirmacion de cita:
               </label>
               <br />
-              <input
-                type="text"
-                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-              />
+              <select name="" id="" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
+                <option value="">Elegir:</option>
+                <option value="">Si</option>
+                <option value="">No</option>
+              </select>
             </div>
-            <div className="lg:w-60 w-full">
+            <div className="lg:w-[45%] w-full">
               <label htmlFor="" className="text-gray-400">
                 Fecha de ingreso:
               </label>
@@ -98,6 +97,17 @@ export const FromAnfitrion = ({ data }) => {
                 value="17/02/2023 10:23 AM  "
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
+            </div>
+            <div className="lg:w-[45%] w-full">
+              <label htmlFor="" className="text-gray-400">
+                Asignar Asesor:
+              </label>
+              <br />
+              <select name="" id="" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
+                <option value="">Elegir:</option>
+                <option value="">Juan Martinez</option>
+                <option value="">Elias Davila</option>
+              </select>
             </div>
             <div className="flex justify-center w-full items-center mt-10">
               <button

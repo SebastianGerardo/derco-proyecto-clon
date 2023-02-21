@@ -1,5 +1,10 @@
-export const Dashboard = () =>{
-    return(
-        <>Soy el Dashboard</>
-    )
-}
+import { ModalBienvenida } from "./components/ModalBienvenida";
+
+export const Dashboard = () => {
+
+  return (
+    <>
+        <ModalBienvenida/>
+    </>
+  );
+};
