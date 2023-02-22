@@ -10,8 +10,6 @@ export const Anfitrion = () => {
       <div className="p-6">
         <div className="full flex justify-between items-center">
           <p className="font-black text-xl">Modulo de Anfitrion</p>
-          {/* Boton Modal */}
-          <ButtonModal tipo="crear" />
         </div>
         {/*TABLA*/}
         <TableAnfitrion />

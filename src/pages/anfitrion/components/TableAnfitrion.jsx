@@ -4,7 +4,7 @@ import { ButtonModal } from "../../../components/modal/ButtonModal";
 import { DataDerco } from "../../../helpers/Data";
 const columns = [
   {
-    cell: () => <i className="fa-solid fa-car-side fa-2x text-gray-300"></i>,
+    cell: () => <img src="/img/car.gif" alt="" width={70}/>,
     width: "5rem"
   },
   {
@@ -98,13 +98,14 @@ export const TableAnfitrion = () => {
   console.log(placa);
   return (
     <>
-      <div>
+      <div className="flex justify-between items-center flex-wrap w-full my-3">
         <form onSubmit={(e) => buscarPlaca(e)} className="xl:w-1/4 lg:w-1/4 w-full my-5">
           <div className="flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
               <i className="fa-solid fa-magnifying-glass"></i>
               <input type="text" className="outline-none w-full" value={placa} onChange={(e) => capturarPlaca(e)} placeholder="Buscar por placa" />
           </div>
         </form>
+        <ButtonModal tipo="crear" />
       </div>
       <DataTable
         columns={columns}
