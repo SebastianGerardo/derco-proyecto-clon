@@ -1,7 +1,8 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { ButtonModal } from "../../../components/modal/ButtonModal";
+import { Search } from "../../../components/datatable/Search";
 import { DataDerco } from "../../../helpers/Data";
+import { ModalAnfitrion } from "./ModalAnfitrion";
 const columns = [
   {
     cell: () => <img src="/img/car.gif" alt="" width={70}/>,
@@ -76,42 +77,26 @@ const columns = [
   },
   {
     name: "ACCIONES",
-    cell: (row) => <ButtonModal tipo="edit" data={row} />, //Aquí se agregó la funcionalidad del modal, para el botón editar
+    cell: (row) => <ModalAnfitrion  data={row} tipo="edit"/>, //Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
 ];
 export const TableAnfitrion = () => {
   const [placa, setPlaca] = useState("");
 
-  const buscarPlaca = (e) => {
-    e.preventDefault();
-  };
-
-  const capturarPlaca = ({ target }) => {
-    setPlaca(target.value);
-  };
-
   const filteredItems = DataDerco.filter(
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
-  console.log(placa);
+ 
   return (
     <>
-      <div className="flex justify-between items-center flex-wrap w-full my-3">
-        <form onSubmit={(e) => buscarPlaca(e)} className="xl:w-1/4 lg:w-1/4 w-full my-5">
-          <div className="flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
-              <i className="fa-solid fa-magnifying-glass"></i>
-              <input type="text" className="outline-none w-full" value={placa} onChange={(e) => capturarPlaca(e)} placeholder="Buscar por placa" />
-          </div>
-        </form>
-        <ButtonModal tipo="crear" />
-      </div>
+      {/* Buscardor de la tabla */}
+      <Search placa={placa} setPlaca={setPlaca} />
       <DataTable
         columns={columns}
         data={filteredItems}
         pagination
-        highlightOnHover
       />
     </>
   );

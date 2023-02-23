@@ -1,12 +1,14 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { ButtonModal } from "../../../components/modal/ButtonModal";
+import { BotonFroms } from "../../../components/Boton/BotonForms";
+import { Search } from "../../../components/datatable/Search";
 import { DataRecepcion } from "../../../helpers/DataRecepcion";
+import { ModalRecepcion } from "./ModalRecepcion";
 
 const columns = [
   {
-    cell: () => <i className="fa-solid fa-car-side fa-2x text-gray-300"></i>,
-    width: "5rem"
+    cell: () => <img src="/img/car.gif" alt="" width={70}/>,
+    width: "5rem",
   },
   {
     name: "PLACA",
@@ -16,26 +18,19 @@ const columns = [
   },
   {
     name: "NOMBRE Y APELLIDO",
-    cell: (row) => (
-      <p>
-        {row.nombre}
-      </p>
-    ),
+    cell: (row) => <p>{row.nombre}</p>,
     sortable: true,
-
   },
   {
     name: "MARCA",
     selector: (row) => row.marca,
     sortable: true,
-    width: "7rem"
-
+    width: "7rem",
   },
   {
     name: "SERVICIO",
     selector: (row) => row.servicio,
     sortable: true,
-
   },
   {
     name: "ASESOR",
@@ -51,7 +46,7 @@ const columns = [
     name: "ADICIONAL",
     selector: (row) => row.Adicional,
     sortable: true,
-    center: true
+    center: true,
   },
   {
     name: "ESTADO",
@@ -64,7 +59,7 @@ const columns = [
       borderRadius: "5px",
       fontWeight: "700",
       textAlign: "center",
-      cursor: "default"
+      cursor: "default",
     },
     conditionalCellStyles: [
       {
@@ -83,20 +78,12 @@ const columns = [
   },
   {
     name: "ACCIONES",
-    cell: () => <ButtonModal tipo={"editar"}/>, //Aquí se agregó la funcionalidad del modal, para el botón editar
+    cell: row => <ModalRecepcion tipo="edit" data={row} />,//Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
 ];
 export const TableRecepcion = () => {
   const [placa, setPlaca] = useState("");
-
-  const buscarPlaca = (e) => {
-    e.preventDefault();
-  };
-
-  const capturarPlaca = ({ target }) => {
-    setPlaca(target.value);
-  };
 
   const filteredItems = DataRecepcion.filter(
     (item) =>
@@ -104,19 +91,12 @@ export const TableRecepcion = () => {
   );
   return (
     <>
-      <div>
-        <form onSubmit={(e) => buscarPlaca(e)} className="xl:w-1/4 lg:w-1/4 w-full my-5">
-          <div className="flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
-              <i className="fa-solid fa-magnifying-glass"></i>
-              <input type="text" className="outline-none w-full" value={placa} onChange={(e) => capturarPlaca(e)} placeholder="Buscar por placa" />
-          </div>
-        </form>
-      </div>
+      {/**Componente Search de la tabla */}
+      <Search placa={placa} setPlaca={setPlaca} />
       <DataTable
         columns={columns}
         data={filteredItems}
         pagination
-        highlightOnHover
       />
     </>
   );
