@@ -2,7 +2,9 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { BotonFroms } from '../../../components/Boton/BotonForms';
-export const ModalRecepcion = ({ tipo, }) => {
+import FormRecCrear from './FormRecCrear';
+import FormRecEdit from './FormRecEdit';
+export const ModalRecepcion = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -32,22 +34,27 @@ export const ModalRecepcion = ({ tipo, }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                  
                   <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    as="h1"
+                    className="font-black w-full text-lg"
                   >
-                    SOY RECEPCION
+                    RECEPCIÓN
                   </Dialog.Title>
+
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
+                  
+                    {tipo === "crear" ? 
+
+                      <FormRecCrear/> :
+
+                      <FormRecEdit data={data}/>
+                    }
+                  
+                  
                   </div>
 
-                  <div className="mt-4">
-                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
