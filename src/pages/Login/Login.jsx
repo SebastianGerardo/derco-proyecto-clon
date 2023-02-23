@@ -7,10 +7,11 @@ export const Login = () => {
         navigate("/dashboard")
     }
     return (
-        <section>
-            <div className="bg"></div>
+        <section className="bg-young-pattern bg-center bg-cover bg-no-repeat">
+            
+            {/* <div className="bg"></div>
             <div className="bg bg2"></div>
-            <div className="bg bg3"></div>
+            <div className="bg bg3"></div> */}
             
             <div className="container mx-auto flex items-center align-center w-screen h-screen">
                 <div className="bg-white rounded-xl w-11/12 sm:w-7/12 mx-auto drop-shadow-2x xl:w-[30%] lg:w-2/6 md:w-1/2 shadow-xl z-999">

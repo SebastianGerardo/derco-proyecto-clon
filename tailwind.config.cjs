@@ -15,6 +15,9 @@ module.exports = {
       transformOrigin: {
         "0": "0%",
       },
+      backgroundImage: {
+        'young-pattern': "url('./src/assets/opt-youngmechanic.jpg')",
+      }
     },
   },
   plugins: [],
