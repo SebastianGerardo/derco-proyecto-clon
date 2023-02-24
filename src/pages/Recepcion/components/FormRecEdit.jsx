@@ -38,9 +38,29 @@ const FormRecEdit = ({data}) => {
             </section>
 
             <section className="flex lg:flex-row flex-col md:flex-row justify-between">
-                <InputBasic labelName={"Email:"} pHolder={"Aa1"} data={""}/>
+            <div className="lg:w-[45%] md:w-[45%] w-full">
+                    <label htmlFor="" className="text-gray-400">
+                    Email:
+                    </label>
+                    <br />
+                    <input
+                    type="text"
+                    placeholder="Aa1"
+                    className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+                    />
+                </div>
 
-                <InputBasic labelName={"Teléfono:"} pHolder={"923.."} data={""}/>
+                <div className="lg:w-[45%] md:w-[45%] w-full">
+                    <label htmlFor="" className="text-gray-400">
+                    Teléfono:
+                    </label>
+                    <br />
+                    <input
+                    type="text"
+                    placeholder="Aa1"
+                    className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+                    />
+                </div>
             </section>
 
             <section className="flex lg:flex-row flex-col md:flex-row justify-between">
@@ -51,6 +71,7 @@ const FormRecEdit = ({data}) => {
                     </label>
                     <br />
                     <select
+                    disabled={!enabled}
                     name=""
                     id=""
                     className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
@@ -77,6 +98,7 @@ const FormRecEdit = ({data}) => {
                 </label>
                 <br />
                 <select
+                disabled={!enabled}
                 name=""
                 id=""
                 className=" w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
@@ -95,6 +117,7 @@ const FormRecEdit = ({data}) => {
                     </label>
                     <br />
                     <textarea
+                    disabled={!enabled}
                     type="text"
                     placeholder="Detalles del servicio"
                     className="resize-none w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
