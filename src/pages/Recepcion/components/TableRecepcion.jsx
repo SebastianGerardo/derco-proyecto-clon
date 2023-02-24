@@ -12,10 +12,9 @@ const columns = [
   },
   {
     name: "CLIENTE",
-    selector: (row) => <p>{row.nombre} + {row.apellido}</p>,
+    selector: (row) => <p>{row.nombre} {row.apellido}</p>,
     sortable: true,
     width: "15rem",
-    center: true
   },
   {
     name: "TELEFONO",
@@ -45,7 +44,6 @@ const columns = [
     name: "HORA CITA",
     selector: (row) => row.horaLlegada,
     sortable: true,
-    center: true
   },
   
   {
@@ -66,7 +64,7 @@ const columns = [
       {
         when: (row) => row.estado === "Recepcion",
         style: {
-          backgroundColor: "#06F11C",
+          backgroundColor: "#4AD69D",
         },
       },
       {
@@ -75,11 +73,20 @@ const columns = [
           backgroundColor: "#FDAB3D",
         },
       },
+      {
+        when: (row) => row.estado === "Secado",
+        style: {
+          backgroundColor: "#0073EA",
+        },
+      },
     ],
   },
   {
     name: "ACCIONES",
-    cell: row => <ModalRecepcion tipo="edit" data={row} />,//Aquí se agregó la funcionalidad del modal, para el botón editar
+    cell: row => <div className="flex items-center gap-3">
+      <ModalRecepcion tipo="edit" data={row} />
+      <button disabled={row.estado !== "Secado"} className={`${row.estado !== "Secado" ? "text-gray-500" : "text-blue-500" }`}><i class="fa-solid fa-door-open fa-2x"></i></button>
+    </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
 ];

@@ -41,4 +41,18 @@ export const DataRecepcion = [
     estado: "Recepcion",
     kilometraje: "600"
   },
+  {
+    id: 4,
+    placa: "SDF7154",
+    nombre: "Pepe Lucho",
+    apellido: "Fuentes Madueño",
+    telefono: "987456321",
+    marca: "JAC",
+    horaLlegada: "19/01/2023 13:00:00",
+    servicio: "Mantenimiento preventivo",
+    Adicional:"Lavado",
+    asesor: "David Martinez",
+    estado: "Secado",
+    kilometraje: "3000"
+  },
 ];
