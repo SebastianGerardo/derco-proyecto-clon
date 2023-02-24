@@ -9,13 +9,7 @@ const columns = [
     width: "5rem"
   },
   {
-    name: "PLACA",
-    selector: (row) => row.placa,
-    sortable: true,
-    width: "6rem",
-  },
-  {
-    name: "NOMBRE Y APELLIDO",
+    name: "CLIENTE",
     cell: (row) => (
       <p>
         {row.nombre}
@@ -25,27 +19,27 @@ const columns = [
 
   },
   {
-    name: "MARCA",
-    selector: (row) => row.marca,
+    name: "PLACA",
+    selector: (row) => row.placa,
     sortable: true,
-
-  },
-  {
-    name: "SERVICIO",
-    selector: (row) => row.servicio,
-    sortable: true,
-
-  },
-  {
-    name: "CITA",
-    selector: (row) => row.cita,
-    sortable: true,
-    center: true
+    width: "6rem",
   },
   {
     name: "ASESOR",
     selector: (row) => row.asesor,
     sortable: true,
+  },
+  {
+    name: "KMJE.",
+    selector: () => "-",
+    sortable: true,
+
+  },
+  {
+    name: "HORA CITA",
+    selector: () => "-",
+    sortable: true,
+
   },
   {
     name: "ESTADO",
