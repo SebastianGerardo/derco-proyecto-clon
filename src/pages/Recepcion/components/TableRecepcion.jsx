@@ -7,7 +7,7 @@ import { ModalRecepcion } from "./ModalRecepcion";
 
 const columns = [
   {
-    cell: () => <img src="/img/car.gif" alt="" width={70}/>,
+    cell: () => <img src="/img/car.gif" alt="" width={70} />,
     width: "5rem",
   },
   {
@@ -45,7 +45,7 @@ const columns = [
     selector: (row) => row.horaLlegada,
     sortable: true,
   },
-  
+
   {
     name: "ESTADO",
     selector: (row) => row.estado,
@@ -85,7 +85,7 @@ const columns = [
     name: "ACCIONES",
     cell: row => <div className="flex items-center gap-3">
       <ModalRecepcion tipo="edit" data={row} />
-      <button disabled={row.estado !== "Secado"} className={`${row.estado !== "Secado" ? "text-gray-500" : "text-blue-500" }`}><i class="fa-solid fa-door-open fa-2x"></i></button>
+      <button disabled={row.estado !== "Secado"} className={`${row.estado !== "Secado" ? "text-gray-500" : "text-blue-500"}`}><i class="fa-solid fa-door-open fa-2x"></i></button>
     </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
@@ -97,13 +97,40 @@ export const TableRecepcion = () => {
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
+
+  const filtroEstado = (e) => {
+    e.preventDefault()
+  }
+  const [estado, setEstado] = useState("")
+  const capturarEstados = ({ target }) => {
+    setEstado(target.value)
+  }
+
+  const filtro2 = filteredItems.filter((item) =>
+    item.estado && item.estado.includes(estado))
+ 
+    console.log(estado)
+
+
   return (
     <>
+      <form action="" onSubmit={filtroEstado}>
+        <select name="" id="" onChange={capturarEstados}>
+          <option value="">Estado</option>
+          <option value="Pendiente">Pendiente</option>
+          <option value="Recepcion">Recepción</option>
+          <option value="Asignación">Asignación</option>
+          <option value="Servicio">Servicio</option>
+          <option value="Lavado">Lavado</option>
+          <option value="Secado">Secado</option>
+          <option value="Entrega">Entrega</option>
+        </select>
+      </form>
       {/**Componente Search de la tabla */}
       <Search placa={placa} setPlaca={setPlaca} />
       <DataTable
         columns={columns}
-        data={filteredItems}
+        data={estado !== "" ? filtro2 : filteredItems}
         pagination
       />
     </>
