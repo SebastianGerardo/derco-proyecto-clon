@@ -14,7 +14,8 @@ const columns = [
     name: "CLIENTE",
     selector: (row) => <p>{row.nombre} + {row.apellido}</p>,
     sortable: true,
-    width: "6rem",
+    width: "15rem",
+    center: true
   },
   {
     name: "TELEFONO",
@@ -26,26 +27,32 @@ const columns = [
     selector: (row) => row.placa,
     sortable: true,
     width: "7rem",
+    center: true
+  },
+  {
+    name: "SERVICIO",
+    selector: (row) => row.placa,
+    sortable: true,
+    center: true
   },
   {
     name: "KILOMETRAJE",
     selector: (row) => row.kilometraje,
     sortable: true,
-  },
-  {
-    name: "ASESOR",
-    selector: (row) => row.asesor,
-    sortable: true,
+    center: true
   },
   {
     name: "HORA CITA",
     selector: (row) => row.horaLlegada,
     sortable: true,
+    center: true
   },
+  
   {
     name: "ESTADO",
     selector: (row) => row.estado,
     sortable: true,
+    center: true,
     style: {
       color: "white",
       fontSize: "15px",
@@ -57,7 +64,7 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.estado === "Atendido",
+        when: (row) => row.estado === "Recepcion",
         style: {
           backgroundColor: "#06F11C",
         },
@@ -65,7 +72,7 @@ const columns = [
       {
         when: (row) => row.estado === "Pendiente",
         style: {
-          backgroundColor: "#F10606",
+          backgroundColor: "#FDAB3D",
         },
       },
     ],

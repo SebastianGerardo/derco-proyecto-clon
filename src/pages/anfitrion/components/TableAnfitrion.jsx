@@ -6,7 +6,8 @@ import { ModalAnfitrion } from "./ModalAnfitrion";
 const columns = [
   {
     cell: () => <img src="/img/car.gif" alt="" width={70}/>,
-    width: "5rem"
+    width: "5rem",
+    center: true,
   },
   {
     name: "CLIENTE",
@@ -16,35 +17,38 @@ const columns = [
       </p>
     ),
     sortable: true,
-
+    center: true,
   },
   {
     name: "PLACA",
     selector: (row) => row.placa,
     sortable: true,
     width: "6rem",
+    center: true,
   },
   {
     name: "ASESOR",
-    selector: (row) => row.asesor,
+    selector: (row) => <p>{row.asesor !== "" ? `${row.asesor}` : "--"} </p>,
     sortable: true,
+    center: true,
   },
   {
-    name: "KILOMETRAJE.",
-    selector: row => row.kilometraje ,
+    name: "KILOMETRAJE",
+    selector: row => <p>{row.kilometraje !== "" ? `${row.kilometraje} km` : "--"} </p>,
     sortable: true,
-
+    center: true,
   },
   {
     name: "HORA CITA",
-    selector: row => row.horaCita,
+    selector: row =>  <p>{row.horaCita !== "" ? `${row.horaCita} pm` : "--"} </p>,
     sortable: true,
-
+    center: true,
   },
   {
     name: "ESTADO",
     selector: (row) => row.estado,
     sortable: true,
+    center: true,
     style: {
       color: "white",
       fontSize: "15px",
@@ -56,15 +60,15 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.estado === "Asignado",
+        when: (row) => row.estado === "Recepcion",
         style: {
           backgroundColor: "#06F11C",
         },
       },
       {
-        when: (row) => row.estado === "No asignado",
+        when: (row) => row.estado === "Pendiente",
         style: {
-          backgroundColor: "#F10606",
+          backgroundColor: "#FDAB3D",
         },
       },
     ],
