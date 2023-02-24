@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 
 export const FormCrear = () => {
   const [fecha, setFecha] = useState("");
+  const [hora, setHora] = useState(false)
   useEffect(() => {
     let date = new Date();
     const dateFinal = date.toLocaleDateString("en-US");
+    
     setFecha(
       dateFinal +
         " " +
@@ -14,7 +16,7 @@ export const FormCrear = () => {
         ":" +
         date.getSeconds()
     );
-  }, []);
+  }, [hora === true]);
 
   return (
     <form action="" className="flex justify-between flex-wrap space-y-2">
@@ -79,8 +81,7 @@ export const FormCrear = () => {
         <br />
         <input
           type="text"
-          placeholder="5000"
-          value={fecha}
+          value={hora ? fecha : ""}
           disabled
           className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
         />
@@ -88,7 +89,7 @@ export const FormCrear = () => {
       <div className="flex justify-center w-full items-center mt-10">
         <button
           type="button"
-          className="flex items-center gap-2 mt-5 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="flex items-center gap-2 mt-5 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2" onClick={()=>setHora(true)}
         >
           <i className="fa-solid fa-floppy-disk"></i>
           Guardar

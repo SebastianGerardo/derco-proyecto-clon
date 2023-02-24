@@ -11,25 +11,25 @@ const columns = [
     width: "5rem",
   },
   {
-    name: "PLACA",
-    selector: (row) => row.placa,
+    name: "CLIENTE",
+    selector: (row) => <p>{row.nombre} + {row.apellido}</p>,
     sortable: true,
     width: "6rem",
   },
   {
-    name: "NOMBRE Y APELLIDO",
-    cell: (row) => <p>{row.nombre}</p>,
+    name: "TELEFONO",
+    cell: (row) => <p>{row.telefono}</p>,
     sortable: true,
   },
   {
-    name: "MARCA",
-    selector: (row) => row.marca,
+    name: "PLACA",
+    selector: (row) => row.placa,
     sortable: true,
     width: "7rem",
   },
   {
-    name: "SERVICIO",
-    selector: (row) => row.servicio,
+    name: "KILOMETRAJE",
+    selector: (row) => row.kilometraje,
     sortable: true,
   },
   {
@@ -38,15 +38,9 @@ const columns = [
     sortable: true,
   },
   {
-    name: "HORA LLEGADA",
+    name: "HORA CITA",
     selector: (row) => row.horaLlegada,
     sortable: true,
-  },
-  {
-    name: "ADICIONAL",
-    selector: (row) => row.Adicional,
-    sortable: true,
-    center: true,
   },
   {
     name: "ESTADO",

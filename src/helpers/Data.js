@@ -8,6 +8,8 @@ export const DataDerco = [{
     servicio: "Mantenimiento preventivo",
     asesor: "David Martinez",
     estado: "Asignado",
+    kilometraje: "5000",
+    horaCita: "13:00",
     cita: "Si"
 },
 {
@@ -19,6 +21,8 @@ export const DataDerco = [{
     loca: "SURQUILLO",
     servicio: "Activacion de Sistemas GPS",
     asesor: "",
+    kilometraje: "",
+    horaCita: "",
     estado: "No asignado",
     cita: "Si"
 },
@@ -32,7 +36,9 @@ export const DataDerco = [{
     servicio: "Mantenimiento Preventivo",
     cita: "No",
     asesor: "Guillermo Sifuentes",
-    estado: "Asignado"
+    estado: "Asignado",
+    kilometraje: "8000",
+    horaCita: "23:00",
     
 },
 {
@@ -45,6 +51,8 @@ export const DataDerco = [{
     servicio: "Mantenimiento Preventivo",
     cita: "No",
     asesor: "",
+    kilometraje: "",
+    horaCita: "",
     estado: "No asignado"
 },
 {
@@ -57,5 +65,7 @@ export const DataDerco = [{
     servicio: "Mantenimiento Preventivo",
     cita: "Si",
     asesor: "Nick Arenas Levano",
-    estado: "Asignado"
+    estado: "Asignado",
+    kilometraje: "10000",
+    horaCita: "20:00",
 }]

@@ -30,14 +30,14 @@ const columns = [
     sortable: true,
   },
   {
-    name: "KMJE.",
-    selector: () => "-",
+    name: "KILOMETRAJE.",
+    selector: row => row.kilometraje ,
     sortable: true,
 
   },
   {
     name: "HORA CITA",
-    selector: () => "-",
+    selector: row => row.horaCita,
     sortable: true,
 
   },

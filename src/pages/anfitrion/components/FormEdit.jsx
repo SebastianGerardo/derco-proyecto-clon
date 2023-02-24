@@ -5,26 +5,6 @@ export const FormEdit = ({data}) => {
   const [enabled, setEnabled] = useState(false);
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <p className="font-black text-xl">Registrar ingreso de unidad</p>
-        <div className="flex gap-3 items-center">
-          <p>Editar Unidad:</p>
-          <Switch
-            checked={enabled}
-            onChange={setEnabled}
-            className={`${
-              enabled ? "bg-blue-600" : "bg-gray-200"
-            } relative inline-flex h-6 w-11 items-center rounded-full`}
-          >
-            <span className="sr-only">Enable notifications</span>
-            <span
-              className={`${
-                enabled ? "translate-x-6" : "translate-x-1"
-              } inline-block h-4 w-4 transform rounded-full bg-white transition`}
-            />
-          </Switch>
-        </div>
-      </div>
       <form
         action=""
         className="flex pt-3 justify-between items-center flex-wrap space-y-2"

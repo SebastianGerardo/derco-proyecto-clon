@@ -9,7 +9,7 @@ export const Recepcion = () => {
       <div className="p-6">
         <div className="full flex justify-between items-center">
           <p className="font-black text-xl">Modulo de Recepcion</p>
-          <ModalRecepcion tipo="crear" />
+    
         </div>
         <TableRecepcion />
       </div>

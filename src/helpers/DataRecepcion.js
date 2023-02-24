@@ -10,6 +10,7 @@ export const DataRecepcion = [
     Adicional:"Lavado",
     asesor: "David Martinez",
     estado: "Atendido",
+    kilometraje: "4000"
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const DataRecepcion = [
     Adicional:"Lavado",
     asesor: "David Martinez",
     estado: "Pendiente",
+    kilometraje: "5000"
   },
   {
     id: 3,
@@ -34,5 +36,6 @@ export const DataRecepcion = [
     Adicional:"Lavado",
     asesor: "David Martinez",
     estado: "Atendido",
+    kilometraje: "600"
   },
 ];
