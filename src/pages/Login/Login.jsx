@@ -1,49 +1,101 @@
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { IniciarSesion } from "../../helpers/ApiUsuarios";
 
-//colocar el context para validar usuario fake - lunes 9am 
+//colocar el context para validar usuario fake - lunes 9am
 export const Login = () => {
-    const navigate = useNavigate();
-    const irDashboard = () =>{
-        navigate("/dashboard")
-    }
-    return (
-        <section className="bg-young-pattern bg-center bg-cover bg-no-repeat">
-            
-            {/* <div className="bg"></div>
+  const navigate = useNavigate();
+  const [datosUsuarios, setDatosUsuarios] = useState({
+    correo: "",
+    clave: "",
+  });
+
+  const handleInputChange = (event) => {
+    // console.log(event.target.name)
+    // console.log(event.target.value)
+    setDatosUsuarios({
+      ...datosUsuarios,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const enviarDatos = (event) => {
+    event.preventDefault();
+    IniciarSesion(datosUsuarios).then((val)=>console.log(val))
+    console.log(datosUsuarios)
+    console.log("enviando datos..." + datosUsuarios.correo + " " + datosUsuarios.clave);
+  };
+
+  const irDashboard = () => {
+ 
+  };
+
+  return (
+    <section className="bg-young-pattern bg-center bg-cover bg-no-repeat">
+      {/* <div className="bg"></div>
             <div className="bg bg2"></div>
             <div className="bg bg3"></div> */}
-            
-            <div className="container mx-auto flex items-center align-center w-screen h-screen">
-                <div className="bg-white rounded-xl w-11/12 sm:w-7/12 mx-auto drop-shadow-2x xl:w-[30%] lg:w-2/6 md:w-1/2 shadow-xl z-999">
-                    <div className="rounded-t-xl bg-redDerco mx-auto p-5">
-                        <img src="https://app.elipse.ai/hs-fs/hubfs/Derco%20Center%20Logo%20Blanco.png?width=1920&name=Derco%20Center%20Logo%20Blanco.png" alt="dERCO" className="w-36 mx-auto" />
-                    </div>
-                    <div className="rounded-b-xl py-10 px-5 ">
-                        <h2 className="text-center font-medium text-2xl text-gray-700">Iniciar Sesion</h2>
-                        <p className="text-center text-gray-500 w-full mx-auto mt-4">Ingrese su dirección de correo electrónico y contraseña para acceder al panel de administración.</p>
-                        
-                        <form action="" className="mt-5 inputLogin">
 
-                            <div className=" relative border-2 focus-within:border-blue-500 rounded-md">
-                                <input type="email" name="email" placeholder=" " className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent" />
-                                <label  className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">Correo</label>
-                            </div>
+      <div className="container mx-auto flex items-center align-center w-screen h-screen">
+        <div className="bg-white rounded-xl w-11/12 sm:w-7/12 mx-auto drop-shadow-2x xl:w-[30%] lg:w-2/6 md:w-1/2 shadow-xl z-999">
+          <div className="rounded-t-xl bg-redDerco mx-auto p-5">
+            <img
+              src="https://app.elipse.ai/hs-fs/hubfs/Derco%20Center%20Logo%20Blanco.png?width=1920&name=Derco%20Center%20Logo%20Blanco.png"
+              alt="dERCO"
+              className="w-36 mx-auto"
+            />
+          </div>
+          <div className="rounded-b-xl py-10 px-5 ">
+            <h2 className="text-center font-medium text-2xl text-gray-700">
+              Iniciar Sesion
+            </h2>
+            <p className="text-center text-gray-500 w-full mx-auto mt-4">
+              Ingrese su dirección de correo electrónico y contraseña para
+              acceder al panel de administración.
+            </p>
 
-                            <div className=" relative border-2 focus-within:border-blue-500 mt-5 rounded-md">
-                                <input type="password" name="email" placeholder=" " className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent" />
-                                <label  className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">Contraseña</label>
-                            </div>
+            <form action="" className="mt-5 inputLogin" onSubmit={enviarDatos}>
+              <div className=" relative border-2 focus-within:border-blue-500 rounded-md">
+                <input
+                  type="email"
+                  name="correo"
+                  placeholder=" "
+                  className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent"
+                  onChange={handleInputChange}
+                />
+                <label className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">
+                  Correo
+                </label>
+              </div>
 
-                            <button onClick={irDashboard} className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg">Ingresar</button>
-                            <div className="w-full flex items-center justify-center mt-4">
-                                <a className="font-light text-redDerco">¿Olvidaste tu contraseña?</a>
-                            </div>
-                        </form>
-                    </div>
+              <div className=" relative border-2 focus-within:border-blue-500 mt-5 rounded-md">
+                <input
+                  type="password"
+                  name="clave"
+                  placeholder="*********"
+                  className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent"
+                  onChange={handleInputChange}
+                />
+                <label className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">
+                  Contraseña
+                </label>
+              </div>
 
-                </div>
-            </div>
-        </section>
-
-    )
-}
+              <button
+                onClick={irDashboard}
+                className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg"
+              >
+                Ingresar
+              </button>
+              <div className="w-full flex items-center justify-center mt-4">
+                <a className="font-light text-redDerco">
+                  ¿Olvidaste tu contraseña?
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};

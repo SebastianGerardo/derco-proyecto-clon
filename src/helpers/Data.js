@@ -11,7 +11,8 @@ export const DataDerco = [{
     estado: "Recepcion",
     kilometraje: "5000",
     horaCita: "13:00",
-    cita: "Si"
+    cita: "Si",
+    estadoCliente: "Pendiente"
 },
 {
     id: 2,
@@ -26,7 +27,8 @@ export const DataDerco = [{
     kilometraje: "",
     horaCita: "",
     estado: "Pendiente",
-    cita: "Si"
+    cita: "Si",
+    estadoCliente: "Asistio"
 },
 {
     id: 3,
@@ -42,6 +44,7 @@ export const DataDerco = [{
     estado: "Recepcion",
     kilometraje: "8000",
     horaCita: "23:00",
+    estadoCliente: "No asistio"
     
 },
 {
@@ -57,7 +60,8 @@ export const DataDerco = [{
     asesor: "",
     kilometraje: "",
     horaCita: "",
-    estado: "Pendiente"
+    estado: "Pendiente",
+    estadoCliente: "Asistio"
 },
 {
     id: 5,
@@ -73,4 +77,5 @@ export const DataDerco = [{
     estado: "Recepcion",
     kilometraje: "10000",
     horaCita: "20:00",
+    estadoCliente: "No asistio"
 }]
