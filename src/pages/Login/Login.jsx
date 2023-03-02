@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/ContextDerco";
 import { IniciarSesion } from "../../helpers/ApiUsuarios";
-
+import Swal from 'sweetalert2'
 //colocar el context para validar usuario fake - lunes 9am
 export const Login = () => {
   const navigate = useNavigate();
+  const { setUsuarioLogin } = useContext(UserContext);
   const [datosUsuarios, setDatosUsuarios] = useState({
     correo: "",
     clave: "",
@@ -21,13 +23,15 @@ export const Login = () => {
 
   const enviarDatos = (event) => {
     event.preventDefault();
-    IniciarSesion(datosUsuarios).then((val)=>console.log(val))
-    console.log(datosUsuarios)
-    console.log("enviando datos..." + datosUsuarios.correo + " " + datosUsuarios.clave);
-  };
-
-  const irDashboard = () => {
- 
+    IniciarSesion(datosUsuarios).then((val) => {
+      if (val.statusCode == 200) {
+        setUsuarioLogin(val)
+      }else{
+        Swal.fire("Algo salio mal....", "Usuario y contraseña Incorrecta ☹️", "error");
+        setUsuarioLogin(val)
+      }
+      localStorage.setItem("statusCode", val.statusCode)
+    });
   };
 
   return (
@@ -37,7 +41,7 @@ export const Login = () => {
             <div className="bg bg3"></div> */}
 
       <div className="container mx-auto flex items-center align-center w-screen h-screen">
-        <div className="bg-white rounded-xl w-11/12 sm:w-7/12 mx-auto drop-shadow-2x xl:w-[30%] lg:w-2/6 md:w-1/2 shadow-xl z-999">
+        <div className="bg-white rounded-xl w-11/12 sm:w-7/12 mx-auto drop-shadow-2x xl:w-[30%] lg:w-2/6 md:w-1/2 shadow-xl z-10">
           <div className="rounded-t-xl bg-redDerco mx-auto p-5">
             <img
               src="https://app.elipse.ai/hs-fs/hubfs/Derco%20Center%20Logo%20Blanco.png?width=1920&name=Derco%20Center%20Logo%20Blanco.png"
@@ -81,10 +85,7 @@ export const Login = () => {
                 </label>
               </div>
 
-              <button
-                onClick={irDashboard}
-                className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg"
-              >
+              <button className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg">
                 Ingresar
               </button>
               <div className="w-full flex items-center justify-center mt-4">

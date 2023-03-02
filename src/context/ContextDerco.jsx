@@ -1,11 +1,20 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const UserContext = createContext()
 
 export const ContextDerco = ({children}) =>{
-    const [calModulos, setCalModulos] = useState(false)
+    const [UsuarioLogin, setUsuarioLogin] = useState([])
+    const [cookiesUsu, setCookiesUsu] = useState("")
+    /**Validar Cookies */
+    const validarCookies = () =>{
+        setCookiesUsu(document.cookie)
+    }
+    console.log(cookiesUsu)
+    useEffect(()=>{
+        validarCookies()
+    },[])
     return(
-        <UserContext.Provider value={{calModulos, setCalModulos}}>
+        <UserContext.Provider value={{UsuarioLogin, setUsuarioLogin, cookiesUsu}}>
             {children}
         </UserContext.Provider>
     )
