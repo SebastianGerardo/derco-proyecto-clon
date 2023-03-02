@@ -157,7 +157,7 @@ const FormRecEdit = ({ data }) => {
                 <section className="flex lg:flex-row md:flex-row flex-col justify-between">
                     <div className="lg:w-[45%] md:w-[45%] w-full">
                         <label htmlFor="" className="text-gray-400">
-                            Tipo Servicio:
+                            Tipo Servicio
                         </label>
                         <br />
                         <select
@@ -166,13 +166,12 @@ const FormRecEdit = ({ data }) => {
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
                             <option value="">Elegir:</option>
-                            <option value="">Si</option>
-                            <option value="">No</option>
+                            <option value="">Mantención Flexible</option>
                         </select>
                     </div>
                     <div className="lg:w-[45%] md:w-[45%] w-full">
                         <label htmlFor="" className="text-gray-400">
-                            Asignar Asesor:
+                            Adicionales
                         </label>
                         <br />
                         <select
@@ -181,8 +180,7 @@ const FormRecEdit = ({ data }) => {
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
                             <option value="">Elegir:</option>
-                            <option value="">Juan Perez</option>
-                            <option value="">Guillermo Sifuente</option>
+                            <option value="">Mantención Flexible</option>
                         </select>
                     </div>
                 </section>

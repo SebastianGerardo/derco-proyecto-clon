@@ -26,6 +26,7 @@ export const Login = () => {
     IniciarSesion(datosUsuarios).then((val) => {
       if (val.statusCode == 200) {
         setUsuarioLogin(val);
+        navigate("/dashboard")
       } else {
         Swal.fire(
           "Algo salio mal....",
@@ -37,6 +38,7 @@ export const Login = () => {
       localStorage.setItem("statusCode", val.statusCode);
     });
   };
+
 
   return (
     <section className="bg-young-pattern bg-center bg-cover bg-no-repeat">
@@ -71,7 +73,7 @@ export const Login = () => {
                   className="peer block p-4 w-full text-base appearance-none bg-transparent border-2 rounded-md focus:outline-none focus-within:border-blue-500"
                   onChange={handleInputChange}
                 />
-                <p class="mt-2 ml-2 invisible hidden peer-invalid:visible peer-invalid:block text-pink-600 text-sm ">
+                <p className="mt-2 ml-2 invisible hidden peer-invalid:visible peer-invalid:block text-pink-600 text-sm ">
                   Por favor ingrese una dirección de correo válida.
                 </p>
                 <label className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">

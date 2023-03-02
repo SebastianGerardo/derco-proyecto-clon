@@ -1,16 +1,24 @@
 import { useRef, useState } from "react"
 import useOnClickOutside from "../../hooks/useOnClickOutside"
 import { BarraMenu } from "./BarraMenu"
+import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
     const ref = useRef(null)
     const [menu, setMenu] = useState(false)
     const [menuUser, setMenuUser] = useState(false)
+    const navigate = useNavigate();
+    // FUNCIÓN PARA CERRAR SESIÓN Y REMOVER EL LOCALSTORAGE
+    const closeSesion = () =>{
+        localStorage.removeItem('statusCode')
+        navigate("/")
+    }
+
     const handle = () =>  {
         setMenu(false)
         setMenuUser(false)
       }
-    useOnClickOutside(ref, handle)
+      useOnClickOutside(ref, handle)
     return (
         <div className="bg-white w-full shadow-md">
             <div className="mx-auto container px-2 lg:px-8 min-w-full">
@@ -18,7 +26,7 @@ export const Navbar = () => {
                     <div className="flex justify-between gap-4 ">
 
                         <div className="ml-3 flex items-center md:!flex lg:!hidden xl:!hidden">
-                            {/*Hmabrugesa */}
+                            {/*Hamburguesa */}
 
                             <label onClick={()=>setMenu(!menu)} className="flex flex-col justify-center rounded-md p-2 bg-gray-400 text-white hover:bg-blue-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                                 <div className="h-0.5 w-4 bg-white transition"></div>
@@ -43,13 +51,13 @@ export const Navbar = () => {
 
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
-                        {/*vcer notificaciones*/}
+                        {/*ver notificaciones*/}
                         <button type="button" className="relative rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-blue-800">
                             <div className="absolute w-2 h-2 bg-blue-600 top-0 left-3/4 rounded-full"></div>
                             <i className="fa-regular fa-bell"></i>
                         </button>
 
-                        {/* PERFIL HAMBRUGYESA */}
+                        {/* PERFIL HAMBURGUESA */}
 
                         <div className="relative ml-3">
                             <div>

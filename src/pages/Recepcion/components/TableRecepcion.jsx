@@ -85,7 +85,7 @@ const columns = [
     name: "ACCIONES",
     cell: row => <div className="flex items-center gap-3">
       <ModalRecepcion tipo="edit" data={row} />
-      <button disabled={row.estado !== "Secado"} className={`${row.estado !== "Secado" ? "text-gray-500" : "text-blue-500"}`}><i class="fa-solid fa-door-open fa-2x"></i></button>
+      <button disabled={row.estado !== "Secado"} className={`${row.estado !== "Secado" ? "text-gray-500" : "text-blue-500"}`}><i className="fa-solid fa-door-open fa-2x"></i></button>
     </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
