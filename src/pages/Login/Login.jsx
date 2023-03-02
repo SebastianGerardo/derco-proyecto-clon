@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextDerco";
 import { IniciarSesion } from "../../helpers/ApiUsuarios";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 //colocar el context para validar usuario fake - lunes 9am
 export const Login = () => {
   const navigate = useNavigate();
@@ -25,12 +25,16 @@ export const Login = () => {
     event.preventDefault();
     IniciarSesion(datosUsuarios).then((val) => {
       if (val.statusCode == 200) {
-        setUsuarioLogin(val)
-      }else{
-        Swal.fire("Algo salio mal....", "Usuario y contraseña Incorrecta ☹️", "error");
-        setUsuarioLogin(val)
+        setUsuarioLogin(val);
+      } else {
+        Swal.fire(
+          "Algo salio mal....",
+          "Usuario y/o contraseña Incorrecta ☹️",
+          "error"
+        );
+        setUsuarioLogin(val);
       }
-      localStorage.setItem("statusCode", val.statusCode)
+      localStorage.setItem("statusCode", val.statusCode);
     });
   };
 
@@ -40,7 +44,7 @@ export const Login = () => {
             <div className="bg bg2"></div>
             <div className="bg bg3"></div> */}
 
-      <div className="container mx-auto flex items-center align-center w-screen h-screen">
+      <div className="container mx-auto flex items-center align-center w-screen min-h-screen">
         <div className="bg-white rounded-xl w-11/12 sm:w-7/12 mx-auto drop-shadow-2x xl:w-[30%] lg:w-2/6 md:w-1/2 shadow-xl z-10">
           <div className="rounded-t-xl bg-redDerco mx-auto p-5">
             <img
@@ -59,25 +63,28 @@ export const Login = () => {
             </p>
 
             <form action="" className="mt-5 inputLogin" onSubmit={enviarDatos}>
-              <div className=" relative border-2 focus-within:border-blue-500 rounded-md">
+              <div className="relative">
                 <input
                   type="email"
                   name="correo"
                   placeholder=" "
-                  className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent"
+                  className="peer block p-4 w-full text-base appearance-none bg-transparent border-2 rounded-md focus:outline-none focus-within:border-blue-500"
                   onChange={handleInputChange}
                 />
+                <p class="mt-2 ml-2 invisible hidden peer-invalid:visible peer-invalid:block text-pink-600 text-sm ">
+                  Por favor ingrese una dirección de correo válida.
+                </p>
                 <label className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">
                   Correo
                 </label>
               </div>
 
-              <div className=" relative border-2 focus-within:border-blue-500 mt-5 rounded-md">
+              <div className=" relative ">
                 <input
                   type="password"
                   name="clave"
-                  placeholder="*********"
-                  className="block p-4 w-full text-base appearance-none focus:outline-none bg-transparent"
+                  placeholder=" "
+                  className="block p-4 w-full text-base appearance-none bg-transparent border-2 mt-5 rounded-md focus:outline-none focus-within:border-blue-500 "
                   onChange={handleInputChange}
                 />
                 <label className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">
@@ -85,7 +92,7 @@ export const Login = () => {
                 </label>
               </div>
 
-              <button className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg">
+              <button className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg" disabled={false} >
                 Ingresar
               </button>
               <div className="w-full flex items-center justify-center mt-4">
