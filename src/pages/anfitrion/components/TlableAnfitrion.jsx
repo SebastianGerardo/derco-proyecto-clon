@@ -7,6 +7,8 @@ import { UserContext } from "../../../context/ContextDerco";
 import { DataDerco } from "../../../helpers/Data";
 import { useCargando } from "../../../hooks/useCargando";
 import { ModalAnfitrion } from "./ModalAnfitrion";
+import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
+
 const columns = [
   {
     cell: () => <img src="/img/car.gif" alt="" width={70} />,
@@ -14,16 +16,16 @@ const columns = [
     center: true,
   },
   {
-    name: "CLIENTE",
+    name: <CustomHeader nameModule={"CLIENTE"} icon="fa-solid fa-user mr-1" />,
     cell: (row) => <p>{row.nombre}</p>,
     sortable: true,
     center: true,
   },
   {
-    name: "PLACA",
+    name: <CustomHeader nameModule={"PLACA"} icon='fa-solid fa-id-card mr-1' />,
     selector: (row) => row.placa,
     sortable: true,
-    width: "6rem",
+    width: "6.5rem",
     center: true,
   },
   {
@@ -32,13 +34,13 @@ const columns = [
     omit: true,
   },
   {
-    name: "ASESOR",
+    name: <CustomHeader nameModule="ASESOR" icon='fa-solid fa-user-tie mr-1' />,
     selector: (row) => <p>{row.asesor !== "" ? `${row.asesor}` : "--"} </p>,
     sortable: true,
     center: true,
   },
   {
-    name: "KILOMETRAJE",
+    name: <CustomHeader nameModule="KILOMETRAJE" icon='fa-solid fa-tachometer mr-1' />,
     selector: (row) => (
       <p>{row.kilometraje !== "" ? `${row.kilometraje} km` : "--"} </p>
     ),
@@ -46,7 +48,7 @@ const columns = [
     center: true,
   },
   {
-    name: "HORA CITA",
+    name: <CustomHeader nameModule="HORA CITA" icon='fa-solid fa-clock mr-1' />,
     selector: (row) => (
       <p>{row.horaCita !== "" ? `${row.horaCita} pm` : "--"} </p>
     ),
@@ -54,9 +56,10 @@ const columns = [
     center: true,
   },
   {
-    name: "ESTADO CLIENTE",
+    name: <CustomHeader nameModule="ESTADO CLIENTE" icon='fa-solid fa-user-check mr-1' />,
     cell: (row) => row.estadoCliente,
     sortable: true,
+    width: "10rem",
     style: {
       color: "white",
       fontSize: "15px",
@@ -70,13 +73,13 @@ const columns = [
       {
         when: (row) => row.estadoCliente === "Pendiente",
         style: {
-          backgroundColor: "#FDAB3D",
+          backgroundColor: "#FFD300",
         },
       },
       {
         when: (row) => row.estadoCliente === "Asistio",
         style: {
-          backgroundColor: "#4AD69D",
+          backgroundColor: "#00FF00",
         },
       },
       {
@@ -89,10 +92,11 @@ const columns = [
     center: true,
   },
   {
-    name: "ESTADO PROCESO",
+    name: <CustomHeader nameModule="ESTADO PROCESO" icon='fa-solid fa-user-clock mr-1' />,
     selector: (row) => row.estado,
     sortable: true,
     center: true,
+    width: "10.5rem",
     style: {
       color: "white",
       fontSize: "15px",
@@ -106,19 +110,19 @@ const columns = [
       {
         when: (row) => row.estado === "Recepcion",
         style: {
-          backgroundColor: "#06F11C",
+          backgroundColor: "#87CEFA",
         },
       },
       {
         when: (row) => row.estado === "Pendiente",
         style: {
-          backgroundColor: "#FDAB3D",
+          backgroundColor: "#FFD300",
         },
       },
     ],
   },
   {
-    name: "ACCIONES",
+    name: <CustomHeader nameModule="ACCIONES" icon='fa-solid fa-cog mr-1' />,
     cell: (row) => <ModalAnfitrion data={row} tipo="edit" />, //Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },

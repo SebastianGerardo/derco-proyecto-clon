@@ -42,6 +42,9 @@ export const DescargarExcel = ({array}) => {
   }
 
   return(
-    <button className="bg-green-500 text-white p-2 rounded-md font-semibold" onClick={()=>downloadCSV(array)}>Descargar Excel</button>
+    <button className="flex items-center justify-center rounded-md bg-green-500 px-4 py-2 text-sm font-medium text-white border-green-500 border-2 border-solid transition-all ease-in duration-200 shadow-[.3rem_.3rem_1rem_#ccc,_-.3rem_-.3rem_1rem_#fff] hover:shadow-[.3rem_.3rem_1rem_#fff,_-.3rem_-.3rem_1rem_#ccc] active:shadow-[inset_.1rem_.1rem_1rem_#60A5FA,_inset_-.1rem_-.1rem_1rem_#6faaf2]" onClick={()=>downloadCSV(array)}>
+      <i class="fa-solid fa-download mr-1"></i>  
+      Descargar Excel
+    </button>
   );
 };
