@@ -26,19 +26,17 @@ export const Login = () => {
     IniciarSesion(datosUsuarios).then((val) => {
       if (val.statusCode == 200) {
         setUsuarioLogin(val);
-        navigate("/dashboard")
+        localStorage.setItem("usuarioDerco", JSON.stringify(val));
+        navigate("/dashboard");
       } else {
         Swal.fire(
           "Algo salio mal....",
           "Usuario y/o contraseña Incorrecta ☹️",
           "error"
         );
-        setUsuarioLogin(val);
       }
-      localStorage.setItem("statusCode", val.statusCode);
     });
   };
-
 
   return (
     <section className="bg-young-pattern bg-center bg-cover bg-no-repeat">
@@ -94,7 +92,10 @@ export const Login = () => {
                 </label>
               </div>
 
-              <button className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg" disabled={false} >
+              <button
+                className="bg-redDerco p-3 text-white font-bold mx-auto rounded-md mt-5 w-full text-lg"
+                disabled={false}
+              >
                 Ingresar
               </button>
               <div className="w-full flex items-center justify-center mt-4">

@@ -1,7 +1,9 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
+import { UserContext } from "../../../context/ContextDerco";
 export const ModalBienvenida = () => {
   let [isOpen, setIsOpen] = useState(true);
+  const {UsuarioLogin} = useContext(UserContext)
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -38,7 +40,7 @@ export const ModalBienvenida = () => {
                     as="h3"
                     className="text-xl leading-6 text-gray-900 font-black text-center"
                   >
-                    Bienvenido Nick Arenas Levano
+                    Bienvenido {UsuarioLogin.usuario?.nombres} {UsuarioLogin.usuario?.apellidos} 
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-lg text-gray-500 text-center">

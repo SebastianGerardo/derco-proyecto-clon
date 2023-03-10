@@ -1,11 +1,8 @@
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { UserContext } from "../../context/ContextDerco";
 
 export const BarraMenu = () => {
-    const {calModulos,setCalModulos} = useContext(UserContext)
     return (
-        <div className="h-full overflow-hidden relative flex flex-col justify-center z-999"  onMouseOver={()=>setCalModulos(!calModulos)}>
+        <div className="h-full overflow-hidden relative flex flex-col justify-center z-999">
             <div className="lg:block hidden w-full h-16 absolute top-0">
                 <img
                     src="https://app.elipse.ai/hs-fs/hubfs/Derco%20Center%20Logo%20Blanco.png?width=1920&name=Derco%20Center%20Logo%20Blanco.png"

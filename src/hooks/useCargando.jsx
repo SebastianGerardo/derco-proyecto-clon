@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 export const useCargando = (data ) => {
-  console.log(data)
   const [pending, setPending] = useState(true);
   const [rows, setRows] = useState([]);
   useEffect(() => {

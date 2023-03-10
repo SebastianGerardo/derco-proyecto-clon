@@ -1,19 +1,26 @@
-export const Search = ({placa, setPlaca}) =>{
-    const buscarPlaca = (e) => {
-        e.preventDefault();
-      };
-    
-      const capturarPlaca = ({ target }) => {
-        setPlaca(target.value);
-      };
-    return(
-        <div>
-        <form onSubmit={(e) => buscarPlaca(e)} className="xl:w-1/4 lg:w-1/4 w-full my-5">
-          <div className="flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
-          <img src="/img/search.gif" alt="" width={30} />
-              <input type="text" className="outline-none w-full" value={placa} onChange={(e) => capturarPlaca(e)} placeholder="Buscar por placa" />
-          </div>
-        </form>
+export const Search = ({ placa, setPlaca }) => {
+  const buscarPlaca = (e) => {
+    e.preventDefault();
+  };
+
+  const capturarPlaca = ({ target }) => {
+    setPlaca(target.value);
+  };
+  return (
+    <form
+      onSubmit={(e) => buscarPlaca(e)}
+      className="xl:w-1/4 lg:w-1/4 w-full my-5"
+    >
+      <div className="flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
+        <img src="/img/search.gif" alt="" width={30} />
+        <input
+          type="text"
+          className="outline-none w-full"
+          value={placa}
+          onChange={(e) => capturarPlaca(e)}
+          placeholder="Buscar por placa"
+        />
       </div>
-    )
-}
+    </form>
+  );
+};
