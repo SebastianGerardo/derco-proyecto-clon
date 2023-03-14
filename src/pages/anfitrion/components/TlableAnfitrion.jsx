@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { Cargando } from "../../../components/Cargando/Cargando";
 import { DescargarExcel } from "../../../components/datatable/DescargarExcel";
 import { Search } from "../../../components/datatable/Search";
 import { UserContext } from "../../../context/ContextDerco";
+import { TraeDataAnfitrion } from "../../../helpers/ApiAnfitrion";
 import { DataDerco } from "../../../helpers/Data";
 import { useCargando } from "../../../hooks/useCargando";
 import { ModalAnfitrion } from "./ModalAnfitrion";
@@ -15,7 +16,7 @@ const columns = [
   },
   {
     name: "CLIENTE",
-    cell: (row) => <p>{row.nombre}</p>,
+    cell: (row) => <p>{row.nombres}</p>,
     sortable: true,
     center: true,
   },
@@ -40,7 +41,7 @@ const columns = [
   {
     name: "KILOMETRAJE",
     selector: (row) => (
-      <p>{row.kilometraje !== "" ? `${row.kilometraje} km` : "--"} </p>
+      <p>{row.vehiculoKilometraje !== "" ? `${row.vehiculoKilometraje} km` : "--"} </p>
     ),
     sortable: true,
     center: true,
@@ -126,12 +127,18 @@ const columns = [
 export const TableAnfitrion = () => {
   /*Hacermos Validaciones */
   const { UsuarioLogin } = useContext(UserContext);
-
+  /*Peticion Api*/
+  const [dataAnfitrion, setDataAnfitrion] = useState([])
+  useEffect(() => {
+    TraeDataAnfitrion().then((res) => setDataAnfitrion(res.data));
+  }, []);
+  /*FIltro de DataTable*/
   const [placa, setPlaca] = useState("");
-  const filteredItems = DataDerco.filter(
+  const filteredItems = dataAnfitrion.filter(
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
+  /*Cargando*/
   const [pending] = useCargando(filteredItems);
   return (
     <>
