@@ -4,7 +4,6 @@ import { UserContext } from "../../../context/ContextDerco";
 export const ModalBienvenida = () => {
   let [isOpen, setIsOpen] = useState(true);
   const {UsuarioLogin} = useContext(UserContext)
-  const { data } = UsuarioLogin
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -41,7 +40,7 @@ export const ModalBienvenida = () => {
                     as="h3"
                     className="text-xl leading-6 text-gray-900 font-black text-center"
                   >
-                    Bienvenido {data?.usuario?.nombres} {data?.usuario?.apellidos}
+                    Bienvenido {UsuarioLogin?.usuario?.nombres} {UsuarioLogin?.usuario?.apellidos}
                   </Dialog.Title>
                   <div className="mt-2">
                     <p className="text-lg text-gray-500 text-center">

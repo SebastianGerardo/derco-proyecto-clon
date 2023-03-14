@@ -1,6 +1,7 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
 import { BotonFroms } from "../../../components/Boton/BotonForms";
+import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
 import { Search } from "../../../components/datatable/Search";
 import { DataRecepcion } from "../../../helpers/DataRecepcion";
 import { ModalRecepcion } from "./ModalRecepcion";
@@ -11,43 +12,43 @@ const columns = [
     width: "5rem",
   },
   {
-    name: "CLIENTE",
+    name: <CustomHeader nameModule="CLIENTE" icon="fa-solid fa-user mr-1"/>,
     selector: (row) => <p>{row.nombre} {row.apellido}</p>,
     sortable: true,
     width: "15rem",
   },
   {
-    name: "TELEFONO",
+    name: <CustomHeader nameModule="TELEFONO" icon="fa-solid fa-phone mr-1"/>,
     cell: (row) => <p>{row.telefono}</p>,
     sortable: true,
   },
   {
-    name: "PLACA",
+    name: <CustomHeader nameModule="PLACA" icon="fa-solid fa-id-card mr-1"/>,
     selector: (row) => row.placa,
     sortable: true,
     width: "7rem",
     center: true
   },
   {
-    name: "SERVICIO",
+    name: <CustomHeader nameModule="SERVICIO" icon="fa-solid fa-tools mr-1"/>,
     selector: (row) => row.placa,
     sortable: true,
     center: true
   },
   {
-    name: "KILOMETRAJE",
+    name: <CustomHeader nameModule="KILOMETRAJE" icon="fa-solid fa-tachometer mr-1"/>,
     selector: (row) => row.kilometraje,
     sortable: true,
     center: true
   },
   {
-    name: "HORA CITA",
+    name: <CustomHeader nameModule="HORA CITA" icon="fa-solid fa-clock mr-1"/>,
     selector: (row) => row.horaLlegada,
     sortable: true,
   },
 
   {
-    name: "ESTADO",
+    name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1"/>,
     selector: (row) => row.estado,
     sortable: true,
     center: true,
@@ -82,7 +83,7 @@ const columns = [
     ],
   },
   {
-    name: "ACCIONES",
+    name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1"/>,
     cell: row => <div className="flex items-center gap-3">
       <ModalRecepcion tipo="edit" data={row} />
       <button disabled={row.estado !== "Secado"} className={`${row.estado !== "Secado" ? "text-gray-500" : "text-blue-500"}`}><i className="fa-solid fa-door-open fa-2x"></i></button>

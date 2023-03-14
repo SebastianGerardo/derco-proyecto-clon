@@ -10,7 +10,9 @@ export const DashboardRouter = () => {
         <Menu />
         <div className="w-full ">
           <Navbar />
-            <Outlet/>
+   
+            <Outlet />
+
         </div>
       </div>
     </>

@@ -27,7 +27,11 @@ export const Login = () => {
       if (val.statusCode == 200) {
         setUsuarioLogin(val);
         localStorage.setItem("usuarioDerco", JSON.stringify(val));
-        navigate("/dashboard");
+        navigate("/dashboard", {
+          state: {
+            logged: true
+          }
+        });
       } else {
         Swal.fire(
           "Algo salio mal....",

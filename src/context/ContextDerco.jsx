@@ -8,16 +8,19 @@ export const ContextDerco = ({ children }) => {
   const navigate = useNavigate();
   const [UsuarioLogin, setUsuarioLogin] = useState([]);
   useEffect(() => {
-    if (localStorage.getItem("derco") !== null) {
-      VerificarSesion().then((res) => {
-        if (res.statusCode === 200) {
-          navigate("/dashboard", { replace: true });
-          setUsuarioLogin(res.data);
-        }
-      });
-    } else {
-      navigate("/login", { replace: true });
-    }
+    VerificarSesion().then((res) => {
+      if (res.statusCode === 200) {
+        navigate("/dashboard", {
+          replace: true,
+          state: {
+            logged: true,
+          },
+        });
+        setUsuarioLogin(res.data);
+      } else {
+        navigate("/login", { replace: true });
+      }
+    });
   }, []);
   return (
     <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin }}>

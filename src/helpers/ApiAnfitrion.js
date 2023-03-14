@@ -8,6 +8,7 @@ export const TraeDataAnfitrion = async () => {
       }
     );
     const data = await fetchResponse.json();
+    console.log(data)
     return data;
   } catch (error) {
     return error;
