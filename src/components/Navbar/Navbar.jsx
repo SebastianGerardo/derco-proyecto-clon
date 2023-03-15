@@ -3,6 +3,7 @@ import useOnClickOutside from "../../hooks/useOnClickOutside";
 import { BarraMenu } from "./BarraMenu";
 import { useNavigate } from "react-router-dom";
 import { CerrarSesionUsu } from "../../helpers/ApiUsuarios";
+import { useLocation } from "react-router-dom";
 
 export const Navbar = () => {
   const ref = useRef(null);
@@ -21,6 +22,14 @@ export const Navbar = () => {
         res.statusCode === 200 && navigate("/login", {replace:true})
     })
   }
+
+  const location = useLocation();
+
+  const modules = {
+    "/dashboard/anfitrion": "Anfitrión",
+    "/dashboard/recepcion": "Recepción",
+  }
+
   return (
     <div className="bg-white w-full shadow-md" ref={ref}>
       <div className="mx-auto container px-2 lg:px-8 min-w-full">
@@ -55,6 +64,12 @@ export const Navbar = () => {
                   alt="Derco Center"
                 />
               </div>
+            </div>
+
+            <div>
+              <p className="font-bold text-3xl">
+                Módulo | <span className="font-normal">{modules[location.pathname]}</span>
+              </p>
             </div>
           </div>
 
