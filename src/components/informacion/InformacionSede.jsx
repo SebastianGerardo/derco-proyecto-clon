@@ -1,6 +1,6 @@
 export const InformacionSede = () => {
   return (
-    <div className="bg-gray-100 shadow-md rounded-sm py-3 px-5 my-4">
+    <div className="bg-gray-100 shadow-md rounded-sm py-3 px-5 mt-5">
       <div className="flex gap-16 flex-wrap">
         <div>
           <p className="font-bold">
@@ -44,6 +44,9 @@ export const InformacionSede = () => {
         </div>
         <div>
             Avance
+        </div>
+        <div>
+            <button>Cargar archivos</button>
         </div>
       </div>
     </div>

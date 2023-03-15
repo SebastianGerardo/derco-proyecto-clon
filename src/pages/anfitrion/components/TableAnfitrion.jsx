@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { Cargando } from "../../../components/Cargando/Cargando";
 import { DescargarExcel } from "../../../components/datatable/DescargarExcel";
@@ -7,6 +7,7 @@ import { TraeDataAnfitrion } from "../../../helpers/ApiAnfitrion";
 import { useCargando } from "../../../hooks/useCargando";
 import { ModalAnfitrion } from "./ModalAnfitrion";
 import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
+import { UserContext } from "../../../context/ContextDerco";
 
 const columns = [
   {
@@ -115,12 +116,12 @@ const columns = [
   },
 ];
 export const TableAnfitrion = () => {
-
+  const {estadoData} = useContext(UserContext)
   /*Peticion Api*/
   const [dataAnfitrion, setDataAnfitrion] = useState([])
   useEffect(() => {
     TraeDataAnfitrion().then((res) => setDataAnfitrion(res.data));
-  }, []);
+  }, [estadoData]);
 
   /*FIltro de DataTable*/
   const [placa, setPlaca] = useState("");
@@ -128,13 +129,16 @@ export const TableAnfitrion = () => {
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
+
   /*Cargando*/
   const [pending] = useCargando(filteredItems);
+
   return (
     <>
       {/* Buscardor de la tabla */}
       <div className="flex justify-between items-center w-full">
         <Search placa={placa} setPlaca={setPlaca} />
+        <ModalAnfitrion tipo="crear" />
       </div>
       <DataTable
         columns={columns}

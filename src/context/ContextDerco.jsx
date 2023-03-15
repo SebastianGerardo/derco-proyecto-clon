@@ -6,10 +6,9 @@ export const UserContext = createContext();
 
 export const ContextDerco = ({ children }) => {
   const navigate = useNavigate();
+  const [estadoData, setEstadoData ] = useState(false)
   const [UsuarioLogin, setUsuarioLogin] = useState([]);
   useEffect(() => {
-
-
     VerificarSesion().then((res) => {
       if (res.statusCode === 200) {
         navigate("/dashboard", {
@@ -25,7 +24,7 @@ export const ContextDerco = ({ children }) => {
     });
   }, []);
   return (
-    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin }}>
+    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData}}>
       {children}
     </UserContext.Provider>
   );

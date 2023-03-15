@@ -38,7 +38,7 @@ export const ModalAnfitrion = ({ tipo, data}) => {
                   {/*AQUI VAN LOS FORMULARIOS */}
                   {
                     tipo === "crear" ? (
-                      <FormCrear/>
+                      <FormCrear setIsOpen={setIsOpen}/>
                     ) : (<FormEdit data={data}/>)
                   }
 

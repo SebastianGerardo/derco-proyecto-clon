@@ -49,3 +49,18 @@ export const CerrarSesionUsu =async()=>{
   }
 }
 
+export const Asesores = async() =>{
+  try {
+    const fetchResponse = await fetch(
+      `${URL}/usuarios/tipo/3`,
+      {
+        method: "GET",
+        credentials: "include",
+      }
+    );
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

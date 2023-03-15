@@ -1,5 +1,5 @@
 import { InformacionSede } from "../../components/informacion/InformacionSede";
-import { ModalAnfitrion } from "./components/ModalAnfitrion";
+
 import { TableAnfitrion } from "./components/TableAnfitrion";
 
 export const Anfitrion = () => {
@@ -11,9 +11,6 @@ export const Anfitrion = () => {
         </p>
         <InformacionSede />
 
-        <div className="full flex justify-between items-center">
-          <ModalAnfitrion tipo="crear" />
-        </div>
         {/*TABLA*/}
         <TableAnfitrion />
       </div>
