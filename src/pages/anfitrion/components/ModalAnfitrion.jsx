@@ -33,16 +33,16 @@ export const ModalAnfitrion = ({ tipo, data}) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full xl:w-1/2 lg:w-1/2 transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-
+                <Dialog.Panel className="w-full xl:w-1/2 lg:w-1/2 transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
+                      <div className='bg-[#C00000] text-white py-2 w-full'>
+                          <p className='text-center text-xl font-medium '>Registrar Unidad</p>
+                      </div>
                   {/*AQUI VAN LOS FORMULARIOS */}
                   {
                     tipo === "crear" ? (
                       <FormCrear setIsOpen={setIsOpen}/>
                     ) : (<FormEdit data={data}/>)
                   }
-
-
                 </Dialog.Panel>
               </Transition.Child>
             </div>

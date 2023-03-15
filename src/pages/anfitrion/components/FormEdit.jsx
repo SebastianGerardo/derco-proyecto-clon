@@ -7,28 +7,16 @@ export const FormEdit = ({ data }) => {
     <div>
       <form
         action=""
-        className="flex pt-3 justify-between items-center flex-wrap space-y-2"
+        className="flex pt-3 justify-between items-center flex-wrap space-y-2 p-5"
       >
         <div className="lg:w-[45%] w-full">
           <label htmlFor="" className="text-gray-400">
-            Nombres:
+            Nombre {`&`} Apellido:
           </label>
           <br />
           <input
             type="text"
             value={data.nombre}
-            disabled={!enabled}
-            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-          />
-        </div>
-        <div className="lg:w-[45%] w-full">
-          <label htmlFor="" className="text-gray-400">
-            Apellidos:
-          </label>
-          <br />
-          <input
-            type="text"
-            value={data.apellido}
             disabled={!enabled}
             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
           />
@@ -45,6 +33,31 @@ export const FormEdit = ({ data }) => {
             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
           />
         </div>
+
+        <div className="lg:w-[45%] w-full">
+          <label htmlFor="" className="text-gray-400">
+            Kilometraje Real:
+          </label>
+          <br />
+          <input
+            type="text"
+            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+          />
+        </div>
+
+        <div className="lg:w-[45%] w-full">
+          <label htmlFor="" className="text-gray-400">
+            Fecha / Hora:
+          </label>
+          <br />
+          <input
+            type="text"
+            disabled={!enabled}
+            value="17/02/2023 10:23 AM  "
+            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+          />
+        </div>
+
         <div className="lg:w-[45%] md:w-[45%] w-full">
           <label htmlFor="" className="text-gray-400">
             Asignar Asesor:
@@ -61,16 +74,7 @@ export const FormEdit = ({ data }) => {
           </select>
         </div>
 
-        <div className="lg:w-[45%] w-full">
-          <label htmlFor="" className="text-gray-400">
-            Kilometraje Actual:
-          </label>
-          <br />
-          <input
-            type="text"
-            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-          />
-        </div>
+        
 
         <div className="lg:w-[45%] md:w-[45%] w-full">
           <label htmlFor="" className="text-gray-400">
@@ -89,18 +93,7 @@ export const FormEdit = ({ data }) => {
           </select>
         </div>
 
-        <div className="lg:w-[45%] w-full">
-          <label htmlFor="" className="text-gray-400">
-            Fecha de ingreso:
-          </label>
-          <br />
-          <input
-            type="text"
-            disabled={!enabled}
-            value="17/02/2023 10:23 AM  "
-            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-          />
-        </div>
+        
         <div className="flex justify-center w-full items-center mt-10">
           <button
             type="button"

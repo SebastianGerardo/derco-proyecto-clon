@@ -46,10 +46,9 @@ export const FormCrear = ({ setIsOpen }) => {
   return (
     <form
       action=""
-      className="flex justify-between flex-wrap space-y-2"
+      className="flex justify-between flex-wrap space-y-2 p-5"
       onSubmit={crearRistro}
     >
-      <h1 className="font-black w-full text-lg ">Registrar Unidad</h1>
       <div className="lg:w-[45%] w-full">
         <label htmlFor="" className="text-gray-400">
           Nombres:
