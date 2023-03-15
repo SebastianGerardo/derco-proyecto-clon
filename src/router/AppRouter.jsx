@@ -1,6 +1,4 @@
-import { useContext } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
-import { UserContext } from "../context/ContextDerco";
+import { Routes, Route } from "react-router-dom";
 import { Login } from "../pages/Login/Login";
 import { DashboardRouter } from "../pages/router/DashboardRouter";
 import { Anfitrion } from "../../src/pages/anfitrion/Anfitrion";
@@ -9,8 +7,6 @@ import { Recepcion } from "../../src/pages/Recepcion/Recepcion";
 import { PrivateRouter } from "./PrivateRouter";
 
 export const AppRouter = () => {
-  const { state } = useLocation();
-  console.log(state);
   return (
     <Routes>
       <Route path="/login" element={<Login />} />

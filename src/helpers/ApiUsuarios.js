@@ -1,7 +1,9 @@
+import { URL } from "./UrlApi";
+
 export const IniciarSesion = async (login) => {
   try {
     const fetchResponse = await fetch(
-      `https://api-derco-production.up.railway.app/sesiones/iniciar`,
+      `${URL}/sesiones/iniciar`,
       {
         method: "POST",
         credentials: "include",
@@ -18,7 +20,7 @@ export const IniciarSesion = async (login) => {
 export const VerificarSesion =async()=>{
   try {
     const fetchResponse = await fetch(
-      `https://api-derco-production.up.railway.app/sesiones/verificar`,
+      `${URL}/sesiones/verificar`,
       {
         method: "GET",
         credentials: "include",

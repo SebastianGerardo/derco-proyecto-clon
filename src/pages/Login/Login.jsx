@@ -25,7 +25,7 @@ export const Login = () => {
     event.preventDefault();
     IniciarSesion(datosUsuarios).then((val) => {
       if (val.statusCode == 200) {
-        setUsuarioLogin(val);
+        setUsuarioLogin(val.data);
         localStorage.setItem("usuarioDerco", JSON.stringify(val));
         navigate("/dashboard", {
           state: {

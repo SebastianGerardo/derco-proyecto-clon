@@ -8,6 +8,8 @@ export const ContextDerco = ({ children }) => {
   const navigate = useNavigate();
   const [UsuarioLogin, setUsuarioLogin] = useState([]);
   useEffect(() => {
+
+
     VerificarSesion().then((res) => {
       if (res.statusCode === 200) {
         navigate("/dashboard", {

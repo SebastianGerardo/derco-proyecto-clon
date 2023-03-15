@@ -1,11 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { Cargando } from "../../../components/Cargando/Cargando";
 import { DescargarExcel } from "../../../components/datatable/DescargarExcel";
 import { Search } from "../../../components/datatable/Search";
-import { UserContext } from "../../../context/ContextDerco";
 import { TraeDataAnfitrion } from "../../../helpers/ApiAnfitrion";
-import { DataDerco } from "../../../helpers/Data";
 import { useCargando } from "../../../hooks/useCargando";
 import { ModalAnfitrion } from "./ModalAnfitrion";
 import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
@@ -18,7 +16,7 @@ const columns = [
   },
   {
     name: "CLIENTE",
-    cell: (row) => <p>{row.nombre}</p>,
+    cell: (row) => <p>{row.nombres}</p>,
     sortable: true,
     center: true,
   },
@@ -36,7 +34,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="ASESOR" icon='fa-solid fa-user-tie mr-1' />,
-    selector: (row) => <p>{row.asesor !== "" ? `${row.asesor}` : "--"} </p>,
+    selector: (row) => <p>{row.asesor.nombres !== "" ? `${row.asesor.nombres}` : "--"} </p>,
     sortable: true,
     center: true,
   },
@@ -51,7 +49,7 @@ const columns = [
   {
     name: <CustomHeader nameModule="HORA CITA" icon='fa-solid fa-clock mr-1' />,
     selector: (row) => (
-      <p>{row.horaCita !== "" ? `${row.horaCita} pm` : "--"} </p>
+      <p>{row.fechaCita !== null ? `${row.fechaCita} pm` : "--"} </p>
     ),
     sortable: true,
     center: true,
@@ -72,23 +70,11 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.estadoCliente === "Pendiente",
+        when: (row) => row.estado === "1",
         style: {
           backgroundColor: "#FFD300",
         },
-      },
-      {
-        when: (row) => row.estadoCliente === "Asistio",
-        style: {
-          backgroundColor: "#00FF00",
-        },
-      },
-      {
-        when: (row) => row.estadoCliente === "No asistio",
-        style: {
-          backgroundColor: "#D90912",
-        },
-      },
+      }
     ],
     center: true,
   },
@@ -129,13 +115,13 @@ const columns = [
   },
 ];
 export const TableAnfitrion = () => {
-  /*Hacermos Validaciones */
-  const { UsuarioLogin } = useContext(UserContext);
+
   /*Peticion Api*/
   const [dataAnfitrion, setDataAnfitrion] = useState([])
   useEffect(() => {
     TraeDataAnfitrion().then((res) => setDataAnfitrion(res.data));
   }, []);
+
   /*FIltro de DataTable*/
   const [placa, setPlaca] = useState("");
   const filteredItems = dataAnfitrion.filter(
@@ -149,9 +135,6 @@ export const TableAnfitrion = () => {
       {/* Buscardor de la tabla */}
       <div className="flex justify-between items-center w-full">
         <Search placa={placa} setPlaca={setPlaca} />
-        {UsuarioLogin.data?.usuario?.tipo.nombre === "Administrador" && (
-          <DescargarExcel array={filteredItems} />
-        )}
       </div>
       <DataTable
         columns={columns}
