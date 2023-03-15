@@ -58,23 +58,14 @@ export const InformacionSede = ({dataAnfitrion}) => {
           </div>
         </div>
       </div>
-      <div className=''>
-          <div>
-            <p>Avance:</p>
-          </div>
-          <div className='w-[100px] h-[100px]'>
-            <CircularProgressbar value={progress} text={`${parseInt(progress)}%`} />
-          </div>
-          <div>
-            <button
-            type="button"
-            className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white border-green-600 border-2 border-solid transition-all ease-in duration-200 shadow-[.3rem_.3rem_1rem_#ccc,_-.3rem_-.3rem_1rem_#fff] hover:shadow-[.3rem_.3rem_1rem_#fff,_-.3rem_-.3rem_1rem_#ccc] active:shadow-[inset_.1rem_.1rem_1rem_#60A5FA,_inset_-.1rem_-.1rem_1rem_#6faaf2]"
-            >
-              <i class="fa-solid fa-user-plus mr-1"></i>
-              Cargar Archivos
-            </button>
-          </div>
+      <div className='flex flex-col justify-center items-center'>
+        <div>
+          <p className='font-bold'>Avance:</p>
         </div>
+        <div className='w-[100px] h-[100px] mt-1'>
+          <CircularProgressbar value={progress} text={`${parseInt(progress)}%`} />
+        </div>
+      </div>
     </div>
   );
 
