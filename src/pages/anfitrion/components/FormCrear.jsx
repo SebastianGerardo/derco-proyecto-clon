@@ -1,8 +1,9 @@
 import { useContext, useEffect, useState } from "react";
+import { Toast } from "../../../components/Alertas/SweetAlex";
 import { UserContext } from "../../../context/ContextDerco";
 import { crearServicio } from "../../../helpers/ApiAnfitrion";
 import { Asesores } from "../../../helpers/ApiUsuarios";
-import { Toast } from "./SweetAlex";
+
 export const FormCrear = ({ setIsOpen }) => {
   const { estadoData, setEstadoData } = useContext(UserContext);
   const [asesores, setAsesores] = useState([]);
@@ -21,10 +22,12 @@ export const FormCrear = ({ setIsOpen }) => {
       [e.target.name]: e.target.value,
     });
   };
-  
+
   const crearRistro = (e) => {
+    let datosFormateados = []
+    datosFormateados.push(datosRegistro)
     e.preventDefault();
-    crearServicio(datosRegistro).then((res) => {
+    crearServicio(datosFormateados).then((res) => {
       if (res.statusCode === 200) {
         Toast.fire({
           icon: "success",

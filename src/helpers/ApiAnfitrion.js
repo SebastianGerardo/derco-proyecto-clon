@@ -15,13 +15,13 @@ export const TraeDataAnfitrion = async () => {
 };
 
 export const crearServicio = async (registro) => {
-  console.log("Soy lada ata",registro)
+  console.log(registro)
   try {
     const fetchResponse = await fetch(`${URL}/servicios/crear`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
-      body: JSON.stringify([registro]),
+      body: JSON.stringify(registro),
     });
     const data = await fetchResponse.json();
     return data;

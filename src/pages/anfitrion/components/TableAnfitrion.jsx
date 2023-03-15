@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import DataTable from "react-data-table-component";
 import { Cargando } from "../../../components/Cargando/Cargando";
-import { DescargarExcel } from "../../../components/datatable/DescargarExcel";
 import { Search } from "../../../components/datatable/Search";
-import { TraeDataAnfitrion } from "../../../helpers/ApiAnfitrion";
 import { useCargando } from "../../../hooks/useCargando";
 import { ModalAnfitrion } from "./ModalAnfitrion";
 import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
-import { UserContext } from "../../../context/ContextDerco";
+import { BtnMasivo } from "./BtnMasivo";
+
 
 const columns = [
   {
@@ -35,14 +34,14 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="ASESOR" icon='fa-solid fa-user-tie mr-1' />,
-    selector: (row) => <p>{row.asesor.nombres !== "" ? `${row.asesor.nombres}` : "--"} </p>,
+    selector: (row) => <p>{row.asesor?.nombres !== undefined ? `${row.asesor?.nombres}` : "--"} </p>,
     sortable: true,
     center: true,
   },
   {
     name: <CustomHeader nameModule="KILOMETRAJE" icon='fa-solid fa-tachometer mr-1' />,
     selector: (row) => (
-      <p>{row.vehiculoKilometraje !== "" ? `${row.vehiculoKilometraje} km` : "--"} </p>
+      <p>{row.vehiculoKilometraje !== null ? `${row.vehiculoKilometraje} km` : "--"} </p>
     ),
     sortable: true,
     center: true,
@@ -56,8 +55,8 @@ const columns = [
     center: true,
   },
   {
-    name: <CustomHeader nameModule="ESTADO CLIENTE" icon='fa-solid fa-user-check mr-1' />,
-    cell: (row) => row.estadoCliente,
+    name: <CustomHeader nameModule="UBICACION" icon='fa-solid fa-user-check mr-1' />,
+    cell: (row) => row.estado === "1" && "Abordaje",
     sortable: true,
     width: "10rem",
     style: {
@@ -73,15 +72,15 @@ const columns = [
       {
         when: (row) => row.estado === "1",
         style: {
-          backgroundColor: "#FFD300",
+          backgroundColor: "#FDAB3D",
         },
       }
     ],
     center: true,
   },
   {
-    name: <CustomHeader nameModule="ESTADO PROCESO" icon='fa-solid fa-user-clock mr-1' />,
-    selector: (row) => row.estado,
+    name: <CustomHeader nameModule="ESTADO" icon='fa-solid fa-user-clock mr-1' />,
+    selector: (row) => row.asistencia === "0" ? "No Asignado" : row.asistencia === "1" ? "Pendiente" : "Asignado",
     sortable: true,
     center: true,
     width: "10.5rem",
@@ -96,15 +95,22 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.estado === "Recepcion",
+        when: (row) => row.asistencia === "0",
+        selector: () => "Pendiente",
         style: {
-          backgroundColor: "#87CEFA",
+          backgroundColor: "#C00000",
         },
       },
       {
-        when: (row) => row.estado === "Pendiente",
+        when: (row) => row.asistencia === "1",
         style: {
-          backgroundColor: "#FFD300",
+          backgroundColor: "#FFD966",
+        },
+      },
+      {
+        when: (row) => row.asistencia === "2",
+        style: {
+          backgroundColor: "#00B050",
         },
       },
     ],
@@ -115,17 +121,11 @@ const columns = [
     center: true,
   },
 ];
-export const TableAnfitrion = () => {
-  const {estadoData} = useContext(UserContext)
-  /*Peticion Api*/
-  const [dataAnfitrion, setDataAnfitrion] = useState([])
-  useEffect(() => {
-    TraeDataAnfitrion().then((res) => setDataAnfitrion(res.data));
-  }, [estadoData]);
+export const TableAnfitrion = ({ dataAnfitrion }) => {
 
   /*FIltro de DataTable*/
   const [placa, setPlaca] = useState("");
-  const filteredItems = dataAnfitrion.filter(
+  const filteredItems = dataAnfitrion?.filter(
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
@@ -138,7 +138,10 @@ export const TableAnfitrion = () => {
       {/* Buscardor de la tabla */}
       <div className="flex justify-between items-center w-full">
         <Search placa={placa} setPlaca={setPlaca} />
-        <ModalAnfitrion tipo="crear" />
+        <div>
+          <BtnMasivo />
+          <ModalAnfitrion tipo="crear" />
+        </div>
       </div>
       <DataTable
         columns={columns}
