@@ -25,6 +25,7 @@ export const Login = () => {
     event.preventDefault();
     IniciarSesion(datosUsuarios).then((val) => {
       if (val.statusCode == 200) {
+        console.log("Soy el usuaario",val)
         setUsuarioLogin(val.data);
         localStorage.setItem("usuarioDerco", JSON.stringify(val));
         navigate("/dashboard", {

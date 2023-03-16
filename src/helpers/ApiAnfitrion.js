@@ -29,3 +29,19 @@ export const crearServicio = async (registro) => {
     return error;
   }
 };
+
+
+export const editServicio = async (registro, id) => {
+  try {
+    const fetchResponse = await fetch(`${URL}/servicios/actualizar/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(registro),
+    });
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

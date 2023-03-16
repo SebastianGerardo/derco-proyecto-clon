@@ -15,6 +15,7 @@ export const FormCrear = ({ setIsOpen }) => {
     placa: "",
     vehiculoKilometraje: "",
     asesor: "",
+    estado: ""
   });
   const handleInputChange = (e) => {
     setDatosRegistro({
@@ -106,20 +107,6 @@ export const FormCrear = ({ setIsOpen }) => {
         />
       </div>
 
-      <div className="lg:w-[45%] w-full">
-        <label htmlFor="" className="text-gray-400">
-          Fecha / Hora:
-        </label>
-        <br />
-        <input
-          name="fecha"
-          type="text"
-          onChange={handleInputChange}
-          placeholder="17/02/2023"
-          className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-        />
-      </div>
-
       <div className="lg:w-[45%] md:w-[45%] w-full">
         <label htmlFor="" className="text-gray-400">
           Asignar Asesor:
@@ -130,7 +117,7 @@ export const FormCrear = ({ setIsOpen }) => {
           onChange={handleInputChange}
           className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
         >
-          <option value="">Elegir:</option>
+          <option value="" disabled>Elegir:</option>
           {asesores.length > 0 &&
             asesores.map((ase) => (
               <option value={parseInt(ase.id)} key={ase.id}>
@@ -151,9 +138,9 @@ export const FormCrear = ({ setIsOpen }) => {
           className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
         >
           <option value="">Elegir:</option>
-          <option value="">Pendiente</option>
-          <option value="">Asistió</option>
-          <option value="">No asistió</option>
+          <option value="0">No Asignado</option>
+          <option value="1">Pendiente</option>
+          <option value="2">Asignado</option>
         </select>
       </div>
       

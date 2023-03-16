@@ -1,9 +1,14 @@
 
-import { BotonFroms } from "../../components/Boton/BotonForms";
-import { ModalRecepcion } from "./components/ModalRecepcion";
+import { useEffect } from "react";
+import { traeRecepcion } from "../../helpers/ApiRecepcion";
 import { TableRecepcion } from "./components/TableRecepcion";
 
 export const Recepcion = () => {
+
+  useEffect(()=>{
+    traeRecepcion().then(res=>console.log(res))
+  },[])
+
   return (
     <>
       <div className="p-6">

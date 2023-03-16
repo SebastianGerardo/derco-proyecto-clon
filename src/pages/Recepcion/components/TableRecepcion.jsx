@@ -110,7 +110,7 @@ export const TableRecepcion = () => {
   const filtro2 = filteredItems.filter((item) =>
     item.estado && item.estado.includes(estado))
  
-    console.log(estado)
+
 
 
   return (

@@ -41,7 +41,7 @@ export const ModalAnfitrion = ({ tipo, data}) => {
                   {
                     tipo === "crear" ? (
                       <FormCrear setIsOpen={setIsOpen}/>
-                    ) : (<FormEdit data={data}/>)
+                    ) : (<FormEdit data={data} setIsOpen={setIsOpen}/>)
                   }
                 </Dialog.Panel>
               </Transition.Child>
