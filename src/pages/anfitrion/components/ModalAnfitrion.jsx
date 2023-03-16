@@ -35,7 +35,7 @@ export const ModalAnfitrion = ({ tipo, data}) => {
               >
                 <Dialog.Panel className="w-full xl:w-1/2 lg:w-1/2 transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
                       <div className='bg-[#C00000] text-white py-2 w-full'>
-                          <p className='text-center text-xl font-medium '>Registrar Unidad</p>
+                          <p className='text-center text-xl font-medium '>{tipo == "crear" ? 'Registrar' : 'Editar'} Unidad</p>
                       </div>
                   {/*AQUI VAN LOS FORMULARIOS */}
                   {

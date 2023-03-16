@@ -79,7 +79,7 @@ export const BtnMasivo = () => {
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
                                     <div className='bg-[#C00000] text-white py-2 w-full'>
-                                        <p className='text-center text-xl font-medium '>Modulo de carga masiva</p>
+                                        <p className='text-center text-xl font-medium '>Módulo de carga masiva</p>
                                     </div>
                                     <div className='p-5 w-full block'>
                                         <form action="" className='mx-auto mt-5' onSubmit={subirDatos}>
@@ -92,7 +92,7 @@ export const BtnMasivo = () => {
                                                 "/>
                                             <button type="submit" className='bg-black text-white rounded-md p-2 font-semibold mt-5 mx-auto flex items-center gap-3'><i class="flex gap items-cemter gap -3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
                                         </form>
-                                        <p className='font-bold text-sm text-red-400 mt-5'>*Nota: <spam className="font-normal">El modulo de carga masiva solo aceptara formastos .xls, .xlsx, otros tipos de formatos dara error.</spam></p>
+                                        <p className='font-bold text-sm text-red-400 mt-5'>*Nota: <span className="font-normal">El módulo de carga masiva solo aceptará formatos .xls, .xlsx, otros tipos de formatos dará error.</span></p>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>

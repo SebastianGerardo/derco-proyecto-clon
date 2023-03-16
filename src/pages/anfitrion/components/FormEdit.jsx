@@ -74,8 +74,6 @@ export const FormEdit = ({ data }) => {
           </select>
         </div>
 
-        
-
         <div className="lg:w-[45%] md:w-[45%] w-full">
           <label htmlFor="" className="text-gray-400">
             Estado

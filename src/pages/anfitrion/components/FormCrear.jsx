@@ -49,9 +49,25 @@ export const FormCrear = ({ setIsOpen }) => {
       className="flex justify-between flex-wrap space-y-2 p-5"
       onSubmit={crearRistro}
     >
+      <div className="lg:w-full flex flex-col lg:flex-row items-start lg:items-center w-full">
+          <label htmlFor="" className="inline-block min-w-[12rem] text-gray-400">
+            Buscar datos de la unidad:
+          </label>
+        <div className="w-full flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
+          <img src="/img/search.gif" alt="" width={30} />
+          <input
+            type="text"
+            className="outline-none w-full"
+            // value={placa}
+            // onChange={(e) => capturarPlaca(e)}
+            placeholder="Buscar por placa"
+          />
+        </div>
+      </div>
+      
       <div className="lg:w-[45%] w-full">
         <label htmlFor="" className="text-gray-400">
-          Nombres:
+          Nombre {`&`} Apellido:
         </label>
         <br />
         <input
@@ -75,6 +91,35 @@ export const FormCrear = ({ setIsOpen }) => {
           className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
         />
       </div>
+
+      <div className="lg:w-[45%] w-full">
+        <label htmlFor="" className="text-gray-400">
+          Kilometraje Real:
+        </label>
+        <br />
+        <input
+          name="vehiculoKilometraje"
+          type="text"
+          onChange={handleInputChange}
+          placeholder="5000"
+          className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+        />
+      </div>
+
+      <div className="lg:w-[45%] w-full">
+        <label htmlFor="" className="text-gray-400">
+          Fecha / Hora:
+        </label>
+        <br />
+        <input
+          name="fecha"
+          type="text"
+          onChange={handleInputChange}
+          placeholder="17/02/2023"
+          className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+        />
+      </div>
+
       <div className="lg:w-[45%] md:w-[45%] w-full">
         <label htmlFor="" className="text-gray-400">
           Asignar Asesor:
@@ -94,19 +139,24 @@ export const FormCrear = ({ setIsOpen }) => {
             ))}
         </select>
       </div>
-      <div className="lg:w-[45%] w-full">
+
+      <div className="lg:w-[45%] md:w-[45%] w-full">
         <label htmlFor="" className="text-gray-400">
-          Kilometraje Actual:
+          Estado:
         </label>
         <br />
-        <input
-          name="vehiculoKilometraje"
-          type="text"
+        <select
+          name="estado"
           onChange={handleInputChange}
-          placeholder="5000"
           className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-        />
+        >
+          <option value="">Elegir:</option>
+          <option value="">Pendiente</option>
+          <option value="">Asistió</option>
+          <option value="">No asistió</option>
+        </select>
       </div>
+      
       <div className="flex justify-center w-full items-center mt-10">
         <button
           type="submit"
