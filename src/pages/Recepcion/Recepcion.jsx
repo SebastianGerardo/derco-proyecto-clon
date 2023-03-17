@@ -1,13 +1,13 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { traeRecepcion } from "../../helpers/ApiRecepcion";
 import { TableRecepcion } from "./components/TableRecepcion";
 import { DescripcionSede } from "../../components/informacion/DescripcionSede";
 
 export const Recepcion = () => {
-
+  const [dataRecepcion, setDataRecepcion] = useState([])
   useEffect(()=>{
-    traeRecepcion().then(res=>console.log(res))
+    traeRecepcion().then(res=>setDataRecepcion(res.data))
   },[])
 
   return (
@@ -20,7 +20,7 @@ export const Recepcion = () => {
           </div>
 
         </div>
-        <TableRecepcion />
+        <TableRecepcion  dataRecepcion={dataRecepcion} />
       </div>
     </>
   );
