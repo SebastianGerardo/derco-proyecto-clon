@@ -21,7 +21,7 @@ export const AppRouter = () => {
         }
       >
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/abordaje" element={<Anfitrion />} />
+        <Route path="/dashboard/anfitrion" element={<Anfitrion />} />
         <Route path="/dashboard/recepcion" element={<Recepcion />} />
         <Route path="/dashboard/almacen" element={<Almacen />} />
       </Route>
