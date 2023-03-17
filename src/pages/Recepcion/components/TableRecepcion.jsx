@@ -1,11 +1,9 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
-import { BotonFroms } from "../../../components/Boton/BotonForms";
 import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
 import { Search } from "../../../components/datatable/Search";
-import { DataRecepcion } from "../../../helpers/DataRecepcion";
 import { ModalRecepcion } from "./ModalRecepcion";
-
+import {FormtearFecha} from '../../../helpers/funcions'
 const columns = [
   {
     cell: () => <img src="/img/car.gif" alt="" width={70} />,
@@ -13,7 +11,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="CLIENTE" icon="fa-solid fa-user mr-1"/>,
-    selector: (row) => <p>{row.nombre} {row.apellido}</p>,
+    selector: (row) => <p>{row.nombres}</p>,
     sortable: true,
     width: "15rem",
   },
@@ -26,7 +24,6 @@ const columns = [
     name: <CustomHeader nameModule="PLACA" icon="fa-solid fa-id-card mr-1"/>,
     selector: (row) => row.placa,
     sortable: true,
-    width: "7rem",
     center: true
   },
   {
@@ -37,19 +34,19 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="KILOMETRAJE" icon="fa-solid fa-tachometer mr-1"/>,
-    selector: (row) => row.kilometraje,
+    selector: (row) => <p>{row.vehiculoKilometraje} km</p>,
     sortable: true,
     center: true
   },
   {
-    name: <CustomHeader nameModule="HORA CITA" icon="fa-solid fa-clock mr-1"/>,
-    selector: (row) => row.horaLlegada,
+    name: <CustomHeader nameModule="HORA ABORDAJE" icon="fa-solid fa-clock mr-1"/>,
+    selector: (row) => <p>{FormtearFecha(row.fechaRegistro)}</p>,
     sortable: true,
   },
 
   {
-    name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1"/>,
-    selector: (row) => row.estado,
+    name: <CustomHeader nameModule="UBICACION" icon="fa-solid fa-user-clock mr-1"/>,
+    selector: (row) => row.estado === "2" && "Recepcion",
     sortable: true,
     center: true,
     style: {
@@ -63,23 +60,11 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.estado === "Recepcion",
+        when: (row) => row.estado === "2",
         style: {
           backgroundColor: "#4AD69D",
         },
-      },
-      {
-        when: (row) => row.estado === "Pendiente",
-        style: {
-          backgroundColor: "#FDAB3D",
-        },
-      },
-      {
-        when: (row) => row.estado === "Secado",
-        style: {
-          backgroundColor: "#0073EA",
-        },
-      },
+      }
     ],
   },
   {
@@ -91,10 +76,10 @@ const columns = [
     center: true,
   },
 ];
-export const TableRecepcion = () => {
+export const TableRecepcion = ({dataRecepcion}) => {
   const [placa, setPlaca] = useState("");
 
-  const filteredItems = DataRecepcion.filter(
+  const filteredItems = dataRecepcion.filter(
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
