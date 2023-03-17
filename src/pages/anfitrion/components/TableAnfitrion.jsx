@@ -10,7 +10,7 @@ import { BtnMasivo } from "./BtnMasivo";
 
 const columns = [
   {
-    cell: () => <img src="/img/car.gif" alt="" width={70} />,
+    cell: () => <img src="" alt="" width={70} />,
     width: "5rem",
     center: true,
   },
