@@ -136,9 +136,9 @@ export const TableAnfitrion = ({ dataAnfitrion }) => {
   return (
     <>
       {/* Buscardor de la tabla */}
-      <div className="flex justify-between items-center w-full">
+      <div className="flex flex-col lg:flex-row lg:justify-between items-center w-full">
         <Search placa={placa} setPlaca={setPlaca} />
-        <div>
+        <div className="">
           <BtnMasivo />
           <ModalAnfitrion tipo="crear" />
         </div>

@@ -11,9 +11,9 @@ export const BarraMenu = () => {
                 />
             </div>
             <div className="space-y-2 px-6 flex flex-col justify-center h-full ">
-                <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/anfitrion"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-address-card"></i>Anfitrion</NavLink>
+            <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/abordaje"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-address-card"></i>Abordaje</NavLink>
                 <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/recepcion"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-signal"></i>Recepcion</NavLink>
-                <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/asignacion"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-briefcase"></i>Asignacion</NavLink>
+                <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/almacen"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-briefcase"></i>Almacen</NavLink>
                 <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/servicio"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-briefcase"></i>Servicio</NavLink>
                 <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/lavado"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-briefcase"></i>Lavado</NavLink>
                 <NavLink className="flex items-center gap-6 text-white font-medium text-lg py-3" to={"/dashboard/secado"} state={{logged: true}} style={({ isActive }) => isActive ? {color: '#3e3e3e'} : undefined}><i className="fa-solid fa-briefcase"></i>Secado</NavLink>

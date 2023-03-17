@@ -26,8 +26,9 @@ export const Navbar = () => {
   const location = useLocation();
 
   const modules = {
-    "/dashboard/anfitrion": "Anfitrión",
+    "/dashboard/abordaje": "Abordaje",
     "/dashboard/recepcion": "Recepción",
+    "/dashboard/almacen": "Almacén",
   }
 
   return (
@@ -67,8 +68,8 @@ export const Navbar = () => {
             </div>
 
             <div>
-              <p className="font-bold text-3xl">
-                Módulo | <span className="font-normal">{modules[location.pathname]}</span>
+              <p className="hidden lg:block font-bold text-3xl">
+                <span>{location.pathname === "/dashboard" ? '' : "Módulo |"}</span> <span className="font-normal">{modules[location.pathname]}</span>
               </p>
             </div>
           </div>

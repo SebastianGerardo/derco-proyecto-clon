@@ -12,12 +12,16 @@ export const BotonFroms = ({tipo, setIsOpen}) => {
         </button>
       ) : (
         <button>
-          <img
-            src="/img/edit.gif"
-            alt=""
-            width={35}
-            onClick={() => setIsOpen(true)}
-          />
+          {tipo === "reasignar" ? (
+            <i className="fa-solid fa-user-gear text-lg"
+            onClick={() => setIsOpen(true)}>
+            </i>
+          ):(
+            <i className="fa-solid fa-pencil text-lg"
+            onClick={() => setIsOpen(true)}>
+            </i>  
+          )
+          }
         </button>
       )}
     </>

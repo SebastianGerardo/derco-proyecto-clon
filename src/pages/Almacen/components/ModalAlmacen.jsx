@@ -2,9 +2,8 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { BotonFroms } from '../../../components/Boton/BotonForms';
-import FormRecAsign from './FormRecAsign';
-import FormRecCrear from './FormRecCrear';
-export const ModalRecepcion = ({ tipo, data }) => {
+import FormAlmacen from './FormAlmacen';
+export const ModalAlmacen = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -34,7 +33,7 @@ export const ModalRecepcion = ({ tipo, data }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className={`w-full ${tipo === "reasignar" ? "max-w-2xl" : 'max-w-4xl'} transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
+                <Dialog.Panel className={`w-full max-w-2xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
                   
                 <div className='bg-[#C00000] text-white py-2 w-full'>
                     <p className='text-center text-xl font-medium '>{tipo === 'reasignar' ? 'Reasignar Asesor' : 'Registro de unidad para mantenimiento'}</p>
@@ -43,11 +42,7 @@ export const ModalRecepcion = ({ tipo, data }) => {
                    
 
                   <div className='p-5 w-full block'>
-                    {tipo === "reasignar" ? 
-                    <FormRecAsign/>
-                  :
-                    <FormRecCrear data={data} setIsOpen={setIsOpen}/>
-                    }
+                    <FormAlmacen data={data} setIsOpen={setIsOpen}/>
                   </div>
                   
                   
