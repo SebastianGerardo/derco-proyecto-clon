@@ -49,7 +49,7 @@ export const BtnMasivo = () => {
                 onClick={() => setIsOpen(true)}
                 className="rounded-md mr-4 bg-green-600 px-4 py-2 text-sm font-medium text-white border-green-600 border-2 border-solid transition-all ease-in duration-200 shadow-[.3rem_.3rem_1rem_#ccc,_-.3rem_-.3rem_1rem_#fff] hover:shadow-[.3rem_.3rem_1rem_#fff,_-.3rem_-.3rem_1rem_#ccc] active:shadow-[inset_.1rem_.1rem_1rem_#60A5FA,_inset_-.1rem_-.1rem_1rem_#6faaf2]"
             >
-                <i class="fa-solid fa-upload mr-1"></i>
+                <i className="fa-solid fa-upload mr-1"></i>
                 Cargar Archivos
             </button>
             <Transition appear show={isOpen} as={Fragment}>
@@ -80,6 +80,7 @@ export const BtnMasivo = () => {
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
                                     <div className='bg-[#C00000] text-white py-2 w-full'>
                                         <p className='text-center text-xl font-medium '>Módulo de carga masiva</p>
+                                        <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                                     </div>
                                     <div className='p-5 w-full block'>
                                         <form action="" className='mx-auto mt-5' onSubmit={subirDatos}>
@@ -90,7 +91,7 @@ export const BtnMasivo = () => {
                                                 file:bg-green-50 file:text-green-700
                                                 hover:file:bg-green-100
                                                 "/>
-                                            <button type="submit" className='bg-black text-white rounded-md p-2 font-semibold mt-5 mx-auto flex items-center gap-3'><i class="flex gap items-cemter gap -3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
+                                            <button type="submit" className='bg-black text-white rounded-md p-2 font-semibold mt-5 mx-auto flex items-center gap-3'><i className="flex gap items-cemter gap -3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
                                         </form>
                                         <p className='font-bold text-sm text-red-400 mt-5'>*Nota: <span className="font-normal">El módulo de carga masiva solo aceptará formatos .xls, .xlsx, otros tipos de formatos dará error.</span></p>
                                     </div>

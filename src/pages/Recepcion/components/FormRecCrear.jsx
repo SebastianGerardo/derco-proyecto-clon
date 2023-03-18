@@ -22,40 +22,35 @@ const FormRecCrear = ({ data, setIsOpen }) => {
         );
     }, [hora === true]);
 
+    const [options, setOptions] = useState([
+        { id: 1, label: "Lavado 1", value: false },
+        { id: 2, label: "Lavado Salón", value: false },
+        { id: 3, label: "Alineamiento", value: false },
+        { id: 4, label: "Parchado de Llantas", value: false },
+      ]);
+    
+      const handleCheckboxChange = (event) => {
+        const { id, checked } = event.target;
+        setOptions((prevState) =>
+          prevState.map((option) =>
+            option.id === parseInt(id) ? { ...option, value: checked } : option
+          )
+        );
+      };
+
     return (
-        <form action="" className="flex justify-between flex-wrap space-y-2">
+        <form action="" className="flex flex-col lg:grid grid-cols-2 gap-3">
             {/* INPUTS DEL FORM - INICIO */}
 
             {/* LADO IZQUIERDO */}
-            <section className="w-full lg:w-[49%] md:w-[49%] ">
-                <section className="flex lg:flex-row flex-col md:flex-row justify-between">
-
+            <section className="w-full lg:grid lg:grid-cols-2 md:grid gap-2">
+                <section>
                     <InputBasic labelName={"Nombres & Apellidos"} pHolder={"ingresa el nombre"} data={data.nombre} />
 
-                    <InputBasic labelName={"Teléfono / Celular:"} pHolder={"Aa1"} data={""} />
-
-                </section>
-
-                <section className="flex lg:flex-row flex-col md:flex-row justify-between">
-                    <div className="lg:w-[45%] md:w-[45%] w-full">
-                        <label htmlFor="" className="text-gray-400">
-                            Email:
-                        </label>
-                        <br />
-                        <input
-                            type="text"
-                            placeholder="Aa1"
-                            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-                        />
-                    </div>
-
-                    <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
+                    <InputBasic labelName={"Email:"} pHolder={"Aa1"} data={""} />
                     
-                </section>
-
-                <section className="flex lg:flex-row flex-col md:flex-row justify-between">
-
-                    <div className="lg:w-[45%] md:w-[45%] w-full">
+                    {/* Marca */}
+                    <div className="w-full">
                         <label htmlFor="" className="text-gray-400">
                             Marca:
                         </label>
@@ -72,17 +67,20 @@ const FormRecCrear = ({ data, setIsOpen }) => {
                         </select>
                     </div>
 
-                    <InputBasic labelName={"Modelo:"} pHolder={"Aa1"} data={""} />
-
-                </section>
-
-                <section className="flex lg:flex-row flex-col md:flex-row justify-between">
                     <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={""} />
 
+                </section>
+                <section>
+                    <InputBasic labelName={"Teléfono / Celular:"} pHolder={"Aa1"} data={""} />
+
+                    <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
+
+                    <InputBasic labelName={"Modelo:"} pHolder={"Aa1"} data={""} />
+                    
                     <InputBasic labelName={"Servicio solicitado:"} pHolder={"Mantenimiento express..."} data={""} />
                 </section>
 
-                <section className="flex lg:flex-row flex-col justify-between">
+                <section className="flex lg:flex-row flex-col justify-between col-start-1 col-end-3">
                     <div className="lg:w-full w-full">
                         <label htmlFor="" className="text-gray-400">
                             Detalles del servicio:
@@ -98,11 +96,15 @@ const FormRecCrear = ({ data, setIsOpen }) => {
                 </section>
 
             </section>
+            
 
             {/* LADO DERECHO */}
-            <section className="w-full lg:w-[49%] md:w-[49%]">
-                <section className="flex lg:flex-row md:flex-row flex-col justify-between">
-                    <div className="lg:w-[45%] md:w-[45%] w-full">
+            <section className="w-full">
+                
+                {/* NUMERO OT */}
+                <section className="lg:grid lg:grid-cols-2 md:grid md:grid-cols-2 gap-2 lg:gap-2 md:gap2">
+
+                    <div className="w-full">
                         <label htmlFor="" className="text-gray-400">
                             Nro OT:
                         </label>
@@ -114,7 +116,7 @@ const FormRecCrear = ({ data, setIsOpen }) => {
                         />
                     </div>
 
-                    <div className="lg:w-[45%] md:w-[45%] w-full">
+                    <div className="w-full">
                         <label htmlFor="" className="text-gray-400">
                             Tipo Servicio
                         </label>
@@ -129,10 +131,9 @@ const FormRecCrear = ({ data, setIsOpen }) => {
                         </select>
                     </div>
 
-                    
-
                 </section>
 
+                {/* ADICIONALES */}
                 <section className="grid grid-cols-2 gap-x-3">
 
                     <div className="w-full row-start-1 row-end-2">
@@ -160,24 +161,18 @@ const FormRecCrear = ({ data, setIsOpen }) => {
                         </label>
                         <br />
                         <div className="flex flex-col justify-start">
-                            <label className="p-1 flex items-center ">
-                            <input
-                                className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
-                                type="checkbox"
-                                checked={estado === "Pendiente"}
-                                onChange={() => setEstado(estado === "Pendiente" ? false : "Pendiente")}
-                            />
-                            <span className="ml-1">Pendiente</span>
+                        {options.map((option) => (
+                            <label key={option.id} className="p-1 flex items-center ">
+                                <input
+                                    type="checkbox"
+                                    id={option.id}
+                                    checked={option.value}
+                                    onChange={handleCheckboxChange}
+                                    className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-blue-500"
+                                />
+                                <span className="ml-1">{option.label}</span>
                             </label>
-                            <label className="p-1 flex items-center ">
-                            <input
-                                className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
-                                type="checkbox"
-                                checked={estado === "Listo"}
-                                onChange={() => setEstado(estado === "Listo" ? false : "Listo")}
-                            />
-                            <span className="ml-1">Listo</span>
-                            </label>
+                        ))}
                         </div>
                     </div>
 
@@ -220,7 +215,7 @@ export const InputBasic = ({ pHolder, data, labelName }) => {
     const [enabled, setEnabled] = useState(false)
 
     return (
-        <div className="lg:w-[45%] md:w-[45%] w-full">
+        <div className="w-full">
             <label htmlFor="" className="text-gray-400">
                 {labelName}
             </label>
@@ -246,7 +241,7 @@ export const InputBasic = ({ pHolder, data, labelName }) => {
 <Switch
     checked={enabled}
     onChange={setEnabled}
-    className={`${enabled ? 'bg-green-500' : 'bg-red-500'}
+    className={`${enabled ? 'bg-blue-500' : 'bg-red-500'}
 relative inline-flex h-6 w-[3rem] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
 >
     <span className="sr-only">Use setting</span>
