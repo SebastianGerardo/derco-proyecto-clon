@@ -5,7 +5,7 @@ export const DescripcionSede = () => {
   const location = useLocation();
 
   const modules = {
-    "/dashboard/abordaje": "Abordaje",
+    "/dashboard/anfitrion": "Abordaje",
     "/dashboard/recepcion": "Recepción",
     "/dashboard/almacen": "Almacén",
   }

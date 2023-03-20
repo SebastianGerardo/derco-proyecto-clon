@@ -54,7 +54,7 @@ export const FormCrear = ({ setIsOpen }) => {
             <label htmlFor="" className="inline-block min-w-[12rem] text-gray-400">
               Buscar datos de la unidad:
             </label>
-          <div className="w-full flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-blue-500 focus-within:text-blue-500">
+          <div className="w-full flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-red-500 focus-within:text-black">
             <img src="/img/search.gif" alt="" width={30} />
             <input
               type="text"

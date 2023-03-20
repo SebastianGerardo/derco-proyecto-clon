@@ -4,7 +4,7 @@ import { Switch } from '@headlessui/react'
 
 const FormRecCrear = ({ data, setIsOpen }) => {
     const [fecha, setFecha] = useState("");
-      const [estado, setEstado] = useState("")
+    const [estado, setEstado] = useState("")
 
     const [enabled, setEnabled] = useState(false)
     const [hora, setHora] = useState(false)
@@ -22,21 +22,20 @@ const FormRecCrear = ({ data, setIsOpen }) => {
         );
     }, [hora === true]);
 
-    const [options, setOptions] = useState([
-        { id: 1, label: "Lavado 1", value: false },
-        { id: 2, label: "Lavado Salón", value: false },
-        { id: 3, label: "Alineamiento", value: false },
-        { id: 4, label: "Parchado de Llantas", value: false },
-      ]);
-    
-      const handleCheckboxChange = (event) => {
-        const { id, checked } = event.target;
-        setOptions((prevState) =>
-          prevState.map((option) =>
-            option.id === parseInt(id) ? { ...option, value: checked } : option
-          )
-        );
-      };
+    const opciones = ["Opción 1", "Opción 2", "Opción 3", "Opción 4"];
+
+    const [seleccionadas, setSeleccionadas] = useState([]);
+
+    function agregarOpcionSeleccionada(e) {
+        const opcion = e.target.value;
+        if (!seleccionadas.includes(opcion)) {
+            setSeleccionadas([...seleccionadas, opcion]);
+        }
+    }
+
+    function eliminarOpcionSeleccionada(opcion) {
+        setSeleccionadas(seleccionadas.filter((o) => o !== opcion));
+    }
 
     return (
         <form action="" className="flex flex-col lg:grid grid-cols-2 gap-3">
@@ -133,7 +132,6 @@ const FormRecCrear = ({ data, setIsOpen }) => {
 
                 </section>
 
-                {/* ADICIONALES */}
                 <section className="grid grid-cols-2 gap-x-3">
 
                     <div className="w-full row-start-1 row-end-2">
@@ -155,25 +153,29 @@ const FormRecCrear = ({ data, setIsOpen }) => {
                         </select>
                     </div>
 
-                    <div className="w-full row-start-3 row-end-[-1]">
-                        <label htmlFor="" className="text-gray-400">
-                            Adicionales
-                        </label>
-                        <br />
-                        <div className="flex flex-col justify-start">
-                        {options.map((option) => (
-                            <label key={option.id} className="p-1 flex items-center ">
-                                <input
-                                    type="checkbox"
-                                    id={option.id}
-                                    checked={option.value}
-                                    onChange={handleCheckboxChange}
-                                    className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-blue-500"
-                                />
-                                <span className="ml-1">{option.label}</span>
+                    <section className="flex flex-col relative">
+                        <div className="w-full row-start-1 row-end-2">
+                            <label htmlFor="" className="text-gray-400">
+                                    Adicionales:
                             </label>
-                        ))}
+                            <select className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
+                                <option value="">Seleccione una opción</option>
+                                {opciones.map((opcion) => (
+                                <option key={opcion} value={opcion}>
+                                    {opcion}
+                                </option>
+                                ))}
+                            </select>
                         </div>
+                    </section>
+                    
+                    <div className="flex flex-col overflow-y-auto h-32">
+                        {seleccionadas.map((opcion) => (
+                         <div className="flex text-left ml-4" key={opcion}>
+                            <div className="w-4 h-4 cursor-pointer" onClick={() => eliminarOpcionSeleccionada(opcion)}> X </div>
+                            <span>{opcion}</span>
+                         </div>
+                        ))}
                     </div>
 
                     <div className="lg:w-full w-full row-start-2 row-end-3">
@@ -230,28 +232,3 @@ export const InputBasic = ({ pHolder, data, labelName }) => {
         </div>
     )
 }
-
-
-// COSAS POR MEJORAR:
-
-    //FALTA REUTILIZAR MÁS CÓDIGO, A ESPERA DE LA DATA...
-
-{/* <div className="ml-3 mt-[1.9rem] md:mt-[3rem] flex items-center">
-
-<Switch
-    checked={enabled}
-    onChange={setEnabled}
-    className={`${enabled ? 'bg-blue-500' : 'bg-red-500'}
-relative inline-flex h-6 w-[3rem] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
->
-    <span className="sr-only">Use setting</span>
-    <span
-        aria-hidden="true"
-        className={`${enabled ? 'translate-x-6' : 'translate-x-0'}
-    pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-    />
-</Switch>
-<label htmlFor="" className="ml-1 text-gray-400 min-w-[4.5rem]">
-    {enabled ? "Salida" : "Sin Salida"}
-</label>
-</div> */}
