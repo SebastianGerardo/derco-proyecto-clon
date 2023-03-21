@@ -3,7 +3,7 @@ import DataTable from "react-data-table-component";
 import { CustomHeader } from "../../../../components/CustomHeaderTable/CustomHeaderTable";
 import { Search } from "../../../../components/datatable/Search";
 import { DataAlmacen } from "../../../../helpers/DataAlmacen";
-import { DataAsignacionMecanico } from "../../../../helpers/DataAsignacionMecanico";
+import { DataAsignacionMecanico } from "../../../../helpers/DataAsignacion";
 // import { BotonFroms } from "../../../components/Boton/BotonForms";
 import { ModalMecanico } from "./ModalMecanico";
 

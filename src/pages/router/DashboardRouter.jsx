@@ -8,7 +8,7 @@ export const DashboardRouter = () => {
     <>
       <div className="flex items-start">
         <Menu />
-        <div className="max-h-screen h-screen w-full overflow-y-auto">
+        <div className="max-h-screen h-screen w-full overflow-y-auto flex flex-col">
             <Navbar />
 
               <Outlet />
