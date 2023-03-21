@@ -10,7 +10,7 @@ export const ModalRecepcion = ({ tipo, data }) => {
     <>
       <BotonFroms tipo={tipo} setIsOpen={setIsOpen} />
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
+        <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -35,22 +35,22 @@ export const ModalRecepcion = ({ tipo, data }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className={`w-full ${tipo === "reasignar" ? "max-w-2xl" : 'max-w-4xl'} transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
-                  
-                <div className='bg-[#C00000] text-white py-2 w-full'>
+
+                  <div className='bg-[#C00000] text-white py-2 w-full'>
                     <p className='text-center text-xl font-medium '>{tipo === 'reasignar' ? 'Reasignar Asesor' : 'Registro de unidad para mantenimiento'}</p>
-                    <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
-                </div>
-                   
+                    <button onClick={(e) => { e.preventDefault(); setIsOpen(false) }} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
+                  </div>
+
 
                   <div className='p-5 w-full block'>
-                    {tipo === "reasignar" ? 
-                    <FormRecAsign/>
-                  :
-                    <FormRecCrear data={data} setIsOpen={setIsOpen}/>
+                    {tipo === "reasignar" ?
+                      <FormRecAsign data={data} setIsOpen={setIsOpen} />
+                      :
+                      <FormRecCrear data={data} setIsOpen={setIsOpen} />
                     }
                   </div>
-                  
-                  
+
+
 
                 </Dialog.Panel>
               </Transition.Child>
