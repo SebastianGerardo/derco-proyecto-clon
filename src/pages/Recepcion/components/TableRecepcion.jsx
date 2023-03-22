@@ -88,39 +88,13 @@ export const TableRecepcion = ({dataRecepcion}) => {
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
 
-  const filtroEstado = (e) => {
-    e.preventDefault()
-  }
-  const [estado, setEstado] = useState("")
-  const capturarEstados = ({ target }) => {
-    setEstado(target.value)
-  }
-
-  const filtro2 = filteredItems.filter((item) =>
-    item.estado && item.estado.includes(estado))
- 
-    console.log(estado)
-
-
   return (
     <>
-      <form action="" onSubmit={filtroEstado}>
-        <select name="" id="" onChange={capturarEstados}>
-          <option value="">Estado</option>
-          <option value="Pendiente">Pendiente</option>
-          <option value="Recepcion">Recepción</option>
-          <option value="Asignación">Asignación</option>
-          <option value="Servicio">Servicio</option>
-          <option value="Lavado">Lavado</option>
-          <option value="Secado">Secado</option>
-          <option value="Entrega">Entrega</option>
-        </select>
-      </form>
       {/**Componente Search de la tabla */}
       <Search placa={placa} setPlaca={setPlaca} />
       <DataTable
         columns={columns}
-        data={estado !== "" ? filtro2 : filteredItems}
+        data={filteredItems}
         pagination
       />
     </>

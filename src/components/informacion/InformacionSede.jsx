@@ -1,13 +1,31 @@
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useState } from "react";
 import { DescripcionSede } from './DescripcionSede';
 import { EstadosCitas } from './EstadosCitas';
+import { useEffect, useState } from "react";
+import { CantCitas } from "../../helpers/ApiAnfitrion";
 
-export const InformacionSede = ({dataAnfitrion}) => {
+export const InformacionSede = () => {
 
-  const totalTasks = 38;
-  const [completedTasks, setCompletedTasks] = useState(18);
+  const [cantCitas, setCantCitas] = useState([])
+  const [bandera, setBandera] = useState(false)
+  useEffect(() => {
+    CantCitas().then(res => {
+      if(res.statusCode === 200){
+        setCantCitas(res.data) 
+        setBandera(!bandera)
+      }
+    })
+  }, [bandera])
+
+  useEffect(() => {
+    if (cantCitas?.programados) {
+      setCompletedTasks(cantCitas.programados);
+    }
+  }, [cantCitas]);
+
+  const totalTasks = cantCitas.total;
+  const [completedTasks, setCompletedTasks] = useState(0);
 
   const progress = (completedTasks / totalTasks) * 100;
 
@@ -22,14 +40,14 @@ export const InformacionSede = ({dataAnfitrion}) => {
         <DescripcionSede/>
 
         <section className='hidden lg:block'>
-          <EstadosCitas dataAnfitrion={dataAnfitrion}/>
+          <EstadosCitas cantCitas={cantCitas}/>
         </section>
 
       </div>
       <div className='flex flex-row lg:flex-col mt-4 lg:mt-0 justify-between w-full lg:w-auto lg:justify-center lg:items-center'>
 
         <section className='lg:hidden w-full'>
-          <EstadosCitas dataAnfitrion={dataAnfitrion}/>
+          <EstadosCitas cantCitas={cantCitas}/>
         </section>
 
         <section className='flex flex-col items-center justify-center'>

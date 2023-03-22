@@ -1,36 +1,80 @@
 import { useState } from "react";
 import { opcionesRecp } from "../../../helpers/EstadosGlobal";
+import { editServicio } from "../../../helpers/ApiAnfitrion";
+import { Toast } from "../../../components/Alertas/SweetAlex";
+import { InputBasic } from "../../../components/InputForms/InputBasic";
 
 export const FormRecCrear = ({ data, setIsOpen }) => {
-    const [seleccionadas, setSeleccionadas] = useState([]);
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
-        if (!seleccionadas.includes(opcion)) {
-            setSeleccionadas([...seleccionadas, opcion]);
+        if (!dataRegistro.adicionales.includes(opcion)) {
+          setDataRegistro({
+            ...dataRegistro,
+            adicionales: [...dataRegistro.adicionales, opcion],
+          });
         }
-    }
+      }
 
     function eliminarOpcionSeleccionada(opcion) {
-        setSeleccionadas(seleccionadas.filter((o) => o !== opcion));
+        setDataRegistro({
+            ...dataRegistro,
+            adicionales: dataRegistro.adicionales.filter((item) => item !== opcion),
+        });
     }
-    const [dataRegistro, setDataRegistro] = useState({
-        nombres: data.nombres,
-        placa: data.placa
-    })
 
+    const [dataRegistro, setDataRegistro] = useState({
+        adicionales: [],
+        asesor: data.asesor,
+        asistencia: data.asistencia,
+        comentario: data.comentario,
+        correo: data.correo,
+        detalleServicio: data.detalleServicio,
+        estado: data.estado,
+        fechaCita: data.fechaCita,
+        fechaEntrada: data.fechaEntrada,
+        fechaRegistro: data.fechaRegistro,
+        horaEstimadaEntrega: data.horaEstimadaEntrega,
+        id: data.id,
+        marca: data.marca,
+        modelo: data.modelo,
+        nombres: data.nombres,
+        ot: data.ot,
+        placa: data.placa,
+        telefono: data.telefono,
+        tipoCita: data.tipoCita,
+        tipoServicio: data.tipoServicio,
+        vehiculoKilometraje: data.vehiculoKilometraje,
+    })
+    
     const registrarUnidad = (e) => {
+        let datosFormateados = []
         e.preventDefault()
         /**CAC LOS MANDAS */
+        datosFormateados.push(dataRegistro)
+        editServicio(datosFormateados, dataRegistro.id).then((res) => {
+          if (res.statusCode === 200) {
+            Toast.fire({
+              icon: "success",
+              title: "OT registrada exitosamente!",
+            });
+            setIsOpen(false);
+          } else {
+            Toast.fire({
+              icon: "error",
+              title: "No se registró correctamente el OT",
+            });
+            console.log("error", res)
+            console.log("dataError", datosFormateados)
+          }
+        });
     }
-    
+
     const captura = (e) => {
         setDataRegistro({
          ...dataRegistro,
         [e.target.name]: e.target.value,
-    });
-
-
-}
+        });
+    }
 
 return (
     <form action="" className="flex flex-col lg:grid grid-cols-2 gap-3" onSubmit={registrarUnidad}>
@@ -41,22 +85,22 @@ return (
             <section>
                 <InputBasic labelName={"Nombres & Apellidos"} pHolder={"ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} />
 
-                <InputBasic labelName={"Email:"} pHolder={"Aa1"} data={data.correo} />
+                <InputBasic labelName={"Email:"} pHolder={"Aa1"} data={dataRegistro.correo} onChange={captura} name={"correo"}/>
 
                 {/* Marca */}
-                <InputBasic labelName={"Marca :"} pHolder={"SAPITO"} data={data.marca} />
+                <InputBasic labelName={"Marca :"} pHolder={"SAPITO"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
 
-                <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={data.vehiculoKilometraje} />
+                <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} />
 
             </section>
             <section>
-                <InputBasic labelName={"Teléfono / Celular:"} pHolder={"Aa1"} data={data.telefono} />
+                <InputBasic labelName={"Teléfono / Celular:"} pHolder={"Aa1"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
 
-                <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
+                <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} />
 
-                <InputBasic labelName={"Modelo:"} pHolder={"Aa1"} data={data.modelo} />
+                <InputBasic labelName={"Modelo:"} pHolder={"Aa1"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} />
 
-                <InputBasic labelName={"Servicio solicitado:"} pHolder={"Mantenimiento express..."} data={""} />
+                <InputBasic labelName={"Servicio solicitado:"} pHolder={"Mantenimiento express..."} data={dataRegistro.tipoCita} onChange={captura} name={"tipoCita"}/>
             </section>
 
             <section className="flex lg:flex-row flex-col justify-between col-start-1 col-end-3">
@@ -66,7 +110,9 @@ return (
                     </label>
                     <br />
                     <textarea
-
+                        value={dataRegistro.detalleServicio || ""}
+                        name="detalleServicio"
+                        onChange={captura}
                         type="text"
                         placeholder="Detalles..."
                         className="resize-none w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
@@ -83,17 +129,7 @@ return (
             {/* NUMERO OT */}
             <section className="lg:grid lg:grid-cols-2 md:grid md:grid-cols-2 gap-2 lg:gap-2 md:gap2">
 
-                <div className="w-full">
-                    <label htmlFor="" className="text-gray-400">
-                        Nro OT:
-                    </label>
-                    <br />
-                    <input
-                        type="text"
-                        placeholder="ABC123"
-                        className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-                    />
-                </div>
+                <InputBasic labelName={"Nro OT:"} pHolder={"12261743"} data={dataRegistro.ot} onChange={captura} name={"ot"} />
 
                 <div className="w-full">
                     <label htmlFor="" className="text-gray-400">
@@ -101,12 +137,14 @@ return (
                     </label>
                     <br />
                     <select
-                        name=""
+                        value={dataRegistro.tipoServicio || ""}
+                        name="tipoServicio"
+                        onChange={captura}
                         id=""
                         className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                     >
                         <option value="">Elegir:</option>
-                        <option value="">Mantención Flexible</option>
+                        <option value="Mantencion Flexible">Mantención Flexible</option>
                     </select>
                 </div>
 
@@ -120,16 +158,18 @@ return (
                     </label>
                     <br />
                     <select
-                        name=""
+                        value={dataRegistro.horaEstimadaEntrega || ""}
+                        onChange={captura}
+                        name="horaEstimadaEntrega"
                         id=""
                         className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                     >
                         <option value="">Elegir:</option>
-                        <option value="">2:15</option>
-                        <option value="">2:30</option>
-                        <option value="">2:45</option>
-                        <option value="">3:00</option>
-                        <option value="">3:15</option>
+                        <option value="2:15">2:15</option>
+                        <option value="2:30">2:30</option>
+                        <option value="2:45">2:45</option>
+                        <option value="3:00">3:00</option>
+                        <option value="3:15">3:15</option>
                     </select>
                 </div>
 
@@ -138,7 +178,7 @@ return (
                         <label htmlFor="" className="text-gray-400">
                             Adicionales:
                         </label>
-                        <select className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
+                        <select className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada} name="adicionales">
                             <option value="">Seleccione una opción</option>
                             {opcionesRecp.map((opcion) => (
                                 <option key={opcion} value={opcion}>
@@ -150,7 +190,7 @@ return (
                 </section>
 
                 <div className="flex gap-1 flex-wrap">
-                    {seleccionadas.map((opcion) => (
+                    {dataRegistro.adicionales.map((opcion) => (
                         <div className="flex bg-red-500 h-6 rounded-full px-2 gap-1 items-center mt-2 text-white" key={opcion}>
                             <div>{opcion}</div>
                             <div className="cursor-pointer" onClick={() => eliminarOpcionSeleccionada(opcion)}> X </div>
@@ -164,6 +204,9 @@ return (
                     </label>
                     <br />
                     <textarea
+                        value={dataRegistro.comentario || ""}
+                        name="comentario"
+                        onChange={captura}
                         type="text"
                         placeholder="Comentarios del cliente"
                         className="resize-none w-full border border-gray-300 h-24 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
@@ -187,27 +230,3 @@ return (
     </form>
 );
 };
-
-
-
-
-// INPUTS PREESTABLECIDOS:
-
-export const InputBasic = ({ pHolder, data, labelName, onChange, name }) => {
-    return (
-        <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-                {labelName}
-            </label>
-            <br />
-            <input
-                onChange={onChange}
-                value={data}
-                name={name}
-                type="text"
-                placeholder={pHolder}
-                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            />
-        </div>
-    )
-}
