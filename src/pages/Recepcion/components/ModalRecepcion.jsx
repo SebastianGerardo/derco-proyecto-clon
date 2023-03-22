@@ -3,7 +3,8 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { BotonFroms } from '../../../components/Boton/BotonForms';
 import FormRecAsign from './FormRecAsign';
-import FormRecCrear from './FormRecCrear';
+import { FormRecCrear } from './FormRecCrear';
+
 export const ModalRecepcion = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (

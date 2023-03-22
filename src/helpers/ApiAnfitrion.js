@@ -7,7 +7,7 @@ export const TraeDataAnfitrion = async () => {
       credentials: "include",
     });
     const data = await fetchResponse.json();
-    console.log(data);
+    console.log(data)
     return data;
   } catch (error) {
     return error;
@@ -15,7 +15,7 @@ export const TraeDataAnfitrion = async () => {
 };
 
 export const crearServicio = async (registro) => {
-  console.log(registro)
+  console.log(registro);
   try {
     const fetchResponse = await fetch(`${URL}/servicios/crear`, {
       method: "POST",
@@ -38,6 +38,19 @@ export const editServicio = async (registro, id) => {
       headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(registro),
+    });
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const CantCitas = async () => {
+  try {
+    const fetchResponse = await fetch(`${URL}/servicios`, {
+      method: "GET",
+      credentials: "include",
     });
     const data = await fetchResponse.json();
     return data;
