@@ -6,7 +6,7 @@ export const BarraMenu = () => {
   /**Agregando Roles */
   const { UsuarioLogin } = useContext(UserContext);
   const permisos = UsuarioLogin?.usuario?.tipo.permisos;
-  console.log(permisos)
+
   return (
     <div className="h-full overflow-hidden relative flex flex-col justify-center z-999">
       <div className="lg:block hidden w-full h-16 absolute top-0">
@@ -31,7 +31,6 @@ export const BarraMenu = () => {
                 <i className="fa-solid fa-address-card"></i>{per.modulo.nombre}
               </NavLink>
             )
-
           ))}
       </div>
     </div>

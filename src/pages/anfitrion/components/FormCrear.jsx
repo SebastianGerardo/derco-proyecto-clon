@@ -10,24 +10,32 @@ export const FormCrear = ({ setIsOpen }) => {
   useEffect(() => {
     Asesores().then((use) => setAsesores(use.data));
   }, []);
+
   const [datosRegistro, setDatosRegistro] = useState({
     nombres: "",
     placa: "",
     vehiculoKilometraje: "",
-    asesor: "",
-    estado: ""
+    asesor: {id: ""},
+    estado: "",
+    tipoCita: "S"
   });
+
   const handleInputChange = (e) => {
     setDatosRegistro({
       ...datosRegistro,
-      [e.target.name]: e.target.value,
+      [e.target.name] : e.target.value,
     });
+  };
+
+  const handleAsesorChange = (e) => {
+    const { value } = e.target;
+    setDatosRegistro({ ...datosRegistro, asesor: { id: value } });
   };
   /*CAMBIAR EL ERROR*/
   const crearRistro = (e) => {
     let datosFormateados = []
-    datosFormateados.push(datosRegistro)
     e.preventDefault();
+    datosFormateados.push(datosRegistro)
     crearServicio(datosFormateados).then((res) => {
       if (res.statusCode === 200) {
         Toast.fire({
@@ -120,7 +128,7 @@ export const FormCrear = ({ setIsOpen }) => {
             <br />
             <select
               name="asesor"
-              onChange={handleInputChange}
+              onChange={handleAsesorChange}
               className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
             >
               <option value="" disabled>Elegir:</option>

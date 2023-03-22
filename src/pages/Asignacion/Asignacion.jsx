@@ -8,6 +8,7 @@ const Asignacion = () => {
         <NavLink
         //Esta ruta solo es de prueba, al tener el usuario con rol de admin esta deberá ser cambiada a su correspondiente ruta
         to='/dashboard/asignacion' 
+        state={{ logged: true }}
         className={({ isActive, isPending }) =>
              isPending ? "" : isActive ? "p-1 w-[16rem] text-center bg-black text-white rounded-t-md" : "p-1 w-[16rem] text-center bg-gray-100 text-white rounded-t-md"
             }
@@ -16,7 +17,8 @@ const Asignacion = () => {
             Asignacion de Tecnico Mecanico
         </NavLink>
         <NavLink
-        to='/dashboard/asignacion/servicio'
+        to='/dashboard/asignacion/servicios'
+        state={{ logged: true }}
         className={({ isActive, isPending }) =>
              isPending ? "" : isActive ? "p-1 w-[16rem] text-center bg-black text-white rounded-t-md" : "p-1 w-[16rem] text-center bg-gray-400 text-white rounded-t-md"
             }
