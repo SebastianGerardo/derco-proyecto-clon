@@ -29,6 +29,8 @@ export const Navbar = () => {
     "/dashboard/anfitrion": "Abordaje",
     "/dashboard/recepcion": "Recepción",
     "/dashboard/almacen": "Almacén",
+    "/dashboard/asignacion": "Asignación",
+    "/dashboard/asignacion/servicio": "Asignación",
   }
 
   return (

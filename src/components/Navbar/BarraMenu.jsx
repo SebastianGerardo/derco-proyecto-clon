@@ -11,7 +11,7 @@ export const BarraMenu = () => {
       <div className="lg:block hidden w-full h-16 absolute top-0">
         <img
           src="https://app.elipse.ai/hs-fs/hubfs/Derco%20Center%20Logo%20Blanco.png?width=1920&name=Derco%20Center%20Logo%20Blanco.png"
-          alt="Desarrollo Global"
+          alt="Derco Center"
           className="mx-auto min-w-full min-h-full object-cover"
         />
       </div>

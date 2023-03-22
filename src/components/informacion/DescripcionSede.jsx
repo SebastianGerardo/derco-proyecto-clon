@@ -8,6 +8,8 @@ export const DescripcionSede = () => {
     "/dashboard/anfitrion": "Abordaje",
     "/dashboard/recepcion": "Recepción",
     "/dashboard/almacen": "Almacén",
+    "/dashboard/asignacion": "Asignación",
+    "/dashboard/asignacion/servicio": "Asignación",
   }
   return (
     <div className="grid grid-cols-2 lg:flex lg:flex-row gap-4 lg:gap-16 flex-wrap w-full text-center">
