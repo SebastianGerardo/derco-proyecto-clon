@@ -1,14 +1,16 @@
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { traeRecepcion } from "../../helpers/ApiRecepcion";
 import { TableRecepcion } from "./components/TableRecepcion";
 import { DescripcionSede } from "../../components/informacion/DescripcionSede";
+import { UserContext } from "../../context/ContextDerco";
 
 export const Recepcion = () => {
   const [dataRecepcion, setDataRecepcion] = useState([])
+  const { estadoData } = useContext(UserContext);
   useEffect(()=>{
     traeRecepcion().then(res=>setDataRecepcion(res.data))
-  },[])
+  },[estadoData])
 
   return (
     <>
