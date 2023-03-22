@@ -6,6 +6,7 @@ export const BarraMenu = () => {
   /**Agregando Roles */
   const { UsuarioLogin } = useContext(UserContext);
   const permisos = UsuarioLogin?.usuario?.tipo.permisos;
+  console.log(permisos)
   return (
     <div className="h-full overflow-hidden relative flex flex-col justify-center z-999">
       <div className="lg:block hidden w-full h-16 absolute top-0">
@@ -18,16 +19,19 @@ export const BarraMenu = () => {
       <div className="space-y-2 px-6 flex flex-col justify-center h-full ">
         {permisos !== undefined &&
           permisos.map((per) => (
-            <NavLink key={per.id}
-              className="flex items-center gap-6 text-white font-medium text-lg py-3"
-              to={per.modulo.url}
-              state={{ logged: true }}
-              style={({ isActive }) =>
-                isActive ? { color: "#3e3e3e" } : undefined
-              }
-            >
-              <i className="fa-solid fa-address-card"></i>{per.modulo.nombre}
-            </NavLink>
+            per.modulo.visible === "1" && (
+              <NavLink key={per.id}
+                className="flex items-center gap-6 text-white font-medium text-lg py-3"
+                to={per.modulo.url}
+                state={{ logged: true }}
+                style={({ isActive }) =>
+                  isActive ? { color: "#3e3e3e" } : undefined
+                }
+              >
+                <i className="fa-solid fa-address-card"></i>{per.modulo.nombre}
+              </NavLink>
+            )
+
           ))}
       </div>
     </div>

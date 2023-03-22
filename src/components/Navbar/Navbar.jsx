@@ -17,7 +17,6 @@ export const Navbar = () => {
   useOnClickOutside(ref, handle);
 
   const CerrarSesion = () =>{
-    console.log("Di clock")
     CerrarSesionUsu().then((res)=>{
         res.statusCode === 200 && navigate("/login", {replace:true})
     })

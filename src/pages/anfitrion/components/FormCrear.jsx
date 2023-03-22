@@ -23,7 +23,7 @@ export const FormCrear = ({ setIsOpen }) => {
       [e.target.name]: e.target.value,
     });
   };
-
+  /*CAMBIAR EL ERROR*/
   const crearRistro = (e) => {
     let datosFormateados = []
     datosFormateados.push(datosRegistro)
