@@ -1,9 +1,6 @@
-
-
 export const EstadosCitas = ({cantCitas}) => {
-  
   return (
-    <div className="flex w-full flex-wrap items-center justify-start lg:justify-between">
+    <div className="flex w-full flex-wrap items-center justify-center lg:justify-between">
       <div className="mt-5">
 
         <div className="flex flex-col gap-[1px] mt-[1px] lg:flex-row lg:w-full">

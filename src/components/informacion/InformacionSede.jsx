@@ -9,6 +9,7 @@ export const InformacionSede = () => {
 
   const [cantCitas, setCantCitas] = useState([])
   const [bandera, setBandera] = useState(false)
+
   useEffect(() => {
     CantCitas().then(res => {
       if(res.statusCode === 200){
@@ -44,18 +45,18 @@ export const InformacionSede = () => {
         </section>
 
       </div>
-      <div className='flex flex-row lg:flex-col mt-4 lg:mt-0 justify-between w-full lg:w-auto lg:justify-center lg:items-center'>
+      <div className='grid grid-cols-2 lg:flex lg:flex-col mt-4 lg:mt-0 justify-between w-full lg:w-auto lg:justify-center lg:items-center'>
 
         <section className='lg:hidden w-full'>
           <EstadosCitas cantCitas={cantCitas}/>
         </section>
 
-        <section className='flex flex-col items-center justify-center'>
+        <section className='grid place-items-center'>
           <div>
             <p className='font-bold text-center'>Avance:</p>
           </div>
           <div className='w-[100px] h-[100px] mt-1'>
-            <CircularProgressbar value={progress} text={`${parseInt(progress)}%`} />
+            <CircularProgressbar value={progress ? progress : 0 } text={`${progress === Infinity || NaN ? 0 : (progress ? parseInt(progress) : 0) }%`} />
           </div>
         </section>
 

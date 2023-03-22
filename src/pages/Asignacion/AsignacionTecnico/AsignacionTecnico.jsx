@@ -5,7 +5,7 @@ import { TableMecanico } from "./components/TableMecanico";
 export const AsignacionTecnico = () => {
   return (
     <>
-          <div className="grow bg-gray-100 shadow-md rounded-sm py-3 px-5 w-full">
+          <div className="grow shadow-md rounded-sm py-3 px-5 w-full">
             <TableMecanico />
           </div>  
     </>

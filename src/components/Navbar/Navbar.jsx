@@ -29,7 +29,7 @@ export const Navbar = () => {
     "/dashboard/recepcion": "Recepción",
     "/dashboard/almacen": "Almacén",
     "/dashboard/asignacion": "Asignación",
-    "/dashboard/asignacion/servicio": "Asignación",
+    "/dashboard/asignacion/servicios": "Asignación",
   }
 
   return (
