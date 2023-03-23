@@ -105,3 +105,9 @@ h1 {
   }
 
 }
+
+@media screen and ( max-width: 680px ){
+  .db {
+    display: flex;
+  }
+}
