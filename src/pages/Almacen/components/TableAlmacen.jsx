@@ -32,7 +32,7 @@ export const TableAlmacen = ({ data }) => {
     },
     {
       name: <CustomHeader nameModule="SERVICIO" icon="fa-solid fa-tools mr-1" />,
-      selector: (row) => row.tipoServicio.nombre,
+      selector: (row) => row.tipoServicio?.nombre,
       sortable: true,
       center: true
     },
