@@ -80,7 +80,7 @@ export const BtnMasivo = () => {
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
                                     <div className='bg-[#C00000] text-white py-2 w-full'>
                                         <p className='text-center text-xl font-medium '>Módulo de carga masiva</p>
-                                        <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
+                                        <button onClick={(e) => { e.preventDefault(); setIsOpen(false) }} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                                     </div>
                                     <div className='p-5 w-full block'>
                                         <form action="" className='mx-auto mt-5' onSubmit={subirDatos}>
@@ -91,8 +91,13 @@ export const BtnMasivo = () => {
                                                 file:bg-green-50 file:text-green-700
                                                 hover:file:bg-green-100
                                                 "/>
-                                            <button type="submit" className='bg-black text-white rounded-md p-2 font-semibold mt-5 mx-auto flex items-center gap-3'><i className="flex gap items-cemter gap -3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
+                                            <div className='flex items-center mt-5 justify-center gap-5'>
+                                                <button type="submit" className='bg-black text-white rounded-md p-2 font-semibold flex items-center gap-3'><i className="flex gap items-cemter gap-3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
+                                                <a href='/documentos/Plantilla Derco.xlsx' className='p-2 bg-green-500 rounded-md text-white font-semibold flex items-center gap-3'><i className="fa-solid fa-download flex"></i>Descargar Plantilla</a>
+                                            </div>
+
                                         </form>
+
                                         <p className='font-bold text-sm text-red-400 mt-5'>*Nota: <span className="font-normal">El módulo de carga masiva solo aceptará formatos .xls, .xlsx, otros tipos de formatos dará error.</span></p>
                                     </div>
                                 </Dialog.Panel>
