@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import { UserContext } from '../../context/ContextDerco';
 
 
 export const DescripcionSede = () => {
   const [date, setDate] = useState(new Date());
+
+  const { UsuarioLogin } = useContext(UserContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,13 +37,15 @@ export const DescripcionSede = () => {
         <p className="font-bold">
           Taller:
         </p>
-        <span className="font-normal">Surco</span>
+        <span className="font-normal">
+          {UsuarioLogin?.usuario?.centro?.distrito}
+        </span>
       </div>
       <div className='lg:flex lg:gap-1'>
         <p className="font-bold">
           Anfitrion:
         </p>
-        <span className="font-normal">Luis Flores</span>
+        <span className="font-normal">{UsuarioLogin?.usuario?.nombres} {UsuarioLogin?.usuario?.apellidos}</span>
       </div>
       <div className='lg:flex lg:gap-1'>
         <p className="font-bold">

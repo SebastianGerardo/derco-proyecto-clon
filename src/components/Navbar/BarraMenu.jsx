@@ -1,12 +1,29 @@
-import { useContext, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect} from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { UserContext } from "../../context/ContextDerco";
 import '../../index.css'
 
 export const BarraMenu = () => {
-  /**Agregando Roles */
+  
+  const location = useLocation()
+  const navigate = useNavigate()
+
   const { UsuarioLogin } = useContext(UserContext);
-  const permisos = UsuarioLogin?.usuario?.tipo.permisos;
+  const permisos = UsuarioLogin?.usuario?.tipo?.permisos;
+  const permisosUrl = permisos?.[0].modulo.url
+
+  console.log(typeof(permisosUrl))
+
+  useEffect(() => {
+    if (location.pathname === "/dashboard") {
+      navigate(permisosUrl, {
+        state: {
+          logged: true
+        }
+      });
+    }
+  }, [location]);
 
   return (
     <div className="h-screen overflow-auto lg:overflow-hidden relative flex flex-col justify-center z-999">
