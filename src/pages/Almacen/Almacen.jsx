@@ -9,10 +9,10 @@ export const Almacen = () => {
   useEffect(()=>{
     const interval = setInterval(() => {
       traeAlmacen().then(res => setInfoAlmacen(res.data))
-    }, 1000);
+    }, 2000);
     return () => clearInterval(interval);
-  },[estadoData])
-  
+  },[])
+
   return (
     <>
       <div className="p-6">
