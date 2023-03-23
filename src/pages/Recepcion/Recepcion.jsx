@@ -9,7 +9,10 @@ export const Recepcion = () => {
   const [dataRecepcion, setDataRecepcion] = useState([])
   const { estadoData } = useContext(UserContext);
   useEffect(()=>{
-    traeRecepcion().then(res=>setDataRecepcion(res.data))
+    const interval = setInterval(() => {
+      traeRecepcion().then(res=>setDataRecepcion(res.data))
+    }, 1000);
+    return () => clearInterval(interval);
   },[estadoData])
 
   return (
