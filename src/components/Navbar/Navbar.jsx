@@ -1,27 +1,19 @@
 import { useRef, useState } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import { BarraMenu } from "./BarraMenu";
-import { useNavigate } from "react-router-dom";
-import { CerrarSesionUsu } from "../../helpers/ApiUsuarios";
 import { useLocation } from "react-router-dom";
 import '../../index.css'
+import PerfilHamburguesa from "./PerfilHamburguesa";
 
 export const Navbar = () => {
   const ref = useRef(null);
   const [menu, setMenu] = useState(false);
-  const [menuUser, setMenuUser] = useState(false);
-  const navigate = useNavigate();
   const handle = () => {
     setMenu(false);
-    setMenuUser(false);
   };
   useOnClickOutside(ref, handle);
-
-  const CerrarSesion = () =>{
-    CerrarSesionUsu().then((res)=>{
-        res.statusCode === 200 && navigate("/login", {replace:true})
-    })
-  }
+  
+  
 
   const location = useLocation();
 
@@ -79,54 +71,20 @@ export const Navbar = () => {
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/*ver notificaciones*/}
-            <button
+            {/* <button
               type="button"
               className="relative rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-blue-800"
             >
               <div className="absolute w-2 h-2 bg-blue-600 top-0 left-3/4 rounded-full"></div>
               <i className="fa-regular fa-bell"></i>
-            </button>
+            </button> */}
 
             {/* PERFIL HAMBURGUESA */}
 
             <div className="relative ml-3">
-              <div>
-                <label
-                  onClick={() => setMenuUser(!menuUser)}
-                  className="flex p-3 rounded-sm text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 gap-3 items-center hover:bg-slate-500 cursor-pointer"
-                >
-                  <img
-                    className="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
-                  />
-                  <div className="hidden lg:block">
-                    <h2 className="font-medium">Juan Perez</h2>
-                    <p className="p-0 m-0">Admin</p>
-                  </div>
-                </label>
-                <div
-                  className={`absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden ${
-                    menuUser && "!block"
-                  }`}
-                >
-                  <a
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 transition-all duration-150 hover:text-gray-500"
-                  >
-                    <i className="fa-solid fa-gear fx-1 mr-2"></i>Cambiar
-                    Contraseña
-                  </a>
-                  <button
-                    onClick={() => CerrarSesion()}
-                    href="#"
-                    className="block px-4 py-2 text-sm text-gray-700 transition-all duration-150 hover:text-gray-500"
-                  >
-                    <i className="fa-solid fa-right-from-bracket fa-1x mr-2"></i>
-                    Cerrar Sesion
-                  </button>
-                </div>
-              </div>
+               
+                <PerfilHamburguesa />
+
             </div>
           </div>
         </div>
