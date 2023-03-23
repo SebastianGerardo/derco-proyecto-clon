@@ -14,7 +14,7 @@ export const Recepcion = () => {
     }, 1000);
     return () => clearInterval(interval);
   },[estadoData])
-
+  console.log(dataRecepcion)
   return (
     <>
       <div className="p-6">
