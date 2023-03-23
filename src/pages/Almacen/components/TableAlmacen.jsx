@@ -44,7 +44,7 @@ export const TableAlmacen = ({ data }) => {
     },
     {
       name: <CustomHeader nameModule="HORA CITA" icon="fa-solid fa-clock mr-1" />,
-      selector: (row) => row.fechaCita === null && "--",
+      selector: (row) => row.fechaEntrada === null && "--",
       sortable: true,
       center: true
     },

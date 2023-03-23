@@ -21,7 +21,8 @@ export const FormEdit = ({ data, setIsOpen }) => {
       asistencia: e.target.estado.value,
       asesor: {
         id: e.target.asesor.value
-      }
+      },
+      fechaEntrada: new Date()
     }
     console.log("Llege jaia", datos)
     editServicio(datos, data.id).then(res =>{

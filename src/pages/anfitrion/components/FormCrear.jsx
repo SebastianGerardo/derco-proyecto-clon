@@ -17,7 +17,8 @@ export const FormCrear = ({ setIsOpen }) => {
     vehiculoKilometraje: "",
     asesor: {id: ""},
     estado: "",
-    tipoCita: "S"
+    tipoCita: "S",
+    fechaEntrada: new Date()
   });
 
   const handleInputChange = (e) => {

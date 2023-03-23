@@ -46,6 +46,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         telefono: data.telefono,
         tipoServicio: data.tipoServicio,
         vehiculoKilometraje: data.vehiculoKilometraje,
+        estadoPicking: "0"
     })
 
     const registrarUnidad = (e) => {
