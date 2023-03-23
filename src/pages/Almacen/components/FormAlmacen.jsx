@@ -35,7 +35,7 @@ const FormAlmacen = ({ data, setIsOpen }) => {
                 {/* LADO DERECHO */}
                 <section className="w-full lg:w-full md:w-full">
 
-                    <InputBasic labelName={'Tipo de Servicio:'} pHolder={'Mantenimiento Flexible'} data={data.tipoServicio.nombre} />
+                    <InputBasic labelName={'Tipo de Servicio:'} pHolder={'Mantenimiento Flexible'} data={data.tipoServicio?.nombre} />
 
                     <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
 
