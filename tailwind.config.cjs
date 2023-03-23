@@ -16,7 +16,7 @@ module.exports = {
         "0": "0%",
       },
       backgroundImage: {
-        'young-pattern': "url('./src/assets/opt-youngmechanic.jpg')",
+        'young-pattern': "url('/img/opt-youngmechanic.jpg')",
       }
     },
   },
