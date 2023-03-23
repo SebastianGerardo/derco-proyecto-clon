@@ -11,7 +11,7 @@ export const Recepcion = () => {
   useEffect(()=>{
     const interval = setInterval(() => {
       traeRecepcion().then(res=>setDataRecepcion(res.data))
-    }, 2000);
+    }, 1000);
     return () => clearInterval(interval);
   },[estadoData])
 

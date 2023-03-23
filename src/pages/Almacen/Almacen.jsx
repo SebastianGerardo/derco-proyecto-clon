@@ -9,7 +9,7 @@ export const Almacen = () => {
   useEffect(()=>{
     const interval = setInterval(() => {
       traeAlmacen().then(res => setInfoAlmacen(res.data))
-    }, 2000);
+    }, 1000);
     return () => clearInterval(interval);
   },[])
   console.log(infoAlmacen)
