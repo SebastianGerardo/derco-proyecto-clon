@@ -7,7 +7,6 @@ export const TraeDataAnfitrion = async () => {
       credentials: "include",
     });
     const data = await fetchResponse.json();
-    console.log(data)
     return data;
   } catch (error) {
     return error;
@@ -32,7 +31,7 @@ export const crearServicio = async (registro) => {
 
 /* ESTA API SIRVE PARA ACTULIZAR LOS DATOS DE RECEPCUON Y ANFITRION*/
 export const editServicio = async (registro, id) => {
-  console.log(registro)
+  console.log(registro);
   try {
     const fetchResponse = await fetch(`${URL}/servicios/actualizar/${id}`, {
       method: "PUT",

@@ -11,13 +11,16 @@ export const InformacionSede = () => {
   const [bandera, setBandera] = useState(false)
 
   useEffect(() => {
+    
     CantCitas().then(res => {
       if(res.statusCode === 200){
-        setCantCitas(res.data) 
+        setCantCitas(res.data.concita) 
         setBandera(!bandera)
       }
     })
   }, [bandera])
+
+
 
   useEffect(() => {
     if (cantCitas?.programados) {

@@ -1,4 +1,4 @@
-export const EstadosCitas = ({cantCitas}) => {
+export const EstadosCitas = ({ cantCitas }) => {
   return (
     <div className="flex w-full flex-wrap items-center justify-center lg:justify-between">
       <div className="mt-5">
@@ -10,7 +10,7 @@ export const EstadosCitas = ({cantCitas}) => {
               <span className="hidden lg:inline">Citas</span> Cargadas:
             </p>
             <p className="text-base text-center font-semibold">
-                {cantCitas.total === undefined ? 0 : cantCitas.total}
+              {cantCitas.total === undefined ? 0 : cantCitas.total}
             </p>
           </div>
           <div className="py-1 px-3 text-black flex items-center gap-2 lg:gap-2 rounded-md">
@@ -32,7 +32,7 @@ export const EstadosCitas = ({cantCitas}) => {
             </p>
           </div>
         </div>
-        
+
       </div>
     </div>
   );
