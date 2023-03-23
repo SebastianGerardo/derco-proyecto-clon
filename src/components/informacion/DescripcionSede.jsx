@@ -19,7 +19,7 @@ export const DescripcionSede = () => {
     "/dashboard/recepcion": "Recepción",
     "/dashboard/almacen": "Almacén",
     "/dashboard/asignacion": "Asignación",
-    "/dashboard/asignacion/servicio": "Asignación",
+    "/dashboard/asignacion/servicios": "Asignación",
   }
   
   return (

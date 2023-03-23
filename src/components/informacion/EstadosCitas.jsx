@@ -7,25 +7,29 @@ export const EstadosCitas = ({cantCitas}) => {
           <div className="py-1 px-3 text-black flex items-center gap-2 lg:flex lg:gap-1 rounded-md">
             <div className="w-5 h-5 bg-blue-400 rounded-md"></div>
             <p className="text-base text-center">
-              <span className="hidden lg:inline">Citas</span> Cargadas
+              <span className="hidden lg:inline">Citas</span> Cargadas:
             </p>
             <p className="text-base text-center font-semibold">
-                {cantCitas.total}
+                {cantCitas.total === undefined ? 0 : cantCitas.total}
             </p>
           </div>
           <div className="py-1 px-3 text-black flex items-center gap-2 lg:gap-2 rounded-md">
             <div className="w-5 h-5 bg-green-400 rounded-md"></div>
             <p className="text-base text-center">
-              <span className="hidden lg:inline">Citas</span> Programadas
+              <span className="hidden lg:inline">Citas</span> Programadas:
             </p>
-            <p className="text-base text-center">{cantCitas.programados}</p>
+            <p className="text-base text-center font-semibold">
+              {cantCitas.programados === undefined ? 0 : cantCitas.programados}
+            </p>
           </div>
           <div className="py-1 px-3 text-black flex items-center gap-2 lg:gap-2 rounded-md">
             <div className="w-5 h-5 bg-yellow-400 rounded-md"></div>
             <p className="text-base text-center">
-              <span className="hidden lg:inline">Citas</span> Pendientes
+              <span onClick={() => console.log(null == false)} className="hidden lg:inline">Citas</span> Pendientes:
             </p>
-            <p className="text-base text-center">{cantCitas.pendientes}</p>
+            <p className="text-base text-center font-semibold">
+              {cantCitas.pendientes === undefined ? 0 : cantCitas.pendientes}
+            </p>
           </div>
         </div>
         

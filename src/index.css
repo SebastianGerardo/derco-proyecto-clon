@@ -95,3 +95,13 @@ h1 {
     transform: translateY(-50px) scaleX(1);
   }
 }
+
+@media screen and ( min-height: 680px ){
+  .sg {
+    display: block;
+  }
+  .db {
+    display: none;
+  }
+
+}
