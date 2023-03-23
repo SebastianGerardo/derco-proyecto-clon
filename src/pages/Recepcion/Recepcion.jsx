@@ -11,10 +11,10 @@ export const Recepcion = () => {
   useEffect(()=>{
     const interval = setInterval(() => {
       traeRecepcion().then(res=>setDataRecepcion(res.data))
-    }, 1000);
+    }, 2000);
     return () => clearInterval(interval);
   },[estadoData])
-  console.log(dataRecepcion)
+
   return (
     <>
       <div className="p-6">

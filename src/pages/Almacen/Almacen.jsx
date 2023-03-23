@@ -6,10 +6,13 @@ import { TableAlmacen } from "./components/TableAlmacen";
 export const Almacen = () => {
   const [infoAlmacen, setInfoAlmacen] = useState([])
 
-  useEffect(() => {
-    traeAlmacen().then(res => setInfoAlmacen(res.data))
-  }, [])
-
+  useEffect(()=>{
+    const interval = setInterval(() => {
+      traeAlmacen().then(res => setInfoAlmacen(res.data))
+    }, 1000);
+    return () => clearInterval(interval);
+  },[estadoData])
+  
   return (
     <>
       <div className="p-6">
