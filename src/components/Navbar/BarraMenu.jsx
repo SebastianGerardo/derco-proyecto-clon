@@ -12,6 +12,8 @@ export const BarraMenu = () => {
 
   console.log(typeof(permisosUrl))
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     if (location.pathname === "/dashboard") {
       navigate(permisosUrl, {
