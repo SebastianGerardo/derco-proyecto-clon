@@ -37,7 +37,7 @@ export const DescripcionSede = () => {
         <p className="font-bold">
           Anfitrion:
         </p>
-        <span className="font-normal">{UsuarioLogin?.usuario?.nombres} {UsuarioLogin?.usuario?.apellidos}</span>
+        <span className="font-normal">{UsuarioLogin?.usuario?.nombres?.split(' ', 1)} {UsuarioLogin?.usuario?.apellidos?.split(' ', 1)}</span>
       </div>
       <div className='lg:flex lg:gap-1'>
         <p className="font-bold">

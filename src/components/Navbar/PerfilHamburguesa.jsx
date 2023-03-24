@@ -30,7 +30,7 @@ export default function PerfilHamburguesa() {
                   </div>
 
                   <div className="hidden lg:block">
-                    <h2 className="font-medium">{UsuarioLogin?.usuario?.nombres} {UsuarioLogin?.usuario?.apellidos}</h2>
+                    <h2 className="font-medium">{UsuarioLogin?.usuario?.nombres?.split(' ', 1)} {UsuarioLogin?.usuario?.apellidos?.split(' ', 1)}</h2>
                     <p className="text-start p-0 m-0">{UsuarioLogin?.usuario?.tipo?.nombre}</p>
                   </div>
                 </label>
