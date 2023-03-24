@@ -6,7 +6,7 @@ import { UserContext } from '../../context/ContextDerco';
 export const DescripcionSede = () => {
   const [date, setDate] = useState(new Date());
 
-  const { UsuarioLogin } = useContext(UserContext);
+  const { UsuarioLogin, modules } = useContext(UserContext);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,15 +15,7 @@ export const DescripcionSede = () => {
     return () => clearInterval(interval);
   }, []);
 
-
   const location = useLocation();
-  const modules = {
-    "/dashboard/anfitrion": "Abordaje",
-    "/dashboard/recepcion": "Recepción",
-    "/dashboard/almacen": "Almacén",
-    "/dashboard/asignacion": "Asignación",
-    "/dashboard/asignacion/servicios": "Asignación",
-  }
   
   return (
     <div className="grid grid-cols-2 lg:flex lg:flex-row gap-4 lg:gap-16 flex-wrap w-full text-center">

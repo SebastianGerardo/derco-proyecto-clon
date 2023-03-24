@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 import { BarraMenu } from "./BarraMenu";
 import { useLocation } from "react-router-dom";
 import '../../index.css'
 import PerfilHamburguesa from "./PerfilHamburguesa";
+import { UserContext } from "../../context/ContextDerco";
 
 export const Navbar = () => {
   const ref = useRef(null);
@@ -13,45 +14,44 @@ export const Navbar = () => {
   };
   useOnClickOutside(ref, handle);
   
+  const { UsuarioLogin, modules } = useContext(UserContext);
+  const permisos = UsuarioLogin?.usuario?.tipo?.permisos;
+  const permisosModulos = permisos?.length <= 3 ? false : true;
   
-
   const location = useLocation();
-
-  const modules = {
-    "/dashboard/anfitrion": "Abordaje",
-    "/dashboard/recepcion": "Recepción",
-    "/dashboard/almacen": "Almacén",
-    "/dashboard/asignacion": "Asignación",
-    "/dashboard/asignacion/servicios": "Asignación",
-  }
 
   return (
     <div className="bg-white w-full shadow-md" ref={ref}>
       <div className="mx-auto container px-2 lg:px-8 min-w-full">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex justify-between gap-4 ">
-            <div className="ml-3 flex items-center md:!flex lg:!hidden xl:!hidden">
-              {/*Hamburguesa */}
-
-              <label
-                onClick={() => setMenu(!menu)}
-                className="flex flex-col justify-center rounded-md p-2 bg-gray-400 text-white hover:bg-blue-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              >
-                <div className="h-0.5 w-4 bg-white transition"></div>
-                <div className="h-0.5 w-5 bg-white transition mt-1"></div>
-                <div className="h-0.5 w-4 bg-white transition mt-1"></div>
-              </label>
-              <div
-                className={`z-999 bg-redDerco h-screen shadow-lg fixed top-[0%] translate-x-[-150%] transition ${
-                  menu && "translate-x-[-8%]"
-                } w-64`}
-              >
-                <BarraMenu />
-              </div>
-            </div>
+            {/*Hamburguesa */}
+              {
+                permisosModulos
+                  &&
+                (
+                  <div className="ml-3 flex items-center md:!flex lg:!hidden xl:!hidden">
+                    <label
+                      onClick={() => setMenu(!menu)}
+                      className="flex flex-col justify-center rounded-md p-2 bg-gray-400 text-white hover:bg-blue-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                    >
+                      <div className="h-0.5 w-4 bg-white transition"></div>
+                      <div className="h-0.5 w-5 bg-white transition mt-1"></div>
+                      <div className="h-0.5 w-4 bg-white transition mt-1"></div>
+                    </label>
+                    <div
+                      className={`z-999 bg-redDerco h-screen shadow-lg fixed top-[0%] translate-x-[-150%] transition ${
+                        menu && "translate-x-[-8%]"
+                      } w-64`}
+                    >
+                      <BarraMenu />
+                    </div>
+                  </div>
+                )
+              }
             <span className="flex items-center gap-2">
               {/* LOGO DERCO TOPBAR */}
-              <div className="flex db items-center justify-center sm:items-stretch sm:justify-start">
+              <div className={`flex ${permisosModulos === true ? "db" : "" } items-center justify-center sm:items-stretch sm:justify-start`}>
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className=" h-12 w-auto"
@@ -60,7 +60,7 @@ export const Navbar = () => {
                   />
                 </div>
               </div>
-              
+
               <div>
                 <p className="hidden lg:block font-bold text-3xl">
                   <span>{location.pathname === "/dashboard" ? '' : "Módulo |"}</span> <span className="font-normal">{modules[location.pathname]}</span>

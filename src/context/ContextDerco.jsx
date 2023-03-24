@@ -8,6 +8,13 @@ export const ContextDerco = ({ children }) => {
   const navigate = useNavigate();
   const [estadoData, setEstadoData ] = useState(false)
   const [UsuarioLogin, setUsuarioLogin] = useState([]);
+  const [modules, setModules] = useState({
+    "/dashboard/anfitrion": "Abordaje",
+    "/dashboard/recepcion": "Recepción",
+    "/dashboard/almacen": "Almacén",
+    "/dashboard/asignacion": "Asignación",
+    "/dashboard/asignacion/servicios": "Asignación",
+  })
   useEffect(() => {
     VerificarSesion().then((res) => {
       if (res.statusCode === 200) {
@@ -24,7 +31,7 @@ export const ContextDerco = ({ children }) => {
     });
   }, []);
   return (
-    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData}}>
+    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules}}>
       {children}
     </UserContext.Provider>
   );
