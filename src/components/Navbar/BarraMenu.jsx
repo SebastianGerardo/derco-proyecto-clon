@@ -8,21 +8,6 @@ export const BarraMenu = () => {
   
   const { UsuarioLogin } = useContext(UserContext);
   const permisos = UsuarioLogin?.usuario?.tipo?.permisos;
-  const permisosUrl = permisos?.[0].modulo.url
-
-  console.log(typeof(permisosUrl))
-
-  const navigate = useNavigate()
-
-  useEffect(() => {
-    if (location.pathname === "/dashboard") {
-      navigate(permisosUrl, {
-        state: {
-          logged: true
-        }
-      });
-    }
-  }, [location]);
 
   return (
     <div className="h-screen overflow-auto lg:overflow-hidden relative flex flex-col justify-center z-999">

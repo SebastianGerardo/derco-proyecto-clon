@@ -9,9 +9,9 @@ export default function PerfilHamburguesa() {
 
   const navigate = useNavigate();
 
-  const CerrarSesion = () => {
-    CerrarSesionUsu().then((res) => {
-      res.statusCode === 200 && navigate("/login", { replace: true })
+  const CerrarSesion = () =>{
+    CerrarSesionUsu().then((res)=>{
+        res.statusCode === 200 && navigate("/login", {replace:true})
     })
   }
 
@@ -30,7 +30,7 @@ export default function PerfilHamburguesa() {
                   </div>
 
                   <div className="hidden lg:block">
-                    <h2 className="font-medium">{UsuarioLogin?.usuario?.nombres} {UsuarioLogin?.usuario?.apellidos}</h2>
+                    <h2 className="font-medium">{UsuarioLogin?.usuario?.nombres?.split(' ', 1)} {UsuarioLogin?.usuario?.apellidos?.split(' ', 1)}</h2>
                     <p className="text-start p-0 m-0">{UsuarioLogin?.usuario?.tipo?.nombre}</p>
                   </div>
                 </label>
@@ -49,10 +49,11 @@ export default function PerfilHamburguesa() {
             <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
-                  <a
+                <a
                     href="#"
-                    className={`${active ? 'transition-all duration-150 hover:bg-gray-500 hover:text-white' : 'transition-all duration-150 text-gray-900'
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    className={`${
+                              active ? 'transition-all duration-150 hover:bg-gray-500 hover:text-white' : 'transition-all duration-150 text-gray-900'
+                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <i className="fa-solid fa-gear fx-1 mr-2"></i>Cambiar
                     Contraseña
@@ -61,10 +62,11 @@ export default function PerfilHamburguesa() {
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <button
+                <button
                     onClick={() => CerrarSesion()}
                     href="#"
-                    className={`${active ? 'transition-all duration-150 hover:bg-gray-500 hover:text-white' : 'transition-all duration-150 text-gray-900'
+                    className={`${
+                        active ? 'transition-all duration-150 hover:bg-gray-500 hover:text-white' : 'transition-all duration-150 text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <i className="fa-solid fa-right-from-bracket fa-1x mr-2"></i>
