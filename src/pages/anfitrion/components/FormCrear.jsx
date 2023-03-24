@@ -3,6 +3,7 @@ import { Toast } from "../../../components/Alertas/SweetAlex";
 import { UserContext } from "../../../context/ContextDerco";
 import { crearServicio } from "../../../helpers/ApiAnfitrion";
 import { Asesores } from "../../../helpers/ApiUsuarios";
+import { FormtearFecha } from "../../../helpers/funcions";
 
 export const FormCrear = ({ setIsOpen }) => {
   const { estadoData, setEstadoData } = useContext(UserContext);
@@ -100,7 +101,7 @@ export const FormCrear = ({ setIsOpen }) => {
               type="text"
               disabled
               // value={FormtearFecha(data.fechaRegistro)}
-              value="10-03-2023 10:09AM"
+              value={`${FormtearFecha(new Date())}`}
               className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
             />
           </div>

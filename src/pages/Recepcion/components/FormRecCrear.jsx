@@ -27,7 +27,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         });
 
     }
-
+    const [fechaInicioRecepcion, setFechaInicioRecepcion] = useState("")
     const [dataRegistro, setDataRegistro] = useState({
         adicionales: [],
         asistencia: data.asistencia,
@@ -46,11 +46,13 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         telefono: data.telefono,
         tipoServicio: data.tipoServicio,
         vehiculoKilometraje: data.vehiculoKilometraje,
-        estadoPicking: "0"
+        estadoPicking: "0",
+        fechaInicioRecepcion: new Date()
     })
 
     const registrarUnidad = (e) => {
         e.preventDefault()
+
         const valores = {
             ...dataRegistro,
             adicionales: JSON.stringify(dataRegistro.adicionales)

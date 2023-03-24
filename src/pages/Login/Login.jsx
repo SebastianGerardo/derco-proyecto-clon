@@ -25,7 +25,7 @@ export const Login = () => {
     event.preventDefault();
     IniciarSesion(datosUsuarios).then((val) => {
       if (val.statusCode == 200) {
-        console.log("Soy el usuaario",val)
+        console.log("Soy el usuaario", val)
         setUsuarioLogin(val.data);
         localStorage.setItem("usuarioDerco", JSON.stringify(val));
         navigate("/dashboard", {
@@ -68,33 +68,19 @@ export const Login = () => {
             </p>
 
             <form action="" className="mt-5 inputLogin" onSubmit={enviarDatos}>
+
+
               <div className="relative">
-                <input
-                  type="email"
-                  name="correo"
-                  placeholder=" "
-                  className="peer block p-4 w-full text-base appearance-none bg-transparent border-2 rounded-md focus:outline-none focus-within:border-blue-500"
-                  onChange={handleInputChange}
-                />
+                <input type="email" id="floating_outlined1" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-white rounded-lg border appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " onChange={handleInputChange} name="correo" />
                 <p className="mt-2 ml-2 invisible hidden peer-invalid:visible peer-invalid:block text-pink-600 text-sm ">
                   Por favor ingrese una dirección de correo válida.
                 </p>
-                <label className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">
-                  Correo
-                </label>
+                <label htmlFor="floating_outlined1" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Correo Electronico</label>
               </div>
 
-              <div className=" relative ">
-                <input
-                  type="password"
-                  name="clave"
-                  placeholder=" "
-                  className="block p-4 w-full text-base appearance-none bg-transparent border-2 mt-5 rounded-md focus:outline-none focus-within:border-blue-500 "
-                  onChange={handleInputChange}
-                />
-                <label className="absolute top-0 text-base bg-white p-4 -z-1 duration-300 origin-0 text-gray-400">
-                  Contraseña
-                </label>
+              <div className="relative mt-5">
+                <input type="password" id="floating_outlined2" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-white rounded-lg border appearance-none dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " onChange={handleInputChange} name="clave" />
+                <label htmlFor="floating_outlined2" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Contraseña</label>
               </div>
 
               <button

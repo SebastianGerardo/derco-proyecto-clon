@@ -2,6 +2,7 @@ import { useState } from "react";
 import DataTable from "react-data-table-component";
 import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
 import { Search } from "../../../components/datatable/Search";
+import { FormtearFecha } from "../../../helpers/funcions";
 import { ModalAlmacen } from "./ModalAlmacen";
 
 export const TableAlmacen = ({ data }) => {
@@ -43,8 +44,8 @@ export const TableAlmacen = ({ data }) => {
       center: true
     },
     {
-      name: <CustomHeader nameModule="HORA CITA" icon="fa-solid fa-clock mr-1" />,
-      selector: (row) => row.fechaEntrada === null && "--",
+      name: <CustomHeader nameModule="HORA RECEPCION" icon="fa-solid fa-clock mr-1" />,
+      selector: (row) => row.fechaInicioRecepcion === null ? "--" : `${FormtearFecha(row.fechaInicioRecepcion)}`,
       sortable: true,
       center: true
     },

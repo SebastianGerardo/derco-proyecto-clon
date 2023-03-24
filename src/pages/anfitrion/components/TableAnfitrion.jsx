@@ -6,6 +6,7 @@ import { useCargando } from "../../../hooks/useCargando";
 import { ModalAnfitrion } from "./ModalAnfitrion";
 import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
 import { BtnMasivo } from "./BtnMasivo";
+import { FormtearFecha } from "../../../helpers/funcions";
 
 
 const columns = [
@@ -49,7 +50,7 @@ const columns = [
   {
     name: <CustomHeader nameModule="HORA CITA" icon='fa-solid fa-clock mr-1' />,
     selector: (row) => (
-      <p>{row.fechaCita !== null ? `${row.fechaCita} pm` : "--"} </p>
+      <p>{row.fechaCita !== null ? `${FormtearFecha(new Date(row.fechaCita))}` : "--"} </p>
     ),
     sortable: true,
     center: true,
@@ -122,7 +123,7 @@ const columns = [
   },
 ];
 export const TableAnfitrion = ({ dataAnfitrion }) => {
-
+  console.log(dataAnfitrion)
   /*FIltro de DataTable*/
   const [placa, setPlaca] = useState("");
   const filteredItems = dataAnfitrion?.filter(

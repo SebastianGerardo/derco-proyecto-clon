@@ -11,6 +11,15 @@ export const BtnMasivo = () => {
         setExcel(e.target.files[0])
     }
     const { estadoData, setEstadoData } = useContext(UserContext);
+
+    function convertirFecha(fecha) {
+        var partes = fecha.split(" ");
+        var fechaPartes = partes[0].split("/");
+        var horaPartes = partes[1].split(":");
+        var nuevaFecha = new Date(fechaPartes[2], fechaPartes[1] - 1, fechaPartes[0], horaPartes[0], horaPartes[1], horaPartes[2]);
+        return nuevaFecha.toISOString();
+      }
+
     const subirDatos = (e) => {
         e.preventDefault()
         if (excel) {
@@ -21,7 +30,11 @@ export const BtnMasivo = () => {
                 let dataParseada = read(data, { type: "binary" })
                 dataParseada.SheetNames.map((resul) => {
                     let rowObject = utils.sheet_to_row_object_array(dataParseada.Sheets[resul])
-                    crearServicio(rowObject).then((res) => {
+                    let nuevoValor = rowObject.map((res)=>({
+                        ...res,
+                        fechaCita: new Date(convertirFecha(res.fechaCita))
+                    }))
+                    crearServicio(nuevoValor).then((res) => {
                         if (res.statusCode === 200) {
                             Toast.fire({
                                 icon: "success",

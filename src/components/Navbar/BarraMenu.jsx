@@ -13,7 +13,6 @@ export const BarraMenu = () => {
   const permisos = UsuarioLogin?.usuario?.tipo?.permisos;
   const permisosUrl = permisos?.[0].modulo.url
 
-  console.log(typeof(permisosUrl))
 
   useEffect(() => {
     if (location.pathname === "/dashboard") {
