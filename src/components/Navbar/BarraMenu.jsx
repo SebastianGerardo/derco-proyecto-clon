@@ -6,22 +6,8 @@ import '../../index.css'
 
 export const BarraMenu = () => {
   
-  const location = useLocation()
-  const navigate = useNavigate()
-
   const { UsuarioLogin } = useContext(UserContext);
   const permisos = UsuarioLogin?.usuario?.tipo?.permisos;
-  const permisosUrl = permisos?.[0].modulo.url
-
-  useEffect(() => {
-    if (location.pathname === "/dashboard") {
-      navigate(permisosUrl, {
-        state: {
-          logged: true
-        }
-      });
-    }
-  }, [location]);
 
   return (
     <div className="h-screen overflow-auto lg:overflow-hidden relative flex flex-col justify-center z-999">
