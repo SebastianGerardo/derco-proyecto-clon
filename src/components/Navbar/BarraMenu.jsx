@@ -9,6 +9,7 @@ export const BarraMenu = () => {
   const { UsuarioLogin } = useContext(UserContext);
   const permisos = UsuarioLogin?.usuario?.tipo?.permisos;
 <<<<<<< HEAD
+<<<<<<< HEAD
   const permisosUrl = permisos?.[0].modulo.url
 
 
@@ -21,6 +22,8 @@ export const BarraMenu = () => {
       });
     }
   }, [location]);
+=======
+>>>>>>> 9559e4cd14e5d3c26b088e0b61bee37af3208eda
 =======
 >>>>>>> 9559e4cd14e5d3c26b088e0b61bee37af3208eda
 
