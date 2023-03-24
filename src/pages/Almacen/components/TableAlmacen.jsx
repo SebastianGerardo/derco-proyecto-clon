@@ -120,7 +120,7 @@ export const TableAlmacen = ({ data }) => {
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
                 checked={estado === "0"}
-                onChange={() => setEstado(estado === "0" ? false : "0")}
+                onChange={() => setEstado(estado === "0" ? "" : "0")}
               />
               <span className="ml-1">Pendiente</span>
             </label>
@@ -130,7 +130,7 @@ export const TableAlmacen = ({ data }) => {
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
                 checked={estado === "1"}
-                onChange={() => setEstado(estado === "1" ? false : "1")}
+                onChange={() => setEstado(estado === "1" ? "" : "1")}
               />
               <span className="ml-1">Listo</span>
             </label>

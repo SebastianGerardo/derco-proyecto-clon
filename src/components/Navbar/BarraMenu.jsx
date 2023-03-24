@@ -6,11 +6,9 @@ import '../../index.css'
 
 export const BarraMenu = () => {
   
-  const location = useLocation()
-  const navigate = useNavigate()
-
   const { UsuarioLogin } = useContext(UserContext);
   const permisos = UsuarioLogin?.usuario?.tipo?.permisos;
+<<<<<<< HEAD
   const permisosUrl = permisos?.[0].modulo.url
 
 
@@ -23,6 +21,8 @@ export const BarraMenu = () => {
       });
     }
   }, [location]);
+=======
+>>>>>>> 9559e4cd14e5d3c26b088e0b61bee37af3208eda
 
   return (
     <div className="h-screen overflow-auto lg:overflow-hidden relative flex flex-col justify-center z-999">
