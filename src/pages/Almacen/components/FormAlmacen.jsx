@@ -41,7 +41,6 @@ const FormAlmacen = ({ data, setIsOpen }) => {
 
                     <InputBasic labelName={"Modelo:"} pHolder={"C4"} data={data.modelo} />
 
-                    <InputBasic labelName={"Fecha / Hora"} pHolder={"13/03/2023 02:25:PM"} data={""} />
 
                 </section>
                 <section className="lg:w-full w-full col-start-1 col-end-3">
