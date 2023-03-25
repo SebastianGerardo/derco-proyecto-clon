@@ -11,17 +11,20 @@ const columns = [
     </svg>
     ,
     width: "5rem",
+    center: true
   },
   {
     name: <CustomHeader nameModule="CLIENTE" icon="fa-solid fa-user mr-1" />,
     selector: (row) => <p>{row.nombres}</p>,
     sortable: true,
     width: "15rem",
+    center: true
   },
   {
     name: <CustomHeader nameModule="TELEFONO" icon="fa-solid fa-phone mr-1" />,
     cell: (row) => <p>{row.telefono}</p>,
     sortable: true,
+    center: true
   },
   {
     name: <CustomHeader nameModule="PLACA" icon="fa-solid fa-id-card mr-1" />,

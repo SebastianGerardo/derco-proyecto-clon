@@ -32,7 +32,7 @@ export const BtnMasivo = () => {
                     let rowObject = utils.sheet_to_row_object_array(dataParseada.Sheets[resul])
                     let nuevoValor = rowObject.map((res)=>({
                         ...res,
-                        fechaCita: new Date(convertirFecha(res.fechaCita))
+                        fechaCita: new Date(convertirFecha(`${res.fechaCita}:00`))
                     }))
                     crearServicio(nuevoValor).then((res) => {
                         if (res.statusCode === 200) {

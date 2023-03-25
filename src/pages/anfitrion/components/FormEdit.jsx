@@ -13,10 +13,22 @@ export const FormEdit = ({ data, setIsOpen }) => {
     Asesores().then((use) => setAsesores(use.data));
   }, []);
 
+
+  const [datosEdita, setEditar] = useState({
+    vehiculoKilometraje: data.vehiculoKilometraje
+  })
+
+
+  const handleInputChange = (e) => {
+    setEditar({
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const editarRegistro = (e) => {
     e.preventDefault()
     let datos = {
-      vehiculoKilometraje: e.target.vehiculoKilometraje.value,
+      vehiculoKilometraje: datosEdita.vehiculoKilometraje,
       estado: "2",
       asistencia: e.target.estado.value,
       asesor: {
@@ -25,15 +37,15 @@ export const FormEdit = ({ data, setIsOpen }) => {
       fechaEntrada: new Date()
     }
     console.log("Llege jaia", datos)
-    editServicio(datos, data.id).then(res =>{
-      if(res.statusCode === 200){
+    editServicio(datos, data.id).then(res => {
+      if (res.statusCode === 200) {
         Toast.fire({
           icon: "success",
-          title: "Servicio asignado correctamente",
+          title: "Asesor asignado correctamente",
         });
         setEstadoData(!estadoData)
         setIsOpen(false)
-      }else{
+      } else {
         Toast.fire({
           icon: "error",
           title: "Ocurrir un error al asignar servicio",
@@ -82,7 +94,9 @@ export const FormEdit = ({ data, setIsOpen }) => {
           <br />
           <input
             type="text"
-            id="vehiculoKilometraje"
+            onChange={handleInputChange}
+            value={datosEdita.vehiculoKilometraje}
+            name="vehiculoKilometraje"
             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
           />
         </div>

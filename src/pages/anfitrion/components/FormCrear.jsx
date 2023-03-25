@@ -4,6 +4,7 @@ import { UserContext } from "../../../context/ContextDerco";
 import { crearServicio } from "../../../helpers/ApiAnfitrion";
 import { Asesores } from "../../../helpers/ApiUsuarios";
 import { FormtearFecha } from "../../../helpers/funcions";
+import { BuscarPlaca } from "./BuscarPlaca";
 
 export const FormCrear = ({ setIsOpen }) => {
   const { estadoData, setEstadoData } = useContext(UserContext);
@@ -16,7 +17,7 @@ export const FormCrear = ({ setIsOpen }) => {
     nombres: "",
     placa: "",
     vehiculoKilometraje: "",
-    asesor: {id: ""},
+    asesor: { id: "" },
     estado: "",
     tipoCita: "S",
     fechaEntrada: new Date()
@@ -25,7 +26,7 @@ export const FormCrear = ({ setIsOpen }) => {
   const handleInputChange = (e) => {
     setDatosRegistro({
       ...datosRegistro,
-      [e.target.name] : e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -42,7 +43,7 @@ export const FormCrear = ({ setIsOpen }) => {
       if (res.statusCode === 200) {
         Toast.fire({
           icon: "success",
-          title: "Usuario Creado Exitosamente",
+          title: "Cliente Creado Exitosamente",
         });
         setIsOpen(false);
         setEstadoData(!estadoData);
@@ -55,139 +56,132 @@ export const FormCrear = ({ setIsOpen }) => {
     });
   };
   return (
-    <form
-      action=""
-      className="flex justify-between flex-wrap space-y-2 p-5 w-full"
-      onSubmit={crearRistro}
-    >
-      <div className="lg:w-full flex flex-col lg:flex-row items-start lg:items-center w-full">
-            <label htmlFor="" className="inline-block min-w-[12rem] text-gray-400">
-              Buscar datos de la unidad:
-            </label>
-          <div className="w-full flex p-2 items-center gap-3 border-2 rounded-md border-gray-400 focus-within:border-red-500 focus-within:text-black">
-            <img src="/img/search.gif" alt="" width={30} />
-            <input
-              type="text"
-              className="outline-none w-full"
-              // value={placa}
-              // onChange={(e) => capturarPlaca(e)}
-              placeholder="Buscar por placa"
-            />
-          </div>
+
+    <>
+      <BuscarPlaca  setDatosRegistro={setDatosRegistro}/>
+      <form
+        action=""
+        className="flex justify-between flex-wrap space-y-2 p-5 pt-0 w-full"
+        onSubmit={crearRistro}
+      >
+
+        <div className="w-full lg:grid lg:grid-cols-3 lg:gap-3">
+          <section>
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Nombre {`&`} Apellido:
+              </label>
+              <br />
+              <input
+                type="text"
+                name="nombres"
+                value={datosRegistro.nombres}
+                onChange={handleInputChange}
+                placeholder="Juan Perez"
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              />
+            </div>
+
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Fecha / Hora:
+              </label>
+              <br />
+              <input
+                type="text"
+                disabled
+                // value={FormtearFecha(data.fechaRegistro)}
+                value={`${FormtearFecha(new Date())}`}
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              />
+            </div>
+
+          </section>
+
+          <section>
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Placa:
+              </label>
+              <br />
+              <input
+                type="text"
+                name="placa"
+                value={datosRegistro.placa}
+                onChange={handleInputChange}
+                placeholder="ABC123"
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              />
+            </div>
+
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Asignar Asesor:
+              </label>
+              <br />
+              <select
+                name="asesor"
+                onChange={handleAsesorChange}
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              >
+                <option value="">Elegir:</option>
+                {asesores.length > 0 &&
+                  asesores.map((ase) => (
+                    <option value={parseInt(ase.id)} key={ase.id}>
+                      {ase.nombres}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          </section>
+
+          <section>
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Kilometraje Real:
+              </label>
+              <br />
+              <input
+                name="vehiculoKilometraje"
+                type="text"
+                value={datosRegistro.vehiculoKilometraje}
+                onChange={handleInputChange}
+                placeholder="5000"
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              />
+            </div>
+
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Estado:
+              </label>
+              <br />
+              <select
+                name="estado"
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              >
+                <option value="">Elegir:</option>
+                <option value="0">No Asignado</option>
+                <option value="1">Pendiente</option>
+                <option value="2">Asignado</option>
+              </select>
+            </div>
+          </section>
         </div>
 
-      <div className="w-full lg:grid lg:grid-cols-3 lg:gap-3">
-        <section>
-          <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-              Nombre {`&`} Apellido:
-            </label>
-            <br />
-            <input
-              type="text"
-              name="nombres"
-              onChange={handleInputChange}
-              placeholder="Juan Perez"
-              className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            />
-          </div>
+        <div className="flex justify-center w-full items-center mt-10">
+          <button
+            type="submit"
+            className="flex items-center gap-2 mt-5 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          >
+            <i className="fa-solid fa-floppy-disk"></i>
+            Guardar
+          </button>
+        </div>
 
-          <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-              Fecha / Hora:
-            </label>
-            <br />
-            <input
-              type="text"
-              disabled
-              // value={FormtearFecha(data.fechaRegistro)}
-              value={`${FormtearFecha(new Date())}`}
-              className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            />
-          </div>
+      </form>
+    </>
 
-        </section>
-        
-        <section>
-          <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-              Placa:
-            </label>
-            <br />
-            <input
-              type="text"
-              name="placa"
-              onChange={handleInputChange}
-              placeholder="ABC123"
-              className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            />
-          </div>
-
-          <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-              Asignar Asesor:
-            </label>
-            <br />
-            <select
-              name="asesor"
-              onChange={handleAsesorChange}
-              className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            >
-              <option value="" disabled>Elegir:</option>
-              {asesores.length > 0 &&
-                asesores.map((ase) => (
-                  <option value={parseInt(ase.id)} key={ase.id}>
-                    {ase.nombres}
-                  </option>
-                ))}
-            </select>
-          </div>
-        </section>
-
-        <section>
-          <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-              Kilometraje Real:
-            </label>
-            <br />
-            <input
-              name="vehiculoKilometraje"
-              type="text"
-              onChange={handleInputChange}
-              placeholder="5000"
-              className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            />
-          </div>
-
-          <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-              Estado:
-            </label>
-            <br />
-            <select
-              name="estado"
-              onChange={handleInputChange}
-              className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            >
-              <option value="">Elegir:</option>
-              <option value="0">No Asignado</option>
-              <option value="1">Pendiente</option>
-              <option value="2">Asignado</option>
-            </select>
-          </div>          
-        </section>
-      </div>
-      
-      <div className="flex justify-center w-full items-center mt-10">
-        <button
-          type="submit"
-          className="flex items-center gap-2 mt-5 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-        >
-          <i className="fa-solid fa-floppy-disk"></i>
-          Guardar
-        </button>
-      </div>
-      
-    </form>
   );
 };

@@ -58,3 +58,17 @@ export const CantCitas = async () => {
     return error;
   }
 };
+
+export const BuscarCliente = async ({placa}) => {
+  console.log("NOSE QUE LLEGO", placa)
+  try {
+    const fetchResponse = await fetch(`${URL}/servicios/placa/${placa}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

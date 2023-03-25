@@ -28,6 +28,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
 
     }
     const [fechaInicioRecepcion, setFechaInicioRecepcion] = useState("")
+    
     const [dataRegistro, setDataRegistro] = useState({
         adicionales: [],
         asistencia: data.asistencia,
@@ -47,6 +48,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         tipoServicio: data.tipoServicio,
         vehiculoKilometraje: data.vehiculoKilometraje,
         estadoPicking: "0",
+        servicioSolicitado: data.servicioSolicitado,
         fechaInicioRecepcion: new Date()
     })
 
@@ -89,11 +91,13 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                     <InputBasic labelName={"Email:"} pHolder={"Aa1"} data={dataRegistro.correo} onChange={captura} name={"correo"} />
                     <InputBasic labelName={"Marca :"} pHolder={"SAPITO"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
                     <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} />
+
                 </section>
                 <section>
                     <InputBasic labelName={"Teléfono / Celular:"} pHolder={"Aa1"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
                     <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} />
                     <InputBasic labelName={"Modelo:"} pHolder={"Aa1"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} />
+                    <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"vehiculoKilometraje"} />
                 </section>
 
                 <section className="flex lg:flex-row flex-col justify-between col-start-1 col-end-3">
