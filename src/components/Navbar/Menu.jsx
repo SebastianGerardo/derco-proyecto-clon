@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/ContextDerco";
 import { BarraMenu } from "./BarraMenu";
@@ -12,13 +12,25 @@ export const Menu = () => {
   const modulos = permisos?.length <= 3 ? false : true;
   const permisosUrl = permisos?.[0].modulo.url
 
+  const [lastLocation, setLastLocation] = useState(null);
+
   useEffect(() => {
     if (location.pathname === "/dashboard") {
-      navigate(permisosUrl, {
-        state: {
-          logged: true
-        }
-      });
+      if (lastLocation) {
+        navigate(lastLocation, {
+          state: {
+            logged: true
+          }
+        });
+      } else {
+        navigate(permisosUrl, {
+          state: {
+            logged: true
+          }
+        });
+      }
+    } else {
+      setLastLocation(location.pathname);
     }
   }, [location]);
 

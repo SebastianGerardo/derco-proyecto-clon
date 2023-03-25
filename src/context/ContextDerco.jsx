@@ -15,6 +15,14 @@ export const ContextDerco = ({ children }) => {
     "/dashboard/asignacion": "Asignación",
     "/dashboard/asignacion/servicios": "Asignación",
   })
+
+  const [rolModule, setRolModule] = useState({
+    "/dashboard/anfitrion": "Anfitrión",
+    "/dashboard/recepcion": "Receptor",
+    "/dashboard/almacen": " Almacenero",
+    "/dashboard/asignacion": "Asignación",
+    "/dashboard/asignacion/servicios": "Asignación",
+  })
   useEffect(() => {
     VerificarSesion().then((res) => {
       if (res.statusCode === 200) {
@@ -31,7 +39,7 @@ export const ContextDerco = ({ children }) => {
     });
   }, []);
   return (
-    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules}}>
+    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules, rolModule}}>
       {children}
     </UserContext.Provider>
   );

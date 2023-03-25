@@ -13,6 +13,7 @@ export default function PerfilHamburguesa() {
     CerrarSesionUsu().then((res) => {
       res.statusCode === 200 && navigate("/login", { replace: true })
     })
+    localStorage.clear();
   }
 
   return (
