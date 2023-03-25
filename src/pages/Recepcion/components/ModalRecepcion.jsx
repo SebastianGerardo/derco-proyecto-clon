@@ -39,7 +39,7 @@ export const ModalRecepcion = ({ tipo, data }) => {
 
                   <div className='bg-[#C00000] text-white py-2 w-full'>
                     <p className='text-center text-xl font-medium '>{tipo === 'reasignar' ? 'Reasignar Asesor' : 'Registro de unidad para mantenimiento'}</p>
-                    <button onClick={(e) => { e.preventDefault(); setIsOpen(false) }} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
+                    <button onClick={(e) => { e.preventDefault(); setIsOpen(false) }} className="hidden md:block lg:block absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                   </div>
 
 

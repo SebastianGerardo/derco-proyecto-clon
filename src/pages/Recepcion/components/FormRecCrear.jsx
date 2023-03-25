@@ -97,7 +97,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                     <InputBasic labelName={"Teléfono / Celular:"} pHolder={"Aa1"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
                     <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} />
                     <InputBasic labelName={"Modelo:"} pHolder={"Aa1"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} />
-                    <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"vehiculoKilometraje"} />
+                    <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} />
                 </section>
 
                 <section className="flex lg:flex-row flex-col justify-between col-start-1 col-end-3">
@@ -163,29 +163,30 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                             <option value="3:15">3:15</option>
                         </select>
                     </div>
-                    <section className="flex flex-col relative">
-                        <div className="w-full row-start-1 row-end-2">
-                            <label htmlFor="" className="text-gray-400">
-                                Adicionales:
-                            </label>
-                            <select className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada} name="adicionales">
-                                <option value="">Seleccione una opción</option>
-                                {opcionesRecp.map((opcion) => (
-                                    <option key={opcion} value={opcion}>
-                                        {opcion}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </section>
-
-                    <div className="flex gap-1 flex-wrap">
-                        {dataRegistro.adicionales.map((opcion) => (
-                            <div className="flex bg-red-500 h-6 rounded-full px-2 gap-1 items-center mt-2 text-white" key={opcion}>
-                                <div>{opcion}</div>
-                                <div className="cursor-pointer" onClick={() => eliminarOpcionSeleccionada(opcion)}> X </div>
+                    <div className="flex flex-col relative">
+                        <label htmlFor="adicionales" className="text-gray-400">Adicionales:</label>
+                        <select id="adicionales" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
+                            <option value="">Seleccione una opción</option>
+                            {opcionesRecp.map((opcion) => (
+                            <option key={opcion} value={opcion}>
+                                {opcion}
+                            </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="flex flex-col overflow-y-auto w-full mx-auto h-[7.5rem] mt-2 border border-gray-300 rounded-md">
+                        {dataRegistro.adicionales.length > 0 &&
+                        dataRegistro.adicionales.map((opcion) => (
+                            <div className="flex items-center text-left px-3 py-2 border-b border-gray-300" key={opcion}>
+                            <div className="rounded-full relative w-4 h-4 mr-2 text-gray-500 hover:text-white hover:bg-red-500 hover:border-red-500 cursor-pointer border border-gray-400 border-solid flex items-center justify-center transition-colors duration-300" onClick={() => eliminarOpcionSeleccionada(opcion)}>
+                                <h1 className="font-bold text-sm">x</h1>
+                            </div>
+                            <span className="text-gray-700">{opcion}</span>
                             </div>
                         ))}
+                        {dataRegistro.adicionales.length === 0 &&
+                        <div className="flex text-center items-center justify-center w-full h-full text-gray-400">No se ha seleccionado ningún adicional</div>
+                        }
                     </div>
 
                     <div className="lg:w-full w-full row-start-2 row-end-3">
