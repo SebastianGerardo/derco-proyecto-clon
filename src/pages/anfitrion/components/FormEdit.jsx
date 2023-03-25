@@ -36,22 +36,29 @@ export const FormEdit = ({ data, setIsOpen }) => {
       },
       fechaEntrada: new Date()
     }
-    console.log("Llege jaia", datos)
-    editServicio(datos, data.id).then(res => {
-      if (res.statusCode === 200) {
-        Toast.fire({
-          icon: "success",
-          title: "Asesor asignado correctamente",
-        });
-        setEstadoData(!estadoData)
-        setIsOpen(false)
-      } else {
-        Toast.fire({
-          icon: "error",
-          title: "Ocurrir un error al asignar servicio",
-        });
-      }
-    })
+    if (datos.vehiculoKilometraje !== "") {
+      editServicio(datos, data.id).then(res => {
+        if (res.statusCode === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "Asesor asignado correctamente",
+          });
+          setEstadoData(!estadoData)
+          setIsOpen(false)
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: "Ocurrir un error al asignar servicio",
+          });
+        }
+      })
+    }else{
+      Toast.fire({
+        icon: "error",
+        title: "Revisar bien los campos",
+      });
+    }
+
   }
 
 
