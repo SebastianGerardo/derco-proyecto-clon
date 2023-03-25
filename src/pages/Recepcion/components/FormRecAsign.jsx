@@ -94,7 +94,7 @@ const FormRecAsign = ({ data, setIsOpen }) => {
               name="asesor"
               className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
             >
-              <option disabled>Elegir:</option>
+              <option >Elegir:</option>
               {
                 asesores.length > 0 && (
                   asesores.map((ase) => (

@@ -12,7 +12,7 @@ export const Almacen = () => {
     }, 1000);
     return () => clearInterval(interval);
   },[])
-  console.log(infoAlmacen)
+
   return (
     <>
       <div className="p-6">
