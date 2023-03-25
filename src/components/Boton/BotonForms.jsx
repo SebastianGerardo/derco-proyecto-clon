@@ -18,7 +18,7 @@ export const BotonFroms = ({ tipo, setIsOpen }) => {
             // </i>
 
             <svg
-              className="stroke-current text-gray-700/50 hover:text-sky-700 w-6 h-6"
+              className="stroke-current text-gray-700/50 hover:text-sky-700 w-6 h-6 transition-all ease-in-out duration-75"
               width="24"
               height="24"
               viewBox="0 0 24 24"
@@ -42,7 +42,7 @@ export const BotonFroms = ({ tipo, setIsOpen }) => {
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
-              className="stroke-current text-gray-700/50 hover:text-sky-700 w-6 h-6"
+              className="stroke-current text-gray-700/50 hover:text-sky-700 w-6 h-6 transition-all ease-in-out duration-75"
               onClick={() => setIsOpen(true)}
             >
               <path
