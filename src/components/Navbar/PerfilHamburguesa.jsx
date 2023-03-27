@@ -1,11 +1,29 @@
+
+
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useState } from 'react'
 import { UserContext } from "../../context/ContextDerco";
 import { useNavigate } from "react-router-dom";
 import { CerrarSesionUsu } from "../../helpers/ApiUsuarios";
+import { Modal } from '../ResetPassword/ModalResetPassword';
 
 export default function PerfilHamburguesa() {
   const { UsuarioLogin } = useContext(UserContext);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen((prevState) => !prevState);
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+    setIsMenuOpen(false);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const navigate = useNavigate();
 
@@ -46,17 +64,18 @@ export default function PerfilHamburguesa() {
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="px-1 py-1 ">
+          <div className="px-1 py-1 ">
               <Menu.Item>
                 {({ active }) => (
-                  <a
+                  <button
                     href="#"
+                    onClick={openModal}
                     className={`${active ? 'transition-all duration-150 hover:bg-gray-500 hover:text-white' : 'transition-all duration-150 text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
                     <i className="fa-solid fa-gear fx-1 mr-2"></i>Cambiar
                     Contraseña
-                  </a>
+                  </button>
                 )}
               </Menu.Item>
               <Menu.Item>
@@ -76,6 +95,8 @@ export default function PerfilHamburguesa() {
           </Menu.Items>
         </Transition>
       </Menu>
+      <Modal isOpen={isModalOpen} closeModal={closeModal} />
     </div>
   )
 }
+

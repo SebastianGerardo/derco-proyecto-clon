@@ -87,16 +87,16 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         <form action="" className="flex flex-col lg:grid grid-cols-2 gap-3" onSubmit={registrarUnidad}>
             <section className="w-full lg:grid lg:grid-cols-2 md:grid gap-2">
                 <section>
-                    <InputBasic labelName={"Nombres & Apellidos"} pHolder={"ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} />
-                    <InputBasic labelName={"Email:"} pHolder={"Aa1"} data={dataRegistro.correo} onChange={captura} name={"correo"} />
-                    <InputBasic labelName={"Marca :"} pHolder={"SAPITO"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
+                    <InputBasic labelName={"Nombres & Apellidos"} pHolder={"Ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} />
+                    <InputBasic labelName={"Email:"} pHolder={"example@gmail.com"} data={dataRegistro.correo} onChange={captura} name={"correo"} />
+                    <InputBasic labelName={"Marca :"} pHolder={"SUSUKI"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
                     <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} />
 
                 </section>
                 <section>
-                    <InputBasic labelName={"Teléfono / Celular:"} pHolder={"Aa1"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
+                    <InputBasic labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
                     <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} />
-                    <InputBasic labelName={"Modelo:"} pHolder={"Aa1"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} />
+                    <InputBasic labelName={"Modelo:"} pHolder={"Celerio"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} />
                     <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} />
                 </section>
 
