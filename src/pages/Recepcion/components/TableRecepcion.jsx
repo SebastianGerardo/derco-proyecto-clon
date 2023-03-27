@@ -40,7 +40,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="SERVICIO" icon="fa-solid fa-tools mr-1" />,
-    selector: (row) => row.placa,
+    selector: (row) => row.servicioSolicitado,
     sortable: true,
     center: true
   },
