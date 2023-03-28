@@ -92,12 +92,12 @@ export const TableAlmacen = ({ data }) => {
       center: true,
     },
   ];
-
+  let ordenado = data.sort((a, b) => new Date(b.fechaRegistro) - new Date(a.fechaRegistro))
 
   const [placa, setPlaca] = useState("");
 
 
-  const filteredItems = data.filter((item) => item.placa && item.placa.toLowerCase().includes(placa.toLowerCase()) || item.ot && item.ot.toLowerCase().includes(placa.toLowerCase()));
+  const filteredItems = ordenado.filter((item) => item.placa && item.placa.toLowerCase().includes(placa.toLowerCase()) || item.ot && item.ot.toLowerCase().includes(placa.toLowerCase()));
 
   const filtroEstado = (e) => {
     e.preventDefault()

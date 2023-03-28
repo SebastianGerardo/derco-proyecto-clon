@@ -34,7 +34,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="ASESOR" icon="fa-solid fa-user-tie mr-1" />,
-    selector: (row) => row.placa,
+    selector: (row) => row.asesor.nombres,
     sortable: true,
     center: true
   },
@@ -54,6 +54,7 @@ const columns = [
     name: <CustomHeader nameModule="HORA ABORDAJE" icon="fa-solid fa-clock mr-1" />,
     selector: (row) => <p>{FormtearFecha(row.fechaRegistro)}</p>,
     sortable: true,
+    center: true
   },
 
   {
@@ -92,7 +93,9 @@ const columns = [
 export const TableRecepcion = ({ dataRecepcion }) => {
   const [placa, setPlaca] = useState("");
 
-  const filteredItems = dataRecepcion.filter(
+  let ordenado = dataRecepcion.sort((a, b) => new Date(a.fechaRegistro) - new Date(b.fechaRegistro))
+
+  const filteredItems = ordenado.filter(
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );

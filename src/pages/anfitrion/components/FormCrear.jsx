@@ -18,7 +18,7 @@ export const FormCrear = ({ setIsOpen }) => {
     placa: "",
     vehiculoKilometraje: "",
     asesor: { id: "" },
-    estado: "",
+    estado: "2",
     tipoCita: "S",
     fechaEntrada: new Date()
   });
@@ -78,6 +78,7 @@ export const FormCrear = ({ setIsOpen }) => {
                 value={datosRegistro.nombres}
                 onChange={handleInputChange}
                 placeholder="Juan Perez"
+                required
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
             </div>
@@ -107,6 +108,7 @@ export const FormCrear = ({ setIsOpen }) => {
               <input
                 type="text"
                 name="placa"
+                required 
                 value={datosRegistro.placa}
                 onChange={handleInputChange}
                 placeholder="ABC123"
@@ -122,6 +124,7 @@ export const FormCrear = ({ setIsOpen }) => {
               <select
                 name="asesor"
                 onChange={handleAsesorChange}
+                required 
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               >
                 <option value="">Elegir:</option>
@@ -144,28 +147,14 @@ export const FormCrear = ({ setIsOpen }) => {
               <input
                 name="vehiculoKilometraje"
                 type="text"
+                required 
+                pattern="[0-9]*"
+                title="Este campo solo acepta NUMEROS"
                 value={datosRegistro.vehiculoKilometraje}
                 onChange={handleInputChange}
                 placeholder="5000"
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
-            </div>
-
-            <div className="w-full">
-              <label htmlFor="" className="text-gray-400">
-                Estado:
-              </label>
-              <br />
-              <select
-                name="estado"
-                onChange={handleInputChange}
-                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-              >
-                <option value="">Elegir:</option>
-                <option value="0">No Asignado</option>
-                <option value="1">Pendiente</option>
-                <option value="2">Asignado</option>
-              </select>
             </div>
           </section>
         </div>

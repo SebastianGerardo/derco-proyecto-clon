@@ -3,7 +3,7 @@ import { Toast } from "../../../components/Alertas/SweetAlex";
 import { BuscarCliente } from "../../../helpers/ApiAnfitrion";
 
 
-export const BuscarPlaca = ({setDatosRegistro}) => {
+export const BuscarPlaca = ({ setDatosRegistro }) => {
     const [placa, setPlaca] = useState("")
     const handleInputChange = (e) => {
         setPlaca({
@@ -11,30 +11,36 @@ export const BuscarPlaca = ({setDatosRegistro}) => {
         });
     };
 
-    console.log(placa)
     const buscar = (e) => {
         e.preventDefault()
         BuscarCliente(placa).then((res) => {
-            if (res.statusCode) {
+            if (res.data !== null) {
                 Toast.fire({
                     icon: "success",
                     title: "Cliente Encontrado",
                 });
-                console.log(res.data)
-            setDatosRegistro({
-                nombres: res.data.nombres,
-                placa: res.data.placa,
-                vehiculoKilometraje: res.data.vehiculoKilometraje,
-                asesor: { id: "" },
-                estado: "",
-                tipoCita: "S",
-                fechaEntrada: new Date()
-            })
-            }else{
+                setDatosRegistro({
+                    nombres: res.data.nombres,
+                    placa: res.data.placa,
+                    vehiculoKilometraje: res.data.vehiculoKilometraje,
+                    asesor: { id: "" },
+                    estado: "",
+                    tipoCita: "S",
+                    fechaEntrada: new Date()
+                })
+            } else {
                 Toast.fire({
-                    icon: "success",
+                    icon: "error",
                     title: "Cliente no existe",
                 });
+                setDatosRegistro({
+                    nombres: "",
+                    placa: "",
+                    vehiculoKilometraje: "",
+                    asesor: { id: "" },
+                    estado: "",
+                    tipoCita: "",
+                })
             }
         })
     }
