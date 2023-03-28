@@ -4,6 +4,7 @@ import { read, utils } from "xlsx";
 import { Toast } from '../../../components/Alertas/SweetAlex';
 import { UserContext } from '../../../context/ContextDerco';
 import { crearServicio } from '../../../helpers/ApiAnfitrion';
+import { convertirFecha, reemplzar } from '../../../helpers/funcions';
 export const BtnMasivo = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [excel, setExcel] = useState("")
@@ -11,14 +12,6 @@ export const BtnMasivo = () => {
         setExcel(e.target.files[0])
     }
     const { estadoData, setEstadoData } = useContext(UserContext);
-
-    function convertirFecha(fecha) {
-        var partes = fecha.split(" ");
-        var fechaPartes = partes[0].split("/");
-        var horaPartes = partes[1].split(":");
-        var nuevaFecha = new Date(fechaPartes[2], fechaPartes[1] - 1, fechaPartes[0], horaPartes[0], horaPartes[1], horaPartes[2]);
-        return nuevaFecha.toISOString();
-      }
 
     const subirDatos = (e) => {
         e.preventDefault()
@@ -30,16 +23,39 @@ export const BtnMasivo = () => {
                 let dataParseada = read(data, { type: "binary" })
                 dataParseada.SheetNames.map((resul) => {
                     let rowObject = utils.sheet_to_row_object_array(dataParseada.Sheets[resul])
-                    let nuevoValor = rowObject.map((res)=>({
-                        ...res,
-                        fechaCita: new Date(convertirFecha(`${res.fechaCita}:00`))
+
+                    let nuevoValor = rowObject.map((res) => ({
+                        nombres: `${res.Nombre} ${res.Apellido}`,
+                        correo: res["E-mail"],
+                        telefono: reemplzar(res.Teléfono),
+                        servicioSolicitado: res.Servicio,
+                        notasCliente: res["Notas compartidas con cliente"],
+                        comentarioInterno: res["Comentario interno"],
+                        detalleServicio: res["Detalles del servicio solicitado"],
+                        vehiculoKilometraje: res.Kilometraje,
+                        marca: res["Marca"],
+                        modelo: res["Modelo"],
+                        placa: reemplzar(res["Placa (solo letras y números, sin guión)"]),
+                        fechaEntrada: new Date(convertirFecha(`${res["Fecha de creación"]}:00`))
                     }))
+
                     crearServicio(nuevoValor).then((res) => {
                         if (res.statusCode === 200) {
                             Toast.fire({
                                 icon: "success",
                                 title: "Usuario Creado Exitosamente",
                             });
+                            console.log("QIE ONDAAAAAAAAAAAAAA", res.data)
+
+                            res.data.map((res) => {
+                                if (res.registradoAnteriormente) {
+                                    Toast.fire({
+                                        icon: "error",
+                                        title: "Datos Repetidos",
+                                    });
+                                }
+                            })
+
                             setEstadoData(!estadoData);
                             setIsOpen(false);
                         } else {
