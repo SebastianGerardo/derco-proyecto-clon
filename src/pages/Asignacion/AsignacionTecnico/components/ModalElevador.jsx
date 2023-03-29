@@ -4,11 +4,16 @@ import { Fragment, useState } from 'react'
 import { BotonFroms } from '../../../../components/Boton/BotonForms';
 import Elevadores from './Elevadores';
 import FormMecanico from './FormMecanico';
-export const ModalMecanico = ({ tipo, data }) => {
+export const ModalElevador = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <BotonFroms tipo={tipo} setIsOpen={setIsOpen} />
+      <td className='cursor-pointer px-5 bg-blue-700 font-extrabold text-2xl text-white min-w-[10rem]' onClick={() => setIsOpen(true)}>
+        <button>
+              +
+        </button>
+      </td>
+          
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
           <Transition.Child
@@ -34,19 +39,17 @@ export const ModalMecanico = ({ tipo, data }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className={`w-full max-w-4xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
+                <Dialog.Panel className={`w-full max-w-2xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
                   
                 <div className='bg-[#C00000] text-white py-2 w-full'>
-                    <p className='text-center text-xl font-medium '>Carga de Elevadores</p>
+                    <p className='text-center text-xl font-medium '>Asignación de Elevador y Servicio</p>
                     <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                 </div>
                    
-
-                  <div className='p-5 w-full block overflow-x-auto'>
-                    <Elevadores />
+                  <div className='p-5 w-full block'>
+                    <FormMecanico data={data} setIsOpen={setIsOpen}/>
                   </div>
                   
-
                 </Dialog.Panel>
               </Transition.Child>
             </div>

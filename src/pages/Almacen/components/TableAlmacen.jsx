@@ -3,6 +3,7 @@ import DataTable from "react-data-table-component";
 import { CustomHeader } from "../../../components/CustomHeaderTable/CustomHeaderTable";
 import { Search } from "../../../components/datatable/Search";
 import { FormtearFecha } from "../../../helpers/funcions";
+import BotonPicking from "./BotonPicking";
 import { ModalAlmacen } from "./ModalAlmacen";
 
 export const TableAlmacen = ({ data }) => {
@@ -87,6 +88,7 @@ export const TableAlmacen = ({ data }) => {
       name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1" />,
       cell: row =>
         <div className="flex items-center gap-3">
+          <BotonPicking data={row} />
           <ModalAlmacen tipo="edit" data={row} />
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
       center: true,

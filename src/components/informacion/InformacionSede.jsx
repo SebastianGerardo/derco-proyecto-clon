@@ -1,9 +1,9 @@
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+
 import { DescripcionSede } from './DescripcionSede';
 import { EstadosCitas } from './EstadosCitas';
 import { useEffect, useState } from "react";
 import { CantCitas } from "../../helpers/ApiAnfitrion";
+import ProgressBar from '../Radial Progresivo/ProgressBar';
 
 export const InformacionSede = () => {
 
@@ -58,8 +58,8 @@ export const InformacionSede = () => {
           <div>
             <p className='font-bold text-center'>Avance:</p>
           </div>
-          <div className='w-[100px] h-[100px] mt-1'>
-            <CircularProgressbar value={progress ? progress : 0 } text={`${progress === Infinity || NaN ? 0 : (progress ? parseInt(progress) : 0) }%`} />
+          <div className={`w-[100px] h-[100px] mt-1`}>
+            <ProgressBar value={progress ? progress : 0} text={progress === Infinity || NaN ? 0 : (progress ? parseInt(progress) : 0)} />
           </div>
         </section>
 

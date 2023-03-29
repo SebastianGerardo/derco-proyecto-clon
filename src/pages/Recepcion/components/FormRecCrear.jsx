@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { opcionesRecp } from "../../../helpers/EstadosGlobal";
 import { editServicio } from "../../../helpers/ApiAnfitrion";
 import { Toast } from "../../../components/Alertas/SweetAlex";
-import { InputBasic } from "../../../components/InputForms/InputBasic";
+import { InputBasic, InputBasicNumber } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
 
 export const FormRecCrear = ({ data, setIsOpen }) => {
@@ -90,11 +90,11 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                     <InputBasic labelName={"Nombres & Apellidos"} pHolder={"Ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} />
                     <InputBasic labelName={"Email:"} pHolder={"example@gmail.com"} data={dataRegistro.correo} onChange={captura} name={"correo"} />
                     <InputBasic labelName={"Marca :"} pHolder={"SUSUKI"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
-                    <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} />
+                    <InputBasicNumber labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} />
 
                 </section>
                 <section>
-                    <InputBasic labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
+                    <InputBasicNumber labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
                     <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} />
                     <InputBasic labelName={"Modelo:"} pHolder={"Celerio"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} />
                     <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} />
@@ -118,12 +118,11 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                 </section>
             </section>
 
-
             {/* LADO DERECHO */}
             <section className="w-full">
 
                 <section className="lg:grid lg:grid-cols-2 md:grid md:grid-cols-2 gap-2 lg:gap-2 md:gap2">
-                    <InputBasic labelName={"Nro OT:"} pHolder={"12261743"} data={dataRegistro.ot} onChange={captura} name={"ot"} />
+                    <InputBasicNumber labelName={"Nro OT:"} pHolder={"12261743"} data={dataRegistro.ot} onChange={captura} name={"ot"} />
                     <div className="w-full">
                         <label htmlFor="" className="text-gray-400">
                             Tipo Servicio
