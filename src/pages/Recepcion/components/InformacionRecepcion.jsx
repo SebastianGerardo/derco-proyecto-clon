@@ -4,9 +4,9 @@ import ProgressBar from '../../../components/Radial Progresivo/ProgressBar'
 
 const InformacionRecepcion = () => {
   return (
-    <div className='flex justify-between w-full'>
-      <div className="flex gap-4 items-center bg-gray-100 shadow-md rounded-sm py-3 px-5 mb-5">
-            <table className='flex gap-3'>
+    <div className='flex flex-col gap-4 sm:flex-col gp:flex-col lg:flex-row justify-between w-full'>
+      <div className="flex gap-4 items-center justify-center bg-gray-100 shadow-md rounded-sm py-3 px-5 mb-5">
+            <table className='flex flex-col md:flex-row lg:flex-row gap-3'>
                 <td className='px-5 py-2 bg-yellow-400 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
                     <p className='font-semibold'>Citas Asignadas</p>
                     <span className='font-bold text-3xl'>10</span>
@@ -29,10 +29,10 @@ const InformacionRecepcion = () => {
               </div>
             </section>
       </div>
-      <div className="flex bg-gray-100 min-w-[15rem] shadow-md rounded-sm py-3 px-5 mb-5">
-        <section className='grid place-items-center'>
+      <div className="flex justify-center items-center bg-gray-100 min-w-[15rem] shadow-md rounded-sm py-3 px-5 mb-5">
+        <section className='grid gap-y-2 place-items-center'>
           <div>
-            <p className='font-bold text-start text-base'>Unidades listas para la entrega:</p>
+            <p className='font-bold text-start text-base'>Unidades listas para entrega:</p>
           </div>
           <table className='flex gap-3'>
                 <td className='px-5 py-2 bg-green-500 min-w-[10rem] text-center text-white rounded-md flex flex-col'>

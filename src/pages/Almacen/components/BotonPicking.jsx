@@ -21,6 +21,7 @@ const BotonPicking = ({data}) => {
     
     const confirmarPicking = (e) => {
       e.preventDefault()
+      if(data?.estadoPicking === "0"){
       Swal.fire({
         title: '¿Deseas confirmar esta unidad?',
         text: "Esta acción no se podrá revertir",
@@ -43,6 +44,7 @@ const BotonPicking = ({data}) => {
           }
         } 
       })
+      }
     }
 
     // console.log(estadoPicking)
@@ -66,24 +68,11 @@ const BotonPicking = ({data}) => {
   return (
     <form action="" onSubmit={confirmarPicking}>
         <button type='submit' onClick={cambiarEstadoPicking}>
-                <svg
-                className="stroke-current text-gray-700/50 hover:text-sky-700 w-6 h-6 transition-all ease-in-out duration-75"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                >
-                {' '}
-                <path stroke="none" d="M0 0h24v24H0z" />{' '}
-                <rect x="4" y="13" rx="2" width="4" height="6" />{' '}
-                <rect x="16" y="13" rx="2" width="4" height="6" />{' '}
-                <path d="M4 15v-3a8 8 0 0 1 16 0v3" />{' '}
-                <path d="M18 19a6 3 0 0 1 -6 3" />
-                </svg>
+          {data?.estadoPicking === "1" ?
+            <i className="fa-solid fa-lg text-gray-700/50 fa-circle-check"></i>
+              :
+            <i className="fa-regular fa-lg text-gray-700/50 hover:text-sky-700 transition-all ease-in-out duration-75 fa-circle-check"></i>
+          }
         </button>
     </form>
   )
