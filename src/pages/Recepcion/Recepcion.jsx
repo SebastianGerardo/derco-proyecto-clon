@@ -20,7 +20,7 @@ export const Recepcion = () => {
     <>
       <div className="p-6">
         <div className="full flex justify-between items-center">
-          <InformacionRecepcion/>
+          <InformacionRecepcion data={dataRecepcion}/>
 
         </div>
         <TableRecepcion  dataRecepcion={dataRecepcion} />

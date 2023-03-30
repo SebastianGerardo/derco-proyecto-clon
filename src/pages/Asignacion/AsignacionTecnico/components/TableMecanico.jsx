@@ -9,10 +9,6 @@ import { ModalMecanico } from "./ModalMecanico";
 
 const columns = [
   {
-    cell: () => <img src="/img/car.gif" alt="" width={70} />,
-    width: "5rem",
-  },
-  {
     name: <CustomHeader nameModule="OT" icon="fa-solid fa-phone mr-1"/>,
     cell: (row) => <p>{row.ot}</p>,
     sortable: true,

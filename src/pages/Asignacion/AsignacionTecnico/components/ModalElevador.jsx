@@ -8,8 +8,8 @@ export const ModalElevador = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <td className='cursor-pointer px-5 bg-blue-700 font-extrabold text-2xl text-white min-w-[10rem]' onClick={() => setIsOpen(true)}>
-        <button>
+      <td className='flex justify-center items-center cursor-pointer px-5 bg-blue-700 font-extrabold text-2xl text-white min-w-[10rem] rounded-md' onClick={() => setIsOpen(true)}>
+        <button className='pb-1'>
               +
         </button>
       </td>

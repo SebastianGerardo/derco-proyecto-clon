@@ -29,6 +29,13 @@ const columns = [
     center: true
   },
   {
+    name: <CustomHeader nameModule="TIPO DE SERVICIO" />,
+    selector: (row) => row.servicio,
+    sortable: true,
+    center: true,
+    width: "15rem",
+  },
+  {
     name: <CustomHeader nameModule="ESTADO DE MANTENIMIENTO" />,
     selector: (row) => row.estadoMantenimiento,
     sortable: true,
@@ -148,45 +155,6 @@ const columns = [
         },
       },
     ],
-  },
-  {
-    name: <CustomHeader nameModule="TIPO DE SERVICIO" />,
-    selector: (row) => row.servicio,
-    sortable: true,
-    center: true,
-    width: "10rem",
-  },
-  {
-    name: <CustomHeader nameModule="ASESOR" />,
-    selector: (row) => row.asesor,
-    sortable: true,
-    center: true
-  },
-  {
-    name: <CustomHeader nameModule="HORA RECEPCION" />,
-    selector: (row) => row.horaRecepcion,
-    sortable: true,
-    center: true
-  },
-  {
-    name: <CustomHeader nameModule="HORA DE ASIGNACION" />,
-    selector: (row) => row.horaAsignacion,
-    sortable: true,
-    center: true
-  },
-  {
-    name: <CustomHeader nameModule="HORA INICIO DE MANTENIMIENTO" />,
-    selector: (row) => row.horaInicioMantenimiento,
-    sortable: true,
-    center: true,
-    width: "10rem",
-  },
-  {
-    name: <CustomHeader nameModule="HORA FIN DE MANTENIMIENTO" />,
-    selector: (row) => row.horaFinMantenimiento,
-    sortable: true,
-    center: true,
-    width: "10rem"
   },
   {
     name: <CustomHeader nameModule="ACCIONES" />,
