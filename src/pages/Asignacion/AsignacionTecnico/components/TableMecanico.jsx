@@ -22,20 +22,40 @@ const columns = [
     center: true
   },
   {
-    name: <CustomHeader nameModule="HORA CITA" icon="fa-solid fa-clock mr-1"/>,
-    selector: (row) => row.horaEstimada,
+    name: <CustomHeader nameModule="KILOMETRAJE" icon="fa-solid fa-clock mr-1"/>,
+    selector: (row) => row.kilometraje,
     sortable: true,
+    center: true,
   },
   {
-    name: <CustomHeader nameModule="SERVICIO" icon="fa-solid fa-tools mr-1"/>,
+    name: <CustomHeader nameModule="TIPO DE SERVICIO" icon="fa-solid fa-tools mr-1"/>,
     selector: (row) => row.servicio,
     sortable: true,
     center: true
   },
   {
-    name: <CustomHeader nameModule="HORA CITA" icon="fa-solid fa-clock mr-1"/>,
+    name: <CustomHeader nameModule="MARCA" icon="fa-solid fa-clock mr-1"/>,
+    selector: (row) => row.marca,
+    sortable: true,
+    center: true,
+  },
+  {
+    name: <CustomHeader nameModule="MODELO" icon="fa-solid fa-clock mr-1"/>,
+    selector: (row) => row.modelo,
+    sortable: true,
+    center: true,
+  },
+  {
+    name: <CustomHeader nameModule="HORA DE RECEPCIÓN" icon="fa-solid fa-clock mr-1"/>,
     selector: (row) => row.horaRecepcion,
     sortable: true,
+    center: true,
+  },
+  {
+    name: <CustomHeader nameModule="HORA ESTIMADA DE ENTREGA" icon="fa-solid fa-clock mr-1"/>,
+    selector: (row) => row.horaEstimada,
+    sortable: true,
+    center: true,
   },
   {
     name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1"/>,
@@ -67,35 +87,6 @@ const columns = [
     ],
   },
   {
-    name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1"/>,
-    selector: (row) => row.ubicacion,
-    sortable: true,
-    center: true,
-    style: {
-      color: "white",
-      fontSize: "15px",
-      margin: "4px",
-      borderRadius: "5px",
-      fontWeight: "700",
-      textAlign: "center",
-      cursor: "default",
-    },
-    conditionalCellStyles: [
-      {
-        when: (row) => row.ubicacion === "Asignacion",
-        style: {
-          backgroundColor: "#3B82F6",
-        },
-      },
-      {
-        when: (row) => row.ubicacion === "No Asignado",
-        style: {
-          backgroundColor: "#93C5FD",
-        },
-      },
-    ],
-  },
-  {
     name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1"/>,
     cell: row => 
     <div className="flex items-center gap-3">
@@ -119,8 +110,10 @@ export const TableMecanico = () => {
   const [estado, setEstado] = useState("")
 
   const filtro2 = filteredItems.filter((item) =>
-    item.ubicacion && item.ubicacion.includes(estado) || item.estadoAsignacion && item.estadoAsignacion.includes(estado)) 
- 
+   item.estadoAsignacion && item.estadoAsignacion.includes(estado)) 
+  
+  console.log(DataAsignacionMecanico)
+
   return (
     <>
       <div className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
@@ -134,20 +127,20 @@ export const TableMecanico = () => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "Asignacion"}
-                onChange={() => setEstado(estado === "Asignacion" ? false : "Asignacion")}
+                checked={estado === "Pendiente"}
+                onChange={() => setEstado(estado === "Pendiente" ? false : "Pendiente")}
               />
-              <span className="ml-1">Asignado</span>
+              <span className="ml-1">Pendiente</span>
             </label>
             <br />
             <label className="p-1 flex items-center justify-center">
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "Pendiente"}
-                onChange={() => setEstado(estado === "Pendiente" ? false : "Pendiente")}
+                checked={estado === "Listo"}
+                onChange={() => setEstado(estado === "Listo" ? false : "Listo")}
               />
-              <span className="ml-1">Pendiente</span>
+              <span className="ml-1">Terminado</span>
             </label>
           </div>
 

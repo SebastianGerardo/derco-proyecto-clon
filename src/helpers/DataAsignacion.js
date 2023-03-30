@@ -14,7 +14,8 @@ export const DataAsignacionMecanico = [
     asesor: "David Martinez",
     estadoAsignacion: "Pendiente",
     ubicacion: "Asignacion",
-    kilometraje: "4000"
+    kilometraje: "4000",
+    modelo: "Celerio"
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ export const DataAsignacionMecanico = [
     asesor: "David Martinez",
     estadoAsignacion: "Pendiente",
     ubicacion: "Asignacion",
-    kilometraje: "5000"
+    kilometraje: "5000",
+    modelo: "Celerio"
   },
   {
     id: 3,
@@ -48,7 +50,8 @@ export const DataAsignacionMecanico = [
     asesor: "David Martinez",
     estadoAsignacion: "Listo",
     ubicacion: "Asignacion",
-    kilometraje: "600"
+    kilometraje: "600",
+    modelo: "Greenjet"
   },
   {
     id: 4,
@@ -65,7 +68,8 @@ export const DataAsignacionMecanico = [
     asesor: "David Martinez",
     estadoAsignacion: "Pendiente",
     ubicacion: "Asignacion",
-    kilometraje: "3000"
+    kilometraje: "3000",
+    modelo: "Greenjet"
   },
   {
     id: 5,
@@ -82,7 +86,8 @@ export const DataAsignacionMecanico = [
     asesor: "David Martinez",
     estadoAsignacion: "Listo",
     ubicacion: "No Asignado",
-    kilometraje: "3000"
+    kilometraje: "3000",
+    modelo: "Greenjet"
   },
 ];
 
