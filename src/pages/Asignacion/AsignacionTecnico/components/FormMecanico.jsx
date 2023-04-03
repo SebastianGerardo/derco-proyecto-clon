@@ -1,55 +1,44 @@
 import React, { useState } from "react";
+import { InputReadOnly } from "../../../../components/InputForms/InputBasic";
 import { GuardarElevador } from "../../../../helpers/ApiAsignacion";
 
-const FormMecanico = ({ data, id }) => {
-
+const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
+    const elevadores = ["2", "3", "4"];
     const { servicio, estadoAsignado } = data
     const adicionales = JSON.parse(servicio?.adicionales)
  
-    const elevadores = ["2", "3", "4"];
+    const opcionesServicios = ["Lavado", "Secado", "Mantenimiento", "Control de Calidad"];
 
-    const servicios = ["Lavado", "Secado", "Mantenimiento", "Control de Calidad"];
-
-    const [dataRegistro, setDataRegistro] = useState({
-        adicionales: [],
-    });
-
-
-
-
-
-
+    const [dataRegistro, setDataRegistro] = useState([]);
 
     const enviarElevador = (e) => {
         e.preventDefault()
         const enviar = [{
-            elevador: id,
+            elevador: dataElevadores.id,
             servicio: servicio.id,
+            ordenServicio: dataRegistro,
         }]
 
-
         GuardarElevador(enviar).then(res => console.log("wenas", res))
-
+        setIsOpen(false)
+        closeElevadores(false)
     }
-
-
 
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
-        if (!dataRegistro.adicionales.includes(opcion)) {
-            setDataRegistro({
-                ...dataRegistro,
-                adicionales: [...dataRegistro.adicionales, opcion],
-            });
-
+        if (!dataRegistro.includes(opcion)) {
+            setDataRegistro((prevState) => [
+                ...prevState,
+                opcion,
+            ]);
         }
     }
 
     function eliminarOpcionSeleccionada(opcion) {
-        setDataRegistro({
-            ...dataRegistro,
-            adicionales: dataRegistro.adicionales.filter((item) => item !== opcion),
-        });
+        setDataRegistro((prevState) => [
+            ...prevState,
+            dataRegistro.filter((item) => item !== opcion),
+        ]);
 
     }
 
@@ -62,17 +51,17 @@ const FormMecanico = ({ data, id }) => {
                 {/* LADO IZQUIERDO */}
                 <section className="w-full lg:w-full md:w-full ">
 
-                    <InputBasic labelName={"OT"} pHolder={"Ingresa la OT"} data={servicio.ot} />
+                    <InputReadOnly labelName={"OT"} pHolder={"Ingresa la OT"} data={servicio.ot}/>
 
-                    <InputBasic labelName={"Nombre & Apellido"} pHolder={"Ingresa el nombre"} data={servicio.nombres} />
+                    <InputReadOnly labelName={"Nombre & Apellido"} pHolder={"Ingresa el nombre"} data={servicio.nombres} />
 
-                    <InputBasic labelName={"Asesor"} pHolder={"Citroen"} data={servicio.asesor?.nombres} />
+                    <InputReadOnly labelName={"Asesor"} pHolder={"Citroen"} data={servicio.asesor?.nombres}/>
 
                 </section>
                 {/* LADO DERECHO */}
                 <section className="w-full lg:w-full md:w-full">
 
-                    <InputBasic labelName={'Tipo de servicio:'} pHolder={'Mantenimiento Flexible'} data={servicio.tipoServicio?.nombre} />
+                    <InputReadOnly labelName={'Tipo de servicio:'} pHolder={'Mantenimiento Flexible'} data={servicio.tipoServicio?.nombre}/>
 
                     <div className="flex flex-col relative">
                         <label htmlFor="adicionales" className="text-gray-400">Adicionales:</label>
@@ -90,22 +79,6 @@ const FormMecanico = ({ data, id }) => {
                         }
                     </div>
 
-                    {/* <div className="w-full">
-                    <label htmlFor="" className="text-gray-400">
-                        Tipo de Servicio:
-                    </label>
-                    <br />
-                    <select
-                        name=""
-                        id=""
-                        className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-                    >
-                        <option value="">Elige:</option>
-                        <option value="">Guillermo Sifuentes</option>
-                        <option value="">Martin Rios</option>
-                    </select>
-                </div> */}
-                    {/* <InputBasic labelName={"Elevador"} pHolder={"1"} data={""} /> */}
                 </section>
             </div>
 
@@ -126,18 +99,27 @@ const FormMecanico = ({ data, id }) => {
             {/* INPUTS DEL FORM - FIN */}
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
                 <section>
-                    <div className="flex flex-col relative">
+                    {/* <div className="flex flex-col relative">
                         <label htmlFor="elevador" className="text-gray-400">Elevador:</label>
                         <select id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
-                            <option value="1">1</option>
+                            <option value="1">{}</option>
                             {elevadores.map((opcion) => (
                                 <option key={opcion} value={opcion}>
                                     {opcion}
                                 </option>
                             ))}
                         </select>
-                    </div>
-                    <InputBasic labelName={"Técnico Mecánico:"} pHolder={"Guillermo Sifuentes"} data={"Guillermo Sifuentes"} />
+                    </div> */}
+
+                    <InputReadOnly 
+                    labelName={"Elevador:"} 
+                    data={dataElevadores?.id} 
+                    />
+
+                    <InputReadOnly 
+                    labelName={"Técnico Mecánico:"} 
+                    data={`${dataElevadores?.tecnico.nombres.split(' ', 1)} ${dataElevadores?.tecnico.apellidos.split(' ', 1)}`} 
+                    />
                 </section>
 
                 <section className="flex flex-col gap-y-2">
@@ -146,9 +128,9 @@ const FormMecanico = ({ data, id }) => {
                     <div>
                         <div className="flex flex-col relative">
                             <label htmlFor="servicios" className="text-gray-400">Servicios:</label>
-                            <select id="servicios" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
-                                <option value="">Seleccione una opción</option>
-                                {servicios.map((opcion) => (
+                            <select name="servicios" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
+                                <option value="" disabled>Seleccione una opción</option>
+                                {opcionesServicios.map((opcion) => (
                                     <option key={opcion} value={opcion}>
                                         {opcion}
                                     </option>
@@ -157,8 +139,8 @@ const FormMecanico = ({ data, id }) => {
                         </div>
                         <div className="flex flex-col overflow-y-auto w-full mx-auto h-[7.5rem] mt-2 border border-gray-300 rounded-md">
                             {
-                                dataRegistro.adicionales.length > 0 &&
-                                dataRegistro.adicionales.map((opcion) => (
+                                dataRegistro.length > 0 &&
+                                dataRegistro.map((opcion) => (
                                     <div className="flex items-center text-left px-3 py-2 border-b border-gray-300" key={opcion}>
                                         <div className="rounded-full relative w-4 h-4 mr-2 text-gray-500 hover:text-white hover:bg-red-500 hover:border-red-500 cursor-pointer border border-gray-400 border-solid flex items-center justify-center transition-colors duration-300" onClick={() => eliminarOpcionSeleccionada(opcion)}>
                                             <h1 className="font-bold text-sm">x</h1>
@@ -166,7 +148,7 @@ const FormMecanico = ({ data, id }) => {
                                         <span className="text-gray-700">{opcion}</span>
                                     </div>
                                 ))}
-                            {dataRegistro.adicionales.length === 0 &&
+                            {dataRegistro.length === 0 &&
                                 <div className="flex text-center items-center justify-center w-full h-full text-gray-400">No se ha seleccionado ningún servicio</div>
                             }
                         </div>
@@ -193,24 +175,3 @@ const FormMecanico = ({ data, id }) => {
 };
 
 export default FormMecanico;
-
-
-// INPUTS PREESTABLECIDOS:
-
-export const InputBasic = ({ pHolder, data, labelName }) => {
-    return (
-        <div className="w-full">
-            <label htmlFor="" className="text-gray-400">
-                {labelName}
-            </label>
-            <br />
-            <input
-                value={data}
-                disabled
-                type="text"
-                placeholder={pHolder}
-                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-            />
-        </div>
-    )
-}

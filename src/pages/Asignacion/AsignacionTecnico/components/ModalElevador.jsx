@@ -4,15 +4,15 @@ import { Fragment, useState } from 'react'
 import { BotonFroms } from '../../../../components/Boton/BotonForms';
 import Elevadores from './Elevadores';
 import FormMecanico from './FormMecanico';
-export const ModalElevador = ({ tipo, data }) => {
+export const ModalElevador = ({ dataElevadores, data, closeElevadores }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <td className='flex justify-center items-center cursor-pointer px-5 bg-blue-700 font-extrabold text-2xl text-white min-w-[10rem] rounded-md' onClick={() => setIsOpen(true)}>
+      <div className='flex justify-center items-center cursor-pointer px-5 bg-blue-700 font-extrabold text-2xl text-white min-w-[10rem] rounded-md' onClick={() => setIsOpen(true)}>
         <button className='pb-1'>
               +
         </button>
-      </td>
+      </div>
           
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
@@ -47,7 +47,7 @@ export const ModalElevador = ({ tipo, data }) => {
                 </div>
                    
                   <div className='p-5 w-full block'>
-                    <FormMecanico data={data} setIsOpen={setIsOpen}/>
+                    <FormMecanico data={data} dataElevadores={dataElevadores} setIsOpen={setIsOpen} closeElevadores={closeElevadores}/>
                   </div>
                   
                 </Dialog.Panel>

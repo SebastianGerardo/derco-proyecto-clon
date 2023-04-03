@@ -99,7 +99,7 @@ export const TableMecanico = ({dataAsignacion}) => {
 
   const [placa, setPlaca] = useState("");
 
-
+  // console.log(dataAsignacion)
 
   const filteredItems = dataAsignacion.filter(
     (item) =>

@@ -8,7 +8,7 @@ const Asignacion = () => {
       <div className="flex justify-between items-center bg-gray-100 shadow-md rounded-sm py-3 px-5 mb-5    w-full">
         <DescripcionSede/>
       </div>
-      {/* <div className="flex gap-2">
+      <div className="flex gap-2">
         <NavLink
         //Esta ruta solo es de prueba, al tener el usuario con rol de admin esta deberá ser cambiada a su correspondiente ruta
         to='/dashboard/asignacion' 
@@ -29,7 +29,7 @@ const Asignacion = () => {
         >
             Asignacion de Servicio
         </NavLink>
-      </div> */}
+      </div>
         
       <section className="grow flex flex-col">
           <Outlet />
