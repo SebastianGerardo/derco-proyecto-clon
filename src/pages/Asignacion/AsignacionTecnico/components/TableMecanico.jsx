@@ -9,10 +9,11 @@ import { TraeAsignacion } from "../../../../helpers/ApiAsignacion";
 
 const columns = [
   {
-    name: <CustomHeader nameModule="OT" icon="fa-solid fa-phone mr-1" />,
-    cell: (row) => { row.servicio?.ot },
+    name: <CustomHeader nameModule="OT" icon="fa-solid fa-id-card mr-1" />,
+    selector: (row) => row.servicio?.ot,
     sortable: true,
-    center: true,
+    width: "7rem",
+    center: true
   },
   {
     name: <CustomHeader nameModule="PLACA" icon="fa-solid fa-id-card mr-1" />,
