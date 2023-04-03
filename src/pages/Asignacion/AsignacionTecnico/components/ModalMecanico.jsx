@@ -8,7 +8,7 @@ export const ModalMecanico = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <BotonFroms tipo={tipo} setIsOpen={setIsOpen} />
+      <BotonFroms tipo={tipo} setIsOpen={data?.estadoAsignado == "2" ? "" : setIsOpen} />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
           <Transition.Child

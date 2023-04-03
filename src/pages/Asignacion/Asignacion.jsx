@@ -29,6 +29,15 @@ const Asignacion = () => {
         >
             Asignacion de Servicio
         </NavLink>
+        <NavLink
+        to='/dashboard/asignacion/elevadores'
+        state={{ logged: true }}
+        className={({ isActive, isPending }) =>
+             isPending ? "" : isActive ? "p-1 w-[16rem] text-center bg-black text-white rounded-t-md" : "p-1 w-[16rem] text-center bg-gray-400 text-white rounded-t-md"
+            }
+        >
+            Seguimiento de Elevadores
+        </NavLink>
       </div>
         
       <section className="grow flex flex-col">

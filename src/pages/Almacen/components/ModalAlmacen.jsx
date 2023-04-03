@@ -7,7 +7,10 @@ export const ModalAlmacen = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <BotonFroms tipo={tipo} setIsOpen={setIsOpen} />
+      {data.estadoPicking == "1" ?
+          "" : 
+          <BotonFroms tipo={tipo} setIsOpen={setIsOpen} />
+      }
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
           <Transition.Child

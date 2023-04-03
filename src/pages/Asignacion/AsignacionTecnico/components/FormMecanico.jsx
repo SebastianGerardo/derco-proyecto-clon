@@ -6,7 +6,7 @@ const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
     const elevadores = ["2", "3", "4"];
     const { servicio, estadoAsignado } = data
     const adicionales = JSON.parse(servicio?.adicionales)
- 
+
     const opcionesServicios = ["Lavado", "Secado", "Mantenimiento", "Control de Calidad"];
 
     const [dataRegistro, setDataRegistro] = useState([]);
@@ -16,7 +16,7 @@ const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
         const enviar = [{
             elevador: dataElevadores.id,
             servicio: servicio.id,
-            ordenServicio: dataRegistro,
+            ordenServicios: JSON.stringify(dataRegistro),
         }]
 
         GuardarElevador(enviar).then(res => console.log("wenas", res))

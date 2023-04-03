@@ -9,6 +9,7 @@ import { Almacen } from "../pages/Almacen/Almacen";
 import Asignacion from "../pages/Asignacion/Asignacion";
 import { AsignacionTecnico } from "../pages/Asignacion/AsignacionTecnico/AsignacionTecnico";
 import { AsignacionServicio } from "../pages/Asignacion/AsignacionServicio/AsignacionServicio";
+import ElevadoresTracking from "../pages/Asignacion/Elevadores Tracking/ElevadoresTracking";
 
 export const AppRouter = () => {
   return (
@@ -28,6 +29,7 @@ export const AppRouter = () => {
         <Route path="/dashboard/asignacion" element={<Asignacion />}>
           <Route index element={<AsignacionTecnico />} />
           <Route path="/dashboard/asignacion/servicios" element={<AsignacionServicio />} />
+          <Route path="/dashboard/asignacion/elevadores" element={<ElevadoresTracking />} />
         </Route>
         <Route path="/dashboard/almacen" element={<Almacen />} />
       </Route>

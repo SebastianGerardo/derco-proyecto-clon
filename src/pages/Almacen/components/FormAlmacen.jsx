@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
+import { InputReadOnly } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
 import { editServicio } from "../../../helpers/ApiAnfitrion";
 
@@ -44,11 +45,11 @@ const FormAlmacen = ({ data, setIsOpen }) => {
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
                 <section className="w-full lg:w-full md:w-full ">
 
-                    <InputBasic labelName={"OT"} pHolder={"ingresa el nombre"} data={data.nombres} />
+                    <InputReadOnly labelName={"OT"} pHolder={"ingresa el nombre"} data={data.nombres} />
 
-                    <InputBasic labelName={"Marca"} pHolder={"Citroen"} data={data.marca} />
+                    <InputReadOnly labelName={"Marca"} pHolder={"Citroen"} data={data.marca} />
 
-                    <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={data.vehiculoKilometraje} />
+                    <InputReadOnly labelName={"Kilometraje Real:"} pHolder={"5000"} data={data.vehiculoKilometraje} />
 
                     <div className="w-full">
                         <label htmlFor="" className="text-gray-400">
@@ -71,11 +72,11 @@ const FormAlmacen = ({ data, setIsOpen }) => {
                 {/* LADO DERECHO */}
                 <section className="w-full lg:w-full md:w-full">
 
-                    <InputBasic labelName={'Tipo de Servicio:'} pHolder={'Mantenimiento Flexible'} data={data.tipoServicio?.nombre} />
+                    <InputReadOnly labelName={'Tipo de Servicio:'} pHolder={'Mantenimiento Flexible'} data={data.tipoServicio?.nombre} />
 
-                    <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
+                    <InputReadOnly labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
 
-                    <InputBasic labelName={"Modelo:"} pHolder={"C4"} data={data.modelo} />
+                    <InputReadOnly labelName={"Modelo:"} pHolder={"C4"} data={data.modelo} />
 
 
                 </section>
@@ -136,28 +137,3 @@ export const InputBasic = ({ pHolder, data, labelName }) => {
         </div>
     )
 }
-
-
-// COSAS POR MEJORAR:
-
-//FALTA REUTILIZAR MÁS CÓDIGO, A ESPERA DE LA DATA...
-
-{/* <div className="ml-3 mt-[1.9rem] md:mt-[3rem] flex items-center">
-
-<Switch
-    checked={enabled}
-    onChange={setEnabled}
-    className={`${enabled ? 'bg-green-500' : 'bg-red-500'}
-relative inline-flex h-6 w-[3rem] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
->
-    <span className="sr-only">Use setting</span>
-    <span
-        aria-hidden="true"
-        className={`${enabled ? 'translate-x-6' : 'translate-x-0'}
-    pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-    />
-</Switch>
-<label htmlFor="" className="ml-1 text-gray-400 min-w-[4.5rem]">
-    {enabled ? "Salida" : "Sin Salida"}
-</label>
-</div> */}

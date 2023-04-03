@@ -116,7 +116,7 @@ export const TableMecanico = ({dataAsignacion}) => {
   const filtro2 = filteredItems.filter((item) =>
     item.estadoAsignado && item.estadoAsignado.includes(estado))
 
-
+  // console.log(dataAsignacion)
 
   return (
     <>

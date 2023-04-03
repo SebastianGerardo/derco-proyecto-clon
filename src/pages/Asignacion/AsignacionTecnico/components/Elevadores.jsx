@@ -9,12 +9,18 @@ const Elevadores = ({ data, closeElevadores }) => {
     TraeElevadores().then(res => setElevadores(res.data))
   }, [data])
 
+  const colorEstado = {
+    "Pendiente": "bg-yellow-600",
+    "En proceso": "bg-red-600",
+    "En pausa": "bg-purple-600",
+  }
+
   return (
     <div>
       <section className='flex gap-4 text-center'>
         {elevadores.length > 0 && (
           elevadores.map((ele) => (
-            <div key={ele.elevador.id} className='flex flex-col gap-5'>
+            <div key={ele.elevador.id} className='flex flex-col gap-3'>
                   {/* NOMBRE DEL ELEVADOR */}
                 <div className='p-5 bg-gray-500 text-white min-w-[10rem] rounded-md'>{ele.elevador.nombre}</div>
                   {/* ELEVADORES */}
@@ -22,7 +28,7 @@ const Elevadores = ({ data, closeElevadores }) => {
                     // CONTENIDO DE LOS ELEVADORES
                   ele.servicios?.length > 0 && (
                     ele.servicios.map((res)=>(
-                        <div className={`flex flex-col ${'bg-red-600'} p-4 gap-y-2 text-start min-w-[10rem] rounded-md min-h-[10rem]`}>
+                        <div onClick={() => console.log(res)} key={res.id} className={`flex flex-col ${'bg-red-600'} p-4 gap-y-2 text-start min-w-[10rem] rounded-md min-h-[10rem]`}>
                           <p className='flex gap-x-1 font-normal'>
                             <span className='font-bold'>Ot:</span> 
                             {res.servicio?.ot}
@@ -37,7 +43,7 @@ const Elevadores = ({ data, closeElevadores }) => {
                           </p>
                           <p className='flex gap-x-1 font-normal'>
                             <span className='font-bold'>E. del servicio:</span>
-                            {/* TODO: Falta asignar el estado de servicio */}
+                            {JSON.parse(res.ordenServicios)[0]}
                           </p>  
                         </div>
                       ))
