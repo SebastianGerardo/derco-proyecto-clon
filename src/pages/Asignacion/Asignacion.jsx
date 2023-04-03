@@ -32,7 +32,6 @@ const Asignacion = () => {
       </div> */}
         
       <section className="grow flex flex-col">
-      
           <Outlet />
       </section>
     </div>
