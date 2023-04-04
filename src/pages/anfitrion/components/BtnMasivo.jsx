@@ -44,7 +44,7 @@ export const BtnMasivo = () => {
                         if (res.statusCode === 200) {
                             Toast.fire({
                                 icon: "success",
-                                title: "Usuario Creado Exitosamente",
+                                title: "Archivo cargados correctamente",
                             });
                             console.log("QIE ONDAAAAAAAAAAAAAA", res.data)
 
@@ -62,7 +62,7 @@ export const BtnMasivo = () => {
                         } else {
                             Toast.fire({
                                 icon: "error",
-                                title: "No se creo el usuario correctamente",
+                                title: "No se cargó el archivo correctamente",
                             });
                         }
                     });

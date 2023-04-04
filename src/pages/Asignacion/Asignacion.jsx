@@ -5,7 +5,7 @@ import { DescripcionSede } from "../../components/informacion/DescripcionSede";
 const Asignacion = () => {
   return (
     <div className="mt-2 grow flex flex-col p-6">
-      <div className="flex gap-2">
+      {/* <div className="flex gap-2">
         <NavLink
         //Esta ruta solo es de prueba, al tener el usuario con rol de admin esta deberá ser cambiada a su correspondiente ruta
         to='/dashboard/asignacion' 
@@ -35,7 +35,7 @@ const Asignacion = () => {
         >
             Seguimiento de Elevadores
         </NavLink>
-      </div>
+      </div> */}
         
       <section className="grow flex flex-col">
           <Outlet />
