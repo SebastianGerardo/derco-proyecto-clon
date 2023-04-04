@@ -22,6 +22,7 @@ export const ContextDerco = ({ children }) => {
     "/dashboard/almacen": " Almacenero",
     "/dashboard/asignacion": "Asignación",
     "/dashboard/asignacion/servicios": "Asignación",
+    "/dashboard/asignacion/elevadores": "Asignación",
   })
   useEffect(() => {
     VerificarSesion().then((res) => {

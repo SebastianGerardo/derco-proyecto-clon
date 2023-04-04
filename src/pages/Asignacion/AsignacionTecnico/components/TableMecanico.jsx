@@ -10,57 +10,57 @@ import { TraeAsignacion } from "../../../../helpers/ApiAsignacion";
 const columns = [
   {
     name: <CustomHeader nameModule="OT" icon="fa-solid fa-id-card mr-1" />,
-    selector: (row) => row.servicio?.ot,
+    selector: (row) => row.ot,
     sortable: true,
     width: "7rem",
     center: true
   },
   {
     name: <CustomHeader nameModule="PLACA" icon="fa-solid fa-id-card mr-1" />,
-    selector: (row) => row.servicio?.placa,
+    selector: (row) => row.placa,
     sortable: true,
     width: "7rem",
     center: true
   },
   {
     name: <CustomHeader nameModule="KILOMETRAJE" icon="fa-solid fa-clock mr-1" />,
-    selector: (row) => row.servicio?.vehiculoKilometraje,
+    selector: (row) => row.vehiculoKilometraje,
     sortable: true,
     center: true,
   },
   {
     name: <CustomHeader nameModule="TIPO DE SERVICIO" icon="fa-solid fa-tools mr-1" />,
-    selector: (row) => row.servicio?.tipoServicio?.nombre,
+    selector: (row) => row.tipoServicio?.nombre,
     sortable: true,
     center: true
   },
   {
     name: <CustomHeader nameModule="MARCA" icon="fa-solid fa-clock mr-1" />,
-    selector: (row) => row.servicio?.marca,
+    selector: (row) => row.marca,
     sortable: true,
     center: true,
   },
   {
     name: <CustomHeader nameModule="MODELO" icon="fa-solid fa-clock mr-1" />,
-    selector: (row) => row.servicio?.modelo,
+    selector: (row) => row.modelo,
     sortable: true,
     center: true,
   },
   {
     name: <CustomHeader nameModule="HORA DE RECEPCIÓN" icon="fa-solid fa-clock mr-1" />,
-    selector: (row) => FormtearFecha(row.servicio?.fechaInicioRecepcion),
+    selector: (row) => FormtearFecha(row.fechaInicioRecepcion),
     sortable: true,
     center: true,
   },
   {
     name: <CustomHeader nameModule="HORA ESTIMADA DE ENTREGA" icon="fa-solid fa-clock mr-1" />,
-    selector: (row) => row.servicio?.horaEstimadaEntrega,
+    selector: (row) => row.horaEstimadaEntrega,
     sortable: true,
     center: true,
   },
   {
     name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
-    selector: (row) => row.estadoAsignado === "1" ? "Pendiente" : "Asignado",
+    selector: (row) => row.estado === "4" ? "Pendiente" : "Terminado",
     sortable: true,
     center: true,
     style: {
@@ -74,13 +74,13 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.estadoAsignado === "1",
+        when: (row) => row.estado === "4",
         style: {
           backgroundColor: "#FFD966",
         },
       },
       {
-        when: (row) => row.estadoAsignado === "2",
+        when: (row) => row.estado === "5",
         style: {
           backgroundColor: "#4AD69D",
         },
@@ -104,7 +104,7 @@ export const TableMecanico = ({dataAsignacion}) => {
 
   const filteredItems = dataAsignacion.filter(
     (item) =>
-      item.servicio?.placa && item.servicio?.placa.toLowerCase().includes(placa.toLowerCase())
+      item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
 
   const filtroEstado = (e) => {
@@ -114,9 +114,7 @@ export const TableMecanico = ({dataAsignacion}) => {
   const [estado, setEstado] = useState("")
 
   const filtro2 = filteredItems.filter((item) =>
-    item.estadoAsignado && item.estadoAsignado.includes(estado))
-
-  // console.log(dataAsignacion)
+    item.estado && item.estado.includes(estado))
 
   return (
     <>
@@ -131,8 +129,8 @@ export const TableMecanico = ({dataAsignacion}) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "1"}
-                onChange={() => setEstado(estado === "1" ? false : "1")}
+                checked={estado === "4"}
+                onChange={() => setEstado(estado === "4" ? "" : "4")}
               />
               <span className="ml-1">Pendiente</span>
             </label>
@@ -141,8 +139,8 @@ export const TableMecanico = ({dataAsignacion}) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "2"}
-                onChange={() => setEstado(estado === "2" ? false : "2")}
+                checked={estado === "5"}
+                onChange={() => setEstado(estado === "5" ? "" : "5")} //FALTA AGREGAR EL ESTADO TERMINADO
               />
               <span className="ml-1">Terminado</span>
             </label>

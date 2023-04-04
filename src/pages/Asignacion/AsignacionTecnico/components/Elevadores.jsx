@@ -4,16 +4,27 @@ import { TraeElevadores } from '../../../../helpers/ApiAsignacion'
 
 const Elevadores = ({ data, closeElevadores }) => {
   const [elevadores, setElevadores] = useState([])
-  
+
   useEffect(() => {
     TraeElevadores().then(res => setElevadores(res.data))
   }, [data])
 
-  const colorEstado = {
-    "Pendiente": "bg-yellow-600",
-    "En proceso": "bg-red-600",
-    "En pausa": "bg-purple-600",
+  const EstadoServicio = {
+    "1": {
+      "nombre": "Pendiente",
+      "color": "bg-yellow-500/80"
+    },
+    "2": {
+      "nombre": "En proceso",
+      "color": "bg-red-600"
+    },
+    "3": {
+      "nombre": "En pausa",
+      "color": "bg-purple-700"
+    },
   }
+
+  const idsElevadores = elevadores.map((elevador) => elevador.elevador.id);
 
   return (
     <div>
@@ -28,7 +39,7 @@ const Elevadores = ({ data, closeElevadores }) => {
                     // CONTENIDO DE LOS ELEVADORES
                   ele.servicios?.length > 0 && (
                     ele.servicios.map((res)=>(
-                        <div onClick={() => console.log(res)} key={res.id} className={`flex flex-col ${'bg-red-600'} p-4 gap-y-2 text-start min-w-[10rem] rounded-md min-h-[10rem]`}>
+                        <div key={res.id} className={`flex flex-col ${EstadoServicio[res.estado]?.color} p-4 gap-y-2 text-start min-w-[10rem] rounded-md min-h-[10rem]`}>
                           <p className='flex gap-x-1 font-normal'>
                             <span className='font-bold'>Ot:</span> 
                             {res.servicio?.ot}
@@ -42,17 +53,15 @@ const Elevadores = ({ data, closeElevadores }) => {
                             <span className='ml-1 font-normal'>{res.servicio?.horaEstimadaEntrega}</span>
                           </p>
                           <p className='flex gap-x-1 font-normal'>
-                            <span className='font-bold'>E. del servicio:</span>
-                            {JSON.parse(res.ordenServicios)[0]}
+                            <span onClick={() => console.log(res.estado)} className='font-bold'>E. del servicio:</span>
+                            {EstadoServicio[res.estado]?.nombre}
                           </p>  
                         </div>
                       ))
                   ) 
                 }
                 </div>
-              {/* <td className='p-5 bg-purple-700 text-white min-w-[10rem] rounded-md min-h-[10rem]'>Columna 1</td> */}
-              {/* <td className='p-5 bg-yellow-500 text-white min-w-[10rem] rounded-md min-h-[10rem]' onClick={() => console.log(ele)}>Columna 1</td> */}
-              <ModalElevador data={data} dataElevadores={ele.elevador} closeElevadores={closeElevadores}/>
+              <ModalElevador data={data} dataElevador={ele.elevador} closeElevadores={closeElevadores} idsElevadores={idsElevadores}/>
             </div>
           ))
         )}
@@ -62,3 +71,4 @@ const Elevadores = ({ data, closeElevadores }) => {
 }
 
 export default Elevadores
+

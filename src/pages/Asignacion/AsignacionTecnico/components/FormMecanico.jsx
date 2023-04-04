@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { InputReadOnly } from "../../../../components/InputForms/InputBasic";
 import { GuardarElevador } from "../../../../helpers/ApiAsignacion";
 
-const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
-    const elevadores = ["2", "3", "4"];
-    const { servicio, estadoAsignado } = data
-    const adicionales = JSON.parse(servicio?.adicionales)
+const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevadores }) => {
+    const elevadores = idsElevadores;
+    const adicionales = JSON.parse(data?.adicionales)
 
     const opcionesServicios = ["Lavado", "Secado", "Mantenimiento", "Control de Calidad"];
 
@@ -14,12 +13,12 @@ const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
     const enviarElevador = (e) => {
         e.preventDefault()
         const enviar = [{
-            elevador: dataElevadores.id,
-            servicio: servicio.id,
+            elevador: dataElevador.id,
+            servicio: data.id,
             ordenServicios: JSON.stringify(dataRegistro),
         }]
 
-        GuardarElevador(enviar).then(res => console.log("wenas", res))
+        GuardarElevador(enviar, data.id).then(res => console.log("wenas", res))
         setIsOpen(false)
         closeElevadores(false)
     }
@@ -51,17 +50,17 @@ const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
                 {/* LADO IZQUIERDO */}
                 <section className="w-full lg:w-full md:w-full ">
 
-                    <InputReadOnly labelName={"OT"} pHolder={"Ingresa la OT"} data={servicio.ot}/>
+                    <InputReadOnly labelName={"OT"} pHolder={"Ingresa la OT"} data={data.ot}/>
 
-                    <InputReadOnly labelName={"Nombre & Apellido"} pHolder={"Ingresa el nombre"} data={servicio.nombres} />
+                    <InputReadOnly labelName={"Nombre & Apellido"} pHolder={"Ingresa el nombre"} data={data.nombres} />
 
-                    <InputReadOnly labelName={"Asesor"} pHolder={"Citroen"} data={servicio.asesor?.nombres}/>
+                    <InputReadOnly labelName={"Asesor"} pHolder={"Citroen"} data={data.asesor?.nombres}/>
 
                 </section>
                 {/* LADO DERECHO */}
                 <section className="w-full lg:w-full md:w-full">
 
-                    <InputReadOnly labelName={'Tipo de servicio:'} pHolder={'Mantenimiento Flexible'} data={servicio.tipoServicio?.nombre}/>
+                    <InputReadOnly labelName={'Tipo de servicio:'} pHolder={'Mantenimiento Flexible'} data={data.tipoServicio?.nombre}/>
 
                     <div className="flex flex-col relative">
                         <label htmlFor="adicionales" className="text-gray-400">Adicionales:</label>
@@ -90,7 +89,7 @@ const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
                 <textarea
                     type="text"
                     placeholder="Detalles..."
-                    value={servicio.comentario}
+                    value={data.comentario}
                     disabled
                     className="resize-none min-h-[6rem] w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                 />
@@ -99,26 +98,20 @@ const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
             {/* INPUTS DEL FORM - FIN */}
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
                 <section>
-                    {/* <div className="flex flex-col relative">
+                    <div className="flex flex-col relative">
                         <label htmlFor="elevador" className="text-gray-400">Elevador:</label>
                         <select id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
-                            <option value="1">{}</option>
                             {elevadores.map((opcion) => (
                                 <option key={opcion} value={opcion}>
                                     {opcion}
                                 </option>
                             ))}
                         </select>
-                    </div> */}
-
-                    <InputReadOnly 
-                    labelName={"Elevador:"} 
-                    data={dataElevadores?.id} 
-                    />
+                    </div>
 
                     <InputReadOnly 
                     labelName={"Técnico Mecánico:"} 
-                    data={`${dataElevadores?.tecnico.nombres.split(' ', 1)} ${dataElevadores?.tecnico.apellidos.split(' ', 1)}`} 
+                    data={`${dataElevador?.tecnico.nombres.split(' ', 1)} ${dataElevador?.tecnico.apellidos.split(' ', 1)}`} 
                     />
                 </section>
 
@@ -129,7 +122,7 @@ const FormMecanico = ({ data, dataElevadores, setIsOpen,closeElevadores }) => {
                         <div className="flex flex-col relative">
                             <label htmlFor="servicios" className="text-gray-400">Servicios:</label>
                             <select name="servicios" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
-                                <option value="" disabled>Seleccione una opción</option>
+                                <option value="">Seleccione una opción</option>
                                 {opcionesServicios.map((opcion) => (
                                     <option key={opcion} value={opcion}>
                                         {opcion}

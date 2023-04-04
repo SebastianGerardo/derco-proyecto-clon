@@ -26,12 +26,14 @@ export const TraeElevadores = async () => {
   }
 };
 
-export const GuardarElevador = async (registro) => {
+export const GuardarElevador = async (registro, idServicio) => {
   try {
-    const fetchResponse = await fetch(`${URL}/servicios_asignados/crear`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+    const fetchResponse = await fetch(`${URL}/servicios/asignar/${idServicio}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+          'Content-Type': 'application/json'
+      },
       body: JSON.stringify(registro),
     });
     const data = await fetchResponse.json();
