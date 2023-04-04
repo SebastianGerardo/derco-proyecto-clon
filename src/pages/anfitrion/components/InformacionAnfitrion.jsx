@@ -14,7 +14,7 @@ export const InformacionAnfitrion = () => {
     
     CantCitas().then(res => {
       if(res.statusCode === 200){
-        setCantCitas(res.data.concita) 
+        setCantCitas(res.data.abordaje.concita)
         setBandera(!bandera)
       }
     })

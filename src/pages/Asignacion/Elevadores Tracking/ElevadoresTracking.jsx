@@ -7,7 +7,7 @@ const ElevadoresTracking = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       TraeElevadores().then(res => setElevadores(res.data))
-    }, 2000);
+    }, 1000);
     return () => clearInterval(interval);
   }, [])
 

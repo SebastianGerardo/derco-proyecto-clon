@@ -99,7 +99,21 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                     <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} />
                 </section>
 
-                <section className="flex lg:flex-row flex-col justify-between col-start-1 col-end-3">
+                <section className="flex  flex-col justify-between col-start-1 col-end-3">
+                    <div className="lg:w-full w-full">
+                        <label htmlFor="" className="text-gray-400">
+                            Comentario Interno:
+                        </label>
+                        <br />
+                        <textarea
+                            value={dataRegistro.comentarioInterno || ""}
+                            name="comentarioInterno"
+                            onChange={captura}
+                            type="text"
+                            placeholder="Detalles..."
+                            className="resize-none w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+                        />
+                    </div>
                     <div className="lg:w-full w-full">
                         <label htmlFor="" className="text-gray-400">
                             Detalles del Servicio Solicitado:
@@ -171,7 +185,6 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                             </option>
                             ))}
                         </select>
-                    </div>
                     <div className="flex flex-col overflow-y-auto w-full mx-auto h-[7.5rem] mt-2 border border-gray-300 rounded-md">
                         {dataRegistro.adicionales.length > 0 &&
                         dataRegistro.adicionales.map((opcion) => (
@@ -186,22 +199,23 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                         <div className="flex text-center items-center justify-center w-full h-full text-gray-400">No se ha seleccionado ningún adicional</div>
                         }
                     </div>
+                    </div>
 
+                </section>
                     <div className="lg:w-full w-full row-start-2 row-end-3">
                         <label htmlFor="" className="text-gray-400">
-                            Comentarios del cliente:
+                            Solicitud en Taller:
                         </label>
                         <br />
                         <textarea
-                            value={dataRegistro.comentario || ""}
-                            name="comentario"
+                            value={dataRegistro.solicitudTaller || ""}
+                            name="solicitudTaller"
                             onChange={captura}
                             type="text"
                             placeholder="Comentarios del cliente"
                             className="resize-none w-full border border-gray-300 h-24 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         />
                     </div>
-                </section>
 
                 <section className="flex lg:flex-row flex-row justify-center lg:items-end items-center md:flex-row">
                     <div className="flex justify-center w-full mt-10">

@@ -12,11 +12,11 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
 
     const enviarElevador = (e) => {
         e.preventDefault()
-        const enviar = [{
+        const enviar = {
             elevador: dataElevador.id,
             servicio: data.id,
-            ordenServicios: JSON.stringify(dataRegistro),
-        }]
+            ordenServicios: dataRegistro.toString(),
+        }
 
         GuardarElevador(enviar, data.id).then(res => console.log("wenas", res))
         setIsOpen(false)
@@ -25,21 +25,14 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
 
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
-        if (!dataRegistro.includes(opcion)) {
-            setDataRegistro((prevState) => [
-                ...prevState,
-                opcion,
-            ]);
+        if (opcion && !dataRegistro.includes(opcion) && opcionesServicios.includes(opcion)) {
+          setDataRegistro((prevState) => [...prevState, opcion]);
         }
-    }
+      }
 
     function eliminarOpcionSeleccionada(opcion) {
-        setDataRegistro((prevState) => [
-            ...prevState,
-            dataRegistro.filter((item) => item !== opcion),
-        ]);
-
-    }
+        setDataRegistro((prevState) => prevState.filter((item) => item !== opcion));
+      }
 
     return (
         <form action="" className="space-y-2" onSubmit={enviarElevador}>
@@ -98,7 +91,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
             {/* INPUTS DEL FORM - FIN */}
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
                 <section>
-                    <div className="flex flex-col relative">
+                    {/* <div className="flex flex-col relative">
                         <label htmlFor="elevador" className="text-gray-400">Elevador:</label>
                         <select id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
                             {elevadores.map((opcion) => (
@@ -107,7 +100,12 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
                                 </option>
                             ))}
                         </select>
-                    </div>
+                    </div> */}
+
+                    <InputReadOnly 
+                    labelName={"Técnico Mecánico:"} 
+                    data={dataElevador.id} 
+                    />
 
                     <InputReadOnly 
                     labelName={"Técnico Mecánico:"} 

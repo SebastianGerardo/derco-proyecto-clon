@@ -30,7 +30,7 @@ export const FormEdit = ({ data, setIsOpen }) => {
     let datos = {
       vehiculoKilometraje: datosEdita.vehiculoKilometraje,
       estado: "2",
-      asistencia: e.target.estado.value,
+      asistencia: "2",
       asesor: {
         id: e.target.asesor.value
       },
@@ -141,19 +141,7 @@ export const FormEdit = ({ data, setIsOpen }) => {
         </div>
 
         <div className="lg:w-[30%] md:w-[30%] w-full">
-          <label htmlFor="" className="text-gray-400">
-            Estado
-          </label>
-          <br />
-          <select
-            id="estado"
-            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-          >
-            <option value="" disabled>Elegir:</option>
-            <option value="0">No Asignado</option>
-            <option value="1">Pendiente</option>
-            <option value="2">Asignado</option>
-          </select>
+          
         </div>
 
 

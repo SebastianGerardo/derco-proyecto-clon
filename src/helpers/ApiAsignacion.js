@@ -42,3 +42,16 @@ export const GuardarElevador = async (registro, idServicio) => {
     return error;
   }
 };
+
+export const TraeServicio = async () => {
+  try {
+    const fetchResponse = await fetch(`${URL}/servicios/estado/5`, {
+      method: "GET",
+      credentials: "include",
+    });
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

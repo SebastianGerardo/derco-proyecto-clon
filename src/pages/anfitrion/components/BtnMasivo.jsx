@@ -29,6 +29,7 @@ export const BtnMasivo = () => {
                         correo: res["E-mail"],
                         telefono: reemplzar(res.Teléfono),
                         servicioSolicitado: res.Servicio,
+                        fechaCita: new Date(convertirFecha(`${res["Fecha de realización"]}:00`)),
                         notasCliente: res["Notas compartidas con cliente"],
                         comentarioInterno: res["Comentario interno"],
                         detalleServicio: res["Detalles del servicio solicitado"],

@@ -165,13 +165,15 @@ const columns = [
     center: true,
   },
 ];
-export const TableServicio = () => {
+export const TableServicio = ({dataServicios}) => {
   const [placa, setPlaca] = useState("");
-
+  
   const filteredItems = DataAsignacionServicio.filter(
     (item) =>
-      item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
-  );
+    item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
+    );
+
+  // console.log(dataServicios);
   
   const [estado, setEstado] = useState("")
 
