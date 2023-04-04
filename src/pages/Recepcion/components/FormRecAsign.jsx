@@ -25,14 +25,14 @@ const FormRecAsign = ({ data, setIsOpen }) => {
         console.log(res)
         Toast.fire({
           icon: "success",
-          title: "Servicio asignado correctamente",
+          title: "Asesor reasignado correctamente",
         });
         setEstadoData(!estadoData)
         setIsOpen(false)
       } else {
         Toast.fire({
           icon: "error",
-          title: "Ocurrir un error al asignar servicio",
+          title: "Ha ocurrido un error al reasignar el asesor",
         });
       }
     })

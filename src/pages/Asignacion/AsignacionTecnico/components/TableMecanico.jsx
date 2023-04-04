@@ -154,6 +154,14 @@ export const TableMecanico = ({dataAsignacion}) => {
         columns={columns}
         data={filtro2}
         pagination
+        paginationComponentOptions={{
+          rowsPerPageText: "Filas por página:",
+          rangeSeparatorText: "de",
+          noRowsPerPage: false,
+          selectAllRowsItem: true,
+          selectAllRowsItemText: "Todos"
+        }}
+        noDataComponent={<p className="text-base text-gray-400">Esperando los registros para mostrar</p>}
       />
     </>
   );

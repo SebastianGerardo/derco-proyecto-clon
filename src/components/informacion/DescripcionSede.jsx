@@ -17,7 +17,6 @@ export const DescripcionSede = () => {
 
   
   const location = useLocation();
-  // console.log();
   
   return (
     <div className="grid grid-cols-2 lg:flex lg:flex-row gap-4 lg:gap-16 flex-wrap w-full text-center">

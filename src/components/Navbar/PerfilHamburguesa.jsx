@@ -40,7 +40,7 @@ export default function PerfilHamburguesa() {
         <div>
           <Menu.Button>
             <label
-              className="flex p-3 rounded-sm text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 gap-3 items-center hover:bg-slate-500 cursor-pointer"
+              className="h-16 flex p-3 rounded-sm text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 gap-3 items-center hover:bg-slate-500 cursor-pointer"
             >
               <div className="grid place-items-center place-content-center h-9 w-9 rounded-full text-center leading-4 bg-red-100 font-bold text-xl">
                 <p className=" w-4 h-4 flex pb-[.15rem] items-center justify-center">
@@ -49,7 +49,8 @@ export default function PerfilHamburguesa() {
               </div>
               <div className="hidden lg:block">
                 <h2 className="font-medium">{UsuarioLogin?.usuario?.nombres?.split(' ', 1)} {UsuarioLogin?.usuario?.apellidos?.split(' ', 1)}</h2>
-                <p className="text-start p-0 m-0">{UsuarioLogin?.usuario?.tipo?.nombre} {UsuarioLogin?.usuario?.tipo?.apellidos}</p>
+                <p className="text-start p-0 m-0 font-medium">{UsuarioLogin?.usuario?.tipo?.nombre}</p>
+                <p className="text-start p-0 m-0 font-medium">Taller: {UsuarioLogin?.usuario?.centro?.distrito}</p>
               </div>
             </label>
           </Menu.Button>

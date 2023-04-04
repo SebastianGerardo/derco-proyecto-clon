@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { InformacionSede } from "../../components/informacion/InformacionSede";
+import { InformacionAnfitrion } from "./components/InformacionAnfitrion";
 import { UserContext } from "../../context/ContextDerco";
 import { TraeDataAnfitrion } from "../../helpers/ApiAnfitrion";
 
@@ -18,8 +18,7 @@ export const Anfitrion = () => {
   return (
     <>
       <div className="p-5">
-       
-        <InformacionSede dataAnfitrion={dataAnfitrion} />
+        <InformacionAnfitrion dataAnfitrion={dataAnfitrion} />
         {/*TABLA*/}
         <TableAnfitrion dataAnfitrion={dataAnfitrion} />
       </div>

@@ -1,39 +1,20 @@
 export const EstadosCitas = ({ cantCitas }) => {
   return (
-    <div className="flex w-full flex-wrap items-center justify-center lg:justify-between">
-      <div className="mt-5">
-
-        <div className="flex flex-col gap-[1px] mt-[1px] lg:flex-row lg:w-full">
-          <div className="py-1 px-3 text-black flex items-center gap-2 lg:flex lg:gap-1 rounded-md">
-            <div className="w-5 h-5 bg-blue-400 rounded-md"></div>
-            <p className="text-base text-center">
-              <span className="hidden lg:inline">Citas</span> Cargadas:
-            </p>
-            <p className="text-base text-center font-semibold">
-              {cantCitas.total === undefined ? 0 : cantCitas.total}
-            </p>
-          </div>
-          <div className="py-1 px-3 text-black flex items-center gap-2 lg:gap-2 rounded-md">
-            <div className="w-5 h-5 bg-green-400 rounded-md"></div>
-            <p className="text-base text-center">
-              <span className="hidden lg:inline">Citas</span> Programadas:
-            </p>
-            <p className="text-base text-center font-semibold">
-              {cantCitas.programados === undefined ? 0 : cantCitas.programados}
-            </p>
-          </div>
-          <div className="py-1 px-3 text-black flex items-center gap-2 lg:gap-2 rounded-md">
-            <div className="w-5 h-5 bg-yellow-400 rounded-md"></div>
-            <p className="text-base text-center">
-              <span onClick={() => console.log(null == false)} className="hidden lg:inline">Citas</span> Pendientes:
-            </p>
-            <p className="text-base text-center font-semibold">
-              {cantCitas.pendientes === undefined ? 0 : cantCitas.pendientes}
-            </p>
-          </div>
-        </div>
-
-      </div>
+    <div className='flex flex-col gap-4 sm:flex-col gp:flex-col lg:flex-row justify-between w-full'>
+            <section className='flex flex-col md:flex-row lg:flex-row gap-3'>
+                <div className='px-5 py-2 bg-blue-400 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
+                    <p className='font-semibold'>Citas Cargadas</p>
+                    <span className='font-bold text-3xl'>{cantCitas.total === undefined ? 0 : cantCitas.total}</span>
+                </div>
+                <div className='px-5 py-2 bg-green-400 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
+                    <p className='font-semibold'>Citas Programadas</p>
+                    <span className='font-bold text-3xl'>{cantCitas.programados === undefined ? 0 : cantCitas.programados}</span>
+                </div>
+                <div className='px-5 py-2 bg-yellow-400 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
+                    <p className='font-semibold'>Citas Pendientes</p>
+                    <span className='font-bold text-3xl'>{cantCitas.pendientes === undefined ? 0 : cantCitas.pendientes}</span>
+                </div>
+            </section>
     </div>
   );
 };

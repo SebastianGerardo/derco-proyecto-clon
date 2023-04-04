@@ -16,11 +16,6 @@ export const Almacen = () => {
   return (
     <>
       <div className="p-6">
-        <div className="full flex justify-between items-center">
-          <div className="flex justify-between items-center bg-gray-100 shadow-md rounded-sm py-3 px-5 mb-5    w-full">
-            <DescripcionSede />
-          </div>
-        </div>
         <TableAlmacen data={infoAlmacen} />
       </div>
     </>

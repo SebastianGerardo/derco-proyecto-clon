@@ -1,11 +1,11 @@
 
-import { DescripcionSede } from './DescripcionSede';
-import { EstadosCitas } from './EstadosCitas';
+import { DescripcionSede } from '../../../components/informacion/DescripcionSede';
+import { EstadosCitas } from '../../../components/informacion/EstadosCitas';
 import { useEffect, useState } from "react";
-import { CantCitas } from "../../helpers/ApiAnfitrion";
-import ProgressBar from '../Radial Progresivo/ProgressBar';
+import { CantCitas } from "../../../helpers/ApiAnfitrion";
+import ProgressBar from '../../../components/Radial Progresivo/ProgressBar';
 
-export const InformacionSede = () => {
+export const InformacionAnfitrion = () => {
 
   const [cantCitas, setCantCitas] = useState([])
   const [bandera, setBandera] = useState(false)
@@ -19,8 +19,6 @@ export const InformacionSede = () => {
       }
     })
   }, [bandera])
-
-
 
   useEffect(() => {
     if (cantCitas?.programados) {
@@ -38,22 +36,11 @@ export const InformacionSede = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center lg:flex-row lg:justify-between items-center bg-gray-100 shadow-md rounded-sm py-3 px-5 mt-5">
-      <div className='w-full'>
-
-        <DescripcionSede/>
-
-        <section className='hidden lg:block'>
+    <div className="bg-gray-100 shadow-md rounded-sm py-3 px-5 mt-5">
+      <div className='flex flex-col gap-y-2 items-center sm:flex-row min-[450px]:flex-row md:justify-between mt-4 lg:mt-0 justify-between w-full'>
+        <section className=''>
           <EstadosCitas cantCitas={cantCitas}/>
         </section>
-
-      </div>
-      <div className='grid grid-cols-2 lg:flex lg:flex-col mt-4 lg:mt-0 justify-between w-full lg:w-auto lg:justify-center lg:items-center'>
-
-        <section className='lg:hidden w-full'>
-          <EstadosCitas cantCitas={cantCitas}/>
-        </section>
-
         <section className='grid place-items-center'>
           <div>
             <p className='font-bold text-center'>Avance:</p>
@@ -62,7 +49,6 @@ export const InformacionSede = () => {
             <ProgressBar value={progress ? progress : 0} text={progress === Infinity || NaN ? 0 : (progress ? parseInt(progress) : 0)} />
           </div>
         </section>
-
       </div>
     </div>
   );

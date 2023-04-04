@@ -89,9 +89,8 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                 <section>
                     <InputBasic labelName={"Nombres & Apellidos"} pHolder={"Ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} />
                     <InputBasic labelName={"Email:"} pHolder={"example@gmail.com"} data={dataRegistro.correo} onChange={captura} name={"correo"} />
-                    <InputBasic labelName={"Marca :"} pHolder={"SUSUKI"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
+                    <InputBasic labelName={"Marca :"} pHolder={"Suzuki"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
                     <InputBasicNumber labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} />
-
                 </section>
                 <section>
                     <InputBasicNumber labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
@@ -103,7 +102,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                 <section className="flex lg:flex-row flex-col justify-between col-start-1 col-end-3">
                     <div className="lg:w-full w-full">
                         <label htmlFor="" className="text-gray-400">
-                            Detalles del servicio:
+                            Detalles del Servicio Solicitado:
                         </label>
                         <br />
                         <textarea

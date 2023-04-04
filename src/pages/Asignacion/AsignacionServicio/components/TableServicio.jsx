@@ -189,6 +189,14 @@ export const TableServicio = () => {
         columns={columns}
         data={estado !== false ? filtro2 : filteredItems}
         pagination
+        paginationComponentOptions={{
+          rowsPerPageText: "Filas por página:",
+          rangeSeparatorText: "de",
+          noRowsPerPage: false,
+          selectAllRowsItem: true,
+          selectAllRowsItemText: "Todos"
+        }}
+        noDataComponent={<p className="text-base text-gray-400">Esperando los registros para mostrar</p>}
       />
     </>
   );
