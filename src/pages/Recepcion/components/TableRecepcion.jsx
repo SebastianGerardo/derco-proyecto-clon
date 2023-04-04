@@ -5,9 +5,16 @@ import { Search } from "../../../components/datatable/Search";
 import { ModalRecepcion } from "./ModalRecepcion";
 import { FormtearFecha } from '../../../helpers/funcions'
 import { UserContext } from "../../../context/ContextDerco";
+import PickingRecepcion from "./PickingRecepcion";
 export const TableRecepcion = ({ dataRecepcion }) => {
   
   const { UsuarioLogin } = useContext(UserContext);
+
+  const ubicaciones = {
+    "2": "Recepcion",
+    "3": "Almacén",
+    "4": "Asignación",
+  }
 
   const columns = [
     {
@@ -55,7 +62,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     },
     {
       name: <CustomHeader nameModule="UBICACION" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estado === "2" && "Recepcion",
+      selector: (row) => row.estado && ubicaciones[row.estado],
       sortable: true,
       center: true,
       style: {
@@ -69,11 +76,46 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       },
       conditionalCellStyles: [
         {
+          when: (row) => row.estado,
+          style: {
+            backgroundColor: "#3B82F6",
+          },
+        },
+        {
           when: (row) => row.estado === "2",
           style: {
             backgroundColor: "#4AD69D",
           },
-        }
+        },
+      ],
+    },
+    {
+      name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
+      selector: (row) => row.estadoPicking === "1" ? "Pendiente" : "Terminado",
+      sortable: true,
+      center: true,
+      style: {
+        color: "white",
+        fontSize: "15px",
+        margin: "4px",
+        borderRadius: "5px",
+        fontWeight: "700",
+        textAlign: "center",
+        cursor: "default",
+      },
+      conditionalCellStyles: [
+        {
+          when: (row) => row.estadoPicking === "1",
+          style: {
+            backgroundColor: "#FFD966",
+          },
+        },
+        {
+          when: (row) => row.estadoPicking === "0",
+          style: {
+            backgroundColor: "#4AD69D",
+          },
+        },
       ],
     },
     {
@@ -82,6 +124,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
         <div className="flex items-center gap-3">
           <ModalRecepcion tipo="edit" data={row} />
           <ModalRecepcion tipo="reasignar" data={row} />
+          <PickingRecepcion data={row}/>
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
       center: true,
     },
@@ -100,8 +143,8 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     return true;
   });
 
- 
   const [placa, setPlaca] = useState("");
+  const [estado, setEstado] = useState("1")
   
   let ordenado = dataRecepcion.sort((a, b) => new Date(a.fechaRegistro) - new Date(b.fechaRegistro))
 
@@ -110,13 +153,43 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
 
+  const filtro2 = filteredItems.filter((item) => item.estadoPicking && item.estadoPicking.includes(estado))
+
+  
+  
   return (
     <>
-      {/**Componente Search de la tabla */}
-      <Search placa={placa} setPlaca={setPlaca} />
+      <div className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
+        {/**Componente Search de la tabla */}
+        <Search placa={placa} setPlaca={setPlaca} />
+        <form action="" className='border-solid border-gray-500 border w-72 px-2 py-1 rounded-md'>
+          <p className="text-gray-500">Filtro por estado de picking:</p>
+          <div className="flex justify-evenly">
+            <label className="p-1 flex items-center justify-center">
+              <input
+                className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
+                type="checkbox"
+                checked={estado === "1"}
+                onChange={() => setEstado(estado === "1" ? "" : "1")}
+              />
+              <span className="ml-1">Pendiente</span>
+            </label>
+            <br />
+            <label className="p-1 flex items-center justify-center">
+              <input
+                className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
+                type="checkbox"
+                checked={estado === "0"}
+                onChange={() => setEstado(estado === "0" ? "" : "0")}
+              />
+              <span className="ml-1">Terminado</span>
+            </label>
+          </div>
+        </form>
+      </div> 
       <DataTable
         columns={columnsToShow}
-        data={filteredItems}
+        data={filtro2}
         pagination
         paginationComponentOptions={{
           rowsPerPageText: "Filas por página:",

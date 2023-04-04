@@ -1,7 +1,7 @@
 import { URL } from "./UrlApi";
 export const traeRecepcion = async () => {
     try {
-      const fetchResponse = await fetch(`${URL}/servicios/estado/2`, {
+      const fetchResponse = await fetch(`${URL}/servicios/estado/2-3`, {
         method: "GET",
         credentials: "include",
       });
