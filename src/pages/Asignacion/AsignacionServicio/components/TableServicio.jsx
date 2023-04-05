@@ -24,32 +24,40 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="HORA ESTIMADA DE ENTREGA" />,
-    selector: (row) => row.horaEstimada,
+    selector: (row) => row.horaEstimadaEntrega,
     sortable: true,
     center: true
   },
   {
     name: <CustomHeader nameModule="TIPO DE SERVICIO" />,
-    selector: (row) => row.servicio,
+    selector: (row) => row.tipoServicio,
     sortable: true,
     center: true,
     width: "15rem",
   },
   {
-    name: <CustomHeader nameModule="ESTADO DE MANTENIMIENTO" />,
-    selector: (row) => row.estadoMantenimiento,
+    name: <CustomHeader nameModule="SERVICIOS ASIGNADOS" />,
+    selector: (row) => 
+    <div className="flex gap-2 min-w-full">
+      {row.ordenServicios.split(',').map((item, index) => {
+        return (
+            <p key={index}>{item}</p>
+        )
+      })}
+    </div>,
+    width: "20rem",
     sortable: true,
     center: true,
     style: {
-      color: "white",
+      color: "black",
       fontSize: "15px",
       margin: "4px",
       borderRadius: "5px",
       fontWeight: "700",
       textAlign: "center",
       cursor: "default",
+      width: "100%",
     },
-    width: "10rem",
     conditionalCellStyles: [
       {
         when: (row) => row.estadoMantenimiento === "Pendiente",
@@ -128,7 +136,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="CONFIRMACION DE SALIDA DE LA UNIDAD" />,
-    selector: (row) => row.salidaUnidad,
+    selector: (row) => row.confirmacionSalida === "1" ? "Pendiente" : "Unidad Entregada",
     sortable: true,
     center: true,
     width: "10rem",
@@ -143,15 +151,15 @@ const columns = [
     },
     conditionalCellStyles: [
       {
-        when: (row) => row.salidaUnidad === "Unidad Entregada",
+        when: (row) => row.confirmacionSalida === "1",
         style: {
-          backgroundColor: "#4AD69D",
+          backgroundColor: "#FFD966",
         },
       },
       {
-        when: (row) => row.salidaUnidad === "Pendiente",
+        when: (row) => row.confirmacionSalida === "2",
         style: {
-          backgroundColor: "#FFD966",
+          backgroundColor: "#4AD69D",
         },
       },
     ],
@@ -168,28 +176,38 @@ const columns = [
 export const TableServicio = ({dataServicios}) => {
   const [placa, setPlaca] = useState("");
   
-  const filteredItems = DataAsignacionServicio.filter(
+  
+
+  const newData = dataServicios.map(({servicio, datosAsignados}) => ({
+    ot: servicio.ot,
+    placa: servicio.placa,
+    horaEstimadaEntrega: servicio.horaEstimadaEntrega,
+    tipoServicio: servicio.tipoServicio,
+    ubicacion: datosAsignados.ubicacion,
+    ordenServicios: datosAsignados.ordenServicios,
+    confirmacionSalida: datosAsignados.confirmacionSalida,
+  }))
+  
+  const [estado, setEstado] = useState("")
+
+  const filteredItems = newData.filter(
     (item) =>
     item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
     );
 
-  // console.log(dataServicios);
-  
-  const [estado, setEstado] = useState("")
-
   const filtro2 = filteredItems.filter((item) =>
-    item.ubicacion && item.ubicacion.includes(estado) || item.estadoAsignacion && item.estadoAsignacion.includes(estado)) 
+    item.ubicacion && item.ubicacion.includes(estado)) //|| item.estadoAsignacion && item.estadoAsignacion.includes(estado) 
  
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
+      <div onClick={() => console.log(filteredItems)} className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
         <Search placa={placa} setPlaca={setPlaca} />
       </div>
 
       {/**Componente Search de la tabla */}
       <DataTable
         columns={columns}
-        data={estado !== false ? filtro2 : filteredItems}
+        data={filtro2}
         pagination
         paginationComponentOptions={{
           rowsPerPageText: "Filas por página:",
@@ -203,3 +221,90 @@ export const TableServicio = ({dataServicios}) => {
     </>
   );
 };
+
+  // [
+  //   {
+  //     servicio: {
+  //       id: 1472,
+  //       nombres: 'Juancito',
+  //       telefono: null,
+  //       correo: null,
+  //       documento: null,
+  //       placa: '123123',
+  //       marca: null,
+  //       modelo: null,
+  //       ot: null,
+  //       horaEstimadaEntrega: null,
+  //       detalleServicio: null,
+  //       notasCliente: null,
+  //       comentarioInterno: null,
+  //       comentarioAlmacen: null,
+  //       comentario: null,
+  //       servicioSolicitado: null,
+  //       vehiculoKilometraje: '5000',
+  //       estado: '5',
+  //       estadoPicking: '1',
+  //       solicitudTaller: null,
+  //       asistencia: '1',
+  //       tipoCita: 'S',
+  //       adicionales: '[]',
+  //       fechaCita: null,
+  //       fechaInicioRecepcion: '2023-04-05T06:34:36.000Z',
+  //       fechaFinRecepcion: null,
+  //       fechaEntrada: '2023-04-05T06:34:17.000Z',
+  //       fechaRegistro: '2023-04-05T06:34:31.000Z',
+  //       asesor: { id: 9, nombres: 'Felipe', apellidos: 'Currado' },
+  //       tipoServicio: null
+  //     },
+  //     datosAsignados: {
+  //       id: 41,
+  //       ubicacion: 'Lavado',
+  //       ordenServicios: 'Lavado,Secado,Mantenimiento',
+  //       confirmacionSalida: '1',
+  //       estado: '1',
+  //       fecha_registro: '2023-04-05T06:35:19.000Z'
+  //     }
+  //   }, 
+  //   {
+  //     servicio: {
+  //       id: 1473,
+  //       nombres: 'pepito',
+  //       telefono: null,
+  //       correo: null,
+  //       documento: null,
+  //       placa: '888888',
+  //       marca: null,
+  //       modelo: null,
+  //       ot: null,
+  //       horaEstimadaEntrega: null,
+  //       detalleServicio: null,
+  //       notasCliente: null,
+  //       comentarioInterno: null,
+  //       comentarioAlmacen: null,
+  //       comentario: null,
+  //       servicioSolicitado: null,
+  //       vehiculoKilometraje: '5000',
+  //       estado: '5',
+  //       estadoPicking: '1',
+  //       solicitudTaller: null,
+  //       asistencia: '1',
+  //       tipoCita: 'S',
+  //       adicionales: '[]',
+  //       fechaCita: null,
+  //       fechaInicioRecepcion: '2023-04-05T06:40:38.000Z',
+  //       fechaFinRecepcion: null,
+  //       fechaEntrada: '2023-04-05T06:40:23.000Z',
+  //       fechaRegistro: '2023-04-05T06:40:34.000Z',
+  //       asesor: { id: 9, nombres: 'Felipe', apellidos: 'Currado' },
+  //       tipoServicio: null
+  //     },
+  //     datosAsignados: {
+  //       id: 42,
+  //       ubicacion: 'Lavado',
+  //       ordenServicios: 'Lavado,Mantenimiento',
+  //       confirmacionSalida: '1',
+  //       estado: '1',
+  //       fecha_registro: '2023-04-05T06:40:57.000Z'
+  //     }
+  //   },
+  // ]
