@@ -14,7 +14,6 @@ export const Anfitrion = () => {
     TraeDataAnfitrion().then((res) => setDataAnfitrion(res.data));
   }, [estadoData]);
 
-
   return (
     <>
       <div className="p-5">

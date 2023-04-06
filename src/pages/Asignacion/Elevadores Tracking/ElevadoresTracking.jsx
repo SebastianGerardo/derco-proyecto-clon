@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { TraeElevadores } from '../../../helpers/ApiAsignacion'
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
+import { NuevaUbicacion } from '../../../helpers/ApiAsignacion'
 
 const dataFicticia = [
   {
@@ -184,14 +185,14 @@ const dataFicticia = [
 ]
 
 const ElevadoresTracking = () => {
-  const [columns, setColumns] = useState(dataFicticia)
+  const [columns, setColumns] = useState([])
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     TraeElevadores().then(res => setColumns(res.data))
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      TraeElevadores().then(res => setColumns(res.data))
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [])
 
   const EstadoServicio = {
     "5": {
@@ -235,6 +236,7 @@ const ElevadoresTracking = () => {
         }
       }
       setColumns(Object.values(dataCambiada));
+      NuevaUbicacion({elevador: (parseInt(destination.droppableId) + 1).toString()}, (destItems[destination.index].id).toString()).then(res => console.log(res))
     } else {
       const column = columns[source.droppableId];
       const copiedItems = [...column.servicios];
@@ -248,6 +250,10 @@ const ElevadoresTracking = () => {
         }
       } 
       setColumns(Object.values(dataCambiada))
+      console.log(column.elevador.id, copiedItems[destination.index].id)
+      NuevaUbicacion({elevador: (column.elevador.id).toString()}, copiedItems[destination.index].id.toString()).then(res => console.log(res))
+      console.log(copiedItems)
+      console.log(columns)
     }
   };
 

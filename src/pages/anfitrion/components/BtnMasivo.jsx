@@ -15,7 +15,7 @@ export const BtnMasivo = () => {
 
     const subirDatos = (e) => {
         e.preventDefault()
-        if (excel) {
+        if (excel != "") {
             let fileReader = new FileReader();
             fileReader.readAsBinaryString(excel);
             fileReader.onload = (e) => {
@@ -44,7 +44,7 @@ export const BtnMasivo = () => {
                         if (res.statusCode === 200) {
                             Toast.fire({
                                 icon: "success",
-                                title: "Archivo cargados correctamente",
+                                title: "Archivo cargado correctamente",
                             });
                             console.log("QIE ONDAAAAAAAAAAAAAA", res.data)
 
@@ -62,12 +62,17 @@ export const BtnMasivo = () => {
                         } else {
                             Toast.fire({
                                 icon: "error",
-                                title: "No se cargó el archivo correctamente",
+                                title: "Ocurrió un problema al cargar el archivo",
                             });
                         }
                     });
                 })
             }
+        } else {
+            Toast.fire({
+                icon: "error",
+                title: "Ingresa un archivo",
+            });
         }
     }
 
@@ -122,8 +127,8 @@ export const BtnMasivo = () => {
                                                 hover:file:bg-green-100
                                                 "/>
                                             <div className='flex items-center mt-5 justify-center gap-5'>
-                                                <button type="submit" className='bg-black text-white rounded-md p-2 font-semibold flex items-center gap-3'><i className="flex gap items-cemter gap-3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
-                                                <a href='/documentos/Plantilla Derco.xlsx' className='p-2 bg-green-500 rounded-md text-white font-semibold flex items-center gap-3'><i className="fa-solid fa-download flex"></i>Descargar Plantilla</a>
+                                                <button type="submit" className="flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"><i className="flex gap items-cemter gap-3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
+                                                {/* <a href='/documentos/Plantilla Derco.xlsx' className='p-2 bg-green-500 rounded-md text-white font-semibold flex items-center gap-3'><i className="fa-solid fa-download flex"></i>Descargar Plantilla</a> */}
                                             </div>
 
                                         </form>

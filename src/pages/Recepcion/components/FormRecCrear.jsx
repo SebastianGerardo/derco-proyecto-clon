@@ -11,7 +11,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
     
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
-        if (!dataRegistro.adicionales.includes(opcion)) {
+        if (opcion && !dataRegistro.adicionales.includes(opcion)) {
             setDataRegistro({
                 ...dataRegistro,
                 adicionales: [...dataRegistro.adicionales, opcion],
@@ -27,8 +27,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         });
 
     }
-    const [fechaInicioRecepcion, setFechaInicioRecepcion] = useState("")
-    
+
     const [dataRegistro, setDataRegistro] = useState({
         adicionales: [],
         asistencia: data.asistencia,
@@ -49,6 +48,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         vehiculoKilometraje: data.vehiculoKilometraje,
         estadoPicking: "0",
         servicioSolicitado: data.servicioSolicitado,
+        comentarioInterno: data.comentarioInterno,
         fechaInicioRecepcion: new Date()
     })
 

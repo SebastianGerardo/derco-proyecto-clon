@@ -97,7 +97,7 @@ export const TableAlmacen = ({ data }) => {
     e.preventDefault()
   }
 
-  const [estado, setEstado] = useState("")
+  const [estado, setEstado] = useState("0")
 
   const filtro2 = filteredItems.filter((item) => item.estadoPicking && item.estadoPicking.includes(estado))
 

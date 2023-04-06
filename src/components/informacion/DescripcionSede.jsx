@@ -6,8 +6,6 @@ import { UserContext } from '../../context/ContextDerco';
 export const DescripcionSede = () => {
   const [date, setDate] = useState(new Date());
 
-  const { UsuarioLogin, modules, rolModule } = useContext(UserContext);
-
   useEffect(() => {
     const interval = setInterval(() => {
       setDate(new Date());
@@ -24,7 +22,7 @@ export const DescripcionSede = () => {
         <p className="font-bold">
           Módulo:
         </p>
-        <span className='font-normal'>{modules[location.pathname]}</span>
+        <span className='font-normal'></span>
       </div>
       <div className='lg:flex lg:gap-1'>
         <p className="font-bold">
