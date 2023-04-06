@@ -14,6 +14,7 @@ export const ContextDerco = ({ children }) => {
     "/dashboard/almacen": "Almacén",
     "/dashboard/asignacion": "Asignación",
     "/dashboard/asignacion/servicios": "Asignación",
+    "/dashboard/asignacion/elevadores": "Asignación",
   })
 
   const [rolModule, setRolModule] = useState({

@@ -1,58 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
+import { NuevaUbicacion } from "../../../../helpers/ApiAsignacion";
 
 const FormServicio = ({ data, setIsOpen }) => {
+    const ordenServicios = data.ordenServicios.split(",");
+    // console.log(ordenServicios);
+    let newOrden = ordenServicios.filter((item) => item !== data.ubicacion);
+    
+    const [ubicacion, setUbicacion] = useState({
+        ubicacion: "",
+    });
+
+    const changeUbicacion = (e) => {
+        setUbicacion({
+            ...ubicacion,
+            [e.target.name]: e.target.value,
+        });
+    };
+
+    const nuevaUbicacion = (e) => {
+        e.preventDefault();
+        if(ubicacion.ubicacion === "") {
+            alert("Debe seleccionar una ubicación");
+            return;
+        } else {
+            NuevaUbicacion(ubicacion, data.datosAsignadosId).then((res) => {console.log(res)});
+            setIsOpen(false);
+        }
+        
+    }
+
+    // console.log(data);
+    
     return (
-        <form action="" className="space-y-2">
+        <form action="" onSubmit={nuevaUbicacion} className="space-y-2">
             {/* INPUTS DEL FORM - INICIO */}
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
                 <section className="w-full lg:w-full md:w-full ">
 
-                    <InputBasic labelName={"OT"} pHolder={"ingresa el nombre"} data={data.nombre} />
+                    <InputBasic labelName={"OT"} pHolder={""} data={data.ot} />
 
-                    <InputBasic labelName={"Marca"} pHolder={"Citroen"} data={""} />
+                    <InputBasic labelName={"Nombre y Apellido"} pHolder={""} data={data.nombres} />
 
-                    <InputBasic labelName={"Kilometraje Real:"} pHolder={"5000"} data={""} />
-
-                    <div className="w-full">
-                        <label htmlFor="" className="text-gray-400">
-                            Confirmacion de Picking:
-                        </label>
-                        <br />
-                        <select
-                            name=""
-                            id=""
-                            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-                        >
-                            <option value="">Elige:</option>
-                            <option value="">Pendiente</option>
-                            <option value="">Listo</option>
-                        </select>
-                    </div>
+                    <InputBasic labelName={"Ubicación Actual"} pHolder={""} data={data.ubicacion} />
 
                 </section>
 
                 {/* LADO DERECHO */}
                 <section className="w-full lg:w-full md:w-full">
 
-                    <InputBasic labelName={'Tipo de Servicio:'} pHolder={'Mantenimiento Flexible'} data={""} />
+                    <InputBasic labelName={'Tipo de Servicio:'} pHolder={''} data={data.tipoServicio} />
 
-                    <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
+                    <InputBasic labelName={"Placa:"} pHolder={""} data={data.placa} />
 
-                    <InputBasic labelName={"Modelo:"} pHolder={"C4"} data={""} />
+                    <div className="w-full">
+                        <label htmlFor="" className="text-gray-400">
+                            Nueva Ubicacion:
+                        </label>
+                        <br />
+                        <select
+                            name="ubicacion"
+                            onChange={changeUbicacion}
+                            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+                        >
+                            <option value="">Elige:</option>
+                            {newOrden.map((item, index) => (
+                                <option key={index} value={item}>{item}</option>
+                            ))}
+                        </select>
+                    </div>
 
-                    <InputBasic labelName={"Fecha / Hora"} pHolder={"13/03/2023 02:25:PM"} data={""} />
-
-                </section>
-                <section className="lg:w-full w-full col-start-1 col-end-3">
-                    <label htmlFor="" className="text-gray-400">
-                        Detalles del servicio:
-                    </label>
-                    <br />
-                    <textarea
-                        type="text"
-                        placeholder="Detalles..."
-                        className="resize-none min-h-[6rem] w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-                    />
                 </section>
             </div>
             {/* LADO IZQUIERDO */}
@@ -62,7 +78,7 @@ const FormServicio = ({ data, setIsOpen }) => {
                 <section className="flex lg:flex-row flex-row justify-center lg:items-end items-center md:flex-row">
                     <div className="flex justify-center w-full mt-1">
                         <button
-                            type="button"
+                            type="submit"
                             className="flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         >
                             <i className="fa-solid fa-floppy-disk"></i>

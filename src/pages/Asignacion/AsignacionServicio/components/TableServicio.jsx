@@ -7,6 +7,15 @@ import { DataAsignacionServicio } from "../../../../helpers/DataAsignacion";
 // import { BotonFroms } from "../../../components/Boton/BotonForms";
 import { ModalServicio } from "./ModalServicio";
 
+const colorServicios = {
+  "Lavado": "bg-[#00B0F0]",
+  "Secado": "bg-[#7F7F7F]",
+  "Mantenimiento": "bg-[#B22323]",
+  "Control de Calidad": "bg-[#6B21A8]",
+  "Pre Entrega": "bg-[#FFD966]",
+  "Entrega": "bg-[#46AD63]",
+}
+
 const columns = [
   {
     name: <CustomHeader nameModule="OT" />,
@@ -36,18 +45,78 @@ const columns = [
     width: "15rem",
   },
   {
+    name: <CustomHeader nameModule="UBICACION" />,
+    selector: (row) => row.ubicacion,
+    sortable: true,
+    center: true,
+    style: {
+      color: "white",
+      fontSize: "15px",
+      margin: "4px",
+      borderRadius: "5px",
+      fontWeight: "700",
+      textAlign: "center",
+      cursor: "default",
+    },
+    conditionalCellStyles: [
+      {
+        when: (row) => row.ubicacion === "Entrega",
+        style: {
+          backgroundColor: "#4AD69D",
+          borderRadius: "9999px",
+        },
+      },
+      {
+        when: (row) => row.ubicacion === "Lavado",
+        style: {
+          backgroundColor: "#00B0F0",
+          borderRadius: "9999px",
+        },
+      },
+      {
+        when: (row) => row.ubicacion === "Mantenimiento",
+        style: {
+          backgroundColor: "#F97316",
+          borderRadius: "9999px",
+        },
+      },
+      {
+        when: (row) => row.ubicacion === "Secado",
+        style: {
+          backgroundColor: "#9CA3AF",
+          borderRadius: "9999px",
+        },
+      },
+      {
+        when: (row) => row.ubicacion === "Control de Calidad",
+        style: {
+          textAlign: "center",
+          wordBreak: "break-all",
+          backgroundColor: "#6B21A8",
+          borderRadius: "9999px",
+        },
+      },
+      {
+        when: (row) => row.ubicacion === "Pre Entrega",
+        style: {
+          backgroundColor: "#FFD966",
+          borderRadius: "9999px",
+        },
+      },
+    ],
+  },
+  {
     name: <CustomHeader nameModule="SERVICIOS ASIGNADOS" />,
     selector: (row) => 
-    <div className="flex gap-2 min-w-full">
+    <div className="flex gap-2 min-w-full text-white">
       {row.ordenServicios.split(',').map((item, index) => {
         return (
-            <p key={index}>{item}</p>
+            <p className={`${colorServicios[item]} text-center py-2 px-4 rounded-full h-[39.2px]`} onClick={() => console.log(colorServicios[item])} key={index}>{item}</p>
         )
       })}
     </div>,
-    width: "20rem",
+    width: "33rem",
     sortable: true,
-    center: true,
     style: {
       color: "black",
       fontSize: "15px",
@@ -80,66 +149,11 @@ const columns = [
     ],
   },
   {
-    name: <CustomHeader nameModule="UBICACION" />,
-    selector: (row) => row.ubicacion,
-    sortable: true,
-    center: true,
-    style: {
-      color: "white",
-      fontSize: "15px",
-      margin: "4px",
-      borderRadius: "5px",
-      fontWeight: "700",
-      textAlign: "center",
-      cursor: "default",
-    },
-    conditionalCellStyles: [
-      {
-        when: (row) => row.ubicacion === "Entrega",
-        style: {
-          backgroundColor: "#4AD69D",
-        },
-      },
-      {
-        when: (row) => row.ubicacion === "Lavado",
-        style: {
-          backgroundColor: "#60A5FA",
-        },
-      },
-      {
-        when: (row) => row.ubicacion === "Mantenimiento",
-        style: {
-          backgroundColor: "#F97316",
-        },
-      },
-      {
-        when: (row) => row.ubicacion === "Secado",
-        style: {
-          backgroundColor: "#9CA3AF",
-        },
-      },
-      {
-        when: (row) => row.ubicacion === "Control de calidad",
-        style: {
-          textAlign: "center",
-          wordBreak: "break-all",
-          backgroundColor: "#6B21A8",
-        },
-      },
-      {
-        when: (row) => row.ubicacion === "Pre Entrega",
-        style: {
-          backgroundColor: "#FFD966",
-        },
-      },
-    ],
-  },
-  {
-    name: <CustomHeader nameModule="CONFIRMACION DE SALIDA DE LA UNIDAD" />,
+    name: <CustomHeader nameModule="CONFIRMACION DE SALIDA" />,
     selector: (row) => row.confirmacionSalida === "1" ? "Pendiente" : "Unidad Entregada",
     sortable: true,
     center: true,
-    width: "10rem",
+    width: "auto",
     style: {
       color: "white",
       fontSize: "15px",
@@ -154,12 +168,14 @@ const columns = [
         when: (row) => row.confirmacionSalida === "1",
         style: {
           backgroundColor: "#FFD966",
+          borderRadius: "9999px",
         },
       },
       {
         when: (row) => row.confirmacionSalida === "2",
         style: {
           backgroundColor: "#4AD69D",
+          borderRadius: "9999px",
         },
       },
     ],
@@ -176,9 +192,8 @@ const columns = [
 export const TableServicio = ({dataServicios}) => {
   const [placa, setPlaca] = useState("");
   
-  
-
   const newData = dataServicios.map(({servicio, datosAsignados}) => ({
+    datosAsignadosId: datosAsignados.id,
     ot: servicio.ot,
     placa: servicio.placa,
     horaEstimadaEntrega: servicio.horaEstimadaEntrega,
@@ -186,6 +201,7 @@ export const TableServicio = ({dataServicios}) => {
     ubicacion: datosAsignados.ubicacion,
     ordenServicios: datosAsignados.ordenServicios,
     confirmacionSalida: datosAsignados.confirmacionSalida,
+    nombres: servicio.nombres,
   }))
   
   const [estado, setEstado] = useState("")
@@ -198,6 +214,8 @@ export const TableServicio = ({dataServicios}) => {
   const filtro2 = filteredItems.filter((item) =>
     item.ubicacion && item.ubicacion.includes(estado)) //|| item.estadoAsignacion && item.estadoAsignacion.includes(estado) 
  
+    // console.log(newData)
+
   return (
     <>
       <div onClick={() => console.log(filteredItems)} className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">

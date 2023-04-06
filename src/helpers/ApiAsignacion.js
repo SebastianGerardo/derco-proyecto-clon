@@ -55,3 +55,20 @@ export const TraeServicio = async () => {
     return error;
   }
 };
+
+export const NuevaUbicacion = async (registro, datoAsignadoId) => {
+  try {
+    const fetchResponse = await fetch(`${URL}/servicios_asignados/actualizar/${datoAsignadoId}`, {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(registro),
+    });
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
