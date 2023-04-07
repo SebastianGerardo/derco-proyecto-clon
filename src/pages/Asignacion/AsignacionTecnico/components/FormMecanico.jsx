@@ -3,19 +3,22 @@ import { InputReadOnly } from "../../../../components/InputForms/InputBasic";
 import { GuardarElevador } from "../../../../helpers/ApiAsignacion";
 
 const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevadores }) => {
-    const elevadores = idsElevadores;
     const adicionales = JSON.parse(data?.adicionales)
+    const elevadores = idsElevadores;
 
     const opcionesServicios = ["Lavado", "Secado", "Mantenimiento", "Control de Calidad"];
 
-    const [dataRegistro, setDataRegistro] = useState([]);
+    const [dataRegistro, setDataRegistro] = useState({
+        servicios: [],
+        elevadorId: dataElevador.id,
+    });
 
     const enviarElevador = (e) => {
         e.preventDefault()
         const enviar = {
-            elevador: dataElevador.id,
+            elevador: parseInt(dataRegistro.elevadorId),
             servicio: data.id,
-            ordenServicios: dataRegistro.toString(),
+            ordenServicios: dataRegistro.servicios.toString(),
         }
 
         GuardarElevador(enviar, data.id).then(res => console.log("wenas", res))
@@ -25,13 +28,27 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
 
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
-        if (opcion && !dataRegistro.includes(opcion) && opcionesServicios.includes(opcion)) {
-          setDataRegistro((prevState) => [...prevState, opcion]);
+        if (opcion && !dataRegistro.servicios.includes(opcion) && opcionesServicios.includes(opcion)) {
+          setDataRegistro({
+            ...dataRegistro,
+            servicios: [...dataRegistro.servicios, opcion],
+          }
+          );
         }
       }
 
     function eliminarOpcionSeleccionada(opcion) {
-        setDataRegistro((prevState) => prevState.filter((item) => item !== opcion));
+        setDataRegistro({
+            ...dataRegistro,
+            servicios: dataRegistro.servicios.filter((servicio) => servicio !== opcion),
+        });
+      }
+
+      function cambiarElevador(e) {
+            setDataRegistro({
+                ...dataRegistro,
+                elevadorId: e.target.value
+            })
       }
 
     return (
@@ -91,21 +108,16 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
             {/* INPUTS DEL FORM - FIN */}
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
                 <section>
-                    {/* <div className="flex flex-col relative">
+                    <div className="flex flex-col relative">
                         <label htmlFor="elevador" className="text-gray-400">Elevador:</label>
-                        <select id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
+                        <select onChange={cambiarElevador} id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
                             {elevadores.map((opcion) => (
-                                <option key={opcion} value={opcion}>
+                                <option key={opcion} selected={opcion == dataElevador.id} value={opcion} onClick={() => console.log(opcion)}>
                                     {opcion}
                                 </option>
                             ))}
                         </select>
-                    </div> */}
-
-                    <InputReadOnly 
-                    labelName={"Técnico Mecánico:"} 
-                    data={dataElevador.id} 
-                    />
+                    </div>
 
                     <InputReadOnly 
                     labelName={"Técnico Mecánico:"} 
@@ -120,7 +132,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
                         <div className="flex flex-col relative">
                             <label htmlFor="servicios" className="text-gray-400">Servicios:</label>
                             <select name="servicios" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
-                                <option value="">Seleccione una opción</option>
+                                <option value="">Seleccione los servicios</option>
                                 {opcionesServicios.map((opcion) => (
                                     <option key={opcion} value={opcion}>
                                         {opcion}
@@ -130,8 +142,8 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
                         </div>
                         <div className="flex flex-col overflow-y-auto w-full mx-auto h-[7.5rem] mt-2 border border-gray-300 rounded-md">
                             {
-                                dataRegistro.length > 0 &&
-                                dataRegistro.map((opcion) => (
+                                dataRegistro.servicios.length > 0 &&
+                                dataRegistro.servicios.map((opcion) => (
                                     <div className="flex items-center text-left px-3 py-2 border-b border-gray-300" key={opcion}>
                                         <div className="rounded-full relative w-4 h-4 mr-2 text-gray-500 hover:text-white hover:bg-red-500 hover:border-red-500 cursor-pointer border border-gray-400 border-solid flex items-center justify-center transition-colors duration-300" onClick={() => eliminarOpcionSeleccionada(opcion)}>
                                             <h1 className="font-bold text-sm">x</h1>
@@ -139,7 +151,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
                                         <span className="text-gray-700">{opcion}</span>
                                     </div>
                                 ))}
-                            {dataRegistro.length === 0 &&
+                            {dataRegistro.servicios.length === 0 &&
                                 <div className="flex text-center items-center justify-center w-full h-full text-gray-400">No se ha seleccionado ningún servicio</div>
                             }
                         </div>
