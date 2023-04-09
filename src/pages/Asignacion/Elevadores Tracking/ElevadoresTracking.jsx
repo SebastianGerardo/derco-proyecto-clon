@@ -258,7 +258,7 @@ const ElevadoresTracking = () => {
   };
 
   return (
-    <div className='flex justify-start xl:justify-cnter h-full overflow-x-auto'>
+    <div className='flex justify-start h-full overflow-x-auto'>
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
