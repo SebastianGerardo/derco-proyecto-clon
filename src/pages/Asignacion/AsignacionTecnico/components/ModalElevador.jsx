@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { BotonFroms } from '../../../../components/Boton/BotonForms';
 import Elevadores from './Elevadores';
 import FormMecanico from './FormMecanico';
-export const ModalElevador = ({ dataElevador, data, closeElevadores, idsElevadores }) => {
+export const ModalElevador = ({ dataElevador, data, closeElevadores, nombresElevadores }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -47,7 +47,7 @@ export const ModalElevador = ({ dataElevador, data, closeElevadores, idsElevador
                 </div>
                    
                   <div className='p-5 w-full block'>
-                    <FormMecanico data={data} dataElevador={dataElevador} setIsOpen={setIsOpen} closeElevadores={closeElevadores} idsElevadores={idsElevadores}/>
+                    <FormMecanico data={data} dataElevador={dataElevador} setIsOpen={setIsOpen} closeElevadores={closeElevadores} nombresElevadores={nombresElevadores}/>
                   </div>
                   
                 </Dialog.Panel>

@@ -24,7 +24,12 @@ const Elevadores = ({ data, closeElevadores }) => {
     },
   }
 
-  const idsElevadores = elevadores.map((elevador) => elevador.elevador.nombre);
+  const nombresElevadores = elevadores.map((elevador) => {
+    return {
+      elevadorId: elevador.elevador.id,
+      nombre: elevador.elevador.nombre
+    }
+  });
 
   return (
       <section className='flex justify-start h-full overflow-auto'>
@@ -50,7 +55,7 @@ const Elevadores = ({ data, closeElevadores }) => {
                       )))}
                   </div>
                 </div>
-              <ModalElevador data={data} dataElevador={ele.elevador} closeElevadores={closeElevadores} idsElevadores={idsElevadores}/>
+              <ModalElevador data={data} dataElevador={ele.elevador} closeElevadores={closeElevadores} nombresElevadores={nombresElevadores}/>
             </div>
           ))
         )}

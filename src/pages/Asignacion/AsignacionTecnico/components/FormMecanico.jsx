@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { InputReadOnly } from "../../../../components/InputForms/InputBasic";
 import { GuardarElevador } from "../../../../helpers/ApiAsignacion";
 
-const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevadores }) => {
+const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresElevadores }) => {
     const adicionales = JSON.parse(data?.adicionales)
-    const elevadores = idsElevadores;
+    const elevadores = nombresElevadores
 
     const opcionesServicios = ["Lavado", "Secado", "Mantenimiento", "Control de Calidad"];
 
@@ -112,8 +112,8 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, idsElevad
                         <label htmlFor="elevador" className="text-gray-400">Elevador:</label>
                         <select onChange={cambiarElevador} id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
                             {elevadores.map((opcion) => (
-                                <option key={opcion} selected={opcion == dataElevador.nombre} value={opcion} onClick={() => console.log(opcion)}>
-                                    {opcion}
+                                <option key={opcion.elevadorId} selected={opcion.nombre === dataElevador.nombre} value={opcion.elevadorId} onClick={() => console.log(opcion)}>
+                                    {opcion.nombre}
                                 </option>
                             ))}
                         </select>
