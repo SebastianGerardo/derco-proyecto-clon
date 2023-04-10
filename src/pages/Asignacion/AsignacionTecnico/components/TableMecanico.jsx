@@ -111,7 +111,7 @@ export const TableMecanico = ({dataAsignacion}) => {
     e.preventDefault()
   }
 
-  const [estado, setEstado] = useState("")
+  const [estado, setEstado] = useState("4")
 
   const filtro2 = filteredItems.filter((item) =>
     item.estado && item.estado.includes(estado))

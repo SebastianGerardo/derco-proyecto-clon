@@ -24,7 +24,7 @@ const Elevadores = ({ data, closeElevadores }) => {
     },
   }
 
-  const idsElevadores = elevadores.map((elevador) => elevador.elevador.id);
+  const idsElevadores = elevadores.map((elevador) => elevador.elevador.nombre);
 
   return (
       <section className='flex justify-start h-full overflow-auto'>

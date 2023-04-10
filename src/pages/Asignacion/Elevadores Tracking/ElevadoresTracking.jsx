@@ -236,7 +236,7 @@ const ElevadoresTracking = () => {
         }
       }
       setColumns(Object.values(dataCambiada));
-      NuevaUbicacion({elevador: (parseInt(destination.droppableId) + 1).toString()}, (destItems[destination.index].id).toString()).then(res => console.log(res))
+      NuevaUbicacion({elevador: destColumn.elevador.id.toString()}, (destItems[destination.index].id).toString()).then(res => console.log(res))
     } else {
       const column = columns[source.droppableId];
       const copiedItems = [...column.servicios];

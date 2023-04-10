@@ -39,7 +39,7 @@ export const ModalAlmacen = ({ tipo, data }) => {
                 <Dialog.Panel className={`w-full max-w-2xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
                   
                 <div className='bg-[#C00000] text-white py-2 w-full'>
-                    <p className='text-center text-xl font-medium '>{tipo === 'reasignar' ? 'Reasignar Asesor' : 'Registro de unidad para mantenimiento'}</p>
+                    <p className='text-center text-xl font-medium '>Confirmación de Picking</p>
                     <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                 </div>
                    

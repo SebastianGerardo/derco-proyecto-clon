@@ -66,7 +66,6 @@ export const FormCrear = ({ setIsOpen }) => {
       >
 
         <div className="w-full lg:grid lg:grid-cols-3 lg:gap-3">
-          <section>
             <div className="w-full">
               <label htmlFor="" className="text-gray-400">
                 Nombre {`&`} Apellido:
@@ -85,23 +84,6 @@ export const FormCrear = ({ setIsOpen }) => {
 
             <div className="w-full">
               <label htmlFor="" className="text-gray-400">
-                Fecha / Hora:
-              </label>
-              <br />
-              <input
-                type="text"
-                disabled
-                // value={FormtearFecha(data.fechaRegistro)}
-                value={`${FormtearFecha(new Date())}`}
-                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-              />
-            </div>
-
-          </section>
-
-          <section>
-            <div className="w-full">
-              <label htmlFor="" className="text-gray-400">
                 Placa:
               </label>
               <br />
@@ -116,29 +98,6 @@ export const FormCrear = ({ setIsOpen }) => {
               />
             </div>
 
-            <div className="w-full">
-              <label htmlFor="" className="text-gray-400">
-                Asignar Asesor:
-              </label>
-              <br />
-              <select
-                name="asesor"
-                onChange={handleAsesorChange}
-                required 
-                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-              >
-                <option value="">Elegir:</option>
-                {asesores.length > 0 &&
-                  asesores.map((ase) => (
-                    <option value={parseInt(ase.id)} key={ase.id}>
-                      {ase.nombres}
-                    </option>
-                  ))}
-              </select>
-            </div>
-          </section>
-
-          <section>
             <div className="w-full">
               <label htmlFor="" className="text-gray-400">
                 Kilometraje Real:
@@ -156,7 +115,41 @@ export const FormCrear = ({ setIsOpen }) => {
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
             </div>
-          </section>
+
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Fecha / Hora:
+              </label>
+              <br />
+              <input
+                type="text"
+                disabled
+                // value={FormtearFecha(data.fechaRegistro)}
+                value={`${FormtearFecha(new Date())}`}
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              />
+            </div>
+
+            <div className="w-full">
+              <label htmlFor="" className="text-gray-400">
+                Asesor:
+              </label>
+              <br />
+              <select
+                name="asesor"
+                onChange={handleAsesorChange}
+                required 
+                className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+              >
+                <option value="">Elegir:</option>
+                {asesores.length > 0 &&
+                  asesores.map((ase) => (
+                    <option value={parseInt(ase.id)} key={ase.id}>
+                      {ase.nombres}
+                    </option>
+                  ))}
+              </select>
+            </div>
         </div>
 
         <div className="flex justify-center w-full items-center mt-10">

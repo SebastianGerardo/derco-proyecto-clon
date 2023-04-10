@@ -161,7 +161,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
         {/**Componente Search de la tabla */}
         <Search placa={placa} setPlaca={setPlaca} />
         <form action="" className='border-solid border-gray-500 border w-72 px-2 py-1 rounded-md'>
-          <p className="text-gray-500">Filtro por estado de picking:</p>
+          <p className="text-gray-500">Filtro por estado:</p>
           <div className="flex justify-evenly">
             <label className="p-1 flex items-center justify-center">
               <input

@@ -45,7 +45,7 @@ const FormAlmacen = ({ data, setIsOpen }) => {
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
                 <section className="w-full lg:w-full md:w-full ">
 
-                    <InputReadOnly labelName={"OT"} pHolder={"ingresa el nombre"} data={data.nombres} />
+                    <InputReadOnly labelName={"Nombres & Apellidos"} pHolder={"ingresa el nombre"} data={data.nombres} />
 
                     <InputReadOnly labelName={"Marca"} pHolder={"Citroen"} data={data.marca} />
 

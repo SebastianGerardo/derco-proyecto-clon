@@ -48,14 +48,14 @@ export const FormEdit = ({ data, setIsOpen }) => {
         } else {
           Toast.fire({
             icon: "error",
-            title: "Ocurrir un error al asignar servicio",
+            title: "Ha ocurrido un error al asignar el servicio",
           });
         }
       })
     }else{
       Toast.fire({
         icon: "error",
-        title: "Revisar bien los campos",
+        title: "Revisa bien los campos",
       });
     }
 
@@ -123,7 +123,7 @@ export const FormEdit = ({ data, setIsOpen }) => {
 
         <div className="lg:w-[30%] md:w-[30%] w-full">
           <label htmlFor="" className="text-gray-400">
-            Asignar Asesor:
+            Asesor:
           </label>
           <br />
           <select

@@ -197,7 +197,7 @@ export const TableServicio = ({dataServicios}) => {
     ot: servicio.ot,
     placa: servicio.placa,
     horaEstimadaEntrega: servicio.horaEstimadaEntrega,
-    tipoServicio: servicio.tipoServicio,
+    tipoServicio: JSON.stringify(servicio?.tipoServicio),
     ubicacion: datosAsignados.ubicacion,
     ordenServicios: datosAsignados.ordenServicios,
     confirmacionSalida: datosAsignados.confirmacionSalida,
@@ -214,8 +214,6 @@ export const TableServicio = ({dataServicios}) => {
   const filtro2 = filteredItems.filter((item) =>
     item.ubicacion && item.ubicacion.includes(estado)) //|| item.estadoAsignacion && item.estadoAsignacion.includes(estado) 
  
-    // console.log(newData)
-
   return (
     <>
       <div onClick={() => console.log(filteredItems)} className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
@@ -239,90 +237,3 @@ export const TableServicio = ({dataServicios}) => {
     </>
   );
 };
-
-  // [
-  //   {
-  //     servicio: {
-  //       id: 1472,
-  //       nombres: 'Juancito',
-  //       telefono: null,
-  //       correo: null,
-  //       documento: null,
-  //       placa: '123123',
-  //       marca: null,
-  //       modelo: null,
-  //       ot: null,
-  //       horaEstimadaEntrega: null,
-  //       detalleServicio: null,
-  //       notasCliente: null,
-  //       comentarioInterno: null,
-  //       comentarioAlmacen: null,
-  //       comentario: null,
-  //       servicioSolicitado: null,
-  //       vehiculoKilometraje: '5000',
-  //       estado: '5',
-  //       estadoPicking: '1',
-  //       solicitudTaller: null,
-  //       asistencia: '1',
-  //       tipoCita: 'S',
-  //       adicionales: '[]',
-  //       fechaCita: null,
-  //       fechaInicioRecepcion: '2023-04-05T06:34:36.000Z',
-  //       fechaFinRecepcion: null,
-  //       fechaEntrada: '2023-04-05T06:34:17.000Z',
-  //       fechaRegistro: '2023-04-05T06:34:31.000Z',
-  //       asesor: { id: 9, nombres: 'Felipe', apellidos: 'Currado' },
-  //       tipoServicio: null
-  //     },
-  //     datosAsignados: {
-  //       id: 41,
-  //       ubicacion: 'Lavado',
-  //       ordenServicios: 'Lavado,Secado,Mantenimiento',
-  //       confirmacionSalida: '1',
-  //       estado: '1',
-  //       fecha_registro: '2023-04-05T06:35:19.000Z'
-  //     }
-  //   }, 
-  //   {
-  //     servicio: {
-  //       id: 1473,
-  //       nombres: 'pepito',
-  //       telefono: null,
-  //       correo: null,
-  //       documento: null,
-  //       placa: '888888',
-  //       marca: null,
-  //       modelo: null,
-  //       ot: null,
-  //       horaEstimadaEntrega: null,
-  //       detalleServicio: null,
-  //       notasCliente: null,
-  //       comentarioInterno: null,
-  //       comentarioAlmacen: null,
-  //       comentario: null,
-  //       servicioSolicitado: null,
-  //       vehiculoKilometraje: '5000',
-  //       estado: '5',
-  //       estadoPicking: '1',
-  //       solicitudTaller: null,
-  //       asistencia: '1',
-  //       tipoCita: 'S',
-  //       adicionales: '[]',
-  //       fechaCita: null,
-  //       fechaInicioRecepcion: '2023-04-05T06:40:38.000Z',
-  //       fechaFinRecepcion: null,
-  //       fechaEntrada: '2023-04-05T06:40:23.000Z',
-  //       fechaRegistro: '2023-04-05T06:40:34.000Z',
-  //       asesor: { id: 9, nombres: 'Felipe', apellidos: 'Currado' },
-  //       tipoServicio: null
-  //     },
-  //     datosAsignados: {
-  //       id: 42,
-  //       ubicacion: 'Lavado',
-  //       ordenServicios: 'Lavado,Mantenimiento',
-  //       confirmacionSalida: '1',
-  //       estado: '1',
-  //       fecha_registro: '2023-04-05T06:40:57.000Z'
-  //     }
-  //   },
-  // ]

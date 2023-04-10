@@ -1,1 +1,22 @@
-export const opcionesRecp = ["Opción 1", "Opción 2", "Opción 3", "Opción 4", "Opción 5", "Opción 6", "Opción 7"];
+export const opcionesRecp = [
+  "Balanceo y rotación",
+  "Alineamiento",
+  "Revisión de alineamiento",
+  "Ionización",
+  "Lavado Simple",
+  "Encerado",
+  "Lavado de techo",
+  "Tratamiento cerámico",
+  "Cuarzo líquido",
+  "Lavado de Salón Auto / Camioneta",
+  "Lavado de Salón Van",
+  "Undercoating Auto",
+  "Undercoating Camioneta",
+  "Tratamiento de Pintura Auto",
+  "Tratamiento de Pintura Camioneta",
+  "Restauración de Faros",
+  "Zincado tubo de escape",
+  "Pack Undercoating + Zincado",
+  "Tratamiento de cueros y tapices",
+  "Antipinchazos",
+];
