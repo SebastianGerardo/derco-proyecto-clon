@@ -38,7 +38,7 @@ const FormMantenimiento = ({ data, setIsOpen }) => {
 
     return (
         <form action="" className="space-y-2" onSubmit={enviarDatos}>
-        <div className="flex justify-around py-4 bg-[#D9D9D9]">
+        <div className="flex justify-around py-4 bg-[#D9D9D9] flex-wrap gap-2">
             <h2 className="font-bold">
                 OT: <span>{data.ot}</span>
             </h2>

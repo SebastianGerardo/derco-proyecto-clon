@@ -41,7 +41,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
 
     return (
         <form action="" className="space-y-2" onSubmit={almacen}>
-            <div className="flex justify-around flex-wrap py-4 bg-[#D9D9D9] font-bold gap-y-2">
+            <div className="flex justify-around flex-wrap gap-2 py-4 bg-[#D9D9D9] font-bold">
                 <h2>
                     OT: <span className="font-normal">{data.ot}</span>
                 </h2>
