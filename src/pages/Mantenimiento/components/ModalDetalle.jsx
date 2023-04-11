@@ -1,9 +1,9 @@
-
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
-import FormControlCalidad from './FormControlCalidad';
-export const ModalControlCalidad = ({ tipo, data }) => {
+import FormDetalle from './FormDetalle';
+import FormMensaje from './FormMensaje';
+export const ModalDetalle = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -33,16 +33,16 @@ export const ModalControlCalidad = ({ tipo, data }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className={`w-full max-w-2xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
+                <Dialog.Panel className={`w-full max-w-4xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
                   
                 <div className='bg-[#C00000] text-white py-2 w-full'>
-                    <p className='text-center text-xl font-medium '>Control de Calidad</p>
+                    <p className='text-center text-xl font-medium '>Detalle de mantenimiento</p>
                     <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                 </div>
                    
 
-                  <div className='w-full block'>
-                    <FormControlCalidad data={data} setIsOpen={setIsOpen}/>
+                  <div className='p-5 w-full block'>
+                    <FormDetalle data={data} setIsOpen={setIsOpen}/>
                   </div>
                   
                   

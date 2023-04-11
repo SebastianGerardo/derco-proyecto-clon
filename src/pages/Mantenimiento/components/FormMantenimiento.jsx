@@ -1,16 +1,13 @@
 import React, { useContext, useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
+import Timer from "../../../components/Cronometro/Timer";
 import { InputReadOnly } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
 import { editServicio } from "../../../helpers/ApiAnfitrion";
 
 const FormMantenimiento = ({ data, setIsOpen }) => {
-
-    const { estadoData, setEstadoData } = useContext(UserContext);
     const [datosAlmacen, setDatosAlamacen] = useState({
-        estadoPicking: data.comentarioAlmacen,
-        comentarioAlmacen: data.comentarioAlmacen,
-        estado: "4"
+        comentarioAlmacen: "",
     })
 
     const captura = (e) => {
@@ -19,70 +16,64 @@ const FormMantenimiento = ({ data, setIsOpen }) => {
             [e.target.name]: e.target.value,
         });
     }
-    console.log(data)
-    const almacen = (e) =>{
+    const enviarDatos = (e) =>{
         e.preventDefault()
-        editServicio(datosAlmacen, data.id).then(res => {
-            if (res.statusCode === 200) {
-              Toast.fire({
-                icon: "success",
-                title: "Dato guardado correctamente",
-              });
-              setEstadoData(!estadoData)
-              setIsOpen(false)
-            } else {
-              Toast.fire({
-                icon: "error",
-                title: "Ocurrir un error al guardar dato",
-              });
-            }
-          })
+        // editServicio(datosAlmacen, data.id).then(res => {
+        //     if (res.statusCode === 200) {
+        //       Toast.fire({
+        //         icon: "success",
+        //         title: "Dato guardado correctamente",
+        //       });
+        //       setEstadoData(!estadoData)
+        //       setIsOpen(false)
+        //     } else {
+        //       Toast.fire({
+        //         icon: "error",
+        //         title: "Ocurrir un error al guardar dato",
+        //       });
+        //     }
+        //   })
+        setIsOpen(false)
     }
 
     return (
-        <form action="" className="space-y-2" onSubmit={almacen}>
-            {/* INPUTS DEL FORM - INICIO */}
-            <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
-                <section className="w-full lg:w-full md:w-full ">
-
-                    <InputReadOnly labelName={"Nombres & Apellidos"} pHolder={"ingresa el nombre"} data={data.nombres} />
-
-                    <InputReadOnly labelName={"Marca"} pHolder={"Citroen"} data={data.marca} />
-
-                    <InputReadOnly labelName={"Kilometraje Real:"} pHolder={"5000"} data={data.vehiculoKilometraje} />
-
-                    <div className="w-full">
-                        <label htmlFor="" className="text-gray-400">
-                            Confirmacion de Picking:
-                        </label>
-                        <br />
-                        <select
-                            name="estadoPicking"
-                            onChange={captura}
-                            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-                        >
-                            <option value="">Elige:</option>
-                            <option value="0">Pendiente</option>
-                            <option value="1">Listo</option>
-                        </select>
-                    </div>
-
-                </section>
-
-                {/* LADO DERECHO */}
-                <section className="w-full lg:w-full md:w-full">
-
-                    <InputReadOnly labelName={'Tipo de Servicio:'} pHolder={'Mantenimiento Flexible'} data={data.tipoServicio?.nombre} />
-
-                    <InputReadOnly labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
-
-                    <InputReadOnly labelName={"Modelo:"} pHolder={"C4"} data={data.modelo} />
-
-
-                </section>
+        <form action="" className="space-y-2" onSubmit={enviarDatos}>
+        <div className="flex justify-around py-4 bg-[#D9D9D9]">
+            <h2 className="font-bold">
+                OT: <span>{data.ot}</span>
+            </h2>
+            <h2 className="font-bold">
+                PLACA: <span>{data.placa}</span>    
+            </h2>
+            <h2 className="font-bold">
+                ASESOR: <span>{data.asesor}</span>
+            </h2>
+        </div>
+        <div className="flex flex-col gap-6 p-5">
+            <Timer />
+            <div className="w-full flex gap-8">
+                <div className="w-full">
+                    <label htmlFor="" className="text-gray-400">
+                        Motivo de pausa:
+                    </label>
+                    <br />
+                    <select
+                        name="estadoPicking"
+                        onChange={captura}
+                        multiple={true}
+                        className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
+                    >
+                        <option value="0">FALTA DE REPUESTOS</option>
+                        <option value="1">TRABAJO POR DESARME</option>
+                        <option value="2">UNIDAD PARA RECALL</option>
+                        <option value="3">PROBLEMAS CON EL ELEVADOR</option>
+                        <option value="4">PROBLEMAS CON UNIDAD PARA MANTENIMIENTO</option>
+                        <option value="5">UNIDAD PARA TEST</option>
+                    </select>
+                </div>
                 <section className="lg:w-full w-full col-start-1 col-end-3">
                     <label htmlFor="" className="text-gray-400">
-                        Comentario Almacen:
+                        Comentarios Adicionales:
                     </label>
                     <br />
                     <textarea
@@ -95,9 +86,7 @@ const FormMantenimiento = ({ data, setIsOpen }) => {
                     />
                 </section>
             </div>
-            {/* LADO IZQUIERDO */}
-
-            <div className="flex flex-col items-center justify-center w-full">
+            <div className="flex flex-col mt-4 items-center justify-center w-full">
 
                 <section className="flex lg:flex-row flex-row justify-center lg:items-end items-center md:flex-row">
                     <div className="flex justify-center w-full mt-1">
@@ -111,7 +100,9 @@ const FormMantenimiento = ({ data, setIsOpen }) => {
                     </div>
                 </section>
             </div>
-        </form>
+        </div>
+        {/* INPUTS DEL FORM - INICIO */}
+    </form>
     );
 };
 

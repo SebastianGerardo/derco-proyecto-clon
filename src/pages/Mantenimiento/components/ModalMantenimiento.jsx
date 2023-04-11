@@ -1,16 +1,13 @@
 
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
-import { BotonFroms } from '../../../components/Boton/BotonForms';
+import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
 import FormMantenimiento from './FormMantenimiento';
 export const ModalMantenimiento = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      {data.estadoPicking == "1" ?
-          "" : 
-          <BotonFroms tipo={tipo} setIsOpen={setIsOpen} />
-      }
+      <BotonTimer tipo={tipo} setIsOpen={setIsOpen} />
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
           <Transition.Child
@@ -39,12 +36,12 @@ export const ModalMantenimiento = ({ tipo, data }) => {
                 <Dialog.Panel className={`w-full max-w-2xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}>
                   
                 <div className='bg-[#C00000] text-white py-2 w-full'>
-                    <p className='text-center text-xl font-medium '>Confirmación de Picking</p>
+                    <p className='text-center text-xl font-medium '>Mantenimiento</p>
                     <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                 </div>
                    
 
-                  <div className='p-5 w-full block'>
+                  <div className='w-full block'>
                     <FormMantenimiento data={data} setIsOpen={setIsOpen}/>
                   </div>
                   

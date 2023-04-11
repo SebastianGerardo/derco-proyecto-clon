@@ -8,6 +8,7 @@ export const ApiPrueba = [
         "elevador": "Elevador 1",
         "fecha": "2020-01-01",
         "estado": "Pendiente",
+        "confirmacionPicking": "Terminado",
     },
     {
         "id": 2,
@@ -18,6 +19,7 @@ export const ApiPrueba = [
         "elevador": "Elevador 2",
         "fecha": "2020-01-01",
         "estado": "En proceso",
+        "confirmacionPicking": "Terminado",
     },
     {
         "id": 3,
@@ -28,5 +30,6 @@ export const ApiPrueba = [
         "elevador": "Elevador 3",
         "fecha": "2020-01-01",
         "estado": "En pausa",
+        "confirmacionPicking": "Terminado",
     }
 ]

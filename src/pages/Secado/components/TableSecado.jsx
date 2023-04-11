@@ -10,12 +10,6 @@ export const TableSecado = ({ data }) => {
 
   const columns = [
     {
-      name: <CustomHeader nameModule="CLIENTE" icon="fa-solid fa-user mr-1" />,
-      selector: (row) => <p>{row.nombres}</p>,
-      sortable: true,
-      center: true,
-    },
-    {
       name: <CustomHeader nameModule="OT" icon="fa-regular fa-id-card mr-1" />,
       cell: (row) => <p>{row.ot}</p>,
       sortable: true,
@@ -29,27 +23,14 @@ export const TableSecado = ({ data }) => {
       center: true
     },
     {
-      name: <CustomHeader nameModule="SERVICIO" icon="fa-solid fa-tools mr-1" />,
-      selector: (row) => row.servicioSolicitado,
+      name: <CustomHeader nameModule="TECNICO" icon="fa-solid fa-user mr-1" />,
+      selector: (row) => <p>{row.tecnicoMecanico}</p>,
       sortable: true,
-      center: true
+      center: true,
     },
     {
-      name: <CustomHeader nameModule="KILOMETRAJE" icon="fa-solid fa-tachometer mr-1" />,
-      selector: (row) => <p>{row.vehiculoKilometraje} km</p>,
-      sortable: true,
-      center: true
-    },
-    {
-      name: <CustomHeader nameModule="HORA RECEPCION" icon="fa-solid fa-clock mr-1" />,
-      selector: (row) => row.fechaInicioRecepcion === null ? "--" : `${FormtearFecha(row.fechaInicioRecepcion)}`,
-      sortable: true,
-      center: true
-    },
-
-    {
-      name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estadoPicking === "0" ? "Pendiente" : "Listo",
+      name: <CustomHeader nameModule="CONFIRMACION DE PICKING" icon="fa-solid fa-tools mr-1" />,
+      selector: (row) => row.confirmacionPicking,
       sortable: true,
       center: true,
       style: {
@@ -63,15 +44,57 @@ export const TableSecado = ({ data }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.estadoPicking === "0",
+          when: (row) => row.confirmacionPicking === "Pendiente",
           style: {
-            backgroundColor: "#FFD966",
+            backgroundColor: "#FFD34D",
           },
         },
         {
-          when: (row) => row.estadoPicking === "1",
+          when: (row) => row.confirmacionPicking === "Terminado",
           style: {
-            backgroundColor: "#4AD69D",
+            backgroundColor: "#4AC695",
+          },
+        },
+      ],
+    },
+    {
+      name: <CustomHeader nameModule="FECHA / HORA INGRESO" icon="fa-solid fa-clock mr-1" />,
+      selector: (row) => row.fecha,
+      sortable: true,
+      center: true
+    },
+
+    {
+      name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
+      selector: (row) => row.estado,
+      sortable: true,
+      center: true,
+      style: {
+        color: "white",
+        fontSize: "15px",
+        margin: "4px",
+        borderRadius: "5px",
+        fontWeight: "700",
+        textAlign: "center",
+        cursor: "default",
+      },
+      conditionalCellStyles: [
+        {
+          when: (row) => row.estado === "Pendiente",
+          style: {
+            backgroundColor: "#FFD34D",
+          },
+        },
+        {
+          when: (row) => row.estado === "En proceso",
+          style: {
+            backgroundColor: "#B22323",
+          },
+        },
+        {
+          when: (row) => row.estado === "En pausa",
+          style: {
+            backgroundColor: "#9B5DA2",
           },
         },
       ],
@@ -80,7 +103,7 @@ export const TableSecado = ({ data }) => {
       name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1" />,
       cell: row =>
         <div className="flex items-center gap-3">
-          {/* <ModalSecado tipo="edit" data={row} /> */} {/* ESTO SE IMPLEMENTARA LUEGO */}
+          <ModalSecado tipo="timer" data={row} /> {/* ESTO SE IMPLEMENTARA LUEGO */}
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
       center: true,
     },
@@ -96,9 +119,9 @@ export const TableSecado = ({ data }) => {
     e.preventDefault()
   }
 
-  const [estado, setEstado] = useState("0")
+  const [estado, setEstado] = useState("")
 
-  // const filtro2 = filteredItems.filter((item) => item.estadoPicking && item.estadoPicking.includes(estado))
+  const filtro2 = filteredItems.filter((item) => item.estado && item.estado.includes(estado))
 
   return (
     <>
@@ -107,15 +130,15 @@ export const TableSecado = ({ data }) => {
         <Search placa={placa} setPlaca={setPlaca} />
 
         <form action="" onSubmit={filtroEstado} className='border-solid border-gray-500 border w-72 px-2 py-1 rounded-md'>
-          <p className="text-gray-500">Filtro por estado de picking:</p>
+          <p className="text-gray-500">Filtro por estado:</p>
 
           <div className="flex justify-evenly">
             <label className="p-1 flex items-center justify-center">
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "0"}
-                onChange={() => setEstado(estado === "0" ? "" : "0")}
+                checked={estado === "Pendiente"}
+                onChange={() => setEstado(estado === "Pendiente" ? "" : "Pendiente")}
               />
               <span className="ml-1">Pendiente</span>
             </label>
@@ -124,8 +147,8 @@ export const TableSecado = ({ data }) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "1"}
-                onChange={() => setEstado(estado === "1" ? "" : "1")}
+                checked={estado === "Listo"}
+                onChange={() => setEstado(estado === "Listo" ? "" : "Listo")}
               />
               <span className="ml-1">Listo</span>
             </label>
@@ -137,7 +160,7 @@ export const TableSecado = ({ data }) => {
       {/**Componente Search de la tabla */}
       <DataTable
         columns={columns}
-        data={filteredItems}
+        data={filtro2}
         pagination
         paginationComponentOptions={{
           rowsPerPageText: "Filas por página:",
