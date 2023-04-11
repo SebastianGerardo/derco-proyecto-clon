@@ -193,7 +193,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
                             <option value="">Elegir:</option>
-                            {tiposServicios.length > 0 && tiposServicios.map((tipo) => <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>)}
+                            {tiposServicios.length > 0 && tiposServicios.sort((a, b) => a.nombre.localeCompare(b.nombre)).map((tipo) => <option key={tipo.id} value={tipo.nombre}>{tipo.nombre}</option>)}
                         </select>
                     </div>
                 </section>
@@ -219,10 +219,10 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                         <label htmlFor="adicionales" className="text-gray-400">Adicionales:</label>
                         <select id="adicionales" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
                             <option value="">Seleccione una opción</option>
-                            {opcionesRecp.map((opcion) => (
-                            <option key={opcion} value={opcion}>
-                                {opcion}
-                            </option>
+                            {opcionesRecp.sort((a, b) => a.localeCompare(b)).map((opcion) => (
+                                <option key={opcion} value={opcion}>
+                                    {opcion}
+                                </option>
                             ))}
                         </select>
                     <div className="flex flex-col overflow-y-auto w-full mx-auto h-[7.5rem] mt-2 border border-gray-300 rounded-md">
