@@ -4,6 +4,7 @@ import { editServicio } from "../../../helpers/ApiAnfitrion";
 import { Toast } from "../../../components/Alertas/SweetAlex";
 import { InputBasic, InputBasicNumber } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
+import { traeTiposServicios } from "../../../helpers/ApiRecepcion";
 
 function getTimeArray(startTime, endTime) {
     const timeArray = [];
@@ -59,6 +60,12 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         });
 
     }
+
+    const [tiposServicios, setTiposServicios] = useState([])
+
+    useEffect(() => {
+        traeTiposServicios().then(res => setTiposServicios(res.data))
+    }, [])
 
     const [dataRegistro, setDataRegistro] = useState({
         adicionales: [],
@@ -121,16 +128,16 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         <form action="" className="flex flex-col lg:grid grid-cols-2 gap-3" onSubmit={registrarUnidad}>
             <section className="w-full lg:grid lg:grid-cols-2 md:grid gap-2">
                 <section>
-                    <InputBasic labelName={"Nombres & Apellidos"} pHolder={"Ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} />
-                    <InputBasic labelName={"Email:"} pHolder={"example@gmail.com"} data={dataRegistro.correo} onChange={captura} name={"correo"} />
-                    <InputBasic labelName={"Marca :"} pHolder={"Suzuki"} data={dataRegistro.marca} onChange={captura} name={"marca"} />
-                    <InputBasicNumber labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} />
+                    <InputBasic labelName={"Nombres & Apellidos"} pHolder={"Ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} disabled={data.nombres != ("" || null)}/>
+                    <InputBasic labelName={"Email:"} pHolder={"example@gmail.com"} data={dataRegistro.correo} onChange={captura} name={"correo"} disabled={data.correo != ("" || null)}/>
+                    <InputBasic labelName={"Marca :"} pHolder={"Suzuki"} data={dataRegistro.marca} onChange={captura} name={"marca"} disabled={data.marca != ("" || null)}/>
+                    <InputBasicNumber labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} disabled={data.vehiculoKilometraje != ("" || null)}/>
                 </section>
                 <section>
-                    <InputBasicNumber labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} />
-                    <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} />
-                    <InputBasic labelName={"Modelo:"} pHolder={"Celerio"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} />
-                    <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} />
+                    <InputBasicNumber labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} disabled={data.telefono != ("" || null)}/>
+                    <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} disabled={data.placa != ("" || null)}/>
+                    <InputBasic labelName={"Modelo:"} pHolder={"Celerio"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} disabled={data.modelo != ("" || null)}/>
+                    <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} disabled={data.servicioSolicitado != ("" || null)}/>
                 </section>
 
                 <section className="flex  flex-col justify-between col-start-1 col-end-3">
@@ -142,6 +149,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                         <textarea
                             value={dataRegistro.comentarioInterno || ""}
                             name="comentarioInterno"
+                            disabled={data.comentarioInterno != ("" || null)}
                             onChange={captura}
                             type="text"
                             placeholder="Detalles..."
@@ -155,6 +163,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                         <br />
                         <textarea
                             value={dataRegistro.detalleServicio || ""}
+                            disabled={data.detalleServicio != ("" || null)}
                             name="detalleServicio"
                             onChange={captura}
                             type="text"
@@ -184,7 +193,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
                             <option value="">Elegir:</option>
-                            <option value="2">Mantención Flexible</option>
+                            {tiposServicios.length > 0 && tiposServicios.map((tipo) => <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>)}
                         </select>
                     </div>
                 </section>

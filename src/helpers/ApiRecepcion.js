@@ -11,3 +11,16 @@ export const traeRecepcion = async () => {
       return error;
     }
   };
+
+  export const traeTiposServicios = async () => {
+    try {
+      const fetchResponse = await fetch(`${URL}/tipos_servicio`, {
+        method: "GET",
+        credentials: "include",
+      });
+      const data = await fetchResponse.json();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  };
