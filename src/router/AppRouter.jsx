@@ -10,6 +10,10 @@ import Asignacion from "../pages/Asignacion/Asignacion";
 import { AsignacionTecnico } from "../pages/Asignacion/AsignacionTecnico/AsignacionTecnico";
 import { AsignacionServicio } from "../pages/Asignacion/AsignacionServicio/AsignacionServicio";
 import ElevadoresTracking from "../pages/Asignacion/Elevadores Tracking/ElevadoresTracking";
+import { Mantenimiento } from "../pages/Mantenimiento/Mantenimiento";
+import { Lavado } from "../pages/Lavado/Lavado";
+import { Secado } from "../pages/Secado/Secado";
+import { ControlCalidad } from "../pages/ControlCalidad/ControlCalidad";
 
 export const AppRouter = () => {
   return (
@@ -32,6 +36,10 @@ export const AppRouter = () => {
           <Route path="/dashboard/asignacion/elevadores" element={<ElevadoresTracking />} />
         </Route>
         <Route path="/dashboard/almacen" element={<Almacen />} />
+        <Route path="/dashboard/mantenimiento" element={<Mantenimiento />} />
+        <Route path="/dashboard/lavado" element={<Lavado />} />
+        <Route path="/dashboard/secado" element={<Secado />} />
+        <Route path="/dashboard/entrega" element={<ControlCalidad />} />
       </Route>
     </Routes>
   );

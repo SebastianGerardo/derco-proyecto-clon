@@ -15,6 +15,10 @@ export const ContextDerco = ({ children }) => {
     "/dashboard/asignacion": "Asignación",
     "/dashboard/asignacion/servicios": "Asignación",
     "/dashboard/asignacion/elevadores": "Asignación",
+    "/dashboard/mantenimiento": "Mantenimiento",
+    "/dashboard/lavado": "Lavado",
+    "/dashboard/secado": " Secado",
+    "/dashboard/entrega": "Control de Calidad",
   })
 
   useEffect(() => {
