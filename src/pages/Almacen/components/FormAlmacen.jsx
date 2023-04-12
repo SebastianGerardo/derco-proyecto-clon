@@ -8,7 +8,7 @@ const FormAlmacen = ({ data, setIsOpen }) => {
 
     const { estadoData, setEstadoData } = useContext(UserContext);
     const [datosAlmacen, setDatosAlamacen] = useState({
-        estadoPicking: data.comentarioAlmacen,
+        estadoPicking: "1",
         comentarioAlmacen: data.comentarioAlmacen,
         estado: "4"
     })
@@ -26,14 +26,14 @@ const FormAlmacen = ({ data, setIsOpen }) => {
             if (res.statusCode === 200) {
               Toast.fire({
                 icon: "success",
-                title: "Dato guardado correctamente",
+                title: "Picking realizado correctamente",
               });
               setEstadoData(!estadoData)
               setIsOpen(false)
             } else {
               Toast.fire({
                 icon: "error",
-                title: "Ocurrir un error al guardar dato",
+                title: "Ha ocurrido un error al actualizar el picking",
               });
             }
           })
@@ -51,22 +51,6 @@ const FormAlmacen = ({ data, setIsOpen }) => {
 
                     <InputReadOnly labelName={"Kilometraje Real:"} pHolder={"5000"} data={data.vehiculoKilometraje} />
 
-                    <div className="w-full">
-                        <label htmlFor="" className="text-gray-400">
-                            Confirmacion de Picking:
-                        </label>
-                        <br />
-                        <select
-                            name="estadoPicking"
-                            onChange={captura}
-                            className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
-                        >
-                            <option value="">Elige:</option>
-                            <option value="0">Pendiente</option>
-                            <option value="1">Listo</option>
-                        </select>
-                    </div>
-
                 </section>
 
                 {/* LADO DERECHO */}
@@ -74,9 +58,9 @@ const FormAlmacen = ({ data, setIsOpen }) => {
 
                     <InputReadOnly labelName={'Tipo de Servicio:'} pHolder={'Mantenimiento Flexible'} data={data.tipoServicio?.nombre} />
 
-                    <InputReadOnly labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
-
                     <InputReadOnly labelName={"Modelo:"} pHolder={"C4"} data={data.modelo} />
+
+                    <InputReadOnly labelName={"Placa:"} pHolder={"ABC123"} data={data.placa} />
 
 
                 </section>

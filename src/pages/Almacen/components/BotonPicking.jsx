@@ -54,12 +54,12 @@ const BotonPicking = ({data}) => {
             if (res.statusCode === 200) {
               Toast.fire({
                 icon: "success",
-                title: "Datos guardados correctamente!",
+                title: "Picking realizado correctamente",
               });
             } else {
               Toast.fire({
                 icon: "error",
-                title: "Ha ocurrido un error al guardar el dato",
+                title: "Ha ocurrido un error al actualizar el picking",
               });
             }
           })

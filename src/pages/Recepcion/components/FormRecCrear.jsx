@@ -149,7 +149,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                         <textarea
                             value={dataRegistro.comentarioInterno || ""}
                             name="comentarioInterno"
-                            disabled={data.comentarioInterno != ("" || null)}
+                            disabled
                             onChange={captura}
                             type="text"
                             placeholder="Detalles..."
@@ -163,7 +163,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                         <br />
                         <textarea
                             value={dataRegistro.detalleServicio || ""}
-                            disabled={data.detalleServicio != ("" || null)}
+                            disabled
                             name="detalleServicio"
                             onChange={captura}
                             type="text"
