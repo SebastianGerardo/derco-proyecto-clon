@@ -72,3 +72,29 @@ export const NuevaUbicacion = async (registro, datoAsignadoId) => {
     return error;
   }
 }
+
+
+export const GuardarEle = async (data, dataEnviar) => {
+  const { elevador } = data;
+  let arrayNuevo = {
+    servicios: dataEnviar,
+  };
+
+  try {
+    const fetchResponse = await fetch(
+      `https://api-derco-production.up.railway.app/servicios_asignados/actualizar/elevador/${elevador.id}`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(arrayNuevo),
+      }
+    );
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+};

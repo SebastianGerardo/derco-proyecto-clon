@@ -13,7 +13,7 @@ export const AsignacionServicio = () => {
     return () => clearInterval(interval);
   }, [])
 
-  // console.log(dataServicios)
+  console.log(dataServicios)
 
   return (
     <div className="grow shadow-md rounded-sm py-3 px-5 w-full">

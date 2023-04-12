@@ -1,199 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { TraeElevadores } from '../../../helpers/ApiAsignacion'
+import { GuardarEle, TraeElevadores } from '../../../helpers/ApiAsignacion'
 import { DragDropContext, Draggable, Droppable } from '@hello-pangea/dnd'
-import { NuevaUbicacion } from '../../../helpers/ApiAsignacion'
+import { Toast } from "../../../components/Alertas/SweetAlex";
 
-const dataFicticia = [
-  {
-    elevador: { id: 1, nombre: 'Elevador 1', tecnico: { id: 21, nombres: 'Elder', apellidos: 'Manillo' } },
-    servicios: [
-      {
-        id: 45,
-        ubicacion: 'Lavado',
-        ordenServicios: '[object Object],[object Object],[object Object],[object Object]',
-        confirmacionSalida: '1',
-        estado: '1',
-        fecha_registro: '2023-04-06T05:03:01.000Z',
-        servicio: {
-          id: 1478,
-          nombres: 'Juliano',
-          telefono: '984321356',
-          correo: 'david.cesarmc21@gmail.com',
-          documento: null,
-          placa: 'ABC123',
-          marca: 'SUSUKI',
-          modelo: 'CELERIO',
-          ot: '12322222',
-          horaEstimadaEntrega: '2:15',
-          detalleServicio: null,
-          notasCliente: null,
-          comentarioInterno: null,
-          comentarioAlmacen: null,
-          comentario: null,
-          servicioSolicitado: 'Lavado',
-          vehiculoKilometraje: '10000',
-          estado: '5',
-          estadoPicking: '1',
-          solicitudTaller: 'detalle',
-          asistencia: '1',
-          tipoCita: 'S',
-          adicionales: '["Opción 3","Opción 6"]',
-          fechaCita: null,
-          fechaInicioRecepcion: '2023-04-06T05:01:30.000Z',
-          fechaFinRecepcion: null,
-          fechaEntrada: '2023-04-06T05:01:13.000Z',
-          fechaRegistro: '2023-04-06T05:01:21.000Z'
-        }
-      }
-    ]
-  }, 
-  {
-    elevador: { id: 2, nombre: 'Elevador 2', tecnico: { id: 22, nombres: 'Cesar', apellidos: 'Frenillo' } },
-    servicios: [
-      {
-        id: 46,
-        ubicacion: '',
-        ordenServicios: '{"nombre":"","terminado":1}',
-        confirmacionSalida: '1',
-        estado: '1',
-        fecha_registro: '2023-04-06T05:13:45.000Z',
-        servicio: {
-          id: 1479,
-          nombres: 'Juliano',
-          telefono: '984321356',
-          correo: 'david.cesarmc21@gmail.com',
-          documento: null,
-          placa: 'D5L344',
-          marca: 'SUSUKI',
-          modelo: 'CELERIO',
-          ot: '7777788',
-          horaEstimadaEntrega: null,
-          detalleServicio: null,
-          notasCliente: null,
-          comentarioInterno: null,
-          comentarioAlmacen: null,
-          comentario: null,
-          servicioSolicitado: 'Lavado',
-          vehiculoKilometraje: '1233332',
-          estado: '5',
-          estadoPicking: '1',
-          solicitudTaller: null,
-          asistencia: '1',
-          tipoCita: 'S',
-          adicionales: '["Opción 3","Opción 4","Opción 6"]',
-          fechaCita: null,
-          fechaInicioRecepcion: '2023-04-06T05:13:01.000Z',
-          fechaFinRecepcion: null,
-          fechaEntrada: '2023-04-06T05:12:47.000Z',
-          fechaRegistro: '2023-04-06T05:12:54.000Z'
-        }
-      }
-    ]
-  },
-  {
-    elevador: { id: 3, nombre: 'Elevador 3', tecnico: { id: 23, nombres: 'Melissa', apellidos: 'Paredes' } },
-    servicios: [
-      {
-        id: 47,
-        ubicacion: 'Lavado',
-        ordenServicios: 
-          '{"nombre":"Lavado","terminado":1},{"nombre":"Secado","terminado":1},{"nombre":"Mantenimiento","terminado":1},{"nombre":"Control de Calidad","terminado":1}',
-        confirmacionSalida: '1',
-        estado: '1',
-        fecha_registro: '2023-04-06T05:17:19.000Z',
-        servicio: {
-          id: 1480,
-          nombres: 'Maria Indacochea',
-          telefono: '999999999',
-          correo: 'david@lms.pe',
-          documento: null,
-          placa: 'ABC123',
-          marca: 'SUSUKI',
-          modelo: 'CELERIO',
-          ot: '12312333',
-          horaEstimadaEntrega: '2:45',
-          detalleServicio: null,
-          notasCliente: null,
-          comentarioInterno: null,
-          comentarioAlmacen: null,
-          comentario: null,
-          servicioSolicitado: 'Lavado',
-          vehiculoKilometraje: '23333',
-          estado: '5',
-          estadoPicking: '1',
-          solicitudTaller: null,
-          asistencia: '1',
-          tipoCita: 'S',
-          adicionales: '["Opción 3","Opción 4","Opción 7"]',
-          fechaCita: null,
-          fechaInicioRecepcion: '2023-04-06T05:15:55.000Z',
-          fechaFinRecepcion: null,
-          fechaEntrada: '2023-04-06T05:15:41.000Z',
-          fechaRegistro: '2023-04-06T05:15:50.000Z'
-        }
-      }
-    ]
-  },
-  {
-    elevador: { id: 4, nombre: 'Elevador 4', tecnico: { id: 24, nombres: 'Merlin', apellidos: 'Perez' } },
-    servicios: [
-      {
-        id: 48,
-        ubicacion: 'Lavado',
-        ordenServicios: 
-          '{"nombre":"Lavado","terminado":1},{"nombre":"Secado","terminado":1},{"nombre":"Mantenimiento","terminado":1}',
-        confirmacionSalida: '1',
-        estado: '1',
-        fecha_registro: '2023-04-06T07:01:23.000Z',
-        servicio: {
-          id: 1481,
-          nombres: 'pruebezota',
-          telefono: '222111444',
-          correo: null,
-          documento: null,
-          placa: '114422',
-          marca: null,
-          modelo: null,
-          ot: '13123123',
-          horaEstimadaEntrega: null,
-          detalleServicio: null,
-          notasCliente: null,
-          comentarioInterno: null,
-          comentarioAlmacen: null,
-          comentario: null,
-          servicioSolicitado: null,
-          vehiculoKilometraje: '12111',
-          estado: '5',
-          estadoPicking: '1',
-          solicitudTaller: null,
-          asistencia: '1',
-          tipoCita: 'S',
-          adicionales: '["Opción 3","Opción 1"]',
-          fechaCita: null,
-          fechaInicioRecepcion: '2023-04-06T07:00:52.000Z',
-          fechaFinRecepcion: null,
-          fechaEntrada: '2023-04-06T07:00:37.000Z',
-          fechaRegistro: '2023-04-06T07:00:48.000Z'
-        }
-      }
-    ]
-  },
-  {
-    elevador: { id: 5, nombre: 'Elevador 5', tecnico: { id: 25, nombres: 'Felix', apellidos: 'Suarez' } },
-    servicios: []
-  },
-]
+
 
 const ElevadoresTracking = () => {
-  const [columns, setColumns] = useState([])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      TraeElevadores().then(res => setColumns(res.data))
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [])
-
   const EstadoServicio = {
     "5": {
       "nombre": "Pendiente",
@@ -211,11 +23,21 @@ const ElevadoresTracking = () => {
       "colorDrag": "#"
     },
   }
-  
+
+
+  const [columns, setColumns] = useState([])
+  const [bandera, setBanderita] = useState(false)
+  useEffect(() => {
+    TraeElevadores().then((datos) => setColumns(datos.data))
+  }, [bandera])
+
+
+
+
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const { source, destination } = result;
-  
+
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = columns[source.droppableId];
       const destColumn = columns[destination.droppableId];
@@ -223,8 +45,7 @@ const ElevadoresTracking = () => {
       const destItems = [...destColumn.servicios];
       const [removed] = sourceItems.splice(source.index, 1);
       destItems.splice(destination.index, 0, removed);
-      
-      const dataCambiada = {
+      setColumns({
         ...columns,
         [source.droppableId]: {
           ...sourceColumn,
@@ -234,29 +55,52 @@ const ElevadoresTracking = () => {
           ...destColumn,
           servicios: destItems
         }
-      }
-      setColumns(Object.values(dataCambiada));
-      NuevaUbicacion({elevador: destColumn.elevador.id.toString()}, (destItems[destination.index].id).toString()).then(res => console.log(res))
+      });
+      GuardarEle(destColumn, destItems).then(res => {
+        if (res.statusCode === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "Se reasigno correctamente",
+          });
+          setBanderita(!bandera)
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: "Error al reasignar",
+          });
+        }
+      })
     } else {
       const column = columns[source.droppableId];
       const copiedItems = [...column.servicios];
       const [removed] = copiedItems.splice(source.index, 1);
       copiedItems.splice(destination.index, 0, removed);
-      const dataCambiada = {
+      setColumns({
         ...columns,
         [source.droppableId]: {
           ...column,
           servicios: copiedItems
         }
-      } 
-      setColumns(Object.values(dataCambiada))
-      console.log(column.elevador.id, copiedItems[destination.index].id)
-      NuevaUbicacion({elevador: (column.elevador.id).toString()}, copiedItems[destination.index].id.toString()).then(res => console.log(res))
-      console.log(copiedItems)
-      console.log(columns)
+      });
+      GuardarEle(column, copiedItems).then(res => {
+        if (res.statusCode === 200) {
+          Toast.fire({
+            icon: "success",
+            title: "Cambio realizado",
+          });
+          setBanderita(!bandera)
+        } else {
+          Toast.fire({
+            icon: "error",
+            title: "Ocurrio un error",
+          });
+        }
+      })
     }
   };
 
+
+  console.log(columns)
   return (
     <div className='flex justify-start h-full overflow-x-auto'>
       <DragDropContext

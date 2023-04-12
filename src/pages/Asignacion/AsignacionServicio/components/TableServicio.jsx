@@ -39,7 +39,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="TIPO DE SERVICIO" />,
-    selector: (row) => row.tipoServicio,
+    selector: (row) => !JSON.parse(row?.tipoServicio?.nombre !== undefined),
     sortable: true,
     center: true,
     width: "15rem",
@@ -190,6 +190,9 @@ const columns = [
   },
 ];
 export const TableServicio = ({dataServicios}) => {
+
+  console.log("PUTA MADRES",dataServicios)
+
   const [placa, setPlaca] = useState("");
   
   const newData = dataServicios.map(({servicio, datosAsignados}) => ({

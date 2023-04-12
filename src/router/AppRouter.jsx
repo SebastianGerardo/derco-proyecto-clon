@@ -28,7 +28,7 @@ export const AppRouter = () => {
         <Route path="/dashboard/recepcion" element={<Recepcion />} />
         <Route path="/dashboard/asignacion" element={<Asignacion />}>
           <Route index element={<AsignacionTecnico />} />
-          <Route path="/dashboard/asignacion/servicios" element={<h1>MODULO EN MANTENIMIENTO {"):"}</h1>} />
+          <Route path="/dashboard/asignacion/servicios" element={<AsignacionServicio />} />
           <Route path="/dashboard/asignacion/elevadores" element={<ElevadoresTracking />} />
         </Route>
         <Route path="/dashboard/almacen" element={<Almacen />} />
