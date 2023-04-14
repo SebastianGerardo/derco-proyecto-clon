@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { InputReadOnly } from "../../../../components/InputForms/InputBasic";
 import { GuardarElevador } from "../../../../helpers/ApiAsignacion";
 
@@ -12,6 +12,21 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
         servicios: [],
         elevadorId: dataElevador.id,
     });
+    
+    const [index, setIndex] = useState(parseInt(dataElevador.id) - 1)
+    const [selectedElevadorId, setSelectedElevadorId] = useState(elevadores.length > 0 ? elevadores[0].elevadorId : null)
+  
+    const handleElevadorClick = (id, e) => {
+      if (index + 1 !== id) {
+        setIndex(id - 1)
+        setSelectedElevadorId(id)
+      }
+      cambiarElevador(e)
+    }
+  
+    const dataElevadorNombre = useMemo(() => {
+      return elevadores[index]
+    }, [index])
 
     const enviarElevador = (e) => {
         e.preventDefault()
@@ -110,7 +125,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
                 <section>
                     <div className="flex flex-col relative">
                         <label htmlFor="elevador" className="text-gray-400">Elevador:</label>
-                        <select onChange={cambiarElevador} id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
+                        <select onChange={(e) => {handleElevadorClick(parseInt(e.target.value), e)}} id="elevador" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none">
                             {elevadores.map((opcion) => (
                                 <option key={opcion.elevadorId} selected={opcion.nombre === dataElevador.nombre} value={opcion.elevadorId} onClick={() => console.log(opcion)}>
                                     {opcion.nombre}
@@ -121,7 +136,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
 
                     <InputReadOnly 
                     labelName={"Técnico Mecánico:"} 
-                    data={`${dataElevador?.tecnico.nombres.split(' ', 1)} ${dataElevador?.tecnico.apellidos.split(' ', 1)}`} 
+                    data={`${dataElevadorNombre.tecnico}`} 
                     />
                 </section>
 

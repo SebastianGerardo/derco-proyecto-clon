@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { DescripcionSede } from "../../components/informacion/DescripcionSede";
+import { ModalLavado } from "./components/ModalLavado";
 import { TableLavado } from "./components/TableLavado";
 
 export const Lavado = () => {
@@ -17,7 +18,8 @@ export const Lavado = () => {
   return (
     <>
       <div className="p-6">
-        <TableLavado data={infoLavado} />
+        {/* <TableLavado data={infoLavado} /> */}
+        <ModalLavado />
       </div>
     </>
   );

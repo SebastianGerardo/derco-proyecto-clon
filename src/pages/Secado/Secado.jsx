@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ModalSecado } from "./components/ModalSecado";
 import { TableSecado } from "./components/TableSecado";
 
 export const Secado = () => {
@@ -14,7 +15,8 @@ export const Secado = () => {
   return (
     <>
       <div className="p-6">
-        <TableSecado data={infoSecado} />
+        {/* <TableSecado data={infoSecado} /> */}
+        <ModalSecado />
       </div>
     </>
   );

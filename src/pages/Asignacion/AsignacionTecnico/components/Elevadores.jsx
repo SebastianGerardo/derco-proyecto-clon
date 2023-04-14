@@ -27,7 +27,8 @@ const Elevadores = ({ data, closeElevadores }) => {
   const nombresElevadores = elevadores.map((elevador) => {
     return {
       elevadorId: elevador.elevador.id,
-      nombre: elevador.elevador.nombre
+      nombre: elevador.elevador.nombre,
+      tecnico: elevador.elevador.tecnico.nombres.split(" ", 1) + " " + elevador.elevador.tecnico.apellidos.split(" ", 1) 
     }
   });
 

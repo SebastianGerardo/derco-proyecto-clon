@@ -7,7 +7,7 @@ import { editServicio } from "../../../helpers/ApiAnfitrion";
 
 const FormLavado = ({ data, setIsOpen }) => {
     const [datosAlmacen, setDatosAlamacen] = useState({
-        comentarioAlmacen: "",
+        comentarioLavado: "",
     })
 
     const captura = (e) => {
@@ -18,22 +18,7 @@ const FormLavado = ({ data, setIsOpen }) => {
     }
     const enviarDatos = (e) =>{
         e.preventDefault()
-        // editServicio(datosAlmacen, data.id).then(res => {
-        //     if (res.statusCode === 200) {
-        //       Toast.fire({
-        //         icon: "success",
-        //         title: "Dato guardado correctamente",
-        //       });
-        //       setEstadoData(!estadoData)
-        //       setIsOpen(false)
-        //     } else {
-        //       Toast.fire({
-        //         icon: "error",
-        //         title: "Ocurrir un error al guardar dato",
-        //       });
-        //     }
-        //   })
-        setIsOpen(false)
+        // setIsOpen(false)
     }
 
 
@@ -41,13 +26,13 @@ const FormLavado = ({ data, setIsOpen }) => {
         <form action="" className="space-y-2" onSubmit={enviarDatos}>
             <div className="flex justify-around py-4 bg-[#D9D9D9] flex-wrap gap-2">
                 <h2 className="font-bold">
-                    OT: <span>{data.ot}</span>
+                    {/* OT: <span>{data.ot}</span> */}
                 </h2>
                 <h2 className="font-bold">
-                    PLACA: <span>{data.placa}</span>    
+                    {/* PLACA: <span>{data.placa}</span>     */}
                 </h2>
                 <h2 className="font-bold">
-                    ASESOR: <span>{data.asesor}</span>
+                    {/* ASESOR: <span>{data.asesor}</span> */}
                 </h2>
             </div>
             <div className="flex flex-col gap-6 p-5">
@@ -59,9 +44,10 @@ const FormLavado = ({ data, setIsOpen }) => {
                         </label>
                         <br />
                         <textarea
+                            autoFocus={false}
                             type="text"
-                            name= "comentarioAlmacen"
-                            value={datosAlmacen.comentarioAlmacen}
+                            name= "comentarioLavado"
+                            value={datosAlmacen.comentarioLavado}
                             onChange={captura}
                             placeholder="Detalles..."
                             className="resize-none min-h-[6rem] w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"

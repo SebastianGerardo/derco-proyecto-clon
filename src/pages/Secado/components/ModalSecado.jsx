@@ -4,12 +4,12 @@ import { Fragment, useState } from 'react'
 import { BotonTimer } from '../../../components/Boton/BotonForms';
 import FormSecado from './FormSecado';
 export const ModalSecado = ({ tipo, data }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <>
-      <BotonTimer tipo={tipo} setIsOpen={setIsOpen} />
+      {/* <BotonTimer tipo={tipo} setIsOpen={setIsOpen} /> */}
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
+        <Dialog as="div" className="relative z-10" onClose={() => console.log("Usted no puede cerrar esta ventana")}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -37,7 +37,7 @@ export const ModalSecado = ({ tipo, data }) => {
                   
                 <div className='bg-[#C00000] text-white py-2 w-full'>
                     <p className='text-center text-xl font-medium '>Secado</p>
-                    <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
+                    {/* <button onClick={(e) => {e.preventDefault() ; setIsOpen(false)}} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button> */}
                 </div>
                    
 

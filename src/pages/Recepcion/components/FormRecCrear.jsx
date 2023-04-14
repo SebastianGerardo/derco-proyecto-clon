@@ -40,7 +40,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
 
     const { estadoData, setEstadoData } = useContext(UserContext);
     
-    const timeArray = getTimeArray("9:00", "18:00")
+    const timeArray = getTimeArray("9:00", "23:30")
 
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
@@ -137,7 +137,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                     <InputBasicNumber labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} disabled={data.telefono != ("" || null)}/>
                     <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} disabled={data.placa != ("" || null)}/>
                     <InputBasic labelName={"Modelo:"} pHolder={"Celerio"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} disabled={data.modelo != ("" || null)}/>
-                    <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} disabled={data.servicioSolicitado != ("" || null)}/>
+                    <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} disabled/>
                 </section>
 
                 <section className="flex  flex-col justify-between col-start-1 col-end-3">
@@ -208,7 +208,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                             value={dataRegistro.horaEstimadaEntrega || ""}
                             onChange={captura}
                             name="horaEstimadaEntrega"
-                            required
+                            // required
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
                             <option value="" className="z-0 relative ">Elegir:</option>

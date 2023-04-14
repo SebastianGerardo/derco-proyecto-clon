@@ -33,7 +33,7 @@ export const Navbar = () => {
                   <div className="ml-3 flex items-center md:!flex lg:!hidden xl:!hidden">
                     <label
                       onClick={() => setMenu(!menu)}
-                      className="flex flex-col justify-center rounded-md p-2 bg-gray-400 text-white hover:bg-blue-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                      className="z-999 flex flex-col justify-center rounded-md p-2 bg-gray-400 text-white hover:bg-blue-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                     >
                       <div className="h-0.5 w-4 bg-white transition"></div>
                       <div className="h-0.5 w-5 bg-white transition mt-1"></div>
@@ -44,7 +44,9 @@ export const Navbar = () => {
                         menu && "translate-x-[-8%]"
                       } w-64`}
                     >
-                      <BarraMenu />
+                      <div onClick={() => setMenu(!menu)}>
+                        <BarraMenu />
+                      </div>
                     </div>
                   </div>
                 )

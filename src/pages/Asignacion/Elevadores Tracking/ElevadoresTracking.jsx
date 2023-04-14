@@ -30,9 +30,6 @@ const ElevadoresTracking = () => {
     TraeElevadores().then((datos) => setColumns(datos.data))
   }, [bandera])
 
-
-
-
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const { source, destination } = result;
@@ -56,10 +53,16 @@ const ElevadoresTracking = () => {
       });
       GuardarEle(destColumn, destItems).then(res => {
         if (res.statusCode === 200) {
-          console.log("EXISTO")
+          Toast.fire({
+            icon: "success",
+            title: "Reasignado correctamente",
+          });
           setBanderita(!bandera)
         } else {
-          console.log("C MAMUT")
+          Toast.fire({
+            icon: "error",
+            title: "Ocurrio un error",
+          });
         }
       })
     } else {
@@ -92,8 +95,6 @@ const ElevadoresTracking = () => {
     }
   };
 
-
-  console.log(columns)
   return (
     <div className='flex justify-start h-full overflow-x-auto'>
 
