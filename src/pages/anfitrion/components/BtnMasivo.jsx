@@ -46,8 +46,6 @@ export const BtnMasivo = () => {
                                 icon: "success",
                                 title: "Archivo cargado correctamente",
                             });
-                            console.log("QIE ONDAAAAAAAAAAAAAA", res.data)
-
                             res.data.map((res) => {
                                 if (res.registradoAnteriormente) {
                                     Toast.fire({
@@ -56,7 +54,6 @@ export const BtnMasivo = () => {
                                     });
                                 }
                             })
-
                             setEstadoData(!estadoData);
                             setIsOpen(false);
                         } else {

@@ -33,7 +33,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="HORA ESTIMADA DE ENTREGA" />,
-    selector: (row) => row.horaEstimadaEntrega,
+    selector: (row) => <p>sad</p>,
     sortable: true,
     center: true
   },

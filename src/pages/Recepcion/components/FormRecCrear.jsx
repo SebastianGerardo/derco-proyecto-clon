@@ -66,7 +66,6 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
     useEffect(() => {
         traeTiposServicios().then(res => setTiposServicios(res.data))
     }, [])
-
     const [dataRegistro, setDataRegistro] = useState({
         adicionales: [],
         asistencia: data.asistencia,
@@ -74,7 +73,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         correo: data.correo,
         detalleServicio: data.detalleServicio,
         estado: '3',
-        fechaRegistro: data.fechaRegistro,
+        fechaFinRecepcion: data.fechaRegistro,
         horaEstimadaEntrega: data.horaEstimadaEntrega,
         id: data.id,
         marca: data.marca,

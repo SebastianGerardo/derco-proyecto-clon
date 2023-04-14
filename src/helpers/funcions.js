@@ -1,3 +1,5 @@
+import { Toast } from "../components/Alertas/SweetAlex";
+
 export const FormtearFecha = (fecha) => {
   const fechaActual = new Date(fecha);
   const dateFinal = fechaActual.toLocaleDateString();
@@ -28,27 +30,46 @@ export const FormtearFecha = (fecha) => {
   }
 };
 
-
-
 export const reemplzar = (valor) => {
-  const palabrasAReemplazar = {
-      '/\+51|/g': "",
-      '  ': '',
-      ' ': '',
-      '-': "",
-  };
-  const expresionRegular = new RegExp(Object.keys(palabrasAReemplazar).join('|'), 'gi');
-  const textoReemplazado = valor?.replace(expresionRegular, match => palabrasAReemplazar[match]);
-  const final = textoReemplazado.replace(/\+51|/, "")
-  const FinalDeFinales = final.replace("+", "")
-  return FinalDeFinales
-}
-
+  if (valor !== undefined) {
+    const palabrasAReemplazar = {
+      "/+51|/g": "",
+      "  ": "",
+      " ": "",
+      "-": "",
+    };
+    const expresionRegular = new RegExp(
+      Object.keys(palabrasAReemplazar).join("|"),
+      "gi"
+    );
+    const textoReemplazado = valor?.replace(
+      expresionRegular,
+      (match) => palabrasAReemplazar[match]
+    );
+    const final = textoReemplazado.replace(/\+51|/, "");
+    const FinalDeFinales = final.replace("+", "");
+    return FinalDeFinales;
+  } else {
+    Toast.fire({
+      icon: "error",
+      title: "Plantilla Excel incorrecta",
+    });
+  }
+};
 
 export function convertirFecha(fecha) {
+  console.log(fecha)
   var partes = fecha.split(" ");
   var fechaPartes = partes[0].split("/");
   var horaPartes = partes[1].split(":");
-  var nuevaFecha = new Date(fechaPartes[2], fechaPartes[1] - 1, fechaPartes[0], horaPartes[0], horaPartes[1], horaPartes[2]);
+  var nuevaFecha = new Date(
+    fechaPartes[2],
+    fechaPartes[1] - 1,
+    fechaPartes[0],
+    horaPartes[0],
+    horaPartes[1],
+    horaPartes[2]
+  );
+  console.log("nuevaFecha", nuevaFecha)
   return nuevaFecha.toISOString();
 }

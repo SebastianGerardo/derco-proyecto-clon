@@ -7,7 +7,7 @@ import { FormtearFecha } from '../../../helpers/funcions'
 import { UserContext } from "../../../context/ContextDerco";
 import PickingRecepcion from "./PickingRecepcion";
 export const TableRecepcion = ({ dataRecepcion }) => {
-  
+
   const { UsuarioLogin } = useContext(UserContext);
 
   const ubicaciones = {
@@ -56,7 +56,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     },
     {
       name: <CustomHeader nameModule="ASESOR" icon="fa-solid fa-user-tie mr-1" />,
-      selector: (row) => row.asesor.nombres,
+      selector: (row) => row.asesor?.nombres,
       sortable: true,
       center: true
     },
@@ -124,7 +124,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
         <div className="flex items-center gap-3">
           <ModalRecepcion tipo="edit" data={row} />
           <ModalRecepcion tipo="reasignar" data={row} />
-          <PickingRecepcion data={row}/>
+          <PickingRecepcion data={row} />
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
       center: true,
     },
@@ -133,19 +133,25 @@ export const TableRecepcion = ({ dataRecepcion }) => {
   const columnsToShow = columns.filter(column => {
     // Verifica si el usuario es un administrador
     const isAdmin = UsuarioLogin?.usuario?.tipo?.nombre === "Administrador";
-  
+
     // Si la columna es la de asesor y el usuario no es un administrador, la filtramos
     if (column.name.props.nameModule === "ASESOR" && !isAdmin) {
       return false;
     }
-  
+
     // En cualquier otro caso, mostramos la columna
     return true;
   });
 
+  console.log(dataRecepcion)
   const [placa, setPlaca] = useState("");
   const [estado, setEstado] = useState("1")
-  
+  const [ubicacion, setUbicacion] = useState("")
+
+  const handleSelectChange = (event) => {
+    setUbicacion(event.target.value);
+  }
+
   let ordenado = dataRecepcion.sort((a, b) => new Date(a.fechaRegistro) - new Date(b.fechaRegistro))
 
   const filteredItems = ordenado.filter(
@@ -155,12 +161,30 @@ export const TableRecepcion = ({ dataRecepcion }) => {
 
   const filtro2 = filteredItems.filter((item) => item.estadoPicking && item.estadoPicking.includes(estado))
 
+  const filto3 = filtro2.filter((item) => item.estado && item.estado.includes(ubicacion))
+
+
   return (
     <>
       <div className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
         {/**Componente Search de la tabla */}
         <Search placa={placa} setPlaca={setPlaca} />
         <form action="" className='border-solid border-gray-500 border w-72 px-2 py-1 rounded-md'>
+
+        <select name="" id="" onChange={handleSelectChange}>
+            <option value="">Elegir:</option>
+            <option value="1">Abordaje</option>
+            <option value="2">Recepcion</option>
+            <option value="3">Almacen</option>
+            <option value="4">Asignacion</option>
+            <option value="5">Servicio</option>
+            <option value="6">Lavado</option>
+            <option value="7">Secado</option>
+            <option value="8">Entrega</option>
+          </select>
+
+
+
           <p className="text-gray-500">Filtro por estado:</p>
           <div className="flex justify-evenly">
             <label className="p-1 flex items-center justify-center">
@@ -184,10 +208,10 @@ export const TableRecepcion = ({ dataRecepcion }) => {
             </label>
           </div>
         </form>
-      </div> 
+      </div>
       <DataTable
         columns={columnsToShow}
-        data={filtro2}
+        data={filto3}
         pagination
         paginationComponentOptions={{
           rowsPerPageText: "Filas por página:",
