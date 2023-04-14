@@ -40,13 +40,15 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       name: <CustomHeader nameModule="KILOMETRAJE" icon="fa-solid fa-tachometer mr-1" />,
       selector: (row) => <p>{row.vehiculoKilometraje} km</p>,
       sortable: true,
-      center: true
+      center: true,
+      width: "10rem"
     },
     {
       name: <CustomHeader nameModule="HORA ABORDAJE" icon="fa-solid fa-clock mr-1" />,
       selector: (row) => <p>{FormtearFecha(row.fechaRegistro)}</p>,
       sortable: true,
-      center: true
+      center: true,
+      width: "10rem"
     },
     {
       name: <CustomHeader nameModule="PLACA" icon="fa-solid fa-id-card mr-1" />,
@@ -65,6 +67,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       selector: (row) => row.estado && ubicaciones[row.estado],
       sortable: true,
       center: true,
+      width: "8rem",
       style: {
         color: "white",
         fontSize: "15px",
@@ -163,6 +166,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
 
   const filto3 = filtro2.filter((item) => item.estado && item.estado.includes(ubicacion))
 
+  // console.log(filteredItems)
 
   return (
     <>
@@ -201,10 +205,10 @@ export const TableRecepcion = ({ dataRecepcion }) => {
               <option value="2">Recepcion</option>
               <option value="3">Almacen</option>
               <option value="4">Asignacion</option>
-              <option value="5">Servicio</option>
+              <option value="5">Mantenimiento</option>
               <option value="6">Lavado</option>
               <option value="7">Secado</option>
-              <option value="8">Entrega</option>
+              <option value="8">Control de Calidad</option>
             </select>
           </label>
 
