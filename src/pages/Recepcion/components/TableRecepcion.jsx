@@ -146,7 +146,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
   console.log(dataRecepcion)
   const [placa, setPlaca] = useState("");
   const [estado, setEstado] = useState("1")
-  const [ubicacion, setUbicacion] = useState("")
+  const [ubicacion, setUbicacion] = useState("2")
 
   const handleSelectChange = (event) => {
     setUbicacion(event.target.value);
@@ -166,25 +166,10 @@ export const TableRecepcion = ({ dataRecepcion }) => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
+      <div className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0 gap-y-4">
         {/**Componente Search de la tabla */}
         <Search placa={placa} setPlaca={setPlaca} />
         <form action="" className='border-solid border-gray-500 border w-72 px-2 py-1 rounded-md'>
-
-        <select name="" id="" onChange={handleSelectChange}>
-            <option value="">Elegir:</option>
-            <option value="1">Abordaje</option>
-            <option value="2">Recepcion</option>
-            <option value="3">Almacen</option>
-            <option value="4">Asignacion</option>
-            <option value="5">Servicio</option>
-            <option value="6">Lavado</option>
-            <option value="7">Secado</option>
-            <option value="8">Entrega</option>
-          </select>
-
-
-
           <p className="text-gray-500">Filtro por estado:</p>
           <div className="flex justify-evenly">
             <label className="p-1 flex items-center justify-center">
@@ -208,6 +193,24 @@ export const TableRecepcion = ({ dataRecepcion }) => {
             </label>
           </div>
         </form>
+
+        <form action="">
+          <label className="flex flex-col" htmlFor="">
+            <span className="text-lg">Filtro por Ubicación</span>
+            <select className="w-[16rem] h-8 border-2 border-gray-300 rounded-md outline-none" name="" id="" onChange={handleSelectChange}>
+              <option value="2">Recepcion</option>
+              <option value="3">Almacen</option>
+              <option value="4">Asignacion</option>
+              <option value="5">Servicio</option>
+              <option value="6">Lavado</option>
+              <option value="7">Secado</option>
+              <option value="8">Entrega</option>
+            </select>
+          </label>
+
+        </form>
+
+        
       </div>
       <DataTable
         columns={columnsToShow}
