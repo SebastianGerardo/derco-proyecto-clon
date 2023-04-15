@@ -191,8 +191,6 @@ const columns = [
 ];
 export const TableServicio = ({dataServicios}) => {
 
-  console.log("PUTA MADRES",dataServicios)
-
   const [placa, setPlaca] = useState("");
   
   const newData = dataServicios.map(({servicio, datosAsignados}) => ({

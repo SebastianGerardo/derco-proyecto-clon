@@ -146,7 +146,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
                     <div>
                         <div className="flex flex-col relative">
                             <label htmlFor="servicios" className="text-gray-400">Servicios:</label>
-                            <select name="servicios" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
+                            <select required name="servicios" className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none" onChange={agregarOpcionSeleccionada}>
                                 <option value="">Seleccione los servicios</option>
                                 {opcionesServicios.map((opcion) => (
                                     <option key={opcion} value={opcion}>

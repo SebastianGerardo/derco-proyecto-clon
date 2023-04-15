@@ -8,6 +8,7 @@ import ProgressBar from '../../../components/Radial Progresivo/ProgressBar';
 export const InformacionAnfitrion = () => {
 
   const [cantCitas, setCantCitas] = useState([])
+  const [sinCitas, setSinCitas] = useState([])
   const [bandera, setBandera] = useState(false)
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export const InformacionAnfitrion = () => {
     CantCitas().then(res => {
       if(res.statusCode === 200){
         setCantCitas(res.data.abordaje.concita)
+        setSinCitas(res.data.abordaje.sincita)
         setBandera(!bandera)
       }
     })
@@ -39,7 +41,7 @@ export const InformacionAnfitrion = () => {
     <div className="bg-gray-100 shadow-md rounded-sm py-3 px-5 mt-5">
       <div className='flex flex-col gap-y-2 items-center sm:flex-row min-[450px]:flex-row md:justify-between mt-4 lg:mt-0 justify-between w-full'>
         <section className=''>
-          <EstadosCitas cantCitas={cantCitas}/>
+          <EstadosCitas cantCitas={cantCitas} sinCitas={sinCitas}/>
         </section>
         <section className='grid place-items-center'>
           <div>
