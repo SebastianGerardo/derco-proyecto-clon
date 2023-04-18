@@ -14,6 +14,21 @@ export const Mantenimiento = () => {
   //   return () => clearInterval(interval);
   // },[])
 
+
+  // ADVERTENCIA AL CERRAR LA VENTANA
+  useEffect(() => {
+    window.addEventListener('beforeunload', handlebeforeunload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handlebeforeunload);
+    }
+  }, [])
+
+  const handlebeforeunload = (e) => {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+
   return (
     <>
       <div className="p-6">

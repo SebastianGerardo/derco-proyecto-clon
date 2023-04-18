@@ -1,10 +1,43 @@
 
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
 import FormMantenimiento from './FormMantenimiento';
 export const ModalMantenimiento = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [time, setTime] = useState(0);
+
+  const [isRunning, setIsRunning] = useState(false);
+  const [reset, setReset] = useState(false);
+
+  useEffect(() => {
+    let interval = null;
+    if (isRunning) {
+      interval = setInterval(() => {
+        setTime((time) => time + 1);
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [isRunning]);
+
+  const formatTime = (time) => {
+    const days = Math.floor(time / 86400)
+      .toString()
+      .padStart(2, "0");
+    const hours = Math.floor((time % 86400) / 3600)
+      .toString()
+      .padStart(2, "0");
+    const minutes = Math.floor((time % 3600) / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = (time % 60).toString().padStart(2, "0");
+    return `${days}:${hours}:${minutes}:${seconds}`;
+  };
+
+  useEffect(() => {
+    setTime(0);
+  }, [reset]);
+
   return (
     <>
       <BotonTimer tipo={tipo} setIsOpen={setIsOpen} />
@@ -42,7 +75,7 @@ export const ModalMantenimiento = ({ tipo, data }) => {
                    
 
                   <div className='w-full block'>
-                    <FormMantenimiento data={data} setIsOpen={setIsOpen}/>
+                    <FormMantenimiento data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time}/>
                   </div>
                   
                   
