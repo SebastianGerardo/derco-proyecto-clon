@@ -11,7 +11,7 @@ export const AsignacionTecnico = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [])
-
+  console.log(dataAsignacion)
   return (
     <>
       <div className="grow shadow-md rounded-sm py-3 px-5 w-full">

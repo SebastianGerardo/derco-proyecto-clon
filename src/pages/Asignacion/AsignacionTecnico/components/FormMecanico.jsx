@@ -33,9 +33,10 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
         const enviar = {
             elevador: parseInt(dataRegistro.elevadorId),
             servicio: data.id,
-            ordenServicios: dataRegistro.servicios.toString(),
+            ordenServicios: JSON.stringify(dataRegistro.servicios),
         }
-
+        console.log(enviar)
+        return
         GuardarElevador(enviar, data.id).then(res => console.log("wenas", res))
         setIsOpen(false)
         closeElevadores(false)

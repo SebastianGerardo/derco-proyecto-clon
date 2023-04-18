@@ -12,12 +12,10 @@ export const AsignacionServicio = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [])
-
   console.log(dataServicios)
-
   return (
     <div className="grow shadow-md rounded-sm py-3 px-5 w-full">
-      <TableServicio dataServicios={dataServicios}/>
-    </div>  
+      <TableServicio dataServicios={dataServicios} />
+    </div>
   );
 };
