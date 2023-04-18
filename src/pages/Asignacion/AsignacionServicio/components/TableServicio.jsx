@@ -33,13 +33,13 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="HORA ESTIMADA DE ENTREGA" />,
-    selector: (row) => <p>sad</p>,
+    selector: (row) => row.horaEstimadaEntrega,
     sortable: true,
     center: true
   },
   {
     name: <CustomHeader nameModule="TIPO DE SERVICIO" />,
-    selector: (row) => !JSON.parse(row?.tipoServicio?.nombre !== undefined),
+    selector: (row) => JSON.parse(row.tipoServicio).nombre,
     sortable: true,
     center: true,
     width: "15rem",
@@ -107,46 +107,35 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="SERVICIOS ASIGNADOS" />,
-    selector: (row) => 
-    <div className="flex gap-2 min-w-full text-white">
-      {row.ordenServicios.split(',').map((item, index) => {
-        return (
-            <p className={`${colorServicios[item]} text-center py-2 px-4 rounded-full h-[39.2px]`} onClick={() => console.log(colorServicios[item])} key={index}>{item}</p>
-        )
+    cell: ({ ordenServicios }) => <div className="flex gap-3 justify-start w-full">
+      {ordenServicios.map(res => {
+        let color = ""
+        if (res.nombre.includes("Abordaje")) {
+          color = "bg-[#FFC000]"
+        }else if(res.nombre.includes("Recepcion")){
+          color = "bg-[#46AD63]"
+        }else if(res.nombre.includes("Recepcion")){
+          color = "bg-[#2F5597]"
+        }else if(res.nombre.includes("Mantenimiento")){
+          color = "bg-[#ED7D31]"
+        }else if(res.nombre.includes("Control de Calidad")){
+          color = "bg-[#7030A0]"
+        }else if(res.nombre.includes("Lavado")){
+          color = "bg-[#00B0F0]"
+        }else if(res.nombre.includes("Secado")){
+          color = "bg-[#7F7F7F]"
+        }else if(res.nombre.includes("Pre Entrega")){
+          color = "bg-[#FFD966]"
+        }else{
+          color = "bg-[#00B050]"
+        }
+        return <div className={`rounded-md ${color} p-2 text-white font-bold`}>
+          {res.nombre}
+        </div>
       })}
     </div>,
     width: "33rem",
-    sortable: true,
-    style: {
-      color: "black",
-      fontSize: "15px",
-      margin: "4px",
-      borderRadius: "5px",
-      fontWeight: "700",
-      textAlign: "center",
-      cursor: "default",
-      width: "100%",
-    },
-    conditionalCellStyles: [
-      {
-        when: (row) => row.estadoMantenimiento === "Pendiente",
-        style: {
-          backgroundColor: "#FFD966",
-        },
-      },
-      {
-        when: (row) => row.estadoMantenimiento === "Terminado",
-        style: {
-          backgroundColor: "#4AD69D",
-        },
-      },
-      {
-        when: (row) => row.estadoMantenimiento === "En proceso",
-        style: {
-          backgroundColor: "#D90912",
-        },
-      },
-    ],
+    center: true,
   },
   {
     name: <CustomHeader nameModule="CONFIRMACION DE SALIDA" />,
@@ -182,18 +171,18 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="ACCIONES" />,
-    cell: row => 
-    <div className="flex items-center gap-3">
-      <ModalServicio tipo="edit" data={row} />
-    </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
+    cell: row =>
+      <div className="flex items-center gap-3">
+        <ModalServicio tipo="edit" data={row} />
+      </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
 ];
-export const TableServicio = ({dataServicios}) => {
+export const TableServicio = ({ dataServicios }) => {
 
   const [placa, setPlaca] = useState("");
-  
-  const newData = dataServicios.map(({servicio, datosAsignados}) => ({
+
+  const newData = dataServicios.map(({ servicio, datosAsignados }) => ({
     datosAsignadosId: datosAsignados.id,
     ot: servicio.ot,
     placa: servicio.placa,
@@ -204,17 +193,17 @@ export const TableServicio = ({dataServicios}) => {
     confirmacionSalida: datosAsignados.confirmacionSalida,
     nombres: servicio.nombres,
   }))
-  
+
   const [estado, setEstado] = useState("")
 
   const filteredItems = newData.filter(
     (item) =>
-    item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
-    );
+      item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
+  );
 
   const filtro2 = filteredItems.filter((item) =>
     item.ubicacion && item.ubicacion.includes(estado)) //|| item.estadoAsignacion && item.estadoAsignacion.includes(estado) 
- 
+  console.log(filtro2)
   return (
     <>
       <div onClick={() => console.log(filteredItems)} className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">

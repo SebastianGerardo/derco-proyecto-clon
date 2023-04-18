@@ -7,7 +7,12 @@ import { TableAnfitrion } from "./components/TableAnfitrion";
 
 export const Anfitrion = () => {
 
+
+
+    
+
   const {estadoData} = useContext(UserContext)
+
   /*Peticion Api*/
   const [dataAnfitrion, setDataAnfitrion] = useState([])
   useEffect(() => {

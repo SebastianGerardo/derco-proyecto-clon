@@ -1,12 +1,14 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { VerificarSesion } from "../helpers/ApiUsuarios";
-
+import { io } from 'socket.io-client';
 export const UserContext = createContext();
 
 export const ContextDerco = ({ children }) => {
+
+
   const navigate = useNavigate();
-  const [estadoData, setEstadoData ] = useState(false)
+  const [estadoData, setEstadoData] = useState(false)
   const [UsuarioLogin, setUsuarioLogin] = useState([]);
   const [modules, setModules] = useState({
     "/dashboard/anfitrion": "Abordaje",
@@ -35,9 +37,18 @@ export const ContextDerco = ({ children }) => {
         navigate("/login", { replace: true });
       }
     });
+    const socket = io("https://api-derco-production.up.railway.app");
+    function onConnect() {  
+      socket.emit(UsuarioLogin.usuario?.centro?.codigo, UsuarioLogin.usuario?.id)
+    }
+    socket.on('connect', onConnect);
   }, []);
+
+
+
+
   return (
-    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules}}>
+    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules }}>
       {children}
     </UserContext.Provider>
   );

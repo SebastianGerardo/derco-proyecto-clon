@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { NuevaUbicacion } from "../../../../helpers/ApiAsignacion";
+import { Toast } from "../../../../components/Alertas/SweetAlex";
 
 const FormServicio = ({ data, setIsOpen }) => {
-    const ordenServicios = data.ordenServicios.split(",");
+    //const ordenServicios = data.ordenServicios.split(",");
     // console.log(ordenServicios);
-    let newOrden = ordenServicios.filter((item) => item !== data.ubicacion);
-    
+    // let newOrden = ordenServicios.filter((item) => item !== data.ubicacion);
+
     const [ubicacion, setUbicacion] = useState({
         ubicacion: "",
     });
@@ -19,18 +20,33 @@ const FormServicio = ({ data, setIsOpen }) => {
 
     const nuevaUbicacion = (e) => {
         e.preventDefault();
-        if(ubicacion.ubicacion === "") {
-            alert("Debe seleccionar una ubicación");
+        if (ubicacion.ubicacion === "") {
+            Toast.fire({
+                icon: "error",
+                title: "Debe selecionar una Ubicacion",
+            });
             return;
         } else {
-            NuevaUbicacion(ubicacion, data.datosAsignadosId).then((res) => {console.log(res)});
+            NuevaUbicacion(ubicacion, data.datosAsignadosId).then((res) => {
+                if (res.statusCode === 200) {
+                    Toast.fire({
+                        icon: "success",
+                        title: "Ubicacion cambiada correctamente",
+                    });
+                } else {
+                    Toast.fire({
+                        icon: "error",
+                        title: "No se actualizo la ubicacion",
+                    });
+                }
+            });
             setIsOpen(false);
         }
-        
+
     }
 
     // console.log(data);
-    
+    console.log(data)
     return (
         <form action="" onSubmit={nuevaUbicacion} className="space-y-2">
             {/* INPUTS DEL FORM - INICIO */}
@@ -48,7 +64,7 @@ const FormServicio = ({ data, setIsOpen }) => {
                 {/* LADO DERECHO */}
                 <section className="w-full lg:w-full md:w-full">
 
-                    <InputBasic labelName={'Tipo de Servicio:'} pHolder={''} data={data.tipoServicio} />
+                    <InputBasic labelName={'Tipo de Servicio:'} pHolder={''} data={JSON.parse(data.tipoServicio)?.nombre} />
 
                     <InputBasic labelName={"Placa:"} pHolder={""} data={data.placa} />
 
@@ -62,10 +78,12 @@ const FormServicio = ({ data, setIsOpen }) => {
                             onChange={changeUbicacion}
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
-                            <option value="">Elige:</option>
-                            {newOrden.map((item, index) => (
-                                <option key={index} value={item}>{item}</option>
-                            ))}
+                            <option value="" disabled>Elegir</option>
+                            {
+                                data.ordenServicios.map((res) => (
+                                    <option value={res.nombre}>{res.nombre}</option>
+                                ))
+                            }
                         </select>
                     </div>
 

@@ -57,6 +57,7 @@ export const TraeServicio = async () => {
 };
 
 export const NuevaUbicacion = async (registro, datoAsignadoId) => {
+
   try {
     const fetchResponse = await fetch(`${URL}/servicios_asignados/actualizar/${datoAsignadoId}`, {
       method: 'PUT',
