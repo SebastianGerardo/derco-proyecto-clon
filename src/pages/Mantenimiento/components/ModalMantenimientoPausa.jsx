@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
+import { TerminarPausarMan } from "../../../helpers/ApiMantenimiento";
 
 export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, captura, datosMantenimiento, setDatosMantenimiento }) => {
 
@@ -10,10 +11,15 @@ export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, captura, d
       title: "Se guardó correctamente el motivo de pausa",
     });
 
-    console.log(datosMantenimiento);
-
+    TerminarPausarMan(datosMantenimiento).then(res=>{
+      if(res.statusCode === 200){
+        alert("LO LOGRE")
+      }else{
+        alert("FALLE")
+      }
+    })
     setIsPausedOpen(false);
-    // setIsOpen(false);
+    setIsOpen(false);
   };
 
   

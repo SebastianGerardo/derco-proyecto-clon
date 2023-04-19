@@ -4,6 +4,7 @@ import { Toast } from "../../../components/Alertas/SweetAlex";
 import Timer from "../../../components/Cronometro/Timer";
 import TimerControls from "../../../components/Cronometro/TimerControls";
 import { ModalMantenimientoPausa } from "./ModalMantenimientoPausa";
+import { InicarMan, TerminarMan, TerminarPausarMan } from "../../../helpers/ApiMantenimiento";
 // import Timer from "../../../components/Cronometro/Timer";
 // import TimerControls from "../../../components/Cronometro/TimerControls";
 
@@ -22,7 +23,8 @@ const FormMantenimiento = ({
     tipo: "mantenimiento",
     motivo: "",
     comentario: "",
-    tiempo: ""
+    tiempo: "",
+    estado: ""
   });
 
   const captura = (e) => {
@@ -40,37 +42,61 @@ const FormMantenimiento = ({
   const [hasStarted, setHasStarted] = useState(false);
   const [isPausedOpen, setIsPausedOpen] = useState(false);
   const handleStart = () => {
+    setDatosMantenimiento(previe => ({
+      ...previe,
+      tiempo: new Date(),
+      estado: "Iniciar"
+    }))
     setIsRunning(true);
     setHasStarted(true);
   };
 
   const handlePause = () => {
-    setDatosMantenimiento({
-      ...datosMantenimiento,
-      tiempo: formatTime(time),
-    })
+    setDatosMantenimiento(previe => ({
+      ...previe,
+      tiempo: new Date(),
+      estado: "Pausar"
+    }))
     setIsRunning(false);
     setIsPausedOpen(true);
   };
 
 
   const handleReset = () => {
+    setDatosMantenimiento(previe => ({
+      ...previe,
+      tiempo: new Date(),
+      estado: "Finalizar"
+    }))
     setIsRunning(false);
     setHasStarted(false);
     setReset(!reset);
   };
 
+  useEffect(() => {
+    if (datosMantenimiento.estado === "Iniciar") {
+      InicarMan(datosMantenimiento).then(res =>
+        console.log(res)
+      )
+    } else if (datosMantenimiento.estado === "Finalizar") {
+      TerminarMan(datosMantenimiento).then(res =>
+        console.log(res)
+      )
+    }
+
+  }, [datosMantenimiento])
+
   return (
     <section className="space-y-2" >
       <div className="flex justify-around py-4 bg-[#D9D9D9] flex-wrap gap-2">
         <h2 className="font-bold">
-          OT: <span>{data.ot}</span>
+          OT: <span>{data.servicio.ot}</span>
         </h2>
         <h2 className="font-bold">
-          PLACA: <span>{data.placa}</span>
+          PLACA: <span>{data.servicio.placa}</span>
         </h2>
         <h2 className="font-bold">
-          ASESOR: <span>{data.asesor}</span>
+          ASESOR: <span>{data.elevador?.tecnico?.nombres}</span>
         </h2>
       </div>
       <div className="flex justify-center items-center flex-col gap-6 p-5">
@@ -83,39 +109,39 @@ const FormMantenimiento = ({
         />
 
         <Transition appear show={isPausedOpen} as={Fragment}>
-        <Dialog
+          <Dialog
             as="div"
             className="relative z-10"
             onClose={() => console.log("cerrar")}
-        >
+          >
             <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <div className="flex min-h-full items-center justify-center p-4 text-center">
                 <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 scale-95"
+                  enterTo="opacity-100 scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 scale-100"
+                  leaveTo="opacity-0 scale-95"
                 >
-                <Dialog.Panel
+                  <Dialog.Panel
                     className={`w-full max-w-2xl transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all`}
-                >
+                  >
                     <div className="w-full block">
-                    <ModalMantenimientoPausa
+                      <ModalMantenimientoPausa
                         setIsOpen={setIsOpen}
                         setIsPausedOpen={setIsPausedOpen}
                         captura={captura}
                         datosMantenimiento={datosMantenimiento}
                         setDatosMantenimiento={setDatosMantenimiento}
-                    />
+                      />
                     </div>
-                </Dialog.Panel>
+                  </Dialog.Panel>
                 </Transition.Child>
+              </div>
             </div>
-            </div>
-        </Dialog>
+          </Dialog>
         </Transition>
       </div>
     </section>

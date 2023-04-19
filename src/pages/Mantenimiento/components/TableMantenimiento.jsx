@@ -13,26 +13,26 @@ export const TableMantenimiento = ({ data }) => {
   const columns = [
     {
       name: <CustomHeader nameModule="OT" icon="fa-regular fa-id-card mr-1" />,
-      cell: (row) => <p>{row.ot}</p>,
+      cell: (row) => <p>{row.servicio.ot}</p>,
       sortable: true,
       center: true,
     },
     {
       name: <CustomHeader nameModule="PLACA" icon="fa-solid fa-id-card mr-1" />,
-      selector: (row) => row.placa,
+      selector: (row) => row.servicio.placa,
       sortable: true,
       width: "7rem",
       center: true
     },
     {
       name: <CustomHeader nameModule="TECNICO" icon="fa-solid fa-user mr-1" />,
-      selector: (row) => <p>{row.tecnicoMecanico}</p>,
+      selector: (row) => <p>{row.elevador?.tecnico?.nombres}</p>,
       sortable: true,
       center: true,
     },
     {
       name: <CustomHeader nameModule="CONFIRMACION DE PICKING" icon="fa-solid fa-tools mr-1" />,
-      selector: (row) => row.confirmacionPicking,
+      selector: (row) => row.servicio.estadoPicking === "1" ? "Pendiente" : "Terminado",
       sortable: true,
       center: true,
       style: {
@@ -46,13 +46,13 @@ export const TableMantenimiento = ({ data }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.confirmacionPicking === "Pendiente",
+          when: (row) => row.servicio.estadoPicking === "1",
           style: {
             backgroundColor: "#FFD34D",
           },
         },
         {
-          when: (row) => row.confirmacionPicking === "Terminado",
+          when: (row) => row.servicio.estadoPicking === "2",
           style: {
             backgroundColor: "#4AC695",
           },
@@ -61,7 +61,7 @@ export const TableMantenimiento = ({ data }) => {
     },
     {
       name: <CustomHeader nameModule="FECHA / HORA INGRESO" icon="fa-solid fa-clock mr-1" />,
-      selector: (row) => row.fecha,
+      selector: (row) => row.servicio.horaEstimadaEntrega,
       sortable: true,
       center: true
     },
@@ -82,19 +82,19 @@ export const TableMantenimiento = ({ data }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.estado === "Pendiente",
+          when: (row) => row.estado === "1",
           style: {
             backgroundColor: "#FFD34D",
           },
         },
         {
-          when: (row) => row.estado === "En proceso",
+          when: (row) => row.estado === "2",
           style: {
             backgroundColor: "#B22323",
           },
         },
         {
-          when: (row) => row.estado === "En pausa",
+          when: (row) => row.estado === "3",
           style: {
             backgroundColor: "#9B5DA2",
           },
@@ -117,7 +117,7 @@ export const TableMantenimiento = ({ data }) => {
   const [placa, setPlaca] = useState("");
 
 
-  const filteredItems = ApiPrueba.filter((item) => item.placa && item.placa.toLowerCase().includes(placa.toLowerCase()) || item.ot && item.ot.toLowerCase().includes(placa.toLowerCase()));
+  const filteredItems = data.filter((item) => item.placa && item.placa.toLowerCase().includes(placa.toLowerCase()) || item.ot && item.ot.toLowerCase().includes(placa.toLowerCase()));
 
   const filtroEstado = (e) => {
     e.preventDefault()
@@ -164,7 +164,7 @@ export const TableMantenimiento = ({ data }) => {
       {/**Componente Search de la tabla */}
       <DataTable
         columns={columns}
-        data={filtro2}
+        data={data}
         pagination
         paginationComponentOptions={{
           rowsPerPageText: "Filas por página:",

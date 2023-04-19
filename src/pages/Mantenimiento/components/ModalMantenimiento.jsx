@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
 import FormMantenimiento from './FormMantenimiento';
 export const ModalMantenimiento = ({ tipo, data }) => {
+
   const [isOpen, setIsOpen] = useState(false);
   const [time, setTime] = useState(0);
 
