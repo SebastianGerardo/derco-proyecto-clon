@@ -6,17 +6,17 @@ import { Toast } from '../../../components/Alertas/SweetAlex'
 
 const ElevadoresTracking = () => {
   const EstadoServicio = {
-    "5": {
+    "1": {
       "nombre": "Pendiente",
       "color": "#EAB308CC",
       "colorDrag": "#FFD966"
     },
-    "6": {
+    "2": {
       "nombre": "En proceso",
       "color": "bg-red-600",
       "colorDrag": "#"
     },
-    "7": {
+    "3": {
       "nombre": "En pausa",
       "color": "bg-purple-700",
       "colorDrag": "#"
@@ -95,13 +95,64 @@ const ElevadoresTracking = () => {
     }
   };
 
-  return (
-    <div className='flex justify-start h-full overflow-x-auto'>
+  const [estado, setEstado] = useState({
+    estado: '1',
+    fecha: ''
+  })
 
+  const handleEstado = (e) => {
+    setEstado({
+      ...estado,
+      [e.target.name]: e.target.value
+    }
+    )
+  }
+
+  const filtroEstado = Object.values(columns).map((elevador) => {
+    const serviciosFiltrados = elevador.servicios.filter((servicio) => {
+      return servicio.estado && servicio.estado.includes(estado.estado);
+    });
+    
+    return { ...elevador, servicios: serviciosFiltrados };
+  });
+
+    // FECHA FILTER
+  
+  // let filteredAccounts = filter2.filter(function (account: any) {
+  //   if (valor1.length > 0 && valor2.length > 0) {
+  //       return ParseoFecha(account.fecha) > ParseoFecha(valor1) && ParseoFecha(account.fecha) < ParseoFecha(valor2)
+  //   } else {
+  //       return filteredItems
+  //   }
+  // })
+  // export const  ParseoFecha = (dateStr: any) =>  {
+  // let parts = dateStr.split("-")
+  // if (parts[0].length == 4) {
+  //     return new Date(parts[0], parts[1] - 1, parts[2]).getTime()
+  // } else {
+  //     return new Date(parts[2], parts[1] - 1, parts[0]).getTime()
+  // }
+  // }
+
+  return (
+    <div className='flex flex-col justify-start h-full overflow-x-auto'>
+       <section className='py-4 flex items-center justify-around w-full'>
+        <select className='cursor-pointer text-lg font-medium border rounded-md border-black w-[10rem] h-8' onChange={handleEstado} name="estado" id="">
+          <option selected value="1">Pendiente</option>
+          <option value="2">En proceso</option>
+          <option value="3">En pausa</option>
+          <option value="4">Terminado</option>
+        </select>
+        <div className='text-3xl font-bold'>
+          Seguimiento de Elevadores
+        </div>
+        <input className='cursor-pointer border border-black px-1 rounded-md w-[10rem] text-lg h-8' type="date" value={estado.fecha} name="fecha" onChange={handleEstado} />
+      </section>
+    <div className='flex justify-start h-full overflow-x-auto'>
       <DragDropContext
         onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
       >
-        {Object.entries(columns).length > 0 && Object.entries(columns).map(([columnId, column], index) => {
+        {Object.entries(filtroEstado).length > 0 && Object.entries(filtroEstado).map(([columnId, column], index) => {
           return (
             <div
               className='flex flex-col items-center'
@@ -137,8 +188,8 @@ const ElevadoresTracking = () => {
                                     {...provided.dragHandleProps}
                                     style={{
                                       backgroundColor: snapshot.isDragging
-                                        ? EstadoServicio[item.servicio?.estado]?.colorDrag
-                                        : EstadoServicio[item.servicio?.estado]?.color,
+                                        ? EstadoServicio[item.estado]?.colorDrag
+                                        : EstadoServicio[item.estado]?.color,
                                       ...provided.draggableProps.style
                                     }}
                                     className='flex flex-col gap-1 p-4 m-0 mb-2 min-h-[50px]  rounded-md text-white font-bold'
@@ -163,6 +214,7 @@ const ElevadoresTracking = () => {
           );
         })}
       </DragDropContext>
+    </div>
     </div>
   )
 }
