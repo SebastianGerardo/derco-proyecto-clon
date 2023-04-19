@@ -8,6 +8,12 @@ import { ApiPrueba } from "../../../helpers/ApiPruebaVistas";
 import { ModalMensaje } from "./ModalMensaje";
 import { ModalDetalle } from "./ModalDetalle";
 
+const estados = {
+  "1": "Pendiente",
+  "2": "En proceso",
+  "3": "En pausa",
+}
+
 export const TableMantenimiento = ({ data }) => {
 
   const columns = [
@@ -68,7 +74,7 @@ export const TableMantenimiento = ({ data }) => {
 
     {
       name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estado,
+      selector: (row) => estados[row.estado],
       sortable: true,
       center: true,
       style: {

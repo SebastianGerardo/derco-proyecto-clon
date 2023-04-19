@@ -42,7 +42,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
     return (
         <form action="" className="space-y-2" onSubmit={almacen}>
             <div className="flex justify-around flex-wrap gap-2 py-4 bg-[#D9D9D9] font-bold">
-                <h2>
+                {/* <h2>
                     OT: <span className="font-normal">{data.ot}</span>
                 </h2>
                 <h2>
@@ -53,7 +53,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
                 </h2>
                 <h2>
                     ELEVADOR: <span className="font-normal">{data.elevador}</span>
-                </h2>
+                </h2> */}
             </div>
             {/* INPUTS DEL FORM - INICIO */}
             <section className="p-5">
