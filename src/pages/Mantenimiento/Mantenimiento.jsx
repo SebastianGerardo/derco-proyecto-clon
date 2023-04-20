@@ -22,8 +22,7 @@ export const Mantenimiento = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, [])
-
-  console.log("jajaja",infoMantenimiento)
+  
   // ADVERTENCIA AL CERRAR LA VENTANA
   //useEffect(() => {
   //  window.addEventListener('beforeunload', handlebeforeunload);
