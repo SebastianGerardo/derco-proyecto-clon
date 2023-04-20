@@ -1,40 +1,31 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
 import Timer from "../../../components/Cronometro/Timer";
-import { InputBasic } from "../../../components/InputForms/InputBasic";
+import { InputBasic, InputReadOnly } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
 import { editServicio } from "../../../helpers/ApiAnfitrion";
+import { TraeDetalle } from "../../../helpers/ApiMantenimiento";
 
 const FormDetalle = ({ data, setIsOpen }) => {
-    const [datosAlmacen, setDatosAlamacen] = useState({
-        comentarioAlmacen: "",
-    })
-
-    const captura = (e) => {
-        setDatosAlamacen({
-            ...datosAlmacen,
-            [e.target.name]: e.target.value,
-        });
-    }
+    const [detalle, setDetalle] = useState([])
+    
     const enviarDatos = (e) =>{
-        e.preventDefault()
-        // editServicio(datosAlmacen, data.id).then(res => {
-        //     if (res.statusCode === 200) {
-        //       Toast.fire({
-        //         icon: "success",
-        //         title: "Dato guardado correctamente",
-        //       });
-        //       setEstadoData(!estadoData)
-        //       setIsOpen(false)
-        //     } else {
-        //       Toast.fire({
-        //         icon: "error",
-        //         title: "Ocurrir un error al guardar dato",
-        //       });
-        //     }
-        //   })
         setIsOpen(false)
     }
+
+    console.log(detalle)
+
+    const estados = {
+        "1": "Pendiente",
+        "2": "En proceso",
+        "3": "En pausa",
+    }
+
+    useEffect(() => {
+        TraeDetalle(data.id).then((resp) => {
+            setDetalle(resp.data)
+        })
+    }, [])
 
     return (
         <form action="" className="space-y-2" onSubmit={enviarDatos}>
@@ -42,17 +33,17 @@ const FormDetalle = ({ data, setIsOpen }) => {
             <section className="flex flex-col gap-y-6">
                 <div className="w-full lg:grid lg:grid-cols-4 lg:gap-x-4">
 
-                        <InputBasic labelName={" Nro OT:"} pHolder={""} data={""} />
+                        <InputReadOnly labelName={" Nro OT:"} pHolder={""} data={data.servicio.ot} />
 
-                        <InputBasic labelName={"Asesor"} pHolder={""} data={""} />
+                        <InputReadOnly labelName={"Asesor"} pHolder={""} data={`${data.elevador.tecnico.nombres.split(" ", 1)} ${data.elevador.tecnico.apellidos.split(" ", 1)}`} />
 
-                        <InputBasic labelName={"Placa:"} pHolder={""} data={""} />
+                        <InputReadOnly labelName={"Placa:"} pHolder={""} data={data.servicio.placa} />
 
-                        <InputBasic labelName={"Fecha / Hora de inicio:"} pHolder={""} data={""} />
+                        <InputReadOnly labelName={"Fecha / Hora de inicio:"} pHolder={""} data={""} />
                         
-                        <InputBasic labelName={"Estado de Manteniminento:"} pHolder={""} data={""} />
+                        <InputReadOnly labelName={"Estado de Manteniminento:"} pHolder={""} data={estados[data.estado]} />
                         
-                        <InputBasic labelName={"Fecha / Hora de termino:"} pHolder={""} data={""} />
+                        <InputReadOnly labelName={"Fecha / Hora de termino:"} pHolder={""} data={""} />
 
                 </div>
 
@@ -60,7 +51,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
                     <table className="min-w-[52rem] max-h-[14rem]">
                         <thead>
                             <tr>
-                                <th>OT</th>
+                                <th>ID</th>
                                 <th>Estado de trabajo</th>
                                 <th>Tiempos</th>
                                 <th>Motivos de pausa</th>
@@ -68,14 +59,18 @@ const FormDetalle = ({ data, setIsOpen }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td>Iniciar</td>
-                                <td>10/10/23 10:34:00</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
+                            {
+                                detalle.length > 0 && detalle.map((item, index) => (
+                                    <tr key={item.id}>
+                                        <td>{index+1}</td>
+                                        <td>{item.estado}</td>
+                                        <td>{item.tiempo}</td>
+                                        <td>{item.motivo}</td>
+                                        <td>{item.comentario}</td>
+                                    </tr>
+                                ))
+                            }
+                            {/* <tr>
                                 <td></td>
                                 <td>Pausar</td>
                                 <td>10/10/23 10:34:00</td>
@@ -95,7 +90,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
                                 <td>10/10/23 10:34:00</td>
                                 <td>Inicia trabajo</td>
                                 <td>Finaliza ok la unidad</td>
-                            </tr>
+                            </tr> */}
                         </tbody>
                     </table>
                 </div>
@@ -110,7 +105,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
                             className="flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                         >
                             <i className="fa-solid fa-floppy-disk"></i>
-                            Guardar
+                            Cerrar
                         </button>
                     </div>
                 </section>

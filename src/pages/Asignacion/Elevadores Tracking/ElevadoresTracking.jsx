@@ -13,13 +13,13 @@ const ElevadoresTracking = () => {
     },
     "2": {
       "nombre": "En proceso",
-      "color": "bg-red-600",
-      "colorDrag": "#"
+      "color": "#DC2626CC",
+      "colorDrag": "#DC2626"
     },
     "3": {
       "nombre": "En pausa",
-      "color": "bg-purple-700",
-      "colorDrag": "#"
+      "color": "#9B5DA2CC",
+      "colorDrag": "#9B5DA2"
     },
   }
 
@@ -96,7 +96,7 @@ const ElevadoresTracking = () => {
   };
 
   const [estado, setEstado] = useState({
-    estado: '1',
+    estado: '',
     fecha: ''
   })
 
@@ -138,7 +138,8 @@ const ElevadoresTracking = () => {
     <div className='flex flex-col justify-start h-full overflow-x-auto'>
        <section className='py-4 flex items-center justify-around w-full'>
         <select className='cursor-pointer text-lg font-medium border rounded-md border-black w-[10rem] h-8' onChange={handleEstado} name="estado" id="">
-          <option selected value="1">Pendiente</option>
+          <option value="">Elegir</option>
+          <option value="1">Pendiente</option>
           <option value="2">En proceso</option>
           <option value="3">En pausa</option>
           <option value="4">Terminado</option>
@@ -189,7 +190,7 @@ const ElevadoresTracking = () => {
                                     style={{
                                       backgroundColor: snapshot.isDragging
                                         ? EstadoServicio[item.estado]?.colorDrag
-                                        : EstadoServicio[item.estado]?.color,
+                                        : EstadoServicio[item?.estado]?.color,
                                       ...provided.draggableProps.style
                                     }}
                                     className='flex flex-col gap-1 p-4 m-0 mb-2 min-h-[50px]  rounded-md text-white font-bold'
