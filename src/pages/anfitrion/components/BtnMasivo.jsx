@@ -23,13 +23,12 @@ export const BtnMasivo = () => {
                 let dataParseada = read(data, { type: "binary" })
                 dataParseada.SheetNames.map((resul) => {
                     let rowObject = utils.sheet_to_row_object_array(dataParseada.Sheets[resul])
-
                     let nuevoValor = rowObject.map((res) => ({
                         nombres: `${res.Nombre} ${res.Apellido}`,
                         correo: res["E-mail"],
                         telefono: reemplzar(res.Teléfono),
                         servicioSolicitado: res.Servicio,
-                        fechaCita: new Date(convertirFecha(`${res["Fecha de realización"]}:00`)),
+                        fechaCita: convertirFecha(`${res["Fecha de realización"]}:00`),
                         notasCliente: res["Notas compartidas con cliente"],
                         comentarioInterno: res["Comentario interno"],
                         detalleServicio: res["Detalles del servicio solicitado"],
@@ -40,6 +39,7 @@ export const BtnMasivo = () => {
                         fechaEntrada: new Date(convertirFecha(`${res["Fecha de creación"]}:00`))
                     }))
 
+            
                     crearServicio(nuevoValor).then((res) => {
                         if (res.statusCode === 200) {
                             Toast.fire({

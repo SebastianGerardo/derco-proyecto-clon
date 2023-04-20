@@ -85,7 +85,7 @@ const FormMantenimiento = ({
     }
 
   }, [datosMantenimiento])
-
+  console.log(data)
   return (
     <section className="space-y-2" >
       <div className="flex justify-around py-4 bg-[#D9D9D9] flex-wrap gap-2">

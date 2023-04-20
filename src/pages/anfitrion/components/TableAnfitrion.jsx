@@ -45,7 +45,7 @@ const columns = [
   {
     name: <CustomHeader nameModule="HORA CITA" icon='fa-solid fa-clock mr-1' />,
     selector: (row) => (
-      <p>{row.fechaCita !== null ? `${FormtearFecha(new Date(row.fechaCita))}` : "--"} </p>
+      <p>{row.fechaCita !== null ? `${FormtearFecha(row.fechaCita)}` : "--"} </p>
     ),
     sortable: true,
     center: true,

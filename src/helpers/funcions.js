@@ -1,33 +1,11 @@
 import { Toast } from "../components/Alertas/SweetAlex";
 
 export const FormtearFecha = (fecha) => {
-  const fechaActual = new Date(fecha);
-  const dateFinal = fechaActual.toLocaleDateString();
-  if (dateFinal !== "Invalid Date") {
-    if (String(fechaActual.getSeconds()).length == "1") {
-      const Mostrar =
-        dateFinal +
-        " " +
-        fechaActual.getHours() +
-        ":" +
-        fechaActual.getMinutes() +
-        ":" +
-        `${fechaActual.getSeconds()}0`;
-      return Mostrar;
-    } else {
-      const Mostrar =
-        dateFinal +
-        " " +
-        fechaActual.getHours() +
-        ":" +
-        fechaActual.getMinutes() +
-        ":" +
-        fechaActual.getSeconds();
-      return Mostrar;
-    }
-  } else {
-    return "--";
-  }
+  console.log("SOY LA FECHA",fecha)
+  const fechaFrom = new Date(fecha)
+  const opciones = { timeZone: 'America/Lima', hour12: false };
+  const hora = fechaFrom.toLocaleTimeString('es-PE', opciones);
+  return hora
 };
 
 export const reemplzar = (valor) => {
@@ -58,11 +36,10 @@ export const reemplzar = (valor) => {
 };
 
 export function convertirFecha(fecha) {
-  console.log(fecha)
-  var partes = fecha.split(" ");
-  var fechaPartes = partes[0].split("/");
-  var horaPartes = partes[1].split(":");
-  var nuevaFecha = new Date(
+  let partes = fecha.split(" ");
+  let fechaPartes = partes[0].split("/");
+  let horaPartes = partes[1].split(":");
+  let nuevaFecha = new Date(
     fechaPartes[2],
     fechaPartes[1] - 1,
     fechaPartes[0],
@@ -70,6 +47,5 @@ export function convertirFecha(fecha) {
     horaPartes[1],
     horaPartes[2]
   );
-  console.log("nuevaFecha", nuevaFecha)
   return nuevaFecha.toISOString();
 }
