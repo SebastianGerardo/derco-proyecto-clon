@@ -60,7 +60,7 @@ const InformacionRecepcion = () => {
           <section className='flex gap-3'>
                 <div className='px-5 py-2 bg-green-500 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
                     <p>Unidades Listas</p>
-                    <span className='font-bold text-3xl'>{cantCitas.serviciosParaSalida}</span>
+                    <span className='font-bold text-3xl'>{cantCitas?.serviciosParaSalida ? cantCitas?.serviciosParaSalida : 0 }</span>
                 </div>
           </section>
         </section>

@@ -13,9 +13,9 @@ export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, captura, d
 
     TerminarPausarMan(datosMantenimiento).then(res=>{
       if(res.statusCode === 200){
-        alert("LO LOGRE")
+        console.log("LO LOGRE")
       }else{
-        alert("FALLE")
+        console.log("FALLE")
       }
     })
     setIsPausedOpen(false);
