@@ -43,17 +43,6 @@ export const ContextDerco = ({ children }) => {
   }, []);
 
 
-  useEffect(() => {
-    console.log("ENTROI AL USE EFECT")
-    if (UsuarioLogin.length === undefined) {
-      console.log("ENMTO AL IF")
-      let socket = io("https://api-derco-production.up.railway.app");
-      setSocketSttate(socket)
-      console.log("SOY FELIZ", UsuarioLogin.data?.usuario)
-      socket.emit('conectar', UsuarioLogin.data?.usuario)
-    }
-
-  }, [UsuarioLogin])
 
 
 
@@ -64,7 +53,7 @@ export const ContextDerco = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules, socketState }}>
+    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules, setSocketSttate }}>
       {children}
     </UserContext.Provider>
   );

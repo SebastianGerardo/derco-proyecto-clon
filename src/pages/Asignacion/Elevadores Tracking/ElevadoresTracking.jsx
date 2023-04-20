@@ -134,6 +134,7 @@ const ElevadoresTracking = () => {
   // }
   // }
 
+  console.log(columns)
   return (
     <div className='flex flex-col justify-start h-full overflow-x-auto'>
        <section className='py-4 flex items-center justify-around w-full'>

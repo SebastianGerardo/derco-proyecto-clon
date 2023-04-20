@@ -9,23 +9,23 @@ function formatDate(isoString) {
     const date = new Date(isoString);
     // restar 5 horas para obtener la hora en Perú (UTC-5)
     date.setHours(date.getHours() - 5);
-    const options = { 
-      timeZone: 'America/Lima', 
-      year: 'numeric', 
-      month: '2-digit', 
-      day: '2-digit', 
-      hour: '2-digit', 
-      minute: '2-digit', 
-      second: '2-digit'
+    const options = {
+        timeZone: 'America/Lima',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
     };
     const formattedDate = new Intl.DateTimeFormat('es-PE', options).format(date);
     return formattedDate;
-  }
+}
 
 const FormDetalle = ({ data, setIsOpen }) => {
     const [detalle, setDetalle] = useState([])
-    
-    const enviarDatos = (e) =>{
+
+    const enviarDatos = (e) => {
         setIsOpen(false)
     }
 
@@ -38,8 +38,16 @@ const FormDetalle = ({ data, setIsOpen }) => {
     useEffect(() => {
         TraeDetalle(data.id).then((resp) => {
             setDetalle(resp.data)
+            setBloqueoCor(resp.data)
         })
     }, [])
+    const traeFecha = (valor) => {
+        const dato = detalle.find((res) => res.estado === valor)
+        if(dato !== undefined){
+            return formatDate(dato?.tiempo)
+        } 
+    }
+
 
     return (
         <form action="" className="space-y-2" onSubmit={enviarDatos}>
@@ -47,17 +55,17 @@ const FormDetalle = ({ data, setIsOpen }) => {
             <section className="flex flex-col gap-y-6">
                 <div className="w-full lg:grid lg:grid-cols-4 lg:gap-x-4">
 
-                        <InputReadOnly labelName={" Nro OT:"} pHolder={""} data={data.servicio.ot} />
+                    <InputReadOnly labelName={" Nro OT:"} pHolder={""} data={data.servicio.ot} />
 
-                        <InputReadOnly labelName={"Asesor"} pHolder={""} data={`${data.elevador.tecnico.nombres.split(" ", 1)} ${data.elevador.tecnico.apellidos.split(" ", 1)}`} />
+                    <InputReadOnly labelName={"Asesor"} pHolder={""} data={`${data.elevador.tecnico.nombres.split(" ", 1)} ${data.elevador.tecnico.apellidos.split(" ", 1)}`} />
 
-                        <InputReadOnly labelName={"Placa:"} pHolder={""} data={data.servicio.placa} />
+                    <InputReadOnly labelName={"Placa:"} pHolder={""} data={data.servicio.placa} />
 
-                        <InputReadOnly labelName={"Fecha / Hora de inicio:"} pHolder={""} data={""} />
-                        
-                        <InputReadOnly labelName={"Estado de Manteniminento:"} pHolder={""} data={estados[data.estado]} />
-                        
-                        <InputReadOnly labelName={"Fecha / Hora de termino:"} pHolder={""} data={""} />
+                    <InputReadOnly labelName={"Fecha / Hora de inicio:"} pHolder={""} data={traeFecha("Iniciar")} />
+
+                    <InputReadOnly labelName={"Estado de Manteniminento:"} pHolder={""} data={estados[data.estado]} />
+
+                    <InputReadOnly labelName={"Fecha / Hora de termino:"} pHolder={""} data={traeFecha("Finalizar")} />
 
                 </div>
 

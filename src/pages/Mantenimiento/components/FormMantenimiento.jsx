@@ -17,6 +17,7 @@ const FormMantenimiento = ({
   setReset,
   formatTime,
   time,
+  setBloqueo,
 }) => {
   const [datosMantenimiento, setDatosMantenimiento] = useState({
     serviciosAsignado: data.id,
@@ -42,8 +43,7 @@ const FormMantenimiento = ({
   const [hasStarted, setHasStarted] = useState(false);
   const [isPausedOpen, setIsPausedOpen] = useState(false);
   const handleStart = () => {
-    console.log(time)
-    if(time > 0) {
+    if (time > 0) {
       console.log("ENTRE AQUIO")
       setDatosMantenimiento(previe => ({
         ...previe,
@@ -52,7 +52,7 @@ const FormMantenimiento = ({
       }))
       setIsRunning(true);
       setHasStarted(true);
-    }else{
+    } else {
       setDatosMantenimiento(previe => ({
         ...previe,
         tiempo: new Date(),
@@ -82,11 +82,12 @@ const FormMantenimiento = ({
     }))
     setIsRunning(false);
     setHasStarted(false);
+    setIsOpen(false)
     setReset(!reset);
   };
 
   useEffect(() => {
-    if (datosMantenimiento.estado === "Iniciar" || datosMantenimiento.estado === "Reanudo"  ) {
+    if (datosMantenimiento.estado === "Iniciar" || datosMantenimiento.estado === "Reanudo") {
       InicarMan(datosMantenimiento).then(res =>
         console.log(res)
       )
@@ -95,7 +96,9 @@ const FormMantenimiento = ({
         console.log(res)
       )
     }
-
+    if (datosMantenimiento.estado === "Finalizar") {
+      setBloqueo(true)
+    }
   }, [datosMantenimiento])
 
   return (

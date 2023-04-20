@@ -11,10 +11,17 @@ import { ModalDetalle } from "./ModalDetalle";
 const estados = {
   "1": "Pendiente",
   "2": "En proceso",
-  "3": "En pausa",
+  "3": "Finalizado",
 }
 
 export const TableMantenimiento = ({ data }) => {
+  
+
+  const traeEstado = (data) =>{
+    let dataParseada = JSON.parse(data.ordenServicios)
+    let resultado = dataParseada.find(res=> res.nombre === "Mantenimiento")
+    return resultado.terminado
+  }
 
   const columns = [
     {
@@ -74,7 +81,7 @@ export const TableMantenimiento = ({ data }) => {
 
     {
       name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => estados[row.estado],
+      selector: (row) => estados[`${traeEstado(row)}`],
       sortable: true,
       center: true,
       style: {
@@ -111,7 +118,7 @@ export const TableMantenimiento = ({ data }) => {
       name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1" />,
       cell: row =>
         <div className="flex items-center gap-3">
-          <ModalMantenimiento tipo="timer" data={row} /> {/* ESTO SE IMPLEMENTARA LUEGO */}
+          <ModalMantenimiento tipo="timer" data={row}  /> {/* ESTO SE IMPLEMENTARA LUEGO */}
           <ModalMensaje tipo="mensaje" data={row} />
           <ModalDetalle tipo="detalle" data={row} />
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
