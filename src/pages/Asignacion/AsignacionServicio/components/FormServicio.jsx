@@ -72,7 +72,7 @@ const FormServicio = ({ data, setIsOpen }) => {
 
                     <InputBasic labelName={"Placa:"} pHolder={""} data={data.placa} />
                     
-                    <InputBasic labelName={"Nueva Ubicacion:"} pHolder={""} data={filtrados[1].nombre} />
+                    <InputBasic labelName={"Nueva Ubicacion:"} pHolder={""} data={filtrados[1]?.nombre} />
 
                     {/* <div className="w-full">
                         <label htmlFor="" className="text-gray-400">

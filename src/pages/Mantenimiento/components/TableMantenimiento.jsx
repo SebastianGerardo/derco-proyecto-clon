@@ -75,7 +75,7 @@ export const TableMantenimiento = ({ data }) => {
     },
     {
       name: <CustomHeader nameModule="FECHA / HORA INGRESO" icon="fa-solid fa-clock mr-1" />,
-      selector: (row) => row.servicio.horaEstimadaEntrega,
+      selector: (row) => FormtearFecha(row.fecha_registro),
       sortable: true,
       center: true
     },

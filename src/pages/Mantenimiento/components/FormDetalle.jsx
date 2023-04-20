@@ -26,6 +26,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
     const [detalle, setDetalle] = useState([])
 
     const enviarDatos = (e) => {
+        e.preventDefault()
         setIsOpen(false)
     }
 
@@ -33,21 +34,28 @@ const FormDetalle = ({ data, setIsOpen }) => {
         "1": "Pendiente",
         "2": "En proceso",
         "3": "En pausa",
+        "4": "Finalizado"
     }
 
     useEffect(() => {
         TraeDetalle(data.id).then((resp) => {
             setDetalle(resp.data)
-            setBloqueoCor(resp.data)
         })
     }, [])
     const traeFecha = (valor) => {
         const dato = detalle.find((res) => res.estado === valor)
-        if(dato !== undefined){
+        if (dato !== undefined) {
             return formatDate(dato?.tiempo)
-        } 
+        }
     }
 
+    const traeEstadoS = () => {
+        if (data !== undefined) {
+            let dataParse = JSON.parse(data.ordenServicios)
+            let nuevaData = dataParse.find(res => res.nombre === "Mantenimiento")
+            return nuevaData?.terminado
+        }
+    }
 
     return (
         <form action="" className="space-y-2" onSubmit={enviarDatos}>
@@ -63,7 +71,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
 
                     <InputReadOnly labelName={"Fecha / Hora de inicio:"} pHolder={""} data={traeFecha("Iniciar")} />
 
-                    <InputReadOnly labelName={"Estado de Manteniminento:"} pHolder={""} data={estados[data.estado]} />
+                    <InputReadOnly labelName={"Estado de Manteniminento:"} pHolder={""} data={estados[traeEstadoS()]} />
 
                     <InputReadOnly labelName={"Fecha / Hora de termino:"} pHolder={""} data={traeFecha("Finalizar")} />
 
@@ -76,7 +84,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
                                 <th>id</th>
                                 <th>Estado de trabajo</th>
                                 <th>Tiempos</th>
-                                <th className="w-[2rem] max-w-[2rem]">Motivos de pausa</th>
+                                <th className="w-[14rem] max-w-[14rem]">Motivos de pausa</th>
                                 <th>Comentarios Adicionales</th>
                             </tr>
                         </thead>
