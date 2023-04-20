@@ -4,9 +4,9 @@ import { VerificarSesion } from "../helpers/ApiUsuarios";
 import { io } from 'socket.io-client';
 export const UserContext = createContext();
 
+
+
 export const ContextDerco = ({ children }) => {
-
-
   const navigate = useNavigate();
   const [estadoData, setEstadoData] = useState(false)
   const [UsuarioLogin, setUsuarioLogin] = useState([]);
@@ -23,12 +23,11 @@ export const ContextDerco = ({ children }) => {
     "/dashboard/entrega": "Control de Calidad",
   })
   const [socketState, setSocketSttate] = useState()
+
+
+
   useEffect(() => {
     VerificarSesion().then((res) => {
-      let socket = io("https://api-derco-production.up.railway.app");
-      setSocketSttate(socket)
-      console.log("SOY FELIZ", res.data.usuario)
-      socket.emit('conectar', res.data.usuario)
       if (res.statusCode === 200) {
         navigate("/dashboard", {
           replace: true,
@@ -41,12 +40,25 @@ export const ContextDerco = ({ children }) => {
         navigate("/login", { replace: true });
       }
     });
-
   }, []);
 
 
+  useEffect(() => {
+    console.log("ENTROI AL USE EFECT")
+    if (UsuarioLogin.length === undefined) {
+      console.log("ENMTO AL IF")
+      let socket = io("https://api-derco-production.up.railway.app");
+      setSocketSttate(socket)
+      console.log("SOY FELIZ", UsuarioLogin.data?.usuario)
+      socket.emit('conectar', UsuarioLogin.data?.usuario)
+    }
 
-  console.log("Soiy el usuario", UsuarioLogin)
+  }, [UsuarioLogin])
+
+
+
+
+
 
 
 

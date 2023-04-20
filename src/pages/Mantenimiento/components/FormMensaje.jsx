@@ -50,7 +50,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
                 });
             }
         })
-        socketState.emit("enviar_mensaje", Number(enviar.para), enviar )
+        socketState.emit("enviar_mensaje", 25 , {de: 1, para: 25, mensaje:"hOPLA MAMI"} )
         //setIsOpen(false)
     }
 
