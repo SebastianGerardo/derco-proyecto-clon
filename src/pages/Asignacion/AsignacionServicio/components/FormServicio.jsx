@@ -6,10 +6,14 @@ const FormServicio = ({ data, setIsOpen }) => {
     //const ordenServicios = data.ordenServicios.split(",");
     // console.log(ordenServicios);
     // let newOrden = ordenServicios.filter((item) => item !== data.ubicacion);
-
+    
+    const filtrados = data.ordenServicios.filter(item => item.terminado === 1);
+      
     const [ubicacion, setUbicacion] = useState({
         ubicacion: "",
     });
+
+  [ { nombre: 'Secado', terminado: 1 }, { nombre: 'Control de Calidad', terminado: 1 } ]
 
     const changeUbicacion = (e) => {
         setUbicacion({
@@ -67,8 +71,10 @@ const FormServicio = ({ data, setIsOpen }) => {
                     <InputBasic labelName={'Tipo de Servicio:'} pHolder={''} data={JSON.parse(data.tipoServicio)?.nombre} />
 
                     <InputBasic labelName={"Placa:"} pHolder={""} data={data.placa} />
+                    
+                    <InputBasic labelName={"Nueva Ubicacion:"} pHolder={""} data={filtrados[1].nombre} />
 
-                    <div className="w-full">
+                    {/* <div className="w-full">
                         <label htmlFor="" className="text-gray-400">
                             Nueva Ubicacion:
                         </label>
@@ -85,7 +91,7 @@ const FormServicio = ({ data, setIsOpen }) => {
                                 ))
                             }
                         </select>
-                    </div>
+                    </div> */}
 
                 </section>
             </div>

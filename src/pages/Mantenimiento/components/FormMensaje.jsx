@@ -14,6 +14,8 @@ const FormMensaje = ({ data, setIsOpen }) => {
         DestinatariosMensaje().then(res => setDestinatario(res.data))
     }, [])
 
+    // console.log(data.elevador.nombre)
+
     const [datosAlmacen, setDatosAlamacen] = useState({
         estadoPicking: data.comentarioAlmacen,
         comentarioAlmacen: data.comentarioAlmacen,
@@ -50,7 +52,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
                 });
             }
         })
-        socketState.emit("enviar_mensaje", 25 , {de: 1, para: 25, mensaje:"hOPLA MAMI"} )
+        // socketState.emit("enviar_mensaje", 25 , {de: 1, para: 25, mensaje:"hOPLA MAMI"} )
         //setIsOpen(false)
     }
 
@@ -59,18 +61,18 @@ const FormMensaje = ({ data, setIsOpen }) => {
     return (
         <form action="" className="space-y-2" onSubmit={almacen}>
             <div className="flex justify-around flex-wrap gap-2 py-4 bg-[#D9D9D9] font-bold">
-                {/* <h2>
-                    OT: <span className="font-normal">{data.ot}</span>
+                <h2>
+                    OT: <span className="font-normal">{data?.servicio?.ot}</span>
                 </h2>
                 <h2>
-                    PLACA: <span className="font-normal">{data.placa}</span>    
+                    PLACA: <span className="font-normal">{data?.servicio?.placa}</span>    
                 </h2>
                 <h2>
-                    TECNICO: <span className="font-normal">{data.tecnicoMecanico}</span>
+                    TECNICO: <span className="font-normal">{`${data?.elevador?.tecnico.nombres.split(" " , 1)} ${data?.elevador?.tecnico.apellidos.split(" " , 1)}`}</span>
                 </h2>
                 <h2>
-                    ELEVADOR: <span className="font-normal">{data.elevador}</span>
-                </h2> */}
+                    ELEVADOR: <span className="font-normal">{data?.elevador?.nombre}</span>
+                </h2>
             </div>
             {/* INPUTS DEL FORM - INICIO */}
             <section className="p-5">
