@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 // import { Modal } from '../ResetPassword/ModalResetPassword';
 
 export default function Notificaciones() {
+  // AQUI TIENEN QUE LLEGAR LOS MENSAJES
   const { UsuarioLogin } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -42,6 +43,7 @@ export default function Notificaciones() {
         >
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="px-1 py-1 ">
+            {/* AQUI SE PONEN LOS MENSAJES */}
               <Menu.Item>
                 {({ active }) => (
                   <div

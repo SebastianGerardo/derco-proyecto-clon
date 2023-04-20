@@ -8,6 +8,8 @@ import { io } from "socket.io-client";
 
 const FormMensaje = ({ data, setIsOpen }) => {
 
+    //AQUI SE MANDA EL MENSAJE EN EL CHAT
+
     const { UsuarioLogin, socketState } = useContext(UserContext);
     const [destinatario, setDestinatario] = useState([])
     useEffect(() => {
