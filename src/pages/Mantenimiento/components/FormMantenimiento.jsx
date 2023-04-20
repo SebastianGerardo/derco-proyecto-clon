@@ -42,13 +42,25 @@ const FormMantenimiento = ({
   const [hasStarted, setHasStarted] = useState(false);
   const [isPausedOpen, setIsPausedOpen] = useState(false);
   const handleStart = () => {
-    setDatosMantenimiento(previe => ({
-      ...previe,
-      tiempo: new Date(),
-      estado: "Iniciar"
-    }))
-    setIsRunning(true);
-    setHasStarted(true);
+    console.log(time)
+    if(time > 0) {
+      console.log("ENTRE AQUIO")
+      setDatosMantenimiento(previe => ({
+        ...previe,
+        tiempo: new Date(),
+        estado: "Reanudo"
+      }))
+      setIsRunning(true);
+      setHasStarted(true);
+    }else{
+      setDatosMantenimiento(previe => ({
+        ...previe,
+        tiempo: new Date(),
+        estado: "Iniciar"
+      }))
+      setIsRunning(true);
+      setHasStarted(true);
+    }
   };
 
   const handlePause = () => {
@@ -74,7 +86,7 @@ const FormMantenimiento = ({
   };
 
   useEffect(() => {
-    if (datosMantenimiento.estado === "Iniciar") {
+    if (datosMantenimiento.estado === "Iniciar" || datosMantenimiento.estado === "Reanudo"  ) {
       InicarMan(datosMantenimiento).then(res =>
         console.log(res)
       )
@@ -85,7 +97,7 @@ const FormMantenimiento = ({
     }
 
   }, [datosMantenimiento])
-  console.log(data)
+
   return (
     <section className="space-y-2" >
       <div className="flex justify-around py-4 bg-[#D9D9D9] flex-wrap gap-2">
