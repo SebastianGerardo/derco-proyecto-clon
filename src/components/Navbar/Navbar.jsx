@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import '../../index.css'
 import PerfilHamburguesa from "./PerfilHamburguesa";
 import { UserContext } from "../../context/ContextDerco";
+import Notificaciones from "./Notificaciones";
 
 export const Navbar = () => {
   const ref = useRef(null);
@@ -73,13 +74,7 @@ export const Navbar = () => {
 
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             {/*ver notificaciones*/}
-            {/* <button
-              type="button"
-              className="relative rounded-full p-1 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 focus:ring-offset-blue-800"
-            >
-              <div className="absolute w-2 h-2 bg-blue-600 top-0 left-3/4 rounded-full"></div>
-              <i className="fa-regular fa-bell"></i>
-            </button> */}
+            <Notificaciones />
 
             {/* PERFIL HAMBURGUESA */}
 
