@@ -107,7 +107,7 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="SERVICIOS ASIGNADOS" />,
-    cell: ({ ordenServicios }) => <div className="flex gap-3 justify-start w-full">
+    cell: ({ ordenServicios }) => <div className="flex  gap-3 justify-start w-full">
       {ordenServicios.map(res => {
         let color = ""
         if (res.nombre.includes("Abordaje")) {
@@ -129,7 +129,7 @@ const columns = [
         }else{
           color = "bg-[#00B050]"
         }
-        return <div className={`rounded-md ${color} p-2 text-white font-bold`}>
+        return <div className={`text-sm ${color} p-2 h-[39.2px] text-center rounded-full text-white font-bold`}>
           {res.nombre}
         </div>
       })}
