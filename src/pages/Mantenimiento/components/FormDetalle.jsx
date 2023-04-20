@@ -5,6 +5,22 @@ import { InputBasic, InputReadOnly } from "../../../components/InputForms/InputB
 import { UserContext } from "../../../context/ContextDerco";
 import { editServicio } from "../../../helpers/ApiAnfitrion";
 import { TraeDetalle } from "../../../helpers/ApiMantenimiento";
+function formatDate(isoString) {
+    const date = new Date(isoString);
+    // restar 5 horas para obtener la hora en Perú (UTC-5)
+    date.setHours(date.getHours() - 5);
+    const options = { 
+      timeZone: 'America/Lima', 
+      year: 'numeric', 
+      month: '2-digit', 
+      day: '2-digit', 
+      hour: '2-digit', 
+      minute: '2-digit', 
+      second: '2-digit'
+    };
+    const formattedDate = new Intl.DateTimeFormat('es-PE', options).format(date);
+    return formattedDate;
+  }
 
 const FormDetalle = ({ data, setIsOpen }) => {
     const [detalle, setDetalle] = useState([])
@@ -12,8 +28,6 @@ const FormDetalle = ({ data, setIsOpen }) => {
     const enviarDatos = (e) =>{
         setIsOpen(false)
     }
-
-    console.log(detalle)
 
     const estados = {
         "1": "Pendiente",
@@ -47,50 +61,29 @@ const FormDetalle = ({ data, setIsOpen }) => {
 
                 </div>
 
-                <div className="text-center border-2 rounded-md border-gray-300 p-2 max-h-[14rem] h-56 overflow-auto">
-                    <table className="min-w-[52rem] max-h-[14rem]">
+                <div className="text-center border-2 rounded-md border-gray-300 py-2 max-h-[14rem] h-56 overflow-auto">
+                    <table className="min-w-[52rem] max-w-[52rem] max-h-[14rem]">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>id</th>
                                 <th>Estado de trabajo</th>
                                 <th>Tiempos</th>
-                                <th>Motivos de pausa</th>
+                                <th className="w-[2rem] max-w-[2rem]">Motivos de pausa</th>
                                 <th>Comentarios Adicionales</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="text-sm">
                             {
                                 detalle.length > 0 && detalle.map((item, index) => (
                                     <tr key={item.id}>
-                                        <td>{index+1}</td>
+                                        <td>{index + 1}</td>
                                         <td>{item.estado}</td>
-                                        <td>{item.tiempo}</td>
-                                        <td>{item.motivo}</td>
+                                        <td>{formatDate(item.tiempo)}</td>
+                                        <td className="capitalize truncate w-[14rem] px-2 max-w-[14rem]">{item.motivo}</td>
                                         <td>{item.comentario}</td>
                                     </tr>
                                 ))
                             }
-                            {/* <tr>
-                                <td></td>
-                                <td>Pausar</td>
-                                <td>10/10/23 10:34:00</td>
-                                <td>Almuerzo</td>
-                                <td>Almuerzo</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Reinicio</td>
-                                <td>10/10/23 10:34:00</td>
-                                <td>Inicia trabajo</td>
-                                <td>Finaliza ok la unidad</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>Finalizar</td>
-                                <td>10/10/23 10:34:00</td>
-                                <td>Inicia trabajo</td>
-                                <td>Finaliza ok la unidad</td>
-                            </tr> */}
                         </tbody>
                     </table>
                 </div>
