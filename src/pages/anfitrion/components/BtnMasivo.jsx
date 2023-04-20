@@ -38,8 +38,6 @@ export const BtnMasivo = () => {
                         placa: reemplzar(res["Placa (solo letras y números, sin guión)"]),
                         fechaEntrada: new Date(convertirFecha(`${res["Fecha de creación"]}:00`))
                     }))
-
-            
                     crearServicio(nuevoValor).then((res) => {
                         if (res.statusCode === 200) {
                             Toast.fire({

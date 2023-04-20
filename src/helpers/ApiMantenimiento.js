@@ -70,3 +70,41 @@ export const InicarMan = async (dataMan) => {
       return error;
     }
   };
+
+  export const Mensajes = async (dataMan) => {
+    console.log("wenas", dataMan)
+    try {
+      const fetchResponse = await fetch(`${URL}/mensajes/enviar`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataMan),
+      });
+      const data = await fetchResponse.json();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  };
+
+
+  export const DestinatariosMensaje = async (dataMan) => {
+
+
+    try {
+      const fetchResponse = await fetch(`${URL}/usuarios/tipo/1-2-3-4-5-6`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataMan),
+      });
+      const data = await fetchResponse.json();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  };

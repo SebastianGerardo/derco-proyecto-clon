@@ -22,7 +22,7 @@ export const ContextDerco = ({ children }) => {
     "/dashboard/secado": " Secado",
     "/dashboard/entrega": "Control de Calidad",
   })
-
+  const [socketState, setSocketSttate] = useState()
   useEffect(() => {
     VerificarSesion().then((res) => {
       if (res.statusCode === 200) {
@@ -32,23 +32,27 @@ export const ContextDerco = ({ children }) => {
             logged: true,
           },
         });
+
+        let socket = io("https://api-derco-production.up.railway.app");
+        setSocketSttate(socket)
+        console.log("SOY FELIZ",res.data.usuario)
+        socket.emit('conectar', res.data.usuario)
+        console.log("dsdsdsd",res.data.usuario)
         setUsuarioLogin(res.data);
       } else {
         navigate("/login", { replace: true });
       }
     });
-    const socket = io("https://api-derco-production.up.railway.app");
-    function onConnect() {  
-      socket.emit(UsuarioLogin.usuario?.centro?.codigo, UsuarioLogin.usuario?.id)
-    }
-    socket.on('connect', onConnect);
+
   }, []);
+
+  console.log("Soiy el usuario",UsuarioLogin)
 
 
 
 
   return (
-    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules }}>
+    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules, socketState }}>
       {children}
     </UserContext.Provider>
   );

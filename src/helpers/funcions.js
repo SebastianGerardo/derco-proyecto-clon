@@ -39,13 +39,9 @@ export function convertirFecha(fecha) {
   let partes = fecha.split(" ");
   let fechaPartes = partes[0].split("/");
   let horaPartes = partes[1].split(":");
-  let nuevaFecha = new Date(
-    fechaPartes[2],
-    fechaPartes[1] - 1,
-    fechaPartes[0],
-    horaPartes[0],
-    horaPartes[1],
-    horaPartes[2]
-  );
-  return nuevaFecha.toISOString();
+  let nuevaFecha = `${fechaPartes[2]}-${fechaPartes[1] - 1}-${fechaPartes[0]} ${horaPartes[0]}:${horaPartes[1]}:${horaPartes[2]}`
+  ;
+  console.log(nuevaFecha)
+  return nuevaFecha;
+
 }

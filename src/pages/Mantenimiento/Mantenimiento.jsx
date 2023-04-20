@@ -29,7 +29,7 @@ export const Mantenimiento = () => {
     e.preventDefault();
     e.returnValue = '';
   }
-  console.log(infoMantenimiento)
+
   return (
     <>
       <div className="p-6">

@@ -1,12 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
 import { InputReadOnly } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
 import { editServicio } from "../../../helpers/ApiAnfitrion";
+import { DestinatariosMensaje, Mensajes } from "../../../helpers/ApiMantenimiento";
+import { io } from "socket.io-client";
 
 const FormMensaje = ({ data, setIsOpen }) => {
 
-    const { estadoData, setEstadoData } = useContext(UserContext);
+    const { UsuarioLogin, socketState } = useContext(UserContext);
+
+    const [tareMensaje, setTraeMensaje] = useState([])
+    const [destinatario, setDestinatario] = useState([])
+    useEffect(() => {
+        DestinatariosMensaje().then(res => setDestinatario(res.data))
+    }, [])
+
     const [datosAlmacen, setDatosAlamacen] = useState({
         estadoPicking: data.comentarioAlmacen,
         comentarioAlmacen: data.comentarioAlmacen,
@@ -19,25 +28,39 @@ const FormMensaje = ({ data, setIsOpen }) => {
             [e.target.name]: e.target.value,
         });
     }
-    console.log(data)
-    const almacen = (e) =>{
+
+    const almacen = (e) => {
         e.preventDefault()
-        // editServicio(datosAlmacen, data.id).then(res => {
-        //     if (res.statusCode === 200) {
-        //       Toast.fire({
-        //         icon: "success",
-        //         title: "Dato guardado correctamente",
-        //       });
-        //       setEstadoData(!estadoData)
-        //     } else {
-            //       Toast.fire({
-                //         icon: "error",
-        //         title: "Ocurrir un error al guardar dato",
-        //       });
-        //     }
-        //   })
-        setIsOpen(false)
+        const mensaje = e.target.comentarioAlmacen.value
+        const para = e.target.estadoPicking.value
+        let enviar = {
+            de: UsuarioLogin?.usuario.id,
+            para,
+            mensaje
+        }
+
+        Mensajes(enviar).then(res => {
+            if (res.statusCode === 200) {
+                Toast.fire({
+                    icon: "success",
+                    title: "Mensaje enviado correctamente",
+                });
+                const socket = io('https://api-derco-production.up.railway.app')
+                socket.emit('conectar', UsuarioLogin.usuario)
+                socket.emit("enviar_mensaje", para, "holaaa")
+                socket.on("mostrar_mensaje", data => setTraeMensaje(data))
+            } else {
+                Toast.fire({
+                    icon: "error",
+                    title: "Error al enviar mensaje",
+                });
+            }
+        })
+        //setIsOpen(false)
     }
+
+    console.log(tareMensaje)
+
 
     return (
         <form action="" className="space-y-2" onSubmit={almacen}>
@@ -69,6 +92,13 @@ const FormMensaje = ({ data, setIsOpen }) => {
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
                             <option value="">Elige:</option>
+                            {
+                                destinatario.length > 0 && (
+                                    destinatario.map((des) => (
+                                        <option key={des.id} value={des.id}>{des.nombres}</option>
+                                    ))
+                                )
+                            }
                         </select>
                     </div>
                     <section className="lg:w-full w-full col-start-1 col-end-3">
@@ -78,7 +108,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
                         <br />
                         <textarea
                             type="text"
-                            name= "comentarioAlmacen"
+                            name="comentarioAlmacen"
                             value={datosAlmacen.comentarioAlmacen}
                             onChange={captura}
                             placeholder="Detalles..."
@@ -95,7 +125,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
                                 className="flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                             >
                                 <svg width="15" height="15" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M1.07927 17.7872C-0.466682 18.6691 -0.323032 21.0206 1.32553 21.7042L10.9227 25.7032V32.7647C10.9227 34.002 11.9214 35 13.1596 35C13.8231 35 14.4524 34.7061 14.8765 34.1934L19.1176 29.1143L27.593 32.6416C28.8859 33.1817 30.3839 32.334 30.596 30.9532L34.9739 2.51587C35.1039 1.68873 34.7413 0.854747 34.0504 0.383071C33.3595 -0.0886051 32.4566 -0.12962 31.7247 0.287369L1.07927 17.7872ZM4.64316 19.5304L28.0034 6.19357L12.9817 22.9688L13.0638 23.0372L4.64316 19.5304ZM27.5656 29.0801L16.1694 24.3292L30.8149 7.9709L27.5656 29.0801Z" fill="#1E3A8A"/>
+                                    <path d="M1.07927 17.7872C-0.466682 18.6691 -0.323032 21.0206 1.32553 21.7042L10.9227 25.7032V32.7647C10.9227 34.002 11.9214 35 13.1596 35C13.8231 35 14.4524 34.7061 14.8765 34.1934L19.1176 29.1143L27.593 32.6416C28.8859 33.1817 30.3839 32.334 30.596 30.9532L34.9739 2.51587C35.1039 1.68873 34.7413 0.854747 34.0504 0.383071C33.3595 -0.0886051 32.4566 -0.12962 31.7247 0.287369L1.07927 17.7872ZM4.64316 19.5304L28.0034 6.19357L12.9817 22.9688L13.0638 23.0372L4.64316 19.5304ZM27.5656 29.0801L16.1694 24.3292L30.8149 7.9709L27.5656 29.0801Z" fill="#1E3A8A" />
                                 </svg>
                                 Enviar
                             </button>
