@@ -21,7 +21,7 @@ const InformacionRecepcion = () => {
       setCompletedTasks(cantCitas?.otCreadas);
     }
   }, [cantCitas]);
-
+  
   const totalTasks = cantCitas?.citasAsignadas;
   const [completedTasks, setCompletedTasks] = useState(0);
   const progress = (completedTasks / totalTasks) * 100;
@@ -60,7 +60,7 @@ const InformacionRecepcion = () => {
           <section className='flex gap-3'>
                 <div className='px-5 py-2 bg-green-500 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
                     <p>Unidades Listas</p>
-                    <span className='font-bold text-3xl'>0</span>
+                    <span className='font-bold text-3xl'>{cantCitas.serviciosParaSalida}</span>
                 </div>
           </section>
         </section>
