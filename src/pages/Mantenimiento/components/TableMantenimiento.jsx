@@ -139,7 +139,6 @@ export const TableMantenimiento = ({ data }) => {
   const bloqueo = (data) =>{
     const dataPar = JSON.parse(data.ordenServicios)
     const valor = dataPar.find(res => res.nombre === "Mantenimiento")
-    console.log(valor.terminado)
     return valor.terminado
 
   }
