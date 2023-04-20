@@ -29,18 +29,18 @@ export const Mantenimiento = () => {
 
 
   // ADVERTENCIA AL CERRAR LA VENTANA
-  useEffect(() => {
-    window.addEventListener('beforeunload', handlebeforeunload);
+  // useEffect(() => {
+  //   window.addEventListener('beforeunload', handlebeforeunload);
 
-    return () => {
-      window.removeEventListener('beforeunload', handlebeforeunload);
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handlebeforeunload);
+  //   }
+  // }, [])
 
-  const handlebeforeunload = (e) => {
-    e.preventDefault();
-    e.returnValue = '';
-  }
+  // const handlebeforeunload = (e) => {
+  //   e.preventDefault();
+  //   e.returnValue = '';
+  // }
 
   return (
     <>
