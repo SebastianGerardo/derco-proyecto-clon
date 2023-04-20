@@ -134,7 +134,7 @@ const ElevadoresTracking = () => {
   // }
   // }
 
-  console.log(columns)
+  console.log(filtroEstado[0])
   return (
     <div className='flex flex-col justify-start h-full overflow-x-auto'>
        <section className='py-4 flex items-center justify-around w-full'>
@@ -199,7 +199,7 @@ const ElevadoresTracking = () => {
                                     <p>OT:<span className='ml-1 font-normal'>{item?.servicio.ot}</span></p>
                                     <p>Técnico:<span className='ml-1 font-normal'>{column?.elevador.tecnico?.nombres} {column.elevador.tecnico?.apellidos}</span></p>
                                     <p>Hora E. de entrega:<span className='ml-1 font-normal'>{item?.servicio.horaEstimadaEntrega}</span></p>
-                                    <p>E. del servicio:<span className='ml-1 font-normal'>{EstadoServicio[item?.servicio.estado]?.nombre}</span></p>
+                                    <p>E. del servicio:<span className='ml-1 font-normal'>{EstadoServicio[item?.estado]?.nombre}</span></p>
                                   </div>
                                 );
                               }}
