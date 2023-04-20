@@ -11,7 +11,8 @@ import { ModalDetalle } from "./ModalDetalle";
 const estados = {
   "1": "Pendiente",
   "2": "En proceso",
-  "3": "Finalizado",
+  "3": "Pausa",
+  "4": "Finalizado",
 }
 
 export const TableMantenimiento = ({ data }) => {
@@ -110,6 +111,12 @@ export const TableMantenimiento = ({ data }) => {
           when: (row) => row.estado === "3",
           style: {
             backgroundColor: "#9B5DA2",
+          },
+        },
+        {
+          when: (row) => row.estado === "4",
+          style: {
+            backgroundColor: "green",
           },
         },
       ],

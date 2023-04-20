@@ -1,11 +1,11 @@
 import { Toast } from "../components/Alertas/SweetAlex";
 
 export const FormtearFecha = (fecha) => {
-  console.log("SOY LA FECHA",fecha)
-  const fechaFrom = new Date(fecha)
-  const opciones = { timeZone: 'America/Lima', hour12: false };
-  const hora = fechaFrom.toLocaleTimeString('es-PE', opciones);
-  return hora
+  console.log("SOY LA FECHA", fecha);
+  const fechaFrom = new Date(fecha);
+  const opciones = { timeZone: "America/Lima", hour12: false };
+  const hora = fechaFrom.toLocaleTimeString("es-PE", opciones);
+  return hora;
 };
 
 export const reemplzar = (valor) => {
@@ -35,7 +35,7 @@ export const reemplzar = (valor) => {
   }
 };
 
-export function convertirFecha(fecha) {
+/*export function convertirFecha(fecha) {
   let partes = fecha.split(" ");
   let fechaPartes = partes[0].split("/");
   let horaPartes = partes[1].split(":");
@@ -44,4 +44,14 @@ export function convertirFecha(fecha) {
   console.log(nuevaFecha)
   return nuevaFecha;
 
+}*/
+
+export function convertirFecha(isoString) {
+  let partes = isoString.split(" ");
+  let fechaPartes = partes[0].split("/");
+  let horaPartes = partes[1].split(":");
+  let nuevaFecha = `${fechaPartes[2]}-${fechaPartes[1] - 1}-${fechaPartes[0]} ${horaPartes[0]}:${horaPartes[1]}:${horaPartes[2]}`;
+  const fechaActual = new Date(nuevaFecha);
+  let hola = new Date(fechaActual.setHours(fechaActual.getHours() - 5));
+  return hola
 }

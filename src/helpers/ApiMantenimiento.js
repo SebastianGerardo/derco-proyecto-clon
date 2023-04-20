@@ -36,9 +36,11 @@ export const InicarMan = async (dataMan) => {
 
 
   export const TerminarPausarMan = async (dataMan) => {
+    console.log("SOY LA API",dataMan)
+    const {serviciosAsignado} = dataMan
     try {
-      const fetchResponse = await fetch(`${URL}/servicios_asignados/historial/agregar`, {
-        method: 'POST',
+      const fetchResponse = await fetch(`${URL}/servicios_asignados/historial/agregar/${serviciosAsignado}`, {
+        method: 'PUT',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
