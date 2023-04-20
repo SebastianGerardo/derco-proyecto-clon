@@ -26,6 +26,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
     const [detalle, setDetalle] = useState([])
 
     const enviarDatos = (e) => {
+        e.preventDefault()
         setIsOpen(false)
     }
 
@@ -76,7 +77,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
                                 <th>id</th>
                                 <th>Estado de trabajo</th>
                                 <th>Tiempos</th>
-                                <th className="w-[2rem] max-w-[2rem]">Motivos de pausa</th>
+                                <th className="w-[14rem] max-w-[14rem]">Motivos de pausa</th>
                                 <th>Comentarios Adicionales</th>
                             </tr>
                         </thead>
