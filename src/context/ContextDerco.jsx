@@ -25,6 +25,10 @@ export const ContextDerco = ({ children }) => {
   const [socketState, setSocketSttate] = useState()
   useEffect(() => {
     VerificarSesion().then((res) => {
+      let socket = io("https://api-derco-production.up.railway.app");
+      setSocketSttate(socket)
+      console.log("SOY FELIZ", res.data.usuario)
+      socket.emit('conectar', res.data.usuario)
       if (res.statusCode === 200) {
         navigate("/dashboard", {
           replace: true,
@@ -32,12 +36,6 @@ export const ContextDerco = ({ children }) => {
             logged: true,
           },
         });
-
-        let socket = io("https://api-derco-production.up.railway.app");
-        setSocketSttate(socket)
-        console.log("SOY FELIZ",res.data.usuario)
-        socket.emit('conectar', res.data.usuario)
-        console.log("dsdsdsd",res.data.usuario)
         setUsuarioLogin(res.data);
       } else {
         navigate("/login", { replace: true });
@@ -46,7 +44,9 @@ export const ContextDerco = ({ children }) => {
 
   }, []);
 
-  console.log("Soiy el usuario",UsuarioLogin)
+
+
+  console.log("Soiy el usuario", UsuarioLogin)
 
 
 

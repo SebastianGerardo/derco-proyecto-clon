@@ -9,8 +9,6 @@ import { io } from "socket.io-client";
 const FormMensaje = ({ data, setIsOpen }) => {
 
     const { UsuarioLogin, socketState } = useContext(UserContext);
-
-    const [tareMensaje, setTraeMensaje] = useState([])
     const [destinatario, setDestinatario] = useState([])
     useEffect(() => {
         DestinatariosMensaje().then(res => setDestinatario(res.data))
@@ -38,17 +36,13 @@ const FormMensaje = ({ data, setIsOpen }) => {
             para,
             mensaje
         }
-
         Mensajes(enviar).then(res => {
             if (res.statusCode === 200) {
                 Toast.fire({
                     icon: "success",
                     title: "Mensaje enviado correctamente",
                 });
-                const socket = io('https://api-derco-production.up.railway.app')
-                socket.emit('conectar', UsuarioLogin.usuario)
-                socket.emit("enviar_mensaje", para, "holaaa")
-                socket.on("mostrar_mensaje", data => setTraeMensaje(data))
+
             } else {
                 Toast.fire({
                     icon: "error",
@@ -56,12 +50,12 @@ const FormMensaje = ({ data, setIsOpen }) => {
                 });
             }
         })
+        socketState.emit("enviar_mensaje", Number(enviar.para), enviar )
         //setIsOpen(false)
     }
 
-    console.log(tareMensaje)
 
-
+ 
     return (
         <form action="" className="space-y-2" onSubmit={almacen}>
             <div className="flex justify-around flex-wrap gap-2 py-4 bg-[#D9D9D9] font-bold">
