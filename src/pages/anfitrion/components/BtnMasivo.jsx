@@ -120,8 +120,12 @@ export const BtnMasivo = () => {
                                                 file:mr-4 file:py-2 file:px-4
                                                 file:rounded-full file:border-0
                                                 file:text-sm file:font-semibold
-                                                file:bg-green-50 file:text-green-700
-                                                hover:file:bg-green-100
+                                                file:bg-redDerco file:text-white
+                                                hover:file:bg-red-500
+                                                file:cursor-pointer
+                                                file:transition-all
+                                                file:ease-in-out
+                                                file:duration-200
                                                 "/>
                                             <div className='flex items-center mt-5 justify-center gap-5'>
                                                 <button type="submit" className="flex items-center gap-2 justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"><i className="flex gap items-cemter gap-3 fa-solid fa-floppy-disk"></i>Cargar Excel</button>
