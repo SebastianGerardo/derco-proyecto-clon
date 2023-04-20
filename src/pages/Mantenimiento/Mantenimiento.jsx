@@ -7,46 +7,50 @@ import { UserContext } from "../../context/ContextDerco";
 export const Mantenimiento = () => {
 
 
-  const { socketState } = useContext(UserContext);
+  const { UsuarioLogin, socketState } = useContext(UserContext);
 
   const [tareMensaje, setTraeMensaje] = useState([])
   const [infoMantenimiento, setInfoMantenimiento] = useState([])
-
-    useEffect(() => {
-        socketState.on("mostrar_mensaje", data => setTraeMensaje(data))
-        alert(tareMensaje.mensaje)
-    }, [tareMensaje])
-
-   
-  // ESTO SE IMPLEMENTARA LUEGO
-
-   useEffect(()=>{
-     const interval = setInterval(() => {
-      TraeMantenimiento().then(res => setInfoMantenimiento(res.data))
-     }, 1000);
-     return () => clearInterval(interval);
-   },[])
-
-
-  // ADVERTENCIA AL CERRAR LA VENTANA
+  console.log(socketState)
   useEffect(() => {
-    window.addEventListener('beforeunload', handlebeforeunload);
 
-    return () => {
-      window.removeEventListener('beforeunload', handlebeforeunload);
-    }
-  }, [])
+    UsuarioLogin && (
+      socketState.on("mostrar_mensaje", data => setTraeMensaje(data)),
+      alert(tareMensaje.mensaje)
+    )
 
-  const handlebeforeunload = (e) => {
-    e.preventDefault();
-    e.returnValue = '';
+}, [tareMensaje, UsuarioLogin])
+
+  console.log(tareMensaje)
+// ESTO SE IMPLEMENTARA LUEGO
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    TraeMantenimiento().then(res => setInfoMantenimiento(res.data))
+  }, 1000);
+  return () => clearInterval(interval);
+}, [])
+
+
+// ADVERTENCIA AL CERRAR LA VENTANA
+useEffect(() => {
+  window.addEventListener('beforeunload', handlebeforeunload);
+
+  return () => {
+    window.removeEventListener('beforeunload', handlebeforeunload);
   }
+}, [])
 
-  return (
-    <>
-      <div className="p-6">
-        <TableMantenimiento data={infoMantenimiento} />
-      </div>
-    </>
-  );
+const handlebeforeunload = (e) => {
+  e.preventDefault();
+  e.returnValue = '';
+}
+
+return (
+  <>
+    <div className="p-6">
+      <TableMantenimiento data={infoMantenimiento} />
+    </div>
+  </>
+);
 };

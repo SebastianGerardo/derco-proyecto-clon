@@ -28,7 +28,7 @@ export const Login = () => {
         console.log("Soy el usuaario", val)
         setUsuarioLogin(val.data);
         navigate("/dashboard", {
-          state: {
+          state: {  
             logged: true
           }
         });
