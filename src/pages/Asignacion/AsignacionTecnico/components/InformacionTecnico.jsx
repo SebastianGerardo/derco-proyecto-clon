@@ -17,15 +17,13 @@ const InformacionTecnico = () => {
     return () => clearInterval(interval);
   }, [])
 
-  console.log(cantCitas)
-
   useEffect(() => {
-    if (cantCitas?.otCreadas ) {
-      setCompletedTasks(cantCitas?.otCreadas);
+    if (cantCitas?.otElevadores ) {
+      setCompletedTasks(cantCitas?.otElevadores);
     }
   }, [cantCitas]);
   
-  const totalTasks = cantCitas?.citasProgramadas;
+  const totalTasks = cantCitas?.otCreadas;
   const progress = (completedTasks / totalTasks) * 100;
 
   return (
