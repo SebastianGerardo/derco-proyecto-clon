@@ -14,9 +14,10 @@ export const Mantenimiento = () => {
 
     useEffect(() => {
         socketState.on("mostrar_mensaje", data => setTraeMensaje(data))
+        alert(tareMensaje.mensaje)
     }, [tareMensaje])
 
-    alert(tareMensaje.mensaje)
+   
   // ESTO SE IMPLEMENTARA LUEGO
 
    useEffect(()=>{
