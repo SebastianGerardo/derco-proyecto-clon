@@ -39,9 +39,11 @@ export const ModalMantenimiento = ({ tipo, data }) => {
     setTime(0);
   }, [reset]);
 
+
+
   return (
     <>
-      <BotonTimer tipo={tipo} setIsOpen={setIsOpen} bloqueo={bloqueo} />
+      <BotonTimer tipo={tipo} setIsOpen={setIsOpen} bloqueo={bloqueo}/>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
           <Transition.Child

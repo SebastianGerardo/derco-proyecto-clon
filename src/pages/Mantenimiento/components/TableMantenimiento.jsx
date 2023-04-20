@@ -125,15 +125,27 @@ export const TableMantenimiento = ({ data }) => {
       name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1" />,
       cell: row =>
         <div className="flex items-center gap-3">
-          <ModalMantenimiento tipo="timer" data={row}  /> {/* ESTO SE IMPLEMENTARA LUEGO */}
+          {
+            bloqueo(row) != 4 && (
+              <ModalMantenimiento tipo="timer" data={row}  /> 
+            ) 
+          }
           <ModalMensaje tipo="mensaje" data={row} />
           <ModalDetalle tipo="detalle" data={row} />
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
       center: true,
     },
   ];
-  // let ordenado = data.sort((a, b) => new Date(b.fechaRegistro) - new Date(a.fechaRegistro))
+  const bloqueo = (data) =>{
+    const dataPar = JSON.parse(data.ordenServicios)
+    const valor = dataPar.find(res => res.nombre === "Mantenimiento")
+    console.log(valor.terminado)
+    return valor.terminado
 
+  }
+
+
+  // let ordenado = data.sort((a, b) => new Date(b.fechaRegistro) - new Date(a.fechaRegistro))
   const [placa, setPlaca] = useState("");
 
 

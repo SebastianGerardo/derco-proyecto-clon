@@ -1,4 +1,5 @@
 export const BotonFroms = ({ tipo, setIsOpen }) => {
+
   return (
     <>
       {tipo === 'crear' ? (
@@ -61,6 +62,9 @@ export const BotonFroms = ({ tipo, setIsOpen }) => {
 // BOTON PARA MANTENIMIENTO, SECADO, LAVADO Y ENTREGA
 
 export const BotonTimer = ({ tipo, setIsOpen, bloqueo }) => {
+
+
+
   return (
     
     <>
