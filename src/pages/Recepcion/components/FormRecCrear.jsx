@@ -72,7 +72,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         comentario: data.comentario,
         correo: data.correo,
         detalleServicio: data.detalleServicio,
-        estado: '3',
+        estado: '4',
         fechaFinRecepcion: data.fechaRegistro,
         horaEstimadaEntrega: data.horaEstimadaEntrega,
         id: data.id,

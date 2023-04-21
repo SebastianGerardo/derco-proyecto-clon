@@ -202,9 +202,9 @@ export const TableRecepcion = ({ dataRecepcion }) => {
           <label className="flex flex-col" htmlFor="">
             <span className="text-lg">Filtro por Ubicación</span>
             <select className="w-[16rem] h-8 border-2 border-gray-300 rounded-md outline-none" name="" id="" onChange={handleSelectChange}>
-              <option value="2">Recepcion</option>
-              <option value="3">Almacen</option>
-              <option value="4">Asignacion</option>
+              <option value="2">Recepción</option>
+              <option value="3">Almacén</option>
+              <option value="4">Asignación</option>
               <option value="5">Mantenimiento</option>
               <option value="6">Lavado</option>
               <option value="7">Secado</option>

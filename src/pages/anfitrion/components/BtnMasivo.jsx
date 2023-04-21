@@ -80,7 +80,7 @@ export const BtnMasivo = () => {
                 className="rounded-md mr-4 bg-green-600 px-4 py-2 text-sm font-medium text-white border-green-600 border-2 border-solid transition-all ease-in duration-200 shadow-[.3rem_.3rem_1rem_#ccc,_-.3rem_-.3rem_1rem_#fff] hover:shadow-[.3rem_.3rem_1rem_#fff,_-.3rem_-.3rem_1rem_#ccc] active:shadow-[inset_.1rem_.1rem_1rem_#16A34A,_inset_-.1rem_-.1rem_1rem_#16A34A]"
             >
                 <i className="fa-solid fa-upload mr-1"></i>
-                Cargar Archivos
+                Cargar Citas
             </button>
             <Transition appear show={isOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
@@ -109,7 +109,7 @@ export const BtnMasivo = () => {
                             >
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-md bg-white text-left align-middle shadow-xl transition-all">
                                     <div className='bg-[#C00000] text-white py-2 w-full'>
-                                        <p className='text-center text-xl font-medium '>Módulo de carga masiva</p>
+                                        <p className='text-center text-xl font-medium '>Carga de Citas</p>
                                         <button onClick={(e) => { e.preventDefault(); setIsOpen(false) }} className="absolute top-0 right-0 mr-4 text-white text-3xl">x</button>
                                     </div>
                                     <div className='p-5 w-full block'>
@@ -118,8 +118,8 @@ export const BtnMasivo = () => {
                                                 file:mr-4 file:py-2 file:px-4
                                                 file:rounded-full file:border-0
                                                 file:text-sm file:font-semibold
-                                                file:bg-redDerco file:text-white
-                                                hover:file:bg-red-500
+                                                file:bg-stone-200 file:text-stone-700
+                                                hover:file:bg-stone-300
                                                 file:cursor-pointer
                                                 file:transition-all
                                                 file:ease-in-out
