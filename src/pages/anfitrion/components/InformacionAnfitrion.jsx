@@ -23,12 +23,12 @@ export const InformacionAnfitrion = () => {
   }, [bandera])
 
   useEffect(() => {
-    if (cantCitas?.programados) {
-      setCompletedTasks(cantCitas.programados);
+    if (cantCitas?.programados || sinCitas.total) {
+      setCompletedTasks(cantCitas.programados + sinCitas.total);
     }
   }, [cantCitas]);
 
-  const totalTasks = cantCitas.total;
+  const totalTasks = cantCitas.total + sinCitas.total;
   const [completedTasks, setCompletedTasks] = useState(0);
 
   const progress = (completedTasks / totalTasks) * 100;

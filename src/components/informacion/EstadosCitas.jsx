@@ -7,7 +7,7 @@ export const EstadosCitas = ({ cantCitas, sinCitas }) => {
                     <span className='font-bold text-3xl'>{cantCitas.total === undefined ? 0 : cantCitas.total}</span>
                 </div>
                 <div className='px-5 py-2 bg-yellow-400 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
-                    <p className='font-semibold'>Cliente Sin citas</p>
+                    <p className='font-semibold'>Clientes Sin cita</p>
                     <span className='font-bold text-3xl'>{sinCitas.total === undefined ? 0 : sinCitas.total}</span>
                 </div>
                 <div className='px-5 py-2 bg-green-400 min-w-[10rem] text-center text-white rounded-md flex flex-col'>
