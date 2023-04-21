@@ -65,7 +65,7 @@ const FormDetalle = ({ data, setIsOpen }) => {
 
                     <InputReadOnly labelName={" Nro OT:"} pHolder={""} data={data.servicio.ot} />
 
-                    <InputReadOnly labelName={"Asesor"} pHolder={""} data={`${data.elevador.tecnico.nombres.split(" ", 1)} ${data.elevador.tecnico.apellidos.split(" ", 1)}`} />
+                    <InputReadOnly labelName={"Asesor"} pHolder={""} data={`${data.servicio.asesor.nombres.split(" ", 1)} ${data.servicio.asesor.apellidos.split(" ", 1)}`} />
 
                     <InputReadOnly labelName={"Placa:"} pHolder={""} data={data.servicio.placa} />
 

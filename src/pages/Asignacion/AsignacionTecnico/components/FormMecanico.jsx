@@ -6,7 +6,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
     const adicionales = JSON.parse(data?.adicionales)
     const elevadores = nombresElevadores
 
-    const opcionesServicios = ["Lavado", "Secado", "Mantenimiento", "Control de Calidad"];
+    const opcionesServicios = ["Mantenimiento", "Lavado", "Secado", "Control de Calidad"];
 
     const [dataRegistro, setDataRegistro] = useState({
         servicios: [],

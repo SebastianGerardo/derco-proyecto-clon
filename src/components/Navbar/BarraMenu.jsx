@@ -10,10 +10,19 @@ export const BarraMenu = () => {
   const permisosUrl = permisos?.[0].modulo.url;
 
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [style, setStyle] = useState(false)
 
   function toggleMenu() {
-    setIsMenuOpen(!isMenuOpen);
+    if (isMenuOpen) {
+      setStyle(false)
+      setTimeout(() => {
+        setIsMenuOpen(false);
+      }, 100);
+    } else {
+      setStyle(true)
+      setIsMenuOpen(true);
+    }
   }
   useEffect(() => {
     if (location.pathname === "/dashboard") {
@@ -42,7 +51,7 @@ export const BarraMenu = () => {
                   if (per.modulo.nombre === "Asignación") {
                     return (
                         <NavLink
-                          onClick={toggleMenu}
+                          // onClick={toggleMenu}
                           key={per.id}
                           className="flex flex-col text-white font-medium text-lg"
                           to={per.modulo.url}
@@ -55,9 +64,16 @@ export const BarraMenu = () => {
                             <>
                               <div className="flex items-center gap-6 font-medium text-lg py-3">
                                 <i onClick={() => {console.log(isActive)}} className="fa-solid fa-address-card"></i>
-                                {per.modulo.nombre}
+                                <div className="flex items-center gap-1">
+                                  {per.modulo.nombre}
+                                  <svg onClick={toggleMenu} className={`z-999 transition-all ease-in-out duration-150 ${style ? "-rotate-0 mt-1 " : "-rotate-180 mt-1 "} `} width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995" stroke={`${isActive ? "#292D32" : "#FFF"}`} stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </div>
                               </div>
-                              {isActive && <Submenu />}
+                              <div className={`transition-all ease-in-out duration-150 ${style ? "-translate-y-0 opacity-100" : "-translate-y-24 opacity-0"}`}>
+                                {isMenuOpen && <Submenu />}
+                              </div>
                             </>
                           )}
                         </NavLink>
