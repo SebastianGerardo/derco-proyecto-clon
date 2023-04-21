@@ -15,6 +15,13 @@ const estados = {
   "4": "Finalizado",
 }
 
+const estadosColores = {
+  "1": "1",
+  "2": "2",
+  "3": "3",
+  "4": "4",
+}
+
 export const TableMantenimiento = ({ data }) => {
   
 
@@ -40,7 +47,7 @@ export const TableMantenimiento = ({ data }) => {
     },
     {
       name: <CustomHeader nameModule="TECNICO" icon="fa-solid fa-user mr-1" />,
-      selector: (row) => <p>{row.elevador?.tecnico?.nombres}</p>,
+      selector: (row) => <p>{row.elevador?.tecnico?.nombres.split(" ", 1)} {row.elevador?.tecnico?.apellidos.split(" ", 1)}</p>,
       sortable: true,
       center: true,
     },
@@ -96,27 +103,27 @@ export const TableMantenimiento = ({ data }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.estado === "1",
+          when: (row) => estadosColores[`${traeEstado(row)}`] === "1",
           style: {
             backgroundColor: "#FFD34D",
           },
         },
         {
-          when: (row) => row.estado === "2",
+          when: (row) => estadosColores[`${traeEstado(row)}`] === "2",
           style: {
             backgroundColor: "#B22323",
           },
         },
         {
-          when: (row) => row.estado === "3",
+          when: (row) => estadosColores[`${traeEstado(row)}`] === "3",
           style: {
             backgroundColor: "#9B5DA2",
           },
         },
         {
-          when: (row) => row.estado === "4",
+          when: (row) => estadosColores[`${traeEstado(row)}`] === "4",
           style: {
-            backgroundColor: "green",
+            backgroundColor: "#4AC695",
           },
         },
       ],
@@ -125,11 +132,7 @@ export const TableMantenimiento = ({ data }) => {
       name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1" />,
       cell: row =>
         <div className="flex items-center gap-3">
-          {
-            bloqueo(row) != 4 && (
-              <ModalMantenimiento tipo="timer" data={row}  /> 
-            ) 
-          }
+          <ModalMantenimiento disable={bloqueo(row) != 4} tipo="timer" data={row}  /> 
           <ModalMensaje tipo="mensaje" data={row} />
           <ModalDetalle tipo="detalle" data={row} />
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
@@ -140,7 +143,6 @@ export const TableMantenimiento = ({ data }) => {
     const dataPar = JSON.parse(data.ordenServicios)
     const valor = dataPar.find(res => res.nombre === "Mantenimiento")
     return valor.terminado
-
   }
 
 
@@ -148,7 +150,7 @@ export const TableMantenimiento = ({ data }) => {
   const [placa, setPlaca] = useState("");
 
 
-  const filteredItems = data.filter((item) => item.placa && item.placa.toLowerCase().includes(placa.toLowerCase()) || item.ot && item.ot.toLowerCase().includes(placa.toLowerCase()));
+  // const filteredItems = data.filter((item) => item.placa && item.placa.toLowerCase().includes(placa.toLowerCase()) || item.ot && item.ot.toLowerCase().includes(placa.toLowerCase()));
 
   const filtroEstado = (e) => {
     e.preventDefault()
@@ -156,7 +158,7 @@ export const TableMantenimiento = ({ data }) => {
 
   const [estado, setEstado] = useState("")
 
-  const filtro2 = filteredItems.filter((item) => item.estado && item.estado.includes(estado))
+  // const filtro2 = filteredItems.filter((item) => item.estado && item.estado.includes(estado))
 
   return (
     <>

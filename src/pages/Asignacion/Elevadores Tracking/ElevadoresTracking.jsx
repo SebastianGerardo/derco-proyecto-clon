@@ -21,8 +21,12 @@ const ElevadoresTracking = () => {
       "color": "#9B5DA2CC",
       "colorDrag": "#9B5DA2"
     },
+    "4": {
+      "nombre": "Finalizado",
+      "color": "#4AC695CC",
+      "colorDrag": "#4AC695"
+    },
   }
-
 
   const [columns, setColumns] = useState([])
   const [bandera, setBanderita] = useState(false)
@@ -134,7 +138,13 @@ const ElevadoresTracking = () => {
   // }
   // }
 
-  console.log(filtroEstado[0])
+  const traeEstado = (data) =>{
+    let dataParseada = JSON.parse(data?.ordenServicios)
+    const filtroUbicacion = dataParseada.filter(res=> res?.nombre === data.ubicacion)
+    let resultado = filtroUbicacion.find(res=> res?.nombre === data.ubicacion)
+    return resultado?.terminado
+  }
+
   return (
     <div className='flex flex-col justify-start h-full overflow-x-auto'>
        <section className='py-4 flex items-center justify-around w-full'>
@@ -190,8 +200,8 @@ const ElevadoresTracking = () => {
                                     {...provided.dragHandleProps}
                                     style={{
                                       backgroundColor: snapshot.isDragging
-                                        ? EstadoServicio[item.estado]?.colorDrag
-                                        : EstadoServicio[item?.estado]?.color,
+                                        ? EstadoServicio[traeEstado(item)]?.colorDrag
+                                        : EstadoServicio[traeEstado(item)]?.color,
                                       ...provided.draggableProps.style
                                     }}
                                     className='flex flex-col gap-1 p-4 m-0 mb-2 min-h-[50px]  rounded-md text-white font-bold'
@@ -199,7 +209,7 @@ const ElevadoresTracking = () => {
                                     <p>OT:<span className='ml-1 font-normal'>{item?.servicio.ot}</span></p>
                                     <p>Técnico:<span className='ml-1 font-normal'>{column?.elevador.tecnico?.nombres} {column.elevador.tecnico?.apellidos}</span></p>
                                     <p>Hora E. de entrega:<span className='ml-1 font-normal'>{item?.servicio.horaEstimadaEntrega}</span></p>
-                                    <p>E. del servicio:<span className='ml-1 font-normal'>{EstadoServicio[item?.estado]?.nombre}</span></p>
+                                    <p>E. del servicio:<span className='ml-1 font-normal'>{EstadoServicio[traeEstado(item)]?.nombre}</span></p>
                                   </div>
                                 );
                               }}

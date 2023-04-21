@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
 import FormMantenimiento from './FormMantenimiento';
-export const ModalMantenimiento = ({ tipo, data }) => {
+export const ModalMantenimiento = ({ tipo, data, disable }) => {
   const [bloqueo, setBloqueo] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [time, setTime] = useState(0);
@@ -39,11 +39,9 @@ export const ModalMantenimiento = ({ tipo, data }) => {
     setTime(0);
   }, [reset]);
 
-
-
   return (
     <>
-      <BotonTimer tipo={tipo} setIsOpen={setIsOpen} bloqueo={bloqueo}/>
+      <BotonTimer disable={disable} tipo={tipo} setIsOpen={setIsOpen} bloqueo={bloqueo}/>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
           <Transition.Child
