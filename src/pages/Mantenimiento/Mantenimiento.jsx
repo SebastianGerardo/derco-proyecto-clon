@@ -12,15 +12,13 @@ export const Mantenimiento = () => {
   const [tareMensaje, setTraeMensaje] = useState([])
   const [infoMantenimiento, setInfoMantenimiento] = useState([])
 
-
-
   // ESTO SE IMPLEMENTARA LUEGO
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    // const interval = setInterval(() => {
       TraeMantenimiento().then(res => setInfoMantenimiento(res.data))
-    }, 1000);
-    return () => clearInterval(interval);
+    // }, 1000);
+    // return () => clearInterval(interval);
   }, [])
 
 

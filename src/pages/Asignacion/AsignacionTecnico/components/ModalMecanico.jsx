@@ -42,7 +42,7 @@ export const ModalMecanico = ({ tipo, data }) => {
                 </div>
                    
 
-                  <div className='p-5 w-full block overflow-x-auto'>
+                  <div className='w-full h-[35rem] max-h-[35rem] block overflow-x-auto'>
                     <Elevadores data={data} closeElevadores={setIsOpen} />
                   </div>
                   

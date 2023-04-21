@@ -4,7 +4,7 @@ import { Toast } from "../../../components/Alertas/SweetAlex";
 import Timer from "../../../components/Cronometro/Timer";
 import TimerControls from "../../../components/Cronometro/TimerControls";
 import { ModalMantenimientoPausa } from "./ModalMantenimientoPausa";
-import { InicarMan, TerminarMan, TerminarPausarMan } from "../../../helpers/ApiMantenimiento";
+import { InicarMan, TerminarMan, TerminarPausarMan, TraeDetalle } from "../../../helpers/ApiMantenimiento";
 // import Timer from "../../../components/Cronometro/Timer";
 // import TimerControls from "../../../components/Cronometro/TimerControls";
 
@@ -18,6 +18,7 @@ const FormMantenimiento = ({
   formatTime,
   time,
   setBloqueo,
+  traerDetalleUsuario
 }) => {
   const [datosMantenimiento, setDatosMantenimiento] = useState({
     serviciosAsignado: data.id,
@@ -25,8 +26,19 @@ const FormMantenimiento = ({
     motivo: "",
     comentario: "",
     tiempo: "",
-    estado: ""
+    estado: "",
+    tiempo_transcurrido: null,
   });
+
+  // const [detalle, setDetalle] = useState([])
+
+  useEffect(() => {
+    TraeDetalle(data.id).then((resp) => {
+      traerDetalleUsuario(resp.data)
+    })
+  }, [])
+
+  // console.log(detalle)
 
   const captura = (e) => {
     setDatosMantenimiento({
@@ -44,30 +56,44 @@ const FormMantenimiento = ({
   const [isPausedOpen, setIsPausedOpen] = useState(false);
   const handleStart = () => {
     if (time > 0) {
-      console.log("ENTRE AQUIO")
+      console.log("Mantenimiento reanudado")
       setDatosMantenimiento(previe => ({
         ...previe,
         tiempo: new Date(),
-        estado: "Reanudo"
+        estado: "Reanudo",
+        tiempo_transcurrido: JSON.stringify(time)
       }))
       setIsRunning(true);
       setHasStarted(true);
+      Toast.fire({
+        icon: "success",
+        title: "Se reanudó correctamente el temporizador",
+      });
     } else {
+      console.log("Mantenimiento iniciado")
       setDatosMantenimiento(previe => ({
         ...previe,
         tiempo: new Date(),
-        estado: "Iniciar"
+        estado: "Iniciar",
+        tiempo_transcurrido: JSON.stringify(time),
       }))
       setIsRunning(true);
       setHasStarted(true);
+      Toast.fire({
+        icon: "success",
+        title: "El temporizador se ha iniciado correctamente",
+      });
     }
+    setIsOpen(false)
   };
+
 
   const handlePause = () => {
     setDatosMantenimiento(previe => ({
       ...previe,
       tiempo: new Date(),
-      estado: "Pausar"
+      estado: "Pausar",
+      tiempo_transcurrido: JSON.stringify(time)
     }))
     setIsRunning(false);
     setIsPausedOpen(true);
@@ -78,12 +104,17 @@ const FormMantenimiento = ({
     setDatosMantenimiento(previe => ({
       ...previe,
       tiempo: new Date(),
-      estado: "Finalizar"
+      estado: "Finalizar",
+      tiempo_transcurrido: JSON.stringify(time)
     }))
     setIsRunning(false);
     setHasStarted(false);
     setIsOpen(false)
     setReset(!reset);
+    Toast.fire({
+      icon: "success",
+      title: "Se finalizó correctamente el temporizador",
+    });
   };
 
   useEffect(() => {
@@ -100,6 +131,8 @@ const FormMantenimiento = ({
       setBloqueo(true)
     }
   }, [datosMantenimiento])
+
+  // console.log(formatTime(time))
 
   return (
     <section className="space-y-2" >

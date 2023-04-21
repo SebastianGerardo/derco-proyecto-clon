@@ -10,6 +10,26 @@ export const ModalMantenimiento = ({ tipo, data, disable }) => {
 
   const [isRunning, setIsRunning] = useState(false);
   const [reset, setReset] = useState(false);
+  const [usuarioDetalle, setUsuarioDetalle] = useState([])
+
+  const traerDetalleUsuario = (dataDetalle) => {
+    setUsuarioDetalle(dataDetalle)
+  }
+
+  const filtroDetalle = usuarioDetalle != [] ? usuarioDetalle[usuarioDetalle?.length - 1] : null
+  useEffect(() => {
+      if (filtroDetalle?.tiempo_transcurrido == null || undefined || NaN) {
+        console.log("ENTRE AQUI")
+        if (time != 0) {
+          setTime(0)
+        }
+      } else {
+        if(time == 0){
+          console.log("SALGO AQUI")
+          setTime(parseInt(filtroDetalle?.tiempo_transcurrido))
+        }
+      }
+  }, [usuarioDetalle])
 
   useEffect(() => {
     let interval = null;
@@ -76,7 +96,7 @@ export const ModalMantenimiento = ({ tipo, data, disable }) => {
                    
 
                   <div className='w-full block'>
-                    <FormMantenimiento data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time} setBloqueo={setBloqueo}/>
+                    <FormMantenimiento traerDetalleUsuario={traerDetalleUsuario} data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time} setBloqueo={setBloqueo}/>
                   </div>
                   
                   
