@@ -67,7 +67,7 @@ export const BarraMenu = () => {
                                 <div className="flex items-center gap-1">
                                   {per.modulo.nombre}
                                   <svg onClick={toggleMenu} className={`z-999 transition-all ease-in-out duration-150 ${style ? "-rotate-0 mt-1 " : "-rotate-180 mt-1 "} `} width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995" stroke={`${isActive ? "#292D32" : "#FFF"}`} stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M19.9201 8.94995L13.4001 15.47C12.6301 16.24 11.3701 16.24 10.6001 15.47L4.08008 8.94995" stroke={`${isActive ? "#292D32" : "#FFF"}`} strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
                                   </svg>
                                 </div>
                               </div>

@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+import { useMemo } from "react";
+import { useState } from "react";
+import { Toast } from "../Alertas/SweetAlex";
+
 export const BotonFroms = ({ tipo, setIsOpen }) => {
 
   return (
@@ -61,9 +66,55 @@ export const BotonFroms = ({ tipo, setIsOpen }) => {
 
 // BOTON PARA MANTENIMIENTO, SECADO, LAVADO Y ENTREGA
 
-export const BotonTimer = ({ tipo, setIsOpen, bloqueo, disable }) => {
+export const BotonTimer = ({ tipo, setIsOpen, disable, botonId }) => {
+
+  const [clickId, setClickId] = useState(() => {
+    const idPresionado = botonId != undefined ? botonId : botonId;
+    return idPresionado;
+  });
+
+  const [idComenzado, setIdComenzado] = useState(() => {
+    const idLocal = localStorage.getItem('id') != null ? localStorage.getItem('id') : false;
+    return idLocal;
+  });
+
+  const [estadoLocal, setEstadoLocal] = useState(() => {
+    const estadoLocal = localStorage.getItem('estado') != null ? localStorage.getItem('estado') : false;
+    return estadoLocal;
+  });
+
+  useEffect(() => {
+    setIdComenzado(localStorage.getItem('id'));
+  }, [localStorage.getItem('id')]);
+  
+  
+  
+  const validarId = ( ) => {
+    console.log(idComenzado);
+    console.log(clickId);
+    if (idComenzado) {
+      console.log('validando...');
+      if (idComenzado == clickId) {
+        console.log('se ha validado!');
+        return (setIsOpen(true)) ;
+      } else {
+        console.log('no se ha validado');
+        console.log(clickId != undefined);
+        return (
+          Toast.fire({
+            icon: "warning",
+            title: "Ya hay un temporizador activo",
+          })
+        );
+      } 
+    } else {
+      console.log('no se ha validado');
+      return (setIsOpen(true));
+    }
+  }
 
 
+  // validarId() ? () => setIsOpen(true) : () => console.log("chayu")
 
   return (
     
@@ -75,7 +126,7 @@ export const BotonTimer = ({ tipo, setIsOpen, bloqueo, disable }) => {
           >
             {tipo === 'timer' ?
               (
-                <svg onClick={disable ? () => setIsOpen(true) : null} width="25" height="25" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg onClick={() => validarId()} width="25" height="25" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.75 0C11.3672 0 10.25 0.977539 10.25 2.1875C10.25 3.39746 11.3672 4.375 12.75 4.375H14V6.72656C6.21094 7.7793 0.25 13.6719 0.25 20.7812C0.25 28.6357 7.52344 35 16.5 35C25.4766 35 32.75 28.6357 32.75 20.7812C32.75 17.9238 31.7891 15.2646 30.1328 13.043L32.0156 11.3955C32.9922 10.541 32.9922 9.15332 32.0156 8.29883C31.0391 7.44434 29.4531 7.44434 28.4766 8.29883L26.7891 9.77539C24.5938 8.20312 21.9297 7.12305 19 6.72656V4.375H20.25C21.6328 4.375 22.75 3.39746 22.75 2.1875C22.75 0.977539 21.6328 0 20.25 0H16.5H12.75ZM18.375 13.125V21.875C18.375 22.7842 17.5391 23.5156 16.5 23.5156C15.4609 23.5156 14.625 22.7842 14.625 21.875V13.125C14.625 12.2158 15.4609 11.4844 16.5 11.4844C17.5391 11.4844 18.375 12.2158 18.375 13.125Z" fill={disable ? "#5A5A5A" : "#D9D9D9"} />
                 </svg>
               )

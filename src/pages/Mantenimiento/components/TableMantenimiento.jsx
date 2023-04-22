@@ -132,7 +132,7 @@ export const TableMantenimiento = ({ data }) => {
       name: <CustomHeader nameModule="ACCIONES" icon="fa-solid fa-cog mr-1" />,
       cell: row =>
         <div className="flex items-center gap-3">
-          <ModalMantenimiento disable={bloqueo(row) != 4} tipo="timer" data={row}  /> 
+          <ModalMantenimiento botonId={row.id} disable={bloqueo(row) != 4} tipo="timer" data={row}  /> 
           <ModalMensaje tipo="mensaje" data={row} />
           <ModalDetalle tipo="detalle" data={row} />
         </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
@@ -144,12 +144,21 @@ export const TableMantenimiento = ({ data }) => {
     const valor = dataPar.find(res => res.nombre === "Mantenimiento")
     return valor.terminado
   }
+  
+  const buscar = () =>{
+    const dataPar = data
+    const valor = dataPar?.find(res => res?.nombre === "Mantenimiento")
+    return dataPar
+  }
 
+  // console.log(buscar())
+
+  const idClientes = data.map((idC) => idC.id)
 
   // let ordenado = data.sort((a, b) => new Date(b.fechaRegistro) - new Date(a.fechaRegistro))
   const [placa, setPlaca] = useState("");
 
-
+  
   // const filteredItems = data.filter((item) => item.placa && item.placa.toLowerCase().includes(placa.toLowerCase()) || item.ot && item.ot.toLowerCase().includes(placa.toLowerCase()));
 
   const filtroEstado = (e) => {
@@ -198,14 +207,14 @@ export const TableMantenimiento = ({ data }) => {
       <DataTable
         columns={columns}
         data={data}
-        pagination
-        paginationComponentOptions={{
-          rowsPerPageText: "Filas por página:",
-          rangeSeparatorText: "de",
-          noRowsPerPage: false,
-          selectAllRowsItem: true,
-          selectAllRowsItemText: "Todos"
-        }}
+        // pagination
+        // paginationComponentOptions={{
+        //   rowsPerPageText: "Filas por página:",
+        //   rangeSeparatorText: "de",
+        //   noRowsPerPage: false,
+        //   selectAllRowsItem: true,
+        //   selectAllRowsItemText: "Todos"
+        // }}
         noDataComponent={<p className="text-base text-gray-400">Esperando los registros para mostrar</p>}
       />
     </>

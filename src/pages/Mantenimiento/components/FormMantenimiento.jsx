@@ -18,7 +18,6 @@ const FormMantenimiento = ({
   formatTime,
   time,
   setBloqueo,
-  traerDetalleUsuario
 }) => {
   const [datosMantenimiento, setDatosMantenimiento] = useState({
     serviciosAsignado: data.id,
@@ -27,18 +26,7 @@ const FormMantenimiento = ({
     comentario: "",
     tiempo: "",
     estado: "",
-    tiempo_transcurrido: null,
   });
-
-  // const [detalle, setDetalle] = useState([])
-
-  useEffect(() => {
-    TraeDetalle(data.id).then((resp) => {
-      traerDetalleUsuario(resp.data)
-    })
-  }, [])
-
-  // console.log(detalle)
 
   const captura = (e) => {
     setDatosMantenimiento({
@@ -47,21 +35,18 @@ const FormMantenimiento = ({
     });
   };
 
-  const enviarDatos = (e) => {
-    e.preventDefault();
-    setIsOpen(false);
-  };
-
   const [hasStarted, setHasStarted] = useState(false);
   const [isPausedOpen, setIsPausedOpen] = useState(false);
   const handleStart = () => {
+    localStorage.setItem("time", time)
+    localStorage.setItem("id", data.id)
     if (time > 0) {
       console.log("Mantenimiento reanudado")
+      localStorage.setItem("estado", "Reanudado")
       setDatosMantenimiento(previe => ({
         ...previe,
         tiempo: new Date(),
         estado: "Reanudo",
-        tiempo_transcurrido: JSON.stringify(time)
       }))
       setIsRunning(true);
       setHasStarted(true);
@@ -71,11 +56,11 @@ const FormMantenimiento = ({
       });
     } else {
       console.log("Mantenimiento iniciado")
+      localStorage.setItem("estado", "Iniciado")
       setDatosMantenimiento(previe => ({
         ...previe,
         tiempo: new Date(),
         estado: "Iniciar",
-        tiempo_transcurrido: JSON.stringify(time),
       }))
       setIsRunning(true);
       setHasStarted(true);
@@ -89,11 +74,13 @@ const FormMantenimiento = ({
 
 
   const handlePause = () => {
+    localStorage.setItem("time", time)
+    localStorage.setItem("id", data.id)
+    localStorage.setItem("estado", "Pausado")
     setDatosMantenimiento(previe => ({
       ...previe,
       tiempo: new Date(),
       estado: "Pausar",
-      tiempo_transcurrido: JSON.stringify(time)
     }))
     setIsRunning(false);
     setIsPausedOpen(true);
@@ -101,11 +88,13 @@ const FormMantenimiento = ({
 
 
   const handleReset = () => {
+    localStorage.removeItem("time")
+    localStorage.removeItem("id")
+    localStorage.removeItem("estado")
     setDatosMantenimiento(previe => ({
       ...previe,
       tiempo: new Date(),
       estado: "Finalizar",
-      tiempo_transcurrido: JSON.stringify(time)
     }))
     setIsRunning(false);
     setHasStarted(false);
@@ -131,8 +120,6 @@ const FormMantenimiento = ({
       setBloqueo(true)
     }
   }, [datosMantenimiento])
-
-  // console.log(formatTime(time))
 
   return (
     <section className="space-y-2" >
