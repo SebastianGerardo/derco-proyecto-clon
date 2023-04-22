@@ -25,11 +25,11 @@ function getTimeArray(startTime, endTime) {
         timeArray.push(timeString);
       }
   
-      if (minute === 45) {
+      if (minute === 30) {
         hour = (hour + 1) % 24;
         minute = 0;
       } else {
-        minute += 15;
+        minute += 30;
       }
     }
   
@@ -40,7 +40,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
 
     const { estadoData, setEstadoData } = useContext(UserContext);
     
-    const timeArray = getTimeArray("9:00", "23:30")
+    const timeArray = getTimeArray("9:00", "22:00")
 
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
@@ -127,13 +127,13 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         <form action="" className="flex flex-col lg:grid grid-cols-2 gap-3" onSubmit={registrarUnidad}>
             <section className="w-full lg:grid lg:grid-cols-2 md:grid gap-2">
                 <section>
-                    <InputBasic labelName={"Nombres & Apellidos"} pHolder={"Ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"} disabled={data.nombres != ("" || null)}/>
+                    <InputBasic labelName={"Nombres & Apellidos"} pHolder={"Ingresa el nombre"} data={dataRegistro.nombres} onChange={captura} name={"nombres"}/>
                     <InputBasic labelName={"Email:"} pHolder={"example@gmail.com"} data={dataRegistro.correo} onChange={captura} name={"correo"} disabled={data.correo != ("" || null)}/>
                     <InputBasic labelName={"Marca :"} pHolder={"Suzuki"} data={dataRegistro.marca} onChange={captura} name={"marca"} disabled={data.marca != ("" || null)}/>
                     <InputBasicNumber labelName={"Kilometraje Real:"} pHolder={"5000"} data={dataRegistro.vehiculoKilometraje} onChange={captura} name={"vehiculoKilometraje"} disabled={data.vehiculoKilometraje != ("" || null)}/>
                 </section>
                 <section>
-                    <InputBasicNumber labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"} disabled={data.telefono != ("" || null)}/>
+                    <InputBasicNumber labelName={"Teléfono / Celular:"} pHolder={"923106889"} data={dataRegistro.telefono} onChange={captura} name={"telefono"}/>
                     <InputBasic labelName={"Placa:"} pHolder={"ABC123"} data={dataRegistro.placa} onChange={captura} name={"placa"} disabled={data.placa != ("" || null)}/>
                     <InputBasic labelName={"Modelo:"} pHolder={"Celerio"} data={dataRegistro.modelo} onChange={captura} name={"modelo"} disabled={data.modelo != ("" || null)}/>
                     <InputBasic labelName={"Servicio Solicitado:"} pHolder={"Lavado Rapido"} data={dataRegistro.servicioSolicitado} onChange={captura} name={"servicioSolicitado"} disabled/>
@@ -211,6 +211,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                             className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
                         >
                             <option value="" className="z-0 relative ">Elegir:</option>
+                            <option value="N/A" className="z-0 relative ">N/A</option>
                             {timeArray.length > 0 && timeArray.map((time) => <option className="z-0 relative" key={time} value={time}>{time}</option>)}
                         </select>
                     </div>

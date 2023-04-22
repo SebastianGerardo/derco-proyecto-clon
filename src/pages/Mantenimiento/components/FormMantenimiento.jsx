@@ -106,6 +106,8 @@ const FormMantenimiento = ({
     });
   };
 
+  console.log(data.servicio.asesor.nombres.split(" ", 1))
+
   useEffect(() => {
     if (datosMantenimiento.estado === "Iniciar" || datosMantenimiento.estado === "Reanudo") {
       InicarMan(datosMantenimiento).then(res =>
@@ -125,13 +127,13 @@ const FormMantenimiento = ({
     <section className="space-y-2" >
       <div className="flex justify-around py-4 bg-[#D9D9D9] flex-wrap gap-2">
         <h2 className="font-bold">
-          OT: <span>{data.servicio.ot}</span>
+          OT: <span>{data?.servicio.ot}</span>
         </h2>
         <h2 className="font-bold">
-          PLACA: <span>{data.servicio.placa}</span>
+          PLACA: <span>{data?.servicio.placa}</span>
         </h2>
         <h2 className="font-bold">
-          ASESOR: <span>{data.elevador?.tecnico?.nombres}</span>
+          ASESOR: <span>{data?.servicio.asesor.nombres.split(" ", 1)} {data?.servicio.asesor.apellidos.split(" ", 1)}</span>
         </h2>
       </div>
       <div className="flex justify-center items-center flex-col gap-6 p-5">
