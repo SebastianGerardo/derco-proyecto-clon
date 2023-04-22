@@ -46,7 +46,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
      };
      Mensajes(enviar).then((res) => {
        if (res.statusCode === 200) {
-        socketState.emit("chatToServer", { from: String(enviar.de), to: String(enviar.para), message: enviar.mensaje})
+        socketState.emit("chatToServer", { from: String(enviar.de), room: UsuarioLogin.usuario?.centro?.codigo , to: String(enviar.para), message: enviar.mensaje, tecnico: UsuarioLogin.usuario?.nombres})
          Toast.fire({
            icon: "success",
            title: "Mensaje enviado correctamente",

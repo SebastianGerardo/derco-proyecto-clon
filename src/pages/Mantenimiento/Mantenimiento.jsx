@@ -7,7 +7,7 @@ import { UserContext } from "../../context/ContextDerco";
 export const Mantenimiento = () => {
   const { UsuarioLogin, socketState } = useContext(UserContext);
 
-  const [tareMensaje, setTraeMensaje] = useState([])
+
   const [infoMantenimiento, setInfoMantenimiento] = useState([])
 
   // ESTO SE IMPLEMENTARA LUEGO
@@ -19,12 +19,6 @@ export const Mantenimiento = () => {
     return () => clearInterval(interval);
   }, [])
 
-  useEffect(()=>{
-    if(socketState !== undefined && socketState !== "" && socketState !== null){
-      socketState.on("chatToClient", res => setTraeMensaje(res))
-    }
-  }, [UsuarioLogin, socketState])
-  console.log(tareMensaje)
   // ADVERTENCIA AL CERRAR LA VENTANA
   //useEffect(() => {
   //  window.addEventListener('beforeunload', handlebeforeunload);
@@ -45,7 +39,7 @@ export const Mantenimiento = () => {
         TerminarPausarMan({
           serviciosAsignado: localStorage.getItem("id"),
           tipo: "mantenimiento",
-          motivo: "Recargó o cerró la ventana",
+          motivo: "",
           comentario: "",
           tiempo: new Date(),
           estado: "Pausar",

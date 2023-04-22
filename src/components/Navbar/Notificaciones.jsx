@@ -1,15 +1,27 @@
 import { Menu, Transition } from '@headlessui/react'
-import { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { UserContext } from "../../context/ContextDerco";
-import { useNavigate } from "react-router-dom";
+import { TraeMensajes } from '../../helpers/ApiMantenimiento';
 // import { Modal } from '../ResetPassword/ModalResetPassword';
 
 export default function Notificaciones() {
   // AQUI TIENEN QUE LLEGAR LOS MENSAJES
-  const { UsuarioLogin } = useContext(UserContext);
+  const { UsuarioLogin, socketState } = useContext(UserContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [traeMensajes, setTraeMensaje] = useState(null)
+  let arrayMensajes = []
+  useEffect(()=>{
+    
+    console.log(UsuarioLogin)
+    if(socketState !== undefined && socketState !== "" && socketState !== null){
+      socketState.on("chatToClient", res => setTraeMensaje([res]))
+    }
+    //TraeMensajes(UsuarioLogin.usuario?.id).then(res => setTraeMensaje(res.data))
+  }, [UsuarioLogin, socketState])
+
+  console.log("SOY EL SOCKET",traeMensajes)
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -52,6 +64,13 @@ export default function Notificaciones() {
                     className={`${active ? 'transition-all duration-150 hover:bg-gray-500 hover:text-white' : 'transition-all duration-150 text-gray-900'
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                   >
+                    {
+                      traeMensajes !== null && (
+                        traeMensajes.map((data) => (
+                          <p>{data.message}</p>
+                        ))
+                      )
+                    }
                   </div>
                 )}
               </Menu.Item>

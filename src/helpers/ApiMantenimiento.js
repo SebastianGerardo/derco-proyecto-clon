@@ -91,6 +91,24 @@ export const InicarMan = async (dataMan) => {
     }
   };
 
+
+  export const TraeMensajes = async (id) => {
+    try {
+      const fetchResponse = await fetch(`${URL}/mensajes/${id}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+      });
+      const data = await fetchResponse.json();
+      return data;
+    } catch (error) {
+      return error;
+    }
+  };
+
+
   export const DestinatariosMensaje = async (dataMan) => {
     try {
       const fetchResponse = await fetch(`${URL}/usuarios/tipo/1-2-3-4-5-6`, {

@@ -49,7 +49,7 @@ export const ContextDerco = ({ children }) => {
       setSocketSttate(socket)
       console.log("HOLA COMO ESTAS", UsuarioLogin)
       socket.on("joinedRoom", res => console.log("WEBAS", res))
-      socket.emit("joinRoom", String(UsuarioLogin.usuario?.id) )
+      socket.emit("joinRoom", {id: String(UsuarioLogin.usuario?.id) , room: UsuarioLogin.usuario?.centro?.codigo })
     }
   }, [UsuarioLogin])
 
