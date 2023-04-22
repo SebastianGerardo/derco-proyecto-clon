@@ -5,7 +5,7 @@ import { InicarMan, TerminarPausarMan, TraeMantenimiento } from "../../helpers/A
 import { UserContext } from "../../context/ContextDerco";
 
 export const Mantenimiento = () => {
-  const { UsuarioLogin } = useContext(UserContext);
+  const { UsuarioLogin, socketState } = useContext(UserContext);
 
   const [tareMensaje, setTraeMensaje] = useState([])
   const [infoMantenimiento, setInfoMantenimiento] = useState([])
@@ -19,7 +19,12 @@ export const Mantenimiento = () => {
     return () => clearInterval(interval);
   }, [])
 
-
+  useEffect(()=>{
+    if(socketState !== undefined && socketState !== "" && socketState !== null){
+      socketState.on("chatToClient", res => setTraeMensaje(res))
+    }
+  }, [UsuarioLogin, socketState])
+  console.log(tareMensaje)
   // ADVERTENCIA AL CERRAR LA VENTANA
   //useEffect(() => {
   //  window.addEventListener('beforeunload', handlebeforeunload);

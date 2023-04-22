@@ -14,20 +14,11 @@ const FormMensaje = ({ data, setIsOpen }) => {
 
   const { UsuarioLogin, socketState } = useContext(UserContext);
   const [destinatario, setDestinatario] = useState([]);
-  const [flag, setFlag] = useState(false);
 
   useEffect(() => {
     DestinatariosMensaje().then((res) => setDestinatario(res.data));
   }, []);
 
-  useEffect(() => {
-    socket.on("message", (data) => {
-      console.log(data);
-    });
-    console.log("UseEffect del socket");
-  }, [flag]);
-
-  useEffect;
 
   // console.log(data.elevador.nombre)
 
@@ -51,29 +42,28 @@ const FormMensaje = ({ data, setIsOpen }) => {
       para: 25,
       mensaje: "Hola Amiguitos",
     });
-    setFlag(!flag);
-    // const mensaje = e.target.comentarioAlmacen.value;
-    // const para = e.target.estadoPicking.value;
-    // let enviar = {
-    //   de: UsuarioLogin?.usuario.id,
-    //   para,
-    //   mensaje,
-    // };
-    // Mensajes(enviar).then((res) => {
-    //   if (res.statusCode === 200) {
-    //     Toast.fire({
-    //       icon: "success",
-    //       title: "Mensaje enviado correctamente",
-    //     });
-    //   } else {
-    //     Toast.fire({
-    //       icon: "error",
-    //       title: "Error al enviar mensaje",
-    //     });
-    //   }
-    // });
-    // socketState.emit("enviar_mensaje", 25 , {de: 1, para: 25, mensaje:"hOPLA MAMI"} )
-    //setIsOpen(false)
+     const mensaje = e.target.comentarioAlmacen.value;
+     const para = e.target.estadoPicking.value;
+     let enviar = {
+       de: UsuarioLogin?.usuario.id,
+       para,
+       mensaje,
+     };
+     Mensajes(enviar).then((res) => {
+       if (res.statusCode === 200) {
+        socketState.emit("chatToServer", { from: "25", to: "1", room: UsuarioLogin.usuario.centro.codigo, message: "Como estas " })
+         Toast.fire({
+           icon: "success",
+           title: "Mensaje enviado correctamente",
+         });
+       } else {
+         Toast.fire({
+           icon: "error",
+           title: "Error al enviar mensaje",
+         });
+       }
+     });
+    setIsOpen(false)
   };
 
   return (
