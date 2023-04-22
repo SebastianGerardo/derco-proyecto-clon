@@ -37,11 +37,6 @@ const FormMensaje = ({ data, setIsOpen }) => {
 
   const almacen = (e) => {
     e.preventDefault();
-    socket.emit("message", {
-      de: 1,
-      para: 25,
-      mensaje: "Hola Amiguitos",
-    });
      const mensaje = e.target.comentarioAlmacen.value;
      const para = e.target.estadoPicking.value;
      let enviar = {
@@ -51,7 +46,7 @@ const FormMensaje = ({ data, setIsOpen }) => {
      };
      Mensajes(enviar).then((res) => {
        if (res.statusCode === 200) {
-        socketState.emit("chatToServer", { from: "25", to: "1", room: UsuarioLogin.usuario.centro.codigo, message: "Como estas " })
+        socketState.emit("chatToServer", { from: String(enviar.de), to: String(enviar.para), message: enviar.mensaje})
          Toast.fire({
            icon: "success",
            title: "Mensaje enviado correctamente",

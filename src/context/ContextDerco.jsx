@@ -36,10 +36,6 @@ export const ContextDerco = ({ children }) => {
           },
         });
         setUsuarioLogin(res.data);
-        let socket = io("https://api-derco-production.up.railway.app")
-        setSocketSttate(socket)
-        console.log("HOLA COMO ESTAS", UsuarioLogin)
-        socket.on("joinedRoom", res => console.log("WEBAS", res))
       } else {
         navigate("/login", { replace: true });
       }
@@ -53,7 +49,7 @@ export const ContextDerco = ({ children }) => {
       setSocketSttate(socket)
       console.log("HOLA COMO ESTAS", UsuarioLogin)
       socket.on("joinedRoom", res => console.log("WEBAS", res))
-      socket.emit("joinRoom", { id: UsuarioLogin.usuario?.id, room: UsuarioLogin.usuario?.centro?.codigo })
+      socket.emit("joinRoom", String(UsuarioLogin.usuario?.id) )
     }
   }, [UsuarioLogin])
 
