@@ -36,6 +36,10 @@ export const ContextDerco = ({ children }) => {
           },
         });
         setUsuarioLogin(res.data);
+        let socket = io("https://api-derco-production.up.railway.app")
+        setSocketSttate(socket)
+        console.log("HOLA COMO ESTAS", UsuarioLogin)
+        socket.on("joinedRoom", res => console.log("WEBAS", res))
       } else {
         navigate("/login", { replace: true });
       }
@@ -43,7 +47,15 @@ export const ContextDerco = ({ children }) => {
   }, []);
 
 
-
+  useEffect(() => {
+    if (UsuarioLogin !== []) {
+      let socket = io("https://api-derco-production.up.railway.app")
+      setSocketSttate(socket)
+      console.log("HOLA COMO ESTAS", UsuarioLogin)
+      socket.on("joinedRoom", res => console.log("WEBAS", res))
+      socket.emit("joinRoom", { id: UsuarioLogin.usuario?.id, room: UsuarioLogin.usuario?.centro?.codigo })
+    }
+  }, [UsuarioLogin])
 
 
 
@@ -53,7 +65,7 @@ export const ContextDerco = ({ children }) => {
 
 
   return (
-    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules, setSocketSttate }}>
+    <UserContext.Provider value={{ UsuarioLogin, setUsuarioLogin, estadoData, setEstadoData, modules, socketState }}>
       {children}
     </UserContext.Provider>
   );

@@ -1,7 +1,6 @@
 import { Toast } from "../components/Alertas/SweetAlex";
 
 export const FormtearFecha = (fecha) => {
-  console.log("SOY LA FECHA", fecha);
   const fechaFrom = new Date(fecha);
   const opciones = { timeZone: "America/Lima", hour12: false };
   const hora = fechaFrom.toLocaleTimeString("es-PE", opciones);
