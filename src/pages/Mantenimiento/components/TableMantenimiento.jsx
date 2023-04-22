@@ -22,6 +22,12 @@ const estadosColores = {
   "4": "4",
 }
 
+const estadoPicking = {
+  "0": "No Picking",
+  "1": "Pendiente",
+  "2": "Terminado",
+}
+
 export const TableMantenimiento = ({ data }) => {
   
 
@@ -53,7 +59,7 @@ export const TableMantenimiento = ({ data }) => {
     },
     {
       name: <CustomHeader nameModule="CONFIRMACION DE PICKING" icon="fa-solid fa-tools mr-1" />,
-      selector: (row) => row.servicio.estadoPicking === "1" ? "Pendiente" : "Terminado",
+      selector: (row) => estadoPicking[row.servicio.estadoPicking],
       sortable: true,
       center: true,
       style: {
@@ -67,15 +73,15 @@ export const TableMantenimiento = ({ data }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.servicio.estadoPicking === "1",
+          when: (row) => row.servicio.estadoPicking === "0",
           style: {
-            backgroundColor: "#FFD34D",
+            backgroundColor: "#DC2626",
           },
         },
         {
-          when: (row) => row.servicio.estadoPicking === "2",
+          when: (row) => row.servicio.estadoPicking === "1",
           style: {
-            backgroundColor: "#4AC695",
+            backgroundColor: "#FFD34D",
           },
         },
       ],
@@ -144,16 +150,6 @@ export const TableMantenimiento = ({ data }) => {
     const valor = dataPar.find(res => res.nombre === "Mantenimiento")
     return valor.terminado
   }
-  
-  const buscar = () =>{
-    const dataPar = data
-    const valor = dataPar?.find(res => res?.nombre === "Mantenimiento")
-    return dataPar
-  }
-
-  // console.log(buscar())
-
-  const idClientes = data.map((idC) => idC.id)
 
   // let ordenado = data.sort((a, b) => new Date(b.fechaRegistro) - new Date(a.fechaRegistro))
   const [placa, setPlaca] = useState("");

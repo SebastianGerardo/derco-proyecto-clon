@@ -3,33 +3,48 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
 import FormMantenimiento from './FormMantenimiento';
-export const ModalMantenimiento = ({ tipo, data, disable }) => {
+export const ModalMantenimiento = ({ tipo, data, disable, botonId }) => {
   const [bloqueo, setBloqueo] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState(() => {
+    const tiempoRecorrido = localStorage.getItem("time") != null ? localStorage.getItem("time") : 0;
+    return parseInt(tiempoRecorrido);
+  });
+
+  // console.log(localStorage.getItem("time"))
 
   const [isRunning, setIsRunning] = useState(false);
   const [reset, setReset] = useState(false);
   const [usuarioDetalle, setUsuarioDetalle] = useState([])
 
-  const traerDetalleUsuario = (dataDetalle) => {
-    setUsuarioDetalle(dataDetalle)
-  }
+  // const traerDetalleUsuario = (dataDetalle) => {
+  //   setUsuarioDetalle(dataDetalle)
+  // }
 
-  const filtroDetalle = usuarioDetalle != [] ? usuarioDetalle[usuarioDetalle?.length - 1] : null
+  // const filtroDetalle = usuarioDetalle != [] ? usuarioDetalle[usuarioDetalle?.length - 1] : null
+  // useEffect(() => {
+  //     if (filtroDetalle?.tiempo_transcurrido == null || undefined || NaN) {
+  //       console.log("ENTRE AQUI")
+  //       if (time != 0) {
+  //         setTime(0)
+  //       }
+  //     } else {
+  //       if(time == 0){
+  //         console.log("SALGO AQUI")
+  //         setTime(parseInt(filtroDetalle?.tiempo_transcurrido))
+  //       }
+  //     }
+  // }, [usuarioDetalle])
+
+    // console.log("TIEMPO", filtroDetalle)
+
   useEffect(() => {
-      if (filtroDetalle?.tiempo_transcurrido == null || undefined || NaN) {
-        console.log("ENTRE AQUI")
-        if (time != 0) {
-          setTime(0)
-        }
-      } else {
-        if(time == 0){
-          console.log("SALGO AQUI")
-          setTime(parseInt(filtroDetalle?.tiempo_transcurrido))
-        }
-      }
-  }, [usuarioDetalle])
+    if (localStorage.getItem("time") != null) {
+      setTime(parseInt(localStorage.getItem("time")))
+    } else {
+      setTime(0)
+    }
+  }, [localStorage.getItem("time") == null])
 
   useEffect(() => {
     let interval = null;
@@ -40,6 +55,12 @@ export const ModalMantenimiento = ({ tipo, data, disable }) => {
     }
     return () => clearInterval(interval);
   }, [isRunning]);
+  
+  useEffect(() => {
+    if (localStorage.getItem("time") != null) {
+      localStorage.setItem("time", time)
+    }
+  }, [time])
 
   const formatTime = (time) => {
     const days = Math.floor(time / 86400)
@@ -56,12 +77,14 @@ export const ModalMantenimiento = ({ tipo, data, disable }) => {
   };
 
   useEffect(() => {
-    setTime(0);
+    if (localStorage.getItem("time") == null) {
+      setTime(0);
+    }
   }, [reset]);
 
   return (
     <>
-      <BotonTimer disable={disable} tipo={tipo} setIsOpen={setIsOpen} bloqueo={bloqueo}/>
+      <BotonTimer botonId={botonId} disable={disable} tipo={tipo} setIsOpen={setIsOpen} bloqueo={bloqueo}/>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={()=>setIsOpen(false)}>
           <Transition.Child
@@ -96,9 +119,8 @@ export const ModalMantenimiento = ({ tipo, data, disable }) => {
                    
 
                   <div className='w-full block'>
-                    <FormMantenimiento traerDetalleUsuario={traerDetalleUsuario} data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time} setBloqueo={setBloqueo}/>
+                    <FormMantenimiento  data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time} setBloqueo={setBloqueo}/>
                   </div>
-                  
                   
 
                 </Dialog.Panel>

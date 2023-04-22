@@ -40,7 +40,7 @@ export const Mantenimiento = () => {
         TerminarPausarMan({
           serviciosAsignado: localStorage.getItem("id"),
           tipo: "mantenimiento",
-          motivo: "",
+          motivo: "Recargó o cerró la ventana",
           comentario: "",
           tiempo: new Date(),
           estado: "Pausar",

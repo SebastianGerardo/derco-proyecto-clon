@@ -87,7 +87,9 @@ export const BotonTimer = ({ tipo, setIsOpen, disable, botonId }) => {
     setIdComenzado(localStorage.getItem('id'));
   }, [localStorage.getItem('id')]);
   
-  
+  useEffect(() => {
+    setEstadoLocal(localStorage.getItem('estado'));
+  }, [localStorage.getItem('estado')]);
   
   const validarId = ( ) => {
     console.log(idComenzado);
@@ -107,9 +109,14 @@ export const BotonTimer = ({ tipo, setIsOpen, disable, botonId }) => {
           })
         );
       } 
-    } else {
+    } else if (disable){
       console.log('no se ha validado');
       return (setIsOpen(true));
+    } else {
+      Toast.fire({
+        icon: "error",
+        title: "Este temporizador ya ha finalizado",
+      })
     }
   }
 
