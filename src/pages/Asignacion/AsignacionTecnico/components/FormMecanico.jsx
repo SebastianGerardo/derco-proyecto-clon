@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { Toast } from "../../../../components/Alertas/SweetAlex";
 import { InputReadOnly } from "../../../../components/InputForms/InputBasic";
 import { GuardarElevador } from "../../../../helpers/ApiAsignacion";
 
@@ -35,7 +36,20 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
             servicio: data.id,
             ordenServicios: JSON.stringify(dataRegistro.servicios),
         }
-        GuardarElevador(enviar, data.id).then(res => console.log("wenas", res))
+        GuardarElevador(enviar, data.id).then(res => 
+            {
+                if(res.statusCode == 200) {
+                    Toast.fire({
+                      icon: "success",
+                      title: "Se ha asignado el elevador correctamente",
+                    });
+                } else {
+                    Toast.fire({
+                      icon: "error",
+                      title: "Ha habido un error al asignar el elevador",
+                    });
+                }
+            })
         setIsOpen(false)
         closeElevadores(false)
     }

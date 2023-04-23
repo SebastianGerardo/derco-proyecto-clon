@@ -5,6 +5,7 @@ import Timer from "../../../components/Cronometro/Timer";
 import TimerControls from "../../../components/Cronometro/TimerControls";
 import { ModalMantenimientoPausa } from "./ModalMantenimientoPausa";
 import { InicarMan, TerminarMan, TerminarPausarMan, TraeDetalle } from "../../../helpers/ApiMantenimiento";
+import Swal from "sweetalert2";
 // import Timer from "../../../components/Cronometro/Timer";
 // import TimerControls from "../../../components/Cronometro/TimerControls";
 
@@ -74,36 +75,63 @@ const FormMantenimiento = ({
 
 
   const handlePause = () => {
-    localStorage.setItem("time", time)
-    localStorage.setItem("id", data.id)
-    localStorage.setItem("estado", "Pausado")
-    setDatosMantenimiento(previe => ({
-      ...previe,
-      tiempo: new Date(),
-      estado: "Pausar",
-    }))
-    setIsRunning(false);
-    setIsPausedOpen(true);
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Esta acción no se podrá revertir",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Pausar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.setItem("time", time)
+        localStorage.setItem("id", data.id)
+        localStorage.setItem("estado", "Pausado")
+        setDatosMantenimiento(previe => ({
+          ...previe,
+          tiempo: new Date(),
+          estado: "Pausar",
+        }))
+        setIsRunning(false);
+        setIsPausedOpen(true);
+      }
+    })
   };
 
 
   const handleReset = () => {
-    localStorage.removeItem("time")
-    localStorage.removeItem("id")
-    localStorage.removeItem("estado")
-    setDatosMantenimiento(previe => ({
-      ...previe,
-      tiempo: new Date(),
-      estado: "Finalizar",
-    }))
-    setIsRunning(false);
-    setHasStarted(false);
-    setIsOpen(false)
-    setReset(!reset);
-    Toast.fire({
-      icon: "success",
-      title: "Se finalizó correctamente el temporizador",
-    });
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "Esta acción no se podrá revertir",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Terminar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("time")
+        localStorage.removeItem("id")
+        localStorage.removeItem("estado")
+        setDatosMantenimiento(previe => ({
+          ...previe,
+          tiempo: new Date(),
+          estado: "Finalizar",
+        }))
+        setIsRunning(false);
+        setHasStarted(false);
+        setIsOpen(false)
+        setReset(!reset);
+        Toast.fire({
+          icon: "success",
+          title: "Se finalizó correctamente el temporizador",
+        });
+      }
+    })
+    
   };
 
   console.log(data.servicio.asesor.nombres.split(" ", 1))

@@ -3,12 +3,15 @@ import { DescripcionSede } from "../../components/informacion/DescripcionSede";
 import { TableMantenimiento } from "./components/TableMantenimiento";
 import { InicarMan, TerminarPausarMan, TraeMantenimiento } from "../../helpers/ApiMantenimiento";
 import { UserContext } from "../../context/ContextDerco";
+import { TraeElevadores } from "../../helpers/ApiAsignacion";
 
 export const Mantenimiento = () => {
   const { UsuarioLogin, socketState } = useContext(UserContext);
 
 
   const [infoMantenimiento, setInfoMantenimiento] = useState([])
+  const [actualizarEstado, setActualizarEstado] = useState(false)
+  const [elevadores, setElevadores] = useState([])
 
   // ESTO SE IMPLEMENTARA LUEGO
 
@@ -17,6 +20,10 @@ export const Mantenimiento = () => {
       TraeMantenimiento().then(res => setInfoMantenimiento(res.data))
     }, 1000);
     return () => clearInterval(interval);
+  }, [])
+
+  useEffect(() => {
+      TraeElevadores().then(res => {setElevadores(res.data), console.log(res.data)})
   }, [])
 
   // ADVERTENCIA AL CERRAR LA VENTANA
@@ -39,12 +46,15 @@ export const Mantenimiento = () => {
         TerminarPausarMan({
           serviciosAsignado: localStorage.getItem("id"),
           tipo: "mantenimiento",
-          motivo: "",
+          motivo: "Se reinició la página",
           comentario: "",
           tiempo: new Date(),
           estado: "Pausar",
         }).then(res => {
           console.log(res)
+          if (res.message == 'No has iniciado sesión') {
+            setActualizarEstado(!actualizarEstado)
+          }
         })
         console.log("Se cerró la ventana")
         console.log("Se cargó la ventana")
@@ -53,12 +63,12 @@ export const Mantenimiento = () => {
         localStorage.setItem("estado", "Pausado")
       }
     };
-  }, []);
+  }, [actualizarEstado]);
 
   return (
     <>
       <div className="p-6">
-        <TableMantenimiento data={infoMantenimiento} />
+        <TableMantenimiento elevadores={elevadores} data={infoMantenimiento} />
       </div>
     </>
   );
