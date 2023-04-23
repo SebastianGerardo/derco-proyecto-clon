@@ -18,7 +18,7 @@ export const Search = ({ placa, setPlaca }) => {
           className="outline-none w-full"
           value={placa}
           onChange={(e) => capturarPlaca(e)}
-          placeholder="Buscar por placa"
+          placeholder={`Buscar por OT ${'&'} Placa`}
         />
       </div>
     </form>
@@ -47,7 +47,7 @@ export const SearchValidate = ({ placa, setPlaca, disabled=false, validation }) 
           className="outline-none w-full disabled:bg-transparent"
           value={placa}
           onChange={(e) => capturarPlaca(e)}
-          placeholder="Buscar por placa"
+          placeholder={`Buscar por OT ${'&'} Placa`}
         />
       </div>
     </form>

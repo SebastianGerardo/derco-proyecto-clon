@@ -29,11 +29,11 @@ const estadoPicking = {
 };
 
 export const TableMantenimiento = ({ data, elevadores }) => {
-  const traeEstado = (data) => {
-    let dataParseada = JSON.parse(data.ordenServicios);
-    let resultado = dataParseada.find((res) => res.nombre === "Mantenimiento");
-    return resultado.terminado;
-  };
+  // const traeEstado = (data) => {
+  //   let dataParseada = JSON.parse(data.ordenServicios);
+  //   let resultado = dataParseada.find((res) => res.nombre === "Mantenimiento");
+  //   return resultado.terminado;
+  // };
 
   const bloqueo = (data) => {
     const dataPar = JSON.parse(data?.ordenServicios);
@@ -124,7 +124,7 @@ export const TableMantenimiento = ({ data, elevadores }) => {
       name: (
         <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />
       ),
-      selector: (row) => estados[`${traeEstado(row)}`],
+      selector: (row) => estados[`${bloqueo(row)}`],
       sortable: true,
       center: true,
       style: {
@@ -138,25 +138,25 @@ export const TableMantenimiento = ({ data, elevadores }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => estadosColores[`${traeEstado(row)}`] === "1",
+          when: (row) => estadosColores[`${bloqueo(row)}`] === "1",
           style: {
             backgroundColor: "#FFD34D",
           },
         },
         {
-          when: (row) => estadosColores[`${traeEstado(row)}`] === "2",
+          when: (row) => estadosColores[`${bloqueo(row)}`] === "2",
           style: {
             backgroundColor: "#B22323",
           },
         },
         {
-          when: (row) => estadosColores[`${traeEstado(row)}`] === "3",
+          when: (row) => estadosColores[`${bloqueo(row)}`] === "3",
           style: {
             backgroundColor: "#9B5DA2",
           },
         },
         {
-          when: (row) => estadosColores[`${traeEstado(row)}`] === "4",
+          when: (row) => estadosColores[`${bloqueo(row)}`] === "4",
           style: {
             backgroundColor: "#4AC695",
           },
