@@ -7,7 +7,7 @@ import { FormtearFecha } from "../../../helpers/funcions";
 import { BuscarPlaca } from "./BuscarPlaca";
 
 export const FormCrear = ({ setIsOpen }) => {
-  const { estadoData, setEstadoData } = useContext(UserContext);
+  const { estadoData, setEstadoData, UsuarioLogin, socketState } = useContext(UserContext);
   const [asesores, setAsesores] = useState([]);
   useEffect(() => {
     Asesores().then((use) => setAsesores(use.data));
@@ -45,6 +45,7 @@ export const FormCrear = ({ setIsOpen }) => {
           icon: "success",
           title: "Cliente Creado Exitosamente",
         });
+        socketState.emit("notificacionToServer", { tipo: "1-2-3", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
         setIsOpen(false);
         setEstadoData(!estadoData);
       } else {

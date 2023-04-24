@@ -1,9 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import { Toast } from "../../../../components/Alertas/SweetAlex";
 import { InputReadOnly } from "../../../../components/InputForms/InputBasic";
 import { GuardarElevador } from "../../../../helpers/ApiAsignacion";
+import { UserContext } from "../../../../context/ContextDerco";
 
 const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresElevadores }) => {
+
+    const { socketState, UsuarioLogin } = useContext(UserContext);
     const adicionales = JSON.parse(data?.adicionales)
     const elevadores = nombresElevadores
 
@@ -39,6 +42,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
         GuardarElevador(enviar, data.id).then(res => 
             {
                 if(res.statusCode == 200) {
+                    socketState.emit("notificacionToServer", { tipo: "1-6", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
                     Toast.fire({
                       icon: "success",
                       title: "Se ha asignado el elevador correctamente",
@@ -87,7 +91,7 @@ const FormMecanico = ({ data, dataElevador, setIsOpen,closeElevadores, nombresEl
 
                 {/* LADO IZQUIERDO */}
                 <section className="w-full lg:w-full md:w-full ">
-
+       
                     <InputReadOnly labelName={"OT"} pHolder={"Ingresa la OT"} data={data.ot}/>
 
                     <InputReadOnly labelName={"Nombre & Apellido"} pHolder={"Ingresa el nombre"} data={data.nombres} />

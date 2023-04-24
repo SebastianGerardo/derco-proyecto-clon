@@ -1,18 +1,21 @@
 
 import { DescripcionSede } from '../../../components/informacion/DescripcionSede';
 import { EstadosCitas } from '../../../components/informacion/EstadosCitas';
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CantCitas } from "../../../helpers/ApiAnfitrion";
 import ProgressBar from '../../../components/Radial Progresivo/ProgressBar';
+import { UserContext } from '../../../context/ContextDerco';
 
 export const InformacionAnfitrion = () => {
 
   const [cantCitas, setCantCitas] = useState([])
   const [sinCitas, setSinCitas] = useState([])
-  const [bandera, setBandera] = useState(false)
+
+
+  const { socketState } = useContext(UserContext);
+  const [actualizar, setActualizar] = useState(false)
 
   useEffect(() => {
-    
     CantCitas().then(res => {
       if(res.statusCode === 200){
         setCantCitas(res.data.abordaje.concita)
@@ -20,13 +23,23 @@ export const InformacionAnfitrion = () => {
         setBandera(!bandera)
       }
     })
-  }, [bandera])
+  }, [actualizar])
+  
+
+  useEffect(() => {
+    if (socketState !== undefined && socketState !== "" && socketState !== null) {
+      socketState.on("notificacionToClient", res => {
+        res !== undefined && setActualizar(!actualizar)
+      })
+    }
+  }, [actualizar])
 
   useEffect(() => {
     if (cantCitas?.programados || sinCitas.total) {
       setCompletedTasks(cantCitas.programados + sinCitas.total);
     }
-  }, [cantCitas]);
+  }, [actualizar]);
+
 
   const totalTasks = cantCitas.total + sinCitas.total;
   const [completedTasks, setCompletedTasks] = useState(0);

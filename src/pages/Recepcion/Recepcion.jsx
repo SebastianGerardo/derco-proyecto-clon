@@ -8,22 +8,32 @@ import InformacionRecepcion from "./components/InformacionRecepcion";
 
 export const Recepcion = () => {
   const [dataRecepcion, setDataRecepcion] = useState([])
-  const { estadoData } = useContext(UserContext);
-  useEffect(()=>{
-    const interval = setInterval(() => {
-      traeRecepcion().then(res=>setDataRecepcion(res.data))
-    }, 1000);
-    return () => clearInterval(interval);
-  },[estadoData])
+  const { socketState } = useContext(UserContext);
+  const [actualizar, setActualizar] = useState(false)
+
+  useEffect(() => {
+      traeRecepcion().then(res => setDataRecepcion(res.data))
+  }, [actualizar])
+
+  useEffect(() => {
+    if (socketState !== undefined && socketState !== "" && socketState !== null) {
+      socketState.on("notificacionToClient", res => {
+        res !== undefined && setActualizar(!actualizar)
+      })
+    }
+  }, [actualizar])
+
+  
+
 
   return (
     <>
       <div className="p-6">
         <div className="full flex justify-between items-center">
-          <InformacionRecepcion data={dataRecepcion}/>
+          <InformacionRecepcion data={dataRecepcion} />
 
         </div>
-        <TableRecepcion  dataRecepcion={dataRecepcion} />
+        <TableRecepcion dataRecepcion={dataRecepcion} />
       </div>
     </>
   );

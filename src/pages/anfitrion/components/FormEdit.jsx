@@ -6,7 +6,7 @@ import { Asesores } from "../../../helpers/ApiUsuarios";
 import { FormtearFecha } from "../../../helpers/funcions";
 
 export const FormEdit = ({ data, setIsOpen }) => {
-  const { estadoData, setEstadoData } = useContext(UserContext);
+  const { estadoData, setEstadoData, socketState, UsuarioLogin } = useContext(UserContext);
   const [enabled, setEnabled] = useState(false);
   const [asesores, setAsesores] = useState([]);
   useEffect(() => {
@@ -43,6 +43,7 @@ export const FormEdit = ({ data, setIsOpen }) => {
             icon: "success",
             title: "Asesor asignado correctamente",
           });
+          socketState.emit("notificacionToServer", { tipo: "1-2-3", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
           setEstadoData(!estadoData)
           setIsOpen(false)
         } else {

@@ -146,7 +146,6 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     return true;
   });
 
-  console.log(dataRecepcion)
   const [placa, setPlaca] = useState("");
   const [estado, setEstado] = useState("1")
   const [ubicacion, setUbicacion] = useState("2")

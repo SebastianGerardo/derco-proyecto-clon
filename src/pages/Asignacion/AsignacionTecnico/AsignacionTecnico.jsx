@@ -1,16 +1,28 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TraeAsignacion } from "../../../helpers/ApiAsignacion";
 import InformacionTecnico from "./components/InformacionTecnico";
 import { TableMecanico } from "./components/TableMecanico";
+import { UserContext } from "../../../context/ContextDerco";
 
 export const AsignacionTecnico = () => {
   const [dataAsignacion, setDataAsignacion] = useState([])
+  const { socketState } = useContext(UserContext);
+  const [actualizar, setActualizar] = useState(false)
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      TraeAsignacion().then(res => setDataAsignacion(res.data))
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [])
+    TraeAsignacion().then(res => setDataAsignacion(res.data))
+  }, [actualizar])
+
+  useEffect(() => {
+    if (socketState !== undefined && socketState !== "" && socketState !== null) {
+      socketState.on("notificacionToClient", res => {
+        res !== undefined && setActualizar(!actualizar)
+      })
+    }
+  }, [actualizar])
+
+
+
   console.log(dataAsignacion)
   return (
     <>

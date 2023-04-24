@@ -11,17 +11,13 @@ export default function Notificaciones() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [traeMensajes, setTraeMensaje] = useState(null)
-  let arrayMensajes = []
   useEffect(()=>{
-    
-    console.log(UsuarioLogin)
     if(socketState !== undefined && socketState !== "" && socketState !== null){
-      socketState.on("chatToClient", res => setTraeMensaje([res]))
+      socketState.on("chatToClient", res => setTraeMensaje(mensajes => [...mensajes, res]))
     }
-    //TraeMensajes(UsuarioLogin.usuario?.id).then(res => setTraeMensaje(res.data))
   }, [UsuarioLogin, socketState])
 
-  console.log("SOY EL SOCKET",traeMensajes)
+  
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
@@ -67,7 +63,9 @@ export default function Notificaciones() {
                     {
                       traeMensajes !== null && (
                         traeMensajes.map((data) => (
-                          <p>{data.message}</p>
+                          <div>
+                            <p>{data.message}</p>
+                          </div>
                         ))
                       )
                     }

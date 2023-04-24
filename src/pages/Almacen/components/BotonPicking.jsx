@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Swal from 'sweetalert2'
 import { Toast } from '../../../components/Alertas/SweetAlex'
 import { editServicio } from '../../../helpers/ApiAnfitrion'
+import { UserContext } from '../../../context/ContextDerco'
 
 const BotonPicking = ({data}) => {
+
+  const { socketState, UsuarioLogin } = useContext(UserContext);
+
     const [estadoPicking, setEstadoPicking] = useState({
         estadoPicking: data.estadoPicking,
         comentarioAlmacen: data.comentarioAlmacen,
@@ -52,6 +56,7 @@ const BotonPicking = ({data}) => {
     const enviarPickingAlmacen = () =>{
         editServicio(estadoPicking, data.id).then(res => {
             if (res.statusCode === 200) {
+              socketState.emit("notificacionToServer", { tipo: "1-5", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
               Toast.fire({
                 icon: "success",
                 title: "Picking realizado correctamente",

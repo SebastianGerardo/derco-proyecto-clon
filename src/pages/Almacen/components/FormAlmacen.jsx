@@ -6,7 +6,7 @@ import { editServicio } from "../../../helpers/ApiAnfitrion";
 
 const FormAlmacen = ({ data, setIsOpen }) => {
 
-    const { estadoData, setEstadoData } = useContext(UserContext);
+    const { estadoData, setEstadoData, UsuarioLogin, socketState } = useContext(UserContext);
     const [datosAlmacen, setDatosAlamacen] = useState({
         estadoPicking: "1",
         comentarioAlmacen: data.comentarioAlmacen,
@@ -28,6 +28,7 @@ const FormAlmacen = ({ data, setIsOpen }) => {
                 icon: "success",
                 title: "Picking realizado correctamente",
               });
+              socketState.emit("notificacionToServer", { tipo: "1-5", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
               setEstadoData(!estadoData)
               setIsOpen(false)
             } else {

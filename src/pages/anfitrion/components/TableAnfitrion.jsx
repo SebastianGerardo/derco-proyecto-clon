@@ -118,7 +118,6 @@ const columns = [
   },
 ];
 export const TableAnfitrion = ({ dataAnfitrion }) => {
-  console.log(dataAnfitrion)
   /*FIltro de DataTable*/
   const [placa, setPlaca] = useState("");
   const filteredItems = dataAnfitrion?.filter(

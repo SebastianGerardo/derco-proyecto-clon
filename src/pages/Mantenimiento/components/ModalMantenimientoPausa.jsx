@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
 import { TerminarPausarMan } from "../../../helpers/ApiMantenimiento";
+import { UserContext } from "../../../context/ContextDerco";
 
 export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, captura, datosMantenimiento, setDatosMantenimiento }) => {
-
+  const { socketState, UsuarioLogin } = useContext(UserContext);
   const enviarDatos = (e) => {
     e.preventDefault();
     Toast.fire({
@@ -13,7 +14,7 @@ export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, captura, d
 
     TerminarPausarMan(datosMantenimiento).then(res=>{
       if(res.statusCode === 200){
-        console.log("LO LOGRE")
+        socketState.emit("notificacionToServer", { tipo: "1-5-6", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
       }else{
         console.log("FALLE")
       }

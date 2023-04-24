@@ -49,12 +49,11 @@ const FormServicio = ({ data, setIsOpen }) => {
 
     }
 
-    // console.log(data);
-    console.log(data)
     return (
         <form action="" onSubmit={nuevaUbicacion} className="space-y-2">
             {/* INPUTS DEL FORM - INICIO */}
             <div className="w-full lg:grid lg:grid-cols-2 lg:gap-x-4">
+            
                 <section className="w-full lg:w-full md:w-full ">
 
                     <InputBasic labelName={"OT"} pHolder={""} data={data.ot} />

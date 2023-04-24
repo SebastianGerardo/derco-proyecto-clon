@@ -2,17 +2,30 @@
 import { DescripcionSede } from "../../../components/informacion/DescripcionSede";
 import { TableServicio } from "./components/TableServicio";
 import { TraeServicio } from "../../../helpers/ApiAsignacion";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../../../context/ContextDerco";
 
 export const AsignacionServicio = () => {
   const [dataServicios, setDataServicios] = useState([])
+
+  const { socketState } = useContext(UserContext);
+
+  const [actualizar, setActualizar] = useState(false)
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      TraeServicio().then(res => setDataServicios(res.data))
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [])
-  console.log(dataServicios)
+    TraeServicio().then(res => setDataServicios(res.data))
+  }, [actualizar])
+
+  useEffect(() => {
+    if (socketState !== undefined && socketState !== "" && socketState !== null) {
+      socketState.on("notificacionToClient", res => {
+        res !== undefined && setActualizar(!actualizar)
+      })
+    }
+  }, [actualizar])
+
+
+
   return (
     <div className="grow shadow-md rounded-sm py-3 px-5 w-full">
       <TableServicio dataServicios={dataServicios} />

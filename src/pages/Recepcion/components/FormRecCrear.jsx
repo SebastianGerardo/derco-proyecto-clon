@@ -38,7 +38,7 @@ function getTimeArray(startTime, endTime) {
 
 export const FormRecCrear = ({ data, setIsOpen }) => {
 
-    const { estadoData, setEstadoData } = useContext(UserContext);
+    const { estadoData, setEstadoData, socketState, UsuarioLogin } = useContext(UserContext);
     
     const timeArray = getTimeArray("9:00", "22:00")
 
@@ -106,6 +106,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
                     title: "OT registrada exitosamente!",
                 });
                 setIsOpen(false);
+                socketState.emit("notificacionToServer", { tipo: "1-4", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
                 setEstadoData(!estadoData)
             } else {
                 Toast.fire({

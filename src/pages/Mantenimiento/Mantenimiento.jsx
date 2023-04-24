@@ -6,39 +6,28 @@ import { UserContext } from "../../context/ContextDerco";
 import { TraeElevadores } from "../../helpers/ApiAsignacion";
 
 export const Mantenimiento = () => {
-  const { UsuarioLogin, socketState } = useContext(UserContext);
+  const { socketState } = useContext(UserContext);
 
 
   const [infoMantenimiento, setInfoMantenimiento] = useState([])
   const [actualizarEstado, setActualizarEstado] = useState(false)
   const [elevadores, setElevadores] = useState([])
-
+  const [actualizar, setActualizar] = useState(false)
   // ESTO SE IMPLEMENTARA LUEGO
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      TraeMantenimiento().then(res => setInfoMantenimiento(res.data))
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [])
+    TraeMantenimiento().then(res => setInfoMantenimiento(res.data))
+    TraeElevadores().then(res => { setElevadores(res.data), console.log(res.data) })
+  }, [actualizar])
 
   useEffect(() => {
-      TraeElevadores().then(res => {setElevadores(res.data), console.log(res.data)})
-  }, [])
+    if (socketState !== undefined && socketState !== "" && socketState !== null) {
+      socketState.on("notificacionToClient", res => {
+        res !== undefined && setActualizar(!actualizar)
+      })
+    }
+  }, [actualizar])
 
-  // ADVERTENCIA AL CERRAR LA VENTANA
-  //useEffect(() => {
-  //  window.addEventListener('beforeunload', handlebeforeunload);
-
-  // return () => {
-  //    window.removeEventListener('beforeunload', handlebeforeunload);
-  // }
-  //}, [])
-
-  //const handlebeforeunload = (e) => {
-  // e.preventDefault();
-  // e.returnValue = '';
-  //}
 
   useEffect(() => {
     return () => {
@@ -58,12 +47,12 @@ export const Mantenimiento = () => {
         })
         console.log("Se cerró la ventana")
         console.log("Se cargó la ventana")
-      } 
+      }
       if (localStorage.getItem("estado") != null) {
         localStorage.setItem("estado", "Pausado")
       }
     };
-  }, [actualizarEstado]);
+  }, [actualizarEstado, actualizar]);
 
   return (
     <>

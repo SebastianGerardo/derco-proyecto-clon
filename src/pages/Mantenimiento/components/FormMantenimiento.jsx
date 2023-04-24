@@ -6,6 +6,7 @@ import TimerControls from "../../../components/Cronometro/TimerControls";
 import { ModalMantenimientoPausa } from "./ModalMantenimientoPausa";
 import { InicarMan, TerminarMan, TerminarPausarMan, TraeDetalle } from "../../../helpers/ApiMantenimiento";
 import Swal from "sweetalert2";
+import { UserContext } from "../../../context/ContextDerco";
 // import Timer from "../../../components/Cronometro/Timer";
 // import TimerControls from "../../../components/Cronometro/TimerControls";
 
@@ -28,7 +29,7 @@ const FormMantenimiento = ({
     tiempo: "",
     estado: "",
   });
-
+  const { socketState, UsuarioLogin } = useContext(UserContext);
   const captura = (e) => {
     setDatosMantenimiento({
       ...datosMantenimiento,
@@ -38,11 +39,11 @@ const FormMantenimiento = ({
 
   const [hasStarted, setHasStarted] = useState(false);
   const [isPausedOpen, setIsPausedOpen] = useState(false);
+
   const handleStart = () => {
     localStorage.setItem("time", time)
     localStorage.setItem("id", data.id)
     if (time > 0) {
-      console.log("Mantenimiento reanudado")
       localStorage.setItem("estado", "Reanudado")
       setDatosMantenimiento(previe => ({
         ...previe,
@@ -134,16 +135,15 @@ const FormMantenimiento = ({
     
   };
 
-  console.log(data.servicio.asesor.nombres.split(" ", 1))
 
   useEffect(() => {
     if (datosMantenimiento.estado === "Iniciar" || datosMantenimiento.estado === "Reanudo") {
       InicarMan(datosMantenimiento).then(res =>
-        console.log(res)
+        socketState.emit("notificacionToServer", { tipo: "1-5-6", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
       )
     } else if (datosMantenimiento.estado === "Finalizar") {
       TerminarMan(datosMantenimiento).then(res =>
-        console.log(res)
+        socketState.emit("notificacionToServer", { tipo: "1-5-6", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
       )
     }
     if (datosMantenimiento.estado === "Finalizar") {

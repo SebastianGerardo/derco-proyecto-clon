@@ -1,26 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ProgressBar from '../../../components/Radial Progresivo/ProgressBar'
 import { CantCitas } from '../../../helpers/ApiAnfitrion'
+import { UserContext } from '../../../context/ContextDerco'
 
 const InformacionRecepcion = () => {
   const [cantCitas, setCantCitas] = useState(null)
+  const { socketState } = useContext(UserContext);
+  const [actualizar, setActualizar] = useState(false)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      CantCitas().then(res => {
-        if(res.statusCode === 200){
-          setCantCitas(res.data.recepcion)
-        }
+    CantCitas().then(res => {
+      if(res.statusCode === 200){
+        setCantCitas(res.data.recepcion)
+      }
+    })
+  }, [actualizar])
+
+  useEffect(() => {
+    if (socketState !== undefined && socketState !== "" && socketState !== null) {
+      socketState.on("notificacionToClient", res => {
+        res !== undefined && setActualizar(!actualizar)
       })
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [])
+    }
+  }, [actualizar])
 
   useEffect(() => {
     if (cantCitas?.otCreadas ) {
       setCompletedTasks(cantCitas?.otCreadas);
     }
-  }, [cantCitas]);
+  }, [actualizar]);
   
   const totalTasks = cantCitas?.citasAsignadas;
   const [completedTasks, setCompletedTasks] = useState(0);
