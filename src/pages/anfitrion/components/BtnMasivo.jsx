@@ -4,7 +4,7 @@ import { read, utils } from "xlsx";
 import { Toast } from '../../../components/Alertas/SweetAlex';
 import { UserContext } from '../../../context/ContextDerco';
 import { crearServicio } from '../../../helpers/ApiAnfitrion';
-import { convertirFecha, reemplzar } from '../../../helpers/funcions';
+import { convertirFecha, formateamosPlaca, reemplzar } from '../../../helpers/funcions';
 export const BtnMasivo = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [excel, setExcel] = useState("")
@@ -35,7 +35,7 @@ export const BtnMasivo = () => {
                         vehiculoKilometraje: res.Kilometraje,
                         marca: res["Marca"],
                         modelo: res["Modelo"],
-                        placa: reemplzar(res["Placa (solo letras y números, sin guión)"]),
+                        placa: formateamosPlaca(res["Placa (solo letras y números, sin guión)"]),
                         fechaEntrada: new Date(convertirFecha(`${res["Fecha de creación"]}:00`))
                     }))
                     crearServicio(nuevoValor).then((res) => {

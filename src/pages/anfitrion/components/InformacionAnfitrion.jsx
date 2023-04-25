@@ -20,7 +20,6 @@ export const InformacionAnfitrion = () => {
       if(res.statusCode === 200){
         setCantCitas(res.data.abordaje.concita)
         setSinCitas(res.data.abordaje.sincita)
-        setBandera(!bandera)
       }
     })
   }, [actualizar])

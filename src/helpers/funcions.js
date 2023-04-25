@@ -34,6 +34,27 @@ export const reemplzar = (valor) => {
   }
 };
 
+export const formateamosPlaca = (placa) => {
+  const palabrasAReemplazar = {
+    "  ": "",
+    " ": "",
+    "-": "",
+  };
+  if (placa !== undefined) {
+    const expresionRegular = new RegExp(
+      Object.keys(palabrasAReemplazar).join("|"),
+      "gi"
+    );
+    const textoReemplazado = placa?.replace(
+      expresionRegular,
+      (match) => palabrasAReemplazar[match]
+    );
+    return textoReemplazado;
+  }else{
+    return placa
+  }
+};
+
 /*export function convertirFecha(fecha) {
   let partes = fecha.split(" ");
   let fechaPartes = partes[0].split("/");
@@ -49,8 +70,10 @@ export function convertirFecha(isoString) {
   let partes = isoString.split(" ");
   let fechaPartes = partes[0].split("/");
   let horaPartes = partes[1].split(":");
-  let nuevaFecha = `${fechaPartes[2]}-${fechaPartes[1] - 1}-${fechaPartes[0]} ${horaPartes[0]}:${horaPartes[1]}:${horaPartes[2]}`;
+  let nuevaFecha = `${fechaPartes[2]}-${fechaPartes[1] - 1}-${fechaPartes[0]} ${
+    horaPartes[0]
+  }:${horaPartes[1]}:${horaPartes[2]}`;
   const fechaActual = new Date(nuevaFecha);
   let hola = new Date(fechaActual.setHours(fechaActual.getHours() - 5));
-  return hola
+  return hola;
 }
