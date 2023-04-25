@@ -42,7 +42,7 @@ export const TableAlmacen = ({ data }) => {
     },
     {
       name: <CustomHeader nameModule="HORA RECEPCION" icon="fa-solid fa-clock mr-1" />,
-      selector: (row) => row.fechaInicioRecepcion === null ? "--" : `${FormtearFecha(row.fechaInicioRecepcion)}`,
+      selector: (row) => row.fechaFinRecepcion === null ? "--" : `${FormtearFecha(row.fechaFinRecepcion)}`,
       sortable: true,
       center: true
     },

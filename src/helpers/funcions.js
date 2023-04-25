@@ -50,8 +50,8 @@ export const formateamosPlaca = (placa) => {
       (match) => palabrasAReemplazar[match]
     );
     return textoReemplazado;
-  }else{
-    return placa
+  } else {
+    return placa;
   }
 };
 
@@ -77,3 +77,14 @@ export function convertirFecha(isoString) {
   let hola = new Date(fechaActual.setHours(fechaActual.getHours() - 5));
   return hola;
 }
+
+
+export function obtenerFechaActual(fecha) {
+  const anio = fecha.getFullYear();
+  const mes = fecha.getMonth() + 1;
+  const dia = fecha.getDate();
+  const hora = fecha.getHours() - 5
+  const min = fecha.getMinutes()
+  return `${anio}-${mes < 10 ? 0 : ''}${mes}-${dia < 10 ? 0 : ''}${dia} ${hora<10 ? 0 : ""}${hora}:${min<10 ? 0 : ""}${min}:00`;
+}
+//2023-04-25 19:28:06

@@ -5,6 +5,7 @@ import { Toast } from "../../../components/Alertas/SweetAlex";
 import { InputBasic, InputBasicNumber } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
 import { traeTiposServicios } from "../../../helpers/ApiRecepcion";
+import {obtenerFechaActual } from "../../../helpers/funcions";
 
 function getTimeArray(startTime, endTime) {
     const timeArray = [];
@@ -73,7 +74,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         correo: data.correo,
         detalleServicio: data.detalleServicio,
         estado: '3',
-        fechaFinRecepcion: data.fechaRegistro,
+        fechaFinRecepcion: obtenerFechaActual(new Date()),
         horaEstimadaEntrega: data.horaEstimadaEntrega,
         id: data.id,
         marca: data.marca,
@@ -87,7 +88,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         estadoPicking: "0",
         servicioSolicitado: data.servicioSolicitado,
         comentarioInterno: data.comentarioInterno,
-        fechaInicioRecepcion: new Date()
+        fechaInicioRecepcion: obtenerFechaActual(new Date())
     })
 
     // console.log(dataRegistro)
