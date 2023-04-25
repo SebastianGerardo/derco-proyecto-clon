@@ -13,11 +13,11 @@ export default function Notificaciones() {
   const [traeMensajes, setTraeMensaje] = useState(null)
   useEffect(() => {
     if (socketState !== undefined && socketState !== "" && socketState !== null) {
-      socketState.on("chatToClient", res => {
-        if (typeof res === "object" && res.id && res.message) {
-          setTraeMensaje(mensajes => [...mensajes, res]);
-        }
-      })
+      socketState.on("chatToClient", res => (
+
+        setTraeMensaje([res])
+      )
+      )
     }
   }, [UsuarioLogin, socketState])
   console.log(traeMensajes)

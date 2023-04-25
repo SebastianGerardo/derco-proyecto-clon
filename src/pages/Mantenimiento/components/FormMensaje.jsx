@@ -34,7 +34,6 @@ const FormMensaje = ({ data, setIsOpen }) => {
       [e.target.name]: e.target.value,
     });
   };
-
   const almacen = (e) => {
     e.preventDefault();
      const mensaje = e.target.comentarioAlmacen.value;

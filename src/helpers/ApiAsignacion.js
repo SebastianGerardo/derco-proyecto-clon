@@ -83,7 +83,7 @@ export const GuardarEle = async (data, dataEnviar) => {
 
   try {
     const fetchResponse = await fetch(
-      `https://api-derco-production.up.railway.app/servicios_asignados/actualizar/elevador/${elevador.id}`,
+      `${URL}/servicios_asignados/actualizar/elevador/${elevador.id}`,
       {
         method: "PUT",
         credentials: "include",
@@ -96,6 +96,28 @@ export const GuardarEle = async (data, dataEnviar) => {
     const data = await fetchResponse.json();
     return data;
   } catch (error) {
+    return error;
+  }
+};
+
+export const CambiarEstado = async (dataAsig) => {
+
+  try {
+    const fetchResponse = await fetch(
+      `${URL}/servicios/confirmar_salida/${dataAsig.datosAsignadosId}`,
+      {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({salida: "2"}),
+      }
+    );
+    const data = await fetchResponse.json();
+    return data;
+  } catch (error) {
+
     return error;
   }
 };

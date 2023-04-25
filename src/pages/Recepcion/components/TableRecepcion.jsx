@@ -6,6 +6,7 @@ import { ModalRecepcion } from "./ModalRecepcion";
 import { FormtearFecha } from '../../../helpers/funcions'
 import { UserContext } from "../../../context/ContextDerco";
 import PickingRecepcion from "./PickingRecepcion";
+import { data } from "autoprefixer";
 export const TableRecepcion = ({ dataRecepcion }) => {
 
   const { UsuarioLogin } = useContext(UserContext);
@@ -14,8 +15,14 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     "2": "Recepcion",
     "3": "Almacén",
     "4": "Asignación",
+    "5": "Salida",
+    "6": "Terminado"
   }
-
+  const tmr = {
+    "2": "Pendiente",
+    "5": "Pendiente",
+    "6": "Terminado"
+  }
   const columns = [
     {
       name: <CustomHeader nameModule="CLIENTE" icon="fa-solid fa-user mr-1" />,
@@ -90,11 +97,17 @@ export const TableRecepcion = ({ dataRecepcion }) => {
             backgroundColor: "#4AD69D",
           },
         },
+        {
+          when: (row) => row.estado === "6",
+          style: {
+            backgroundColor: "red",
+          },
+        },
       ],
     },
     {
       name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estadoPicking === "1" ? "Pendiente" : "Terminado",
+      selector: (row) => row.estado && tmr[row.estado] ,
       sortable: true,
       center: true,
       style: {
@@ -108,15 +121,21 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.estadoPicking === "1",
+          when: (row) => row.estado === "2",
           style: {
             backgroundColor: "#FFD966",
           },
         },
         {
-          when: (row) => row.estadoPicking === "0",
+          when: (row) => row.estado === "5",
           style: {
-            backgroundColor: "#4AD69D",
+            backgroundColor: "#FFD966",
+          },
+        },
+        {
+          when: (row) => row.estado === "6",
+          style: {
+            backgroundColor: "red",
           },
         },
       ],
@@ -148,7 +167,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
 
   const [placa, setPlaca] = useState("");
   const [estado, setEstado] = useState("1")
-  const [ubicacion, setUbicacion] = useState("2")
+  const [ubicacion, setUbicacion] = useState("")
 
   const handleSelectChange = (event) => {
     setUbicacion(event.target.value);
@@ -164,6 +183,9 @@ export const TableRecepcion = ({ dataRecepcion }) => {
   const filtro2 = filteredItems.filter((item) => item.estadoPicking && item.estadoPicking.includes(estado))
 
   const filto3 = filtro2.filter((item) => item.estado && item.estado.includes(ubicacion))
+
+
+    console.log(dataRecepcion)
 
   // console.log(filteredItems)
 
@@ -201,6 +223,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
           <label className="flex flex-col" htmlFor="">
             <span className="text-lg">Filtro por Ubicación</span>
             <select className="w-[16rem] h-8 border-2 border-gray-300 rounded-md outline-none" name="" id="" onChange={handleSelectChange}>
+              <option value="">Todos</option>
               <option value="2">Recepción</option>
               <option value="3">Almacén</option>
               <option value="4">Asignación</option>
@@ -213,7 +236,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
 
         </form>
 
-        
+
       </div>
       <DataTable
         columns={columnsToShow}

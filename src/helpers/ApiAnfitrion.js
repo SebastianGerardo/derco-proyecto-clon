@@ -31,7 +31,6 @@ export const crearServicio = async (registro) => {
 
 /* ESTA API SIRVE PARA ACTULIZAR LOS DATOS DE RECEPCUON Y ANFITRION*/
 export const editServicio = async (registro, id) => {
-  console.log(registro);
   try {
     const fetchResponse = await fetch(`${URL}/servicios/actualizar/${id}`, {
       method: "PUT",

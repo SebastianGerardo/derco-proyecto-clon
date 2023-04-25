@@ -2,9 +2,9 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import Swal from 'sweetalert2';
-import { BotonFroms } from '../../../../components/Boton/BotonForms';
-import FormServicio from './FormServicio';
-import { NuevaUbicacion } from '../../../../helpers/ApiAsignacion';
+
+
+import { CambiarEstado } from '../../../../helpers/ApiAsignacion';
 import { useEffect } from 'react';
 import { Toast } from '../../../../components/Alertas/SweetAlex';
 
@@ -13,7 +13,7 @@ export const ModalServicio = ({ data }) => {
 
   useEffect(() => {
     if (actualizar) {
-      NuevaUbicacion({confirmacionSalida:'3'}, data.datosAsignadosId).then(res => {
+      CambiarEstado(data).then(res => {
         if (res.statusCode == 200) {
           Toast.fire({
             icon: "success",
