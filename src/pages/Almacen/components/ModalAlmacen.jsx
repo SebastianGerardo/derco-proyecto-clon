@@ -7,7 +7,7 @@ export const ModalAlmacen = ({ tipo, data }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      {data.estadoPicking == "1" ?
+      {data.estadoPicking == "2" ?
           "" : 
           <BotonFroms tipo={tipo} setIsOpen={setIsOpen} />
       }

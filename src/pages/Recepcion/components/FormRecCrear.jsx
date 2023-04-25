@@ -73,7 +73,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         comentario: data.comentario,
         correo: data.correo,
         detalleServicio: data.detalleServicio,
-        estado: '3',
+        estado: '4',
         fechaFinRecepcion: obtenerFechaActual(new Date()),
         horaEstimadaEntrega: data.horaEstimadaEntrega,
         id: data.id,
@@ -85,7 +85,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         telefono: data.telefono,
         tipoServicio: data.tipoServicio,
         vehiculoKilometraje: data.vehiculoKilometraje,
-        estadoPicking: "0",
+        estadoPicking: data.estadoPicking,
         servicioSolicitado: data.servicioSolicitado,
         comentarioInterno: data.comentarioInterno,
         fechaInicioRecepcion: obtenerFechaActual(new Date())

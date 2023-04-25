@@ -8,7 +8,7 @@ const FormAlmacen = ({ data, setIsOpen }) => {
 
     const { estadoData, setEstadoData, UsuarioLogin, socketState } = useContext(UserContext);
     const [datosAlmacen, setDatosAlamacen] = useState({
-        estadoPicking: "1",
+        estadoPicking: "2",
         comentarioAlmacen: data.comentarioAlmacen,
         estado: "4"
     })

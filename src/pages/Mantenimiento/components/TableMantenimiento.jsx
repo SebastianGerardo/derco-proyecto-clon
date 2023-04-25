@@ -24,8 +24,8 @@ const estadosColores = {
 };
 
 const estadoPicking = {
-  0: "Pendiente",
-  1: "Terminado",
+  1: "Pendiente",
+  2: "Terminado",
 };
 
 export const TableMantenimiento = ({ data, elevadores }) => {
@@ -95,13 +95,13 @@ export const TableMantenimiento = ({ data, elevadores }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.servicio.estadoPicking === "0",
+          when: (row) => row.servicio.estadoPicking === "1",
           style: {
             backgroundColor: "#FFD34D",
           },
         },
         {
-          when: (row) => row.servicio.estadoPicking === "1",
+          when: (row) => row.servicio.estadoPicking === "2",
           style: {
             backgroundColor: "#4AC695",
           },
@@ -246,6 +246,8 @@ export const TableMantenimiento = ({ data, elevadores }) => {
       });
     }
   };
+
+  console.log(filtroEstado[0]);
 
   return (
     <>

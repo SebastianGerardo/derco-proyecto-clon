@@ -49,7 +49,7 @@ export const TableAlmacen = ({ data }) => {
 
     {
       name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estadoPicking === "0" ? "Pendiente" : "Listo",
+      selector: (row) => row.estadoPicking === "1" ? "Pendiente" : "Listo",
       sortable: true,
       center: true,
       style: {
@@ -63,13 +63,13 @@ export const TableAlmacen = ({ data }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.estadoPicking === "0",
+          when: (row) => row.estadoPicking === "1",
           style: {
             backgroundColor: "#FFD966",
           },
         },
         {
-          when: (row) => row.estadoPicking === "1",
+          when: (row) => row.estadoPicking === "2",
           style: {
             backgroundColor: "#4AD69D",
           },
@@ -97,7 +97,7 @@ export const TableAlmacen = ({ data }) => {
     e.preventDefault()
   }
 
-  const [estado, setEstado] = useState("0")
+  const [estado, setEstado] = useState("1")
 
   const filtro2 = filteredItems.filter((item) => item.estadoPicking && item.estadoPicking.includes(estado))
 
@@ -115,8 +115,8 @@ export const TableAlmacen = ({ data }) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "0"}
-                onChange={() => setEstado(estado === "0" ? "" : "0")}
+                checked={estado === "1"}
+                onChange={() => setEstado(estado === "1" ? "" : "1")}
               />
               <span className="ml-1">Pendiente</span>
             </label>
@@ -125,8 +125,8 @@ export const TableAlmacen = ({ data }) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "1"}
-                onChange={() => setEstado(estado === "1" ? "" : "1")}
+                checked={estado === "2"}
+                onChange={() => setEstado(estado === "2" ? "" : "2")}
               />
               <span className="ml-1">Listo</span>
             </label>

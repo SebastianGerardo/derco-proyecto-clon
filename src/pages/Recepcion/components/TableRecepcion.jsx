@@ -15,11 +15,18 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     "2": "Recepcion",
     "3": "Almacén",
     "4": "Asignación",
+    "Mantenimiento": "Mantenimiento",
+    "Lavado": "Lavado",
+    "Secado": "Secado",
+    "Control de Calidad": "Control de Calidad",
     "5": "Salida",
     "6": "Terminado"
   }
   const tmr = {
+    "1": "Pendiente",
     "2": "Pendiente",
+    "3": "Pendiente",
+    "4": "Pendiente",
     "5": "Pendiente",
     "6": "Terminado"
   }
@@ -71,7 +78,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     },
     {
       name: <CustomHeader nameModule="UBICACION" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estado && ubicaciones[row.estado],
+      selector: (row) => row.estado && ubicaciones[row?.salida == "2" && row?.estado == "5" ? row?.estado : row?.datosAsignados?.ubicacion != null ? row?.datosAsignados?.ubicacion : row?.estado],
       sortable: true,
       center: true,
       width: "8rem",
@@ -121,7 +128,25 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       },
       conditionalCellStyles: [
         {
+          when: (row) => row.estado === "1",
+          style: {
+            backgroundColor: "#FFD966",
+          },
+        },
+        {
           when: (row) => row.estado === "2",
+          style: {
+            backgroundColor: "#FFD966",
+          },
+        },
+        {
+          when: (row) => row.estado === "3",
+          style: {
+            backgroundColor: "#FFD966",
+          },
+        },
+        {
+          when: (row) => row.estado === "4",
           style: {
             backgroundColor: "#FFD966",
           },
@@ -180,14 +205,15 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
 
-  const filtro2 = filteredItems.filter((item) => item.estadoPicking && item.estadoPicking.includes(estado))
+  const filtroEstado = filteredItems.filter((item) => {
+    if (estado === "1") {
+      return estado ? item?.estado != "6" : true ;
+    } else{
+      return estado ? item?.estado == estado : true;
+    }
+  });
 
-  const filto3 = filtro2.filter((item) => item.estado && item.estado.includes(ubicacion))
-
-
-    console.log(dataRecepcion)
-
-  // console.log(filteredItems)
+  const filtro3 = filtroEstado.filter((item) => item.estado && item.estado.includes(ubicacion))
 
   return (
     <>
@@ -211,8 +237,8 @@ export const TableRecepcion = ({ dataRecepcion }) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "0"}
-                onChange={() => setEstado(estado === "0" ? "" : "0")}
+                checked={estado === "6"}
+                onChange={() => setEstado(estado === "6" ? "" : "6")}
               />
               <span className="ml-1">Terminado</span>
             </label>
@@ -240,7 +266,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       </div>
       <DataTable
         columns={columnsToShow}
-        data={filto3}
+        data={filtro3}
         pagination
         paginationComponentOptions={{
           rowsPerPageText: "Filas por página:",

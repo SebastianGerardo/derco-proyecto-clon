@@ -15,17 +15,17 @@ const BotonPicking = ({data}) => {
     })
 
     const cambiarEstadoPicking = () => {
-        if (estadoPicking.estadoPicking === "0") {
+        if (estadoPicking.estadoPicking === "1") {
             setEstadoPicking({
                 ...estadoPicking,
-                estadoPicking: "1",
+                estadoPicking: "2",
             })
         } 
     }
     
     const confirmarPicking = (e) => {
       e.preventDefault()
-      if(data?.estadoPicking === "0"){
+      if(data?.estadoPicking === "1"){
       Swal.fire({
         title: '¿Deseas confirmar esta unidad?',
         text: "Esta acción no se podrá revertir",
@@ -37,10 +37,9 @@ const BotonPicking = ({data}) => {
         cancelButtonText: 'Cancelar'
       }).then((result) => {
         if (result.isConfirmed) {
-          if (data?.estadoPicking !== "1") {
+          if (data?.estadoPicking !== "2") {
             enviarPickingAlmacen()
           } else {
-            console.log(estadoPicking.estadoPicking !== "1")
             Toast.fire({
               icon: "error",
               title: "Esta unidad ya ha sido confirmada",
@@ -55,6 +54,7 @@ const BotonPicking = ({data}) => {
 
     const enviarPickingAlmacen = () =>{
         editServicio(estadoPicking, data.id).then(res => {
+          console.log("soy el res",res)
             if (res.statusCode === 200) {
               socketState.emit("notificacionToServer", { tipo: "1-5", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
               Toast.fire({
@@ -73,7 +73,7 @@ const BotonPicking = ({data}) => {
   return (
     <form action="" onSubmit={confirmarPicking}>
         <button type='submit' onClick={cambiarEstadoPicking}>
-          {data?.estadoPicking === "1" ?
+          {data?.estadoPicking === "2" ?
             <i className="fa-solid fa-lg text-gray-700/50 fa-circle-check"></i>
               :
             <i className="fa-regular fa-lg text-gray-700/50 hover:text-sky-700 transition-all ease-in-out duration-75 fa-circle-check"></i>
