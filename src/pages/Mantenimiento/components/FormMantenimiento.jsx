@@ -95,17 +95,17 @@ const FormMantenimiento = ({
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("time")
-        localStorage.removeItem("id")
-        localStorage.removeItem("estado")
         setDatosMantenimiento(previe => ({
           ...previe,
           tiempo: new Date(),
           estado: "Pausar",
-          tiempo_transcurrido: time
+          tiempo_transcurrido: localStorage.getItem("time")
         }))
         setIsRunning(false);
         setIsPausedOpen(true);
+        localStorage.removeItem("time")
+        localStorage.removeItem("id")
+        localStorage.removeItem("estado")
       }
     })
   };
