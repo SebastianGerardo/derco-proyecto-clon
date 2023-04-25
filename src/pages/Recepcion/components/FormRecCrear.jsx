@@ -40,7 +40,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
 
     const { estadoData, setEstadoData, socketState, UsuarioLogin } = useContext(UserContext);
     
-    const timeArray = getTimeArray("9:00", "22:00")
+    const timeArray = getTimeArray("8:30", "22:00")
 
     function agregarOpcionSeleccionada(e) {
         const opcion = e.target.value;
@@ -72,7 +72,7 @@ export const FormRecCrear = ({ data, setIsOpen }) => {
         comentario: data.comentario,
         correo: data.correo,
         detalleServicio: data.detalleServicio,
-        estado: '4',
+        estado: '3',
         fechaFinRecepcion: data.fechaRegistro,
         horaEstimadaEntrega: data.horaEstimadaEntrega,
         id: data.id,

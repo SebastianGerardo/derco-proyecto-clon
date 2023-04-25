@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DataTable from "react-data-table-component";
+import Swal from "sweetalert2";
 import { CustomHeader } from "../../../../components/CustomHeaderTable/CustomHeaderTable";
 import { Search } from "../../../../components/datatable/Search";
 import { DataAlmacen } from "../../../../helpers/DataAlmacen";
@@ -8,11 +9,11 @@ import { DataAsignacionServicio } from "../../../../helpers/DataAsignacion";
 import { ModalServicio } from "./ModalServicio";
 
 const colorServicios = {
-  "1": "bg-[#FFD966]",
-  "2": "bg-[#DC2626]",
-  "3": "bg-[#9B5DA2]",
-  "4": "bg-[#4AC695]",
-}
+  1: "bg-[#FFD966]",
+  2: "bg-[#DC2626]",
+  3: "bg-[#9B5DA2]",
+  4: "bg-[#4AC695]",
+};
 
 const columns = [
   {
@@ -20,14 +21,14 @@ const columns = [
     cell: (row) => <p>{row.ot}</p>,
     // sortable: true,
     center: true,
-    width: "5rem",
+    width: "8rem",
   },
   {
     name: <CustomHeader nameModule="PLACA" />,
     selector: (row) => row.placa,
     // sortable: true,
     width: "7rem",
-    center: true
+    center: true,
   },
   {
     name: <CustomHeader nameModule="HORA ESTIMADA DE ENTREGA" />,
@@ -111,16 +112,17 @@ const columns = [
     <div className="flex gap-3 justify-start w-full">
       {ordenServicios.map(res => {
         return <div className={`text-sm ${colorServicios[res.terminado]} p-2 h-[39.2px] text-center rounded-full text-white font-bold`}>
-          {res.nombre}
-        </div>
-      })}
+              {res.nombre}
+            </div>
+        })}
     </div>,
     width: "30rem",
     center: true,
   },
   {
     name: <CustomHeader nameModule="CONFIRMACION DE SALIDA" />,
-    selector: (row) => row.confirmacionSalida === "1" ? "Pendiente" : "Unidad Entregada",
+    selector: (row) =>
+      row.confirmacionSalida === "1" ? "Pendiente" : "Unidad Entregada",
     // sortable: true,
     center: true,
     width: "10rem",
@@ -142,7 +144,7 @@ const columns = [
         },
       },
       {
-        when: (row) => row.confirmacionSalida === "2",
+        when: (row) => row.confirmacionSalida === "3",
         style: {
           backgroundColor: "#4AD69D",
           borderRadius: "9999px",
@@ -152,15 +154,15 @@ const columns = [
   },
   {
     name: <CustomHeader nameModule="ACCIONES" />,
-    cell: row =>
+    cell: (row) => (
       <div className="flex items-center gap-3">
-        <ModalServicio tipo="edit" data={row} />
-      </div>,//Aquí se agregó la funcionalidad del modal, para el botón editar
+        <ModalServicio data={row} />
+      </div>
+    ), //Aquí se agregó la funcionalidad del modal, para el botón editar
     center: true,
   },
 ];
 export const TableServicio = ({ dataServicios }) => {
-
   const [placa, setPlaca] = useState("");
 
   const newData = dataServicios.map(({ servicio, datosAsignados }) => ({
@@ -173,17 +175,19 @@ export const TableServicio = ({ dataServicios }) => {
     ordenServicios: datosAsignados.ordenServicios,
     confirmacionSalida: datosAsignados.confirmacionSalida,
     nombres: servicio.nombres,
-  }))
+  }));
 
-  const [estado, setEstado] = useState("1")
+  const [estado, setEstado] = useState("1");
 
   const filteredItems = newData.filter(
     (item) =>
       item.placa && item.placa.toLowerCase().includes(placa.toLowerCase())
   );
 
-  const filtro2 = filteredItems.filter((item) => item.confirmacionSalida && item.confirmacionSalida.includes(estado))
-  console.log("HOLA",dataServicios)
+  const filtro2 = filteredItems.filter(
+    (item) =>
+      item.confirmacionSalida && item.confirmacionSalida.includes(estado)
+  );
   return (
     <>
       <div className="flex flex-col lg:flex-row justify-between items-center mb-2 lg:mb-0">
@@ -194,7 +198,7 @@ export const TableServicio = ({ dataServicios }) => {
         >
           <p className="text-gray-500">Filtro por estado:</p>
 
-        <div className="flex justify-evenly">
+          <div className="flex justify-evenly">
             <label className="p-1 flex items-center justify-center">
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
@@ -209,13 +213,13 @@ export const TableServicio = ({ dataServicios }) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "2"}
-                onChange={() => setEstado(estado === "2" ? "" : "2")}
+                checked={estado === "3"}
+                onChange={() => setEstado(estado === "3" ? "" : "3")}
               />
               <span className="ml-1">Entregado</span>
             </label>
           </div>
-          </form>
+        </form>
       </div>
 
       {/**Componente Search de la tabla */}
@@ -228,9 +232,13 @@ export const TableServicio = ({ dataServicios }) => {
           rangeSeparatorText: "de",
           noRowsPerPage: false,
           selectAllRowsItem: true,
-          selectAllRowsItemText: "Todos"
+          selectAllRowsItemText: "Todos",
         }}
-        noDataComponent={<p className="text-base text-gray-400">Esperando los registros para mostrar</p>}
+        noDataComponent={
+          <p className="text-base text-gray-400">
+            Esperando los registros para mostrar
+          </p>
+        }
       />
     </>
   );
