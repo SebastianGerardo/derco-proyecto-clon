@@ -28,31 +28,48 @@ export const Mantenimiento = () => {
     }
   }, [actualizar])
 
+  
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     if (event.currentTarget.performance.navigation.type === 1) {
+  //       event.preventDefault();
+  //       // event.returnValue = '';
+  //       localStorage.setItem("pagina", "Recargada")
+  //     }
+  //   }
 
-  useEffect(() => {
-    return () => {
-      if (localStorage.getItem("estado") != "Pausado" && localStorage.getItem("time") !== null) {
-        TerminarPausarMan({
-          serviciosAsignado: localStorage.getItem("id"),
-          tipo: "mantenimiento",
-          motivo: "Se reinició la página",
-          comentario: "",
-          tiempo: new Date(),
-          estado: "Pausar",
-        }).then(res => {
-          console.log(res)
-          if (res.message == 'No has iniciado sesión') {
-            setActualizarEstado(!actualizarEstado)
-          }
-        })
-        console.log("Se cerró la ventana")
-        console.log("Se cargó la ventana")
-      }
-      if (localStorage.getItem("estado") != null) {
-        localStorage.setItem("estado", "Pausado")
-      }
-    };
-  }, [actualizarEstado, actualizar]);
+  //   window.addEventListener('beforeunload', handleBeforeUnload);
+
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleBeforeUnload);
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   return () => {
+  //     if (localStorage.getItem("pagina") === "Recargada" && (localStorage.getItem("estado") === "Iniciado" || localStorage.getItem("estado") === "Reanudado")) {
+  //       TerminarPausarMan({
+  //         serviciosAsignado: localStorage.getItem("id"),
+  //         tipo: "mantenimiento",
+  //         motivo: "Se reinició la página",
+  //         comentario: "",
+  //         tiempo: new Date(),
+  //         estado: "Pausar",
+  //         tiempo_transcurrido: localStorage.getItem("time")
+  //       }).then(res => {
+  //         console.log(res)
+  //       })
+  //       console.log("Se cerró la ventana")
+  //       console.log("Se cargó la ventana")
+  //     }
+
+  //     if (!actualizarEstado) {
+  //       setActualizarEstado(true)
+  //       localStorage.removeItem("pagina")
+  //       // localStorage.setItem("estado", "Pausado")
+  //     }
+  //   };
+  // }, [actualizar]);
 
   return (
     <>

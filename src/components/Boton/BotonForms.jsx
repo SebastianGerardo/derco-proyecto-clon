@@ -96,6 +96,7 @@ export const BotonTimer = ({ tipo, setIsOpen, disable, botonId }) => {
     console.log(clickId);
     if (idComenzado) {
       console.log('validando...');
+      // console.log(idComenzado);
       if (idComenzado == clickId) {
         console.log('se ha validado!');
         return (setIsOpen(true)) ;
@@ -119,9 +120,6 @@ export const BotonTimer = ({ tipo, setIsOpen, disable, botonId }) => {
       })
     }
   }
-
-
-  // validarId() ? () => setIsOpen(true) : () => console.log("chayu")
 
   return (
     

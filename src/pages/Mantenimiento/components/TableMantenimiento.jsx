@@ -125,7 +125,6 @@ export const TableMantenimiento = ({ data, elevadores }) => {
         <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />
       ),
       selector: (row) => estados[`${bloqueo(row)}`],
-      sortable: true,
       center: true,
       style: {
         color: "white",
@@ -184,12 +183,10 @@ export const TableMantenimiento = ({ data, elevadores }) => {
   const [placa, setPlaca] = useState("");
   const [estado, setEstado] = useState("1");
   const [elevador, setElevador] = useState("");
-  const validarTemporizador =
-    localStorage.getItem("time") == null ||
-    localStorage.getItem("estado") == "Pausado"
-      ? true
-      : false;
+  const validarTemporizador = localStorage.getItem("time") == null ? true : false;
   const cantElevadores = elevadores?.map((item) => item.elevador.nombre);
+
+  console.log(validarTemporizador)
 
   const handleSelectChange = (e) => {
     setElevador(e.target.value);
@@ -207,19 +204,37 @@ export const TableMantenimiento = ({ data, elevadores }) => {
     (item) => item.elevador.nombre && item.elevador.nombre.includes(elevador)
   );
 
-  const filtroEstado = filtroElevadores.filter((item) =>
-    estado == "4"
-      ? JSON.parse(item.ordenServicios).find(
-          (res) => res.nombre === "Mantenimiento"
-        ).terminado == "4"
-      : estado == "1"
-      ? JSON.parse(item.ordenServicios).find(
-          (res) => res.nombre === "Mantenimiento"
-        ).terminado != "4"
-      : JSON.parse(item.ordenServicios).find(
-          (res) => res.nombre === "Mantenimiento"
-        ).terminado
-  );
+  // const filtroEstado = filtroElevadores.filter((item) =>
+  //   estado == "4"
+  //     ? JSON.parse(item.ordenServicios).find(
+  //         (res) => res.nombre === "Mantenimiento"
+  //       ).terminado == "4"
+  //     : estado == "1"
+  //     ? JSON.parse(item.ordenServicios).find(
+  //         (res) => res.nombre === "Mantenimiento"
+  //       ).terminado != "4"
+  //     : JSON.parse(item.ordenServicios).find(
+  //         (res) => res.nombre === "Mantenimiento"
+  //       ).terminado
+  // );
+
+  const filtroEstado = filtroElevadores.filter((item) => {
+    const ordenServicios = JSON.parse(item.ordenServicios);
+    const mantenimientoTerminado = ordenServicios.find(
+      (res) => res.nombre === "Mantenimiento"
+    )?.terminado;
+    
+    if (estado === "1") {
+      return estado ? mantenimientoTerminado != "4" && mantenimientoTerminado != "3" : true ;
+    } else if(estado === "3") {
+      return estado ? mantenimientoTerminado != "1" && mantenimientoTerminado != "4" : true ;
+    } 
+    else{
+      return estado ? mantenimientoTerminado == estado : true;
+    }
+  });
+  
+  
 
   const advertenciaToast = (state) => {
     if (validarTemporizador) {
@@ -266,7 +281,7 @@ export const TableMantenimiento = ({ data, elevadores }) => {
 
         <form
           action=""
-          className="border-solid border-gray-500 border w-72 px-2 py-1 rounded-md"
+          className="border-solid border-gray-500 border w-80 px-2 py-1 rounded-md"
         >
           <p className="text-gray-500">Filtro por estado:</p>
 
@@ -281,6 +296,18 @@ export const TableMantenimiento = ({ data, elevadores }) => {
                 }
               />
               <span className="ml-1">Pendiente</span>
+            </label>
+            <br />
+            <label className="p-1 flex items-center justify-center">
+              <input
+                className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
+                type="checkbox"
+                checked={estado === "3"}
+                onChange={() =>
+                  advertenciaToast(() => setEstado(estado === "3" ? "" : "3"))
+                }
+              />
+              <span className=" ml-1">En pausa</span>
             </label>
             <br />
             <label className="p-1 flex items-center justify-center">

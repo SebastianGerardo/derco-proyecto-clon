@@ -4,47 +4,29 @@ import { Fragment, useEffect, useState } from 'react'
 import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
 import FormMantenimiento from './FormMantenimiento';
 export const ModalMantenimiento = ({ tipo, data, disable, botonId }) => {
+  const [usuarioDetalle, setUsuarioDetalle] = useState([])
+  const filtroDetalle = usuarioDetalle != [] ? usuarioDetalle[usuarioDetalle?.length - 1] : null
   const [bloqueo, setBloqueo] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
-  const [time, setTime] = useState(() => {
-    const tiempoRecorrido = localStorage.getItem("time") != null ? localStorage.getItem("time") : 0;
-    return parseInt(tiempoRecorrido);
-  });
-
-  // console.log(localStorage.getItem("time"))
-
+  const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [reset, setReset] = useState(false);
-  const [usuarioDetalle, setUsuarioDetalle] = useState([])
-
-  // const traerDetalleUsuario = (dataDetalle) => {
-  //   setUsuarioDetalle(dataDetalle)
-  // }
-
-  // const filtroDetalle = usuarioDetalle != [] ? usuarioDetalle[usuarioDetalle?.length - 1] : null
-  // useEffect(() => {
-  //     if (filtroDetalle?.tiempo_transcurrido == null || undefined || NaN) {
-  //       console.log("ENTRE AQUI")
-  //       if (time != 0) {
-  //         setTime(0)
-  //       }
-  //     } else {
-  //       if(time == 0){
-  //         console.log("SALGO AQUI")
-  //         setTime(parseInt(filtroDetalle?.tiempo_transcurrido))
-  //       }
-  //     }
-  // }, [usuarioDetalle])
-
-    // console.log("TIEMPO", filtroDetalle)
-
+  
+  //USE EFFECT QUE TRAE EL TIEMPO TRANSCURRIDO
   useEffect(() => {
-    if (localStorage.getItem("time") != null) {
-      setTime(parseInt(localStorage.getItem("time")))
-    } else {
-      setTime(0)
+    if (localStorage.getItem("time") == null) {
+      console.log("TIEMPO", filtroDetalle)
+      const tiempoTranscurrido =  parseInt(filtroDetalle?.tiempo_transcurrido) || 0;
+      console.log("TIEMPOTras", tiempoTranscurrido)
+      const tiempoRecorrido = localStorage.getItem("time") != null ? localStorage.getItem("time") : tiempoTranscurrido;
+      setTime(tiempoRecorrido)
+      console.log(parseInt(filtroDetalle?.tiempo_transcurrido))
     }
-  }, [localStorage.getItem("time") == null])
+  }, [filtroDetalle])
+  
+  const traerDetalleUsuario = (dataDetalle) => {
+    setUsuarioDetalle(dataDetalle)
+  }
 
   useEffect(() => {
     let interval = null;
@@ -75,12 +57,6 @@ export const ModalMantenimiento = ({ tipo, data, disable, botonId }) => {
     const seconds = (time % 60).toString().padStart(2, "0");
     return `${days}:${hours}:${minutes}:${seconds}`;
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("time") == null) {
-      setTime(0);
-    }
-  }, [reset]);
 
   return (
     <>
@@ -119,7 +95,7 @@ export const ModalMantenimiento = ({ tipo, data, disable, botonId }) => {
                    
 
                   <div className='w-full block'>
-                    <FormMantenimiento  data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time} setBloqueo={setBloqueo}/>
+                    <FormMantenimiento traerDetalleUsuario={traerDetalleUsuario}  data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time} setBloqueo={setBloqueo}/>
                   </div>
                   
 

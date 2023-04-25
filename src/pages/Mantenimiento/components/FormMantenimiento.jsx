@@ -15,11 +15,10 @@ const FormMantenimiento = ({
   setIsOpen,
   isRunning,
   setIsRunning,
-  reset,
-  setReset,
   formatTime,
   time,
   setBloqueo,
+  traerDetalleUsuario
 }) => {
   const [datosMantenimiento, setDatosMantenimiento] = useState({
     serviciosAsignado: data.id,
@@ -37,6 +36,13 @@ const FormMantenimiento = ({
     });
   };
 
+  useEffect(() => {
+    TraeDetalle(data.id).then((resp) => {
+      traerDetalleUsuario(resp.data)
+      console.log(resp)
+    })
+  }, [])
+
   const [hasStarted, setHasStarted] = useState(false);
   const [isPausedOpen, setIsPausedOpen] = useState(false);
 
@@ -49,6 +55,7 @@ const FormMantenimiento = ({
         ...previe,
         tiempo: new Date(),
         estado: "Reanudo",
+        tiempo_transcurrido: time
       }))
       setIsRunning(true);
       setHasStarted(true);
@@ -63,6 +70,7 @@ const FormMantenimiento = ({
         ...previe,
         tiempo: new Date(),
         estado: "Iniciar",
+        tiempo_transcurrido: time
       }))
       setIsRunning(true);
       setHasStarted(true);
@@ -87,13 +95,14 @@ const FormMantenimiento = ({
       cancelButtonText: 'Cancelar'
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.setItem("time", time)
-        localStorage.setItem("id", data.id)
-        localStorage.setItem("estado", "Pausado")
+        localStorage.removeItem("time")
+        localStorage.removeItem("id")
+        localStorage.removeItem("estado")
         setDatosMantenimiento(previe => ({
           ...previe,
           tiempo: new Date(),
           estado: "Pausar",
+          tiempo_transcurrido: time
         }))
         setIsRunning(false);
         setIsPausedOpen(true);
@@ -125,7 +134,6 @@ const FormMantenimiento = ({
         setIsRunning(false);
         setHasStarted(false);
         setIsOpen(false)
-        setReset(!reset);
         Toast.fire({
           icon: "success",
           title: "Se finalizó correctamente el temporizador",
