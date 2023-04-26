@@ -3,7 +3,7 @@ import { Toast } from "../../../components/Alertas/SweetAlex";
 import { TerminarPausarMan } from "../../../helpers/ApiMantenimiento";
 import { UserContext } from "../../../context/ContextDerco";
 
-export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, data, setIsRunning }) => {
+export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, data, handleStop, time }) => {
   const { socketState, UsuarioLogin } = useContext(UserContext);
  
   const [datosPausa, setDatosPausa] = useState({
@@ -28,7 +28,7 @@ export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, data, setI
       icon: "success",
       title: "Se guardó correctamente el motivo de pausa",
     });
-    setIsRunning(false)
+    handleStop()
     TerminarPausarMan({
       serviciosAsignado: data.id,
       tipo: "mantenimiento",
@@ -36,7 +36,7 @@ export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, data, setI
       comentario: datosPausa.comentario,
       tiempo: new Date(),
       estado: "Pausar",
-      tiempo_transcurrido: localStorage.getItem("time")
+      tiempo_transcurrido: time
     }).then(res=>{
       if(res.statusCode === 200){
         socketState.emit("notificacionToServer", { tipo: "1-5-6", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })

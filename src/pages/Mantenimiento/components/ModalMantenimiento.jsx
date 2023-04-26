@@ -5,56 +5,43 @@ import { BotonFroms, BotonTimer } from '../../../components/Boton/BotonForms';
 import FormMantenimiento from './FormMantenimiento';
 export const ModalMantenimiento = ({ tipo, data, disable, botonId }) => {
   const [usuarioDetalle, setUsuarioDetalle] = useState([])
-  const filtroDetalle = usuarioDetalle != [] ? usuarioDetalle[usuarioDetalle?.length - 1] : null
   const [bloqueo, setBloqueo] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
-  const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+ 
   const [reset, setReset] = useState(false);
   
   //USE EFFECT QUE TRAE EL TIEMPO TRANSCURRIDO
-  useEffect(() => {
-    if (localStorage.getItem("time") == null) {
-      console.log(parseInt(filtroDetalle?.tiempo_transcurrido))
-      const tiempoTranscurrido =  parseInt(filtroDetalle?.tiempo_transcurrido) || 0;
-      const tiempoRecorrido = localStorage.getItem("time") != null ? localStorage.getItem("time") : tiempoTranscurrido;
-      setTime(tiempoRecorrido)
-    }
-  }, [filtroDetalle])
+  // useEffect(() => {
+  //   if (localStorage.getItem("time") == null) {
+  //     console.log(parseInt(filtroDetalle?.tiempo_transcurrido))
+  //     const tiempoTranscurrido =  parseInt(filtroDetalle?.tiempo_transcurrido) || 0;
+  //     const tiempoRecorrido = localStorage.getItem("time") != null ? localStorage.getItem("time") : tiempoTranscurrido;
+  //     setTime(tiempoRecorrido)
+  //   }
+  // }, [filtroDetalle])
   
-  const traerDetalleUsuario = (dataDetalle) => {
-    setUsuarioDetalle(dataDetalle)
-  }
-
-  useEffect(() => {
-    let interval = null;
-    if (isRunning) {
-      interval = setInterval(() => {
-        setTime((time) => time + 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isRunning]);
   
-  useEffect(() => {
-    if (localStorage.getItem("time") != null) {
-      localStorage.setItem("time", time)
-    }
-  }, [time])
+  //ESTE USE EFFECT GUARDA EL TIEMPO EN LOCALSTORAGE
+  // useEffect(() => {
+  //   if (localStorage.getItem("time") != null) {
+  //     localStorage.setItem("time", time)
+  //   }
+  // }, [time])
 
-  const formatTime = (time) => {
-    const days = Math.floor(time / 86400)
-      .toString()
-      .padStart(2, "0");
-    const hours = Math.floor((time % 86400) / 3600)
-      .toString()
-      .padStart(2, "0");
-    const minutes = Math.floor((time % 3600) / 60)
-      .toString()
-      .padStart(2, "0");
-    const seconds = (time % 60).toString().padStart(2, "0");
-    return `${days}:${hours}:${minutes}:${seconds}`;
-  };
+  //ESTA FUNCION FORMATEA EL TIEMPO
+  // const formatTime = (time) => {
+  //   const days = Math.floor(time / 86400)
+  //     .toString()
+  //     .padStart(2, "0");
+  //   const hours = Math.floor((time % 86400) / 3600)
+  //     .toString()
+  //     .padStart(2, "0");
+  //   const minutes = Math.floor((time % 3600) / 60)
+  //     .toString()
+  //     .padStart(2, "0");
+  //   const seconds = (time % 60).toString().padStart(2, "0");
+  //   return `${days}:${hours}:${minutes}:${seconds}`;
+  // };
 
   return (
     <>
@@ -93,7 +80,7 @@ export const ModalMantenimiento = ({ tipo, data, disable, botonId }) => {
                    
 
                   <div className='w-full block'>
-                    <FormMantenimiento traerDetalleUsuario={traerDetalleUsuario}  data={data} setIsOpen={setIsOpen} isRunning={isRunning} setIsRunning={setIsRunning} reset={reset} setReset={setReset} formatTime={formatTime} time={time} setBloqueo={setBloqueo}/>
+                    <FormMantenimiento data={data} setIsOpen={setIsOpen} setBloqueo={setBloqueo}/>
                   </div>
                   
 
