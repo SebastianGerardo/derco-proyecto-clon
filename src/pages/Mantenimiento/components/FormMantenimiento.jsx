@@ -1,14 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
-import Timer from "../../../components/Cronometro/Timer";
 import TimerControls from "../../../components/Cronometro/TimerControls";
 import { ModalMantenimientoPausa } from "./ModalMantenimientoPausa";
 import { InicarMan, TerminarMan, TerminarPausarMan, TraeDetalle } from "../../../helpers/ApiMantenimiento";
 import Swal from "sweetalert2";
 import { UserContext } from "../../../context/ContextDerco";
-// import Timer from "../../../components/Cronometro/Timer";
-// import TimerControls from "../../../components/Cronometro/TimerControls";
 
 const FormMantenimiento = ({
   data,
@@ -29,13 +26,7 @@ const FormMantenimiento = ({
     estado: "",
   });
   const { socketState, UsuarioLogin } = useContext(UserContext);
-  const captura = (e) => {
-    setDatosMantenimiento({
-      ...datosMantenimiento,
-      [e.target.name]: e.target.value,
-    });
-  };
-
+ 
   useEffect(() => {
     TraeDetalle(data.id).then((resp) => {
       traerDetalleUsuario(resp.data)
@@ -84,30 +75,7 @@ const FormMantenimiento = ({
 
 
   const handlePause = () => {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: "Esta acción no se podrá revertir",
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Pausar',
-      cancelButtonText: 'Cancelar'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setDatosMantenimiento(previe => ({
-          ...previe,
-          tiempo: new Date(),
-          estado: "Pausar",
-          tiempo_transcurrido: localStorage.getItem("time")
-        }))
-        setIsRunning(false);
-        setIsPausedOpen(true);
-        localStorage.removeItem("time")
-        localStorage.removeItem("id")
-        localStorage.removeItem("estado")
-      }
-    })
+    setIsPausedOpen(true);
   };
 
 
@@ -185,7 +153,7 @@ const FormMantenimiento = ({
           <Dialog
             as="div"
             className="relative z-10"
-            onClose={() => console.log("cerrar")}
+            onClose={() => setIsPausedOpen(false)}
           >
             <div className="fixed inset-0 overflow-y-auto">
               <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -204,10 +172,9 @@ const FormMantenimiento = ({
                     <div className="w-full block">
                       <ModalMantenimientoPausa
                         setIsOpen={setIsOpen}
+                        data={data}
                         setIsPausedOpen={setIsPausedOpen}
-                        captura={captura}
-                        datosMantenimiento={datosMantenimiento}
-                        setDatosMantenimiento={setDatosMantenimiento}
+                        setIsRunning={setIsRunning}
                       />
                     </div>
                   </Dialog.Panel>

@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { Toast } from "../../../components/Alertas/SweetAlex";
+import { InputBasicNumber } from "../../../components/InputForms/InputBasic";
 import { UserContext } from "../../../context/ContextDerco";
 import { crearServicio } from "../../../helpers/ApiAnfitrion";
 import { Asesores } from "../../../helpers/ApiUsuarios";
@@ -99,7 +100,7 @@ export const FormCrear = ({ setIsOpen }) => {
               />
             </div>
 
-            <div className="w-full">
+            {/* <div className="w-full">
               <label htmlFor="" className="text-gray-400">
                 Kilometraje Real:
               </label>
@@ -115,7 +116,9 @@ export const FormCrear = ({ setIsOpen }) => {
                 placeholder="5000"
                 className="w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
               />
-            </div>
+            </div> */}
+
+            <InputBasicNumber pHolder={"5000"} data={datosRegistro.vehiculoKilometraje} labelName={"Kilometraje Real:"} onChange={handleInputChange} name={"vehiculoKilometraje"} required={true} />
 
             <div className="w-full">
               <label htmlFor="" className="text-gray-400">

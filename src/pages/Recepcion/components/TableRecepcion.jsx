@@ -38,12 +38,12 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       width: "15rem",
       center: true
     },
-    {
-      name: <CustomHeader nameModule="TELEFONO" icon="fa-solid fa-phone mr-1" />,
-      cell: (row) => <p>{row.telefono}</p>,
-      sortable: true,
-      center: true
-    },
+    // {
+    //   name: <CustomHeader nameModule="TELEFONO" icon="fa-solid fa-phone mr-1" />,
+    //   cell: (row) => <p>{row.telefono}</p>,
+    //   sortable: true,
+    //   center: true
+    // },
     {
       name: <CustomHeader nameModule="SERVICIO" icon="fa-solid fa-tools mr-1" />,
       selector: (row) => row.servicioSolicitado,
@@ -78,10 +78,10 @@ export const TableRecepcion = ({ dataRecepcion }) => {
     },
     {
       name: <CustomHeader nameModule="UBICACION" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estado && ubicaciones[row?.salida == "2" && row?.estado == "5" ? row?.estado : row?.datosAsignados?.ubicacion != null ? row?.datosAsignados?.ubicacion : row?.estado],
+      selector: (row) => row.estado && ubicaciones[row?.salida == "2" && row?.estado == "5" ? row?.estado : row?.datosAsignados?.ubicacion != null ? row?.estado == "6" ? row?.estado : row?.datosAsignados?.ubicacion : row?.estado],
       sortable: true,
       center: true,
-      width: "8rem",
+      width: "10rem",
       style: {
         color: "white",
         fontSize: "15px",
@@ -113,10 +113,47 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       ],
     },
     {
-      name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
-      selector: (row) => row.estado && tmr[row.estado] ,
+      name: <CustomHeader nameModule="CONFIRMACION DE SALIDA" icon="fa-solid fa-user-clock mr-1" />,
+      selector: (row) => row.salida == "2" ? "Confirmado" : "Pendiente" ,
       sortable: true,
       center: true,
+      width: "12rem",
+      style: {
+        color: "white",
+        fontSize: "15px",
+        margin: "4px",
+        borderRadius: "5px",
+        fontWeight: "700",
+        textAlign: "center",
+        cursor: "default",
+      },
+      conditionalCellStyles: [
+        // {
+        //   when: (row) => row.estado,
+        //   style: {
+        //     backgroundColor: "#3B82F6",
+        //   },
+        // },
+        {
+          when: (row) => row.salida == "1",
+          style: {
+            backgroundColor: "#FFD966",
+          },
+        },
+        {
+          when: (row) => row.salida === "2",
+          style: {
+            backgroundColor: "#4AD69D",
+          },
+        },
+      ],
+    },
+    {
+      name: <CustomHeader nameModule="ESTADO" icon="fa-solid fa-user-clock mr-1" />,
+      selector: (row) => row.estado != "2" ? "Terminado" : "Pendiente" ,
+      sortable: true,
+      center: true,
+      width: "10rem",
       style: {
         color: "white",
         fontSize: "15px",
@@ -128,39 +165,15 @@ export const TableRecepcion = ({ dataRecepcion }) => {
       },
       conditionalCellStyles: [
         {
-          when: (row) => row.estado === "1",
-          style: {
-            backgroundColor: "#FFD966",
-          },
-        },
-        {
           when: (row) => row.estado === "2",
           style: {
             backgroundColor: "#FFD966",
           },
         },
         {
-          when: (row) => row.estado === "3",
+          when: (row) => row.estado != "2",
           style: {
-            backgroundColor: "#FFD966",
-          },
-        },
-        {
-          when: (row) => row.estado === "4",
-          style: {
-            backgroundColor: "#FFD966",
-          },
-        },
-        {
-          when: (row) => row.estado === "5",
-          style: {
-            backgroundColor: "#FFD966",
-          },
-        },
-        {
-          when: (row) => row.estado === "6",
-          style: {
-            backgroundColor: "red",
+            backgroundColor: "#4AD69D",
           },
         },
       ],
@@ -191,7 +204,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
   });
 
   const [placa, setPlaca] = useState("");
-  const [estado, setEstado] = useState("1")
+  const [estado, setEstado] = useState("2")
   const [ubicacion, setUbicacion] = useState("")
 
   const handleSelectChange = (event) => {
@@ -206,14 +219,25 @@ export const TableRecepcion = ({ dataRecepcion }) => {
   );
 
   const filtroEstado = filteredItems.filter((item) => {
-    if (estado === "1") {
-      return estado ? item?.estado != "6" : true ;
+    if (estado === "2") {
+      return estado ? item?.estado == "2" : true ;
+    } if(estado != "2") {
+      return estado ? item?.estado != "2" : true ;
     } else{
       return estado ? item?.estado == estado : true;
     }
   });
 
-  const filtro3 = filtroEstado.filter((item) => item.estado && item.estado.includes(ubicacion))
+  // const filtro3 = filtroEstado.filter((item) => item.estado && item.estado.includes(ubicacion))
+  const filtro3 = filtroEstado.filter((item) => {
+    if (ubicacion === "9") {
+      return ubicacion ? item?.salida == "2" && item?.estado != "6" : true ;
+    } else{
+      return ubicacion ? item?.estado == ubicacion : true;
+    }
+  });
+
+  console.log(dataRecepcion[3])
 
   return (
     <>
@@ -227,8 +251,8 @@ export const TableRecepcion = ({ dataRecepcion }) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "1"}
-                onChange={() => setEstado(estado === "1" ? "" : "1")}
+                checked={estado === "2"}
+                onChange={() => setEstado(estado === "2" ? "" : "2")}
               />
               <span className="ml-1">Pendiente</span>
             </label>
@@ -237,8 +261,8 @@ export const TableRecepcion = ({ dataRecepcion }) => {
               <input
                 className="w-5 h-5 appearance-none border rounded-md transition-all duration-200 ease-out checked:bg-green-500"
                 type="checkbox"
-                checked={estado === "6"}
-                onChange={() => setEstado(estado === "6" ? "" : "6")}
+                checked={estado === "3"}
+                onChange={() => setEstado(estado === "3" ? "" : "3")}
               />
               <span className="ml-1">Terminado</span>
             </label>
@@ -257,6 +281,7 @@ export const TableRecepcion = ({ dataRecepcion }) => {
               <option value="6">Lavado</option>
               <option value="7">Secado</option>
               <option value="8">Control de Calidad</option>
+              <option value="9">Entrega</option>
             </select>
           </label>
 

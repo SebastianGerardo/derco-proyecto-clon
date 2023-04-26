@@ -27,7 +27,7 @@ const estadoPicking = {
   1: "Pendiente",
   2: "Terminado",
 };
-
+  
 export const TableMantenimiento = ({ data, elevadores }) => {
   // const traeEstado = (data) => {
   //   let dataParseada = JSON.parse(data.ordenServicios);
@@ -233,8 +233,6 @@ export const TableMantenimiento = ({ data, elevadores }) => {
       return estado ? mantenimientoTerminado == estado : true;
     }
   });
-  
-  
 
   const advertenciaToast = (state) => {
     if (validarTemporizador) {
@@ -246,8 +244,6 @@ export const TableMantenimiento = ({ data, elevadores }) => {
       });
     }
   };
-
-  console.log(filtroEstado[0]);
 
   return (
     <>

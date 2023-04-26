@@ -15,12 +15,10 @@ export const ModalMantenimiento = ({ tipo, data, disable, botonId }) => {
   //USE EFFECT QUE TRAE EL TIEMPO TRANSCURRIDO
   useEffect(() => {
     if (localStorage.getItem("time") == null) {
-      console.log("TIEMPO", filtroDetalle)
+      console.log(parseInt(filtroDetalle?.tiempo_transcurrido))
       const tiempoTranscurrido =  parseInt(filtroDetalle?.tiempo_transcurrido) || 0;
-      console.log("TIEMPOTras", tiempoTranscurrido)
       const tiempoRecorrido = localStorage.getItem("time") != null ? localStorage.getItem("time") : tiempoTranscurrido;
       setTime(tiempoRecorrido)
-      console.log(parseInt(filtroDetalle?.tiempo_transcurrido))
     }
   }, [filtroDetalle])
   

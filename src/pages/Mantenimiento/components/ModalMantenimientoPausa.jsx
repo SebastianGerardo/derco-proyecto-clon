@@ -3,26 +3,53 @@ import { Toast } from "../../../components/Alertas/SweetAlex";
 import { TerminarPausarMan } from "../../../helpers/ApiMantenimiento";
 import { UserContext } from "../../../context/ContextDerco";
 
-export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, captura, datosMantenimiento, setDatosMantenimiento }) => {
+export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, data, setIsRunning }) => {
   const { socketState, UsuarioLogin } = useContext(UserContext);
+ 
+  const [datosPausa, setDatosPausa] = useState({
+    serviciosAsignado: data.id,
+    tipo: "mantenimiento",
+    motivo: "",
+    comentario: "",
+    tiempo: "",
+    estado: ""
+  })
+
+  const captura = (e) => {
+    setDatosPausa({
+      ...datosPausa,
+      [e.target.name]: e.target.value
+    })
+  }
+
   const enviarDatos = (e) => {
     e.preventDefault();
     Toast.fire({
       icon: "success",
       title: "Se guardó correctamente el motivo de pausa",
     });
-
-    TerminarPausarMan(datosMantenimiento).then(res=>{
+    setIsRunning(false)
+    TerminarPausarMan({
+      serviciosAsignado: data.id,
+      tipo: "mantenimiento",
+      motivo: datosPausa.motivo,
+      comentario: datosPausa.comentario,
+      tiempo: new Date(),
+      estado: "Pausar",
+      tiempo_transcurrido: localStorage.getItem("time")
+    }).then(res=>{
       if(res.statusCode === 200){
         socketState.emit("notificacionToServer", { tipo: "1-5-6", room: UsuarioLogin.usuario?.centro?.codigo, notificacion: "Alert" })
       }else{
         console.log("FALLE")
       }
     })
+    localStorage.removeItem("time")
+    localStorage.removeItem("id")
+    localStorage.removeItem("estado")
     setIsPausedOpen(false);
     setIsOpen(false);
   };
-
   
   return (
     <form action="" className="space-y-2 p-5" onSubmit={enviarDatos}>
@@ -55,7 +82,7 @@ export const ModalMantenimientoPausa = ({ setIsOpen, setIsPausedOpen, captura, d
           <textarea
             type="text"
             name="comentario"
-            value={datosMantenimiento.comentario}
+            value={datosPausa.comentario}
             onChange={captura}
             placeholder="Detalles..."
             className="resize-none min-h-[6rem] w-full border border-gray-300 py-2 px-3 mt-2 rounded-md focus:ring-1 focus:ring-sky-500 outline-none"
